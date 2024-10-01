@@ -29,20 +29,60 @@
           this.third.warpSpeed();
           this.third.physics.debug.enable();
 
-          this.third.load
-            .texture("/5/test3D/examples/grass.jpg ")
-            .then((grass) => {
-              grass.wrapS = grass.wrapT = 1000;
-              grass.repeat.set(2, 2);
+          const textureLoader = new THREE.TextureLoader();
 
-              this.third.physics.add.ground(
-                { width: 200, height: 200, y: 0 },
-                { phong: { map: grass, transparent: true } }
-              );
-            });
+          // Charger les textures pour la face supérieure et les côtés
+          const topTexture = textureLoader.load("/5/test3D/examples/grass.jpg");
+          const sideTexture = textureLoader.load(
+            "/5/test3D/examples/cliff.jpg"
+          );
 
-          const textureLoaderr = new THREE.TextureLoader();
-          textureLoaderr.load("/5/test3D/examples/maison.jpg", (texture) => {
+          const waterTexture = textureLoader.load("/5/test3D/examples/eau.png");
+
+          sideTexture.wrapS = THREE.RepeatWrapping;
+          sideTexture.wrapT = THREE.RepeatWrapping;
+          sideTexture.repeat.set(5, 1);
+
+          // Créer des matériaux distincts pour chaque face
+          const materials = [
+            new THREE.MeshBasicMaterial({ map: sideTexture }), // Face 1
+            new THREE.MeshBasicMaterial({ map: sideTexture }), // Face 2
+            new THREE.MeshBasicMaterial({ map: topTexture }), // Face 3
+            new THREE.MeshBasicMaterial({ map: sideTexture }), // Face 4
+            new THREE.MeshBasicMaterial({ map: sideTexture }), // Face supérieure
+            new THREE.MeshBasicMaterial({ map: sideTexture }), // Face inférieure (si nécessaire)
+          ];
+
+          const waterMaterial = new THREE.MeshBasicMaterial({
+            map: waterTexture,
+            transparent: true, // Optionnel si tu veux rendre l'eau partiellement transparente
+            opacity: 0.7, // Ajuste la transparence
+            side: THREE.DoubleSide, // Pour rendre visible l'eau des deux côtés
+          });
+
+          // Créer une géométrie, ici un cube
+          const cubeGeometry = new THREE.BoxGeometry(4000, 100, 4000);
+          const cubeWater = new THREE.BoxGeometry(6000, -5, 6000);
+
+          // Appliquer le tableau de matériaux au cube
+          const cube = new THREE.Mesh(cubeGeometry, materials);
+          const water = new THREE.Mesh(cubeWater, waterMaterial);
+
+          // Ajouter le cube à la scène
+          cube.position.set(0, 1, 0);
+          water.position.set(0, -1, 0);
+
+          this.third.scene.add(cube);
+          this.third.scene.add(water);
+
+          const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // Lumière diffuse pour toute la scène
+          this.third.scene.add(ambientLight);
+
+          const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.5);
+          hemiLight.position.set(0, 1000, 0); // Au-dessus de la scène
+          this.third.scene.add(hemiLight);
+
+          textureLoader.load("/5/test3D/examples/maison.jpg", (texture) => {
             const planeGeometry = new THREE.PlaneGeometry(10, 10);
             const planeMaterial = new THREE.MeshBasicMaterial({
               map: texture,
@@ -92,8 +132,7 @@
 
           this.third.scene.add(grassMesh);
 
-          const textureLoaderrr = new THREE.TextureLoader();
-          textureLoaderrr.load("/5/test3D/examples/bush.png", (texture) => {
+          textureLoader.load("/5/test3D/examples/bush.png", (texture) => {
             const planeGeometry = new THREE.PlaneGeometry(2.5, 2.5);
             const planeMaterial = new THREE.MeshBasicMaterial({
               map: texture,
@@ -115,7 +154,6 @@
           }
 
           const walkTextures = [];
-          const textureLoader = new THREE.TextureLoader();
           let framesLoaded = 0;
 
           framePaths.forEach((path, index) => {
@@ -134,11 +172,6 @@
           };
 
           this.input.mouse.disableContextMenu();
-          this.cameraRotationSpeed = 0.005;
-          this.third.camera.position.set(0, 2, 10);
-          this.third.camera.lookAt(0, 1.6, 1100);
-
-          this.playerPosition = new THREE.Vector3(0, 1.6, 0);
         }
 
         createWalkAnimation(walkTextures) {
@@ -191,27 +224,6 @@
               }
             } else {
               isWalking = false;
-            }
-
-            this.playerPosition.copy(walkPlane.position);
-
-            const cameraOffset = new THREE.Vector3(0, 2, 15);
-            const cameraPosition = this.playerPosition
-              .clone()
-              .add(cameraOffset);
-            this.third.camera.position.lerp(cameraPosition, 0.1);
-            this.third.camera.lookAt(this.playerPosition);
-
-            if (this.mouseX || this.mouseY) {
-              this.third.camera.rotation.y -=
-                this.mouseX * this.cameraRotationSpeed;
-              this.third.camera.rotation.x -=
-                this.mouseY * this.cameraRotationSpeed;
-
-              this.third.camera.rotation.x = Math.max(
-                Math.min(this.third.camera.rotation.x, Math.PI / 2),
-                -Math.PI / 2
-              );
             }
           });
         }
