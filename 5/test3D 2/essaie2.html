@@ -134,23 +134,11 @@
           };
 
           this.input.mouse.disableContextMenu();
-          this.input.on("pointermove", this.handleMouseMovement, this);
 
           this.third.camera.position.set(0, 2, 10);
           this.third.camera.lookAt(0, 1.6, 1100);
 
           this.playerPosition = new THREE.Vector3(0, 1.6, 0);
-        }
-
-        handleMouseMovement(pointer) {
-          this.mouseX =
-            pointer.movementX || pointer.movementX === 0
-              ? pointer.movementX
-              : this.mouseX;
-          this.mouseY =
-            pointer.movementY || pointer.movementY === 0
-              ? pointer.movementY
-              : this.mouseY;
         }
 
         createWalkAnimation(walkTextures) {
@@ -224,9 +212,6 @@
                 Math.min(this.third.camera.rotation.x, Math.PI / 2),
                 -Math.PI / 2
               );
-
-              this.mouseX = 0;
-              this.mouseY = 0;
             }
           });
         }
