@@ -75,11 +75,11 @@
 
           // Tableau pour stocker les étoiles
           const stars = [];
-          const starGeometry = new THREE.SphereGeometry(20, 8, 8); // Petite sphère pour représenter une étoile
+          const starGeometry = new THREE.SphereGeometry(15, 8, 8); // Petite sphère pour représenter une étoile
           const starMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff }); // Couleur blanche pour les étoiles
 
           const starRadius = 4000; // Rayon de la sphère (correspond à la sphère de nuit)
-          for (let i = 0; i < 2000; i++) {
+          for (let i = 0; i < 3000; i++) {
             // Créer 200 étoiles
             const star = new THREE.Mesh(starGeometry, starMaterial);
 
