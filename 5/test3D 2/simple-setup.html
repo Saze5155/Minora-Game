@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Simple Setup</title>
+
+    <script src="./lib/phaser.min.js_ver=3.52.0"></script>
+    <script src="./lib/enable3d/enable3d.framework.0.25.4.min.js"></script>
+    <script src="./lib/enable3d/enable3d.phaserExtension.0.25.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+  </head>
+
+  <body>
+    <script>
+      const { Project, Scene3D, PhysicsLoader, FLAT, enable3d, Canvas, THREE } =
+        ENABLE3D;
+
+      class MainScene extends Scene3D {
+        constructor() {
+          super({ key: "MainScene" });
+          this.controls = null;
+          this.ninja = null;
+          this.velocity = new THREE.Vector3();
+          this.direction = new THREE.Vector3();
+        }
+
+        init() {
+          this.load.image("test", "/examples/Attack (9).png");
+          this.accessThirdDimension();
+          this.keys = this.input.keyboard.addKeys({
+            forward: Phaser.Input.Keyboard.KeyCodes.Z,
+            backward: Phaser.Input.Keyboard.KeyCodes.S,
+            left: Phaser.Input.Keyboard.KeyCodes.Q,
+            right: Phaser.Input.Keyboard.KeyCodes.D,
+            jump: Phaser.Input.Keyboard.KeyCodes.SPACE,
+          });
+        }
+
+        preload() {
+          this.load.image("test", "/examples/Attack (9).png");
+          this.load.image("terrain", "/examples/terrain.png");
+        }
+
+        create() {
+          this.third.warpSpeed("-sky");
+
+          const geometry = new THREE.PlaneGeometry(1, 1);
+          const material = new THREE.MeshBasicMaterial({ map: texture });
+          const plane = new THREE.Mesh(geometry, material);
+          this.scene.add(plane);
+
+          this.third.load.texture("/examples/terrain.png").then((grass) => {
+            grass.wrapS = grass.wrapT = 1000; // RepeatWrapping
+            grass.offset.set(0, 0);
+            grass.repeat.set(2, 2);
+
+            // BUG: To add shadows to your ground, set transparent = true
+            this.third.physics.add.ground(
+              { width: 200, height: 200, y: 0 },
+              { phong: { map: grass, transparent: true } }
+            );
+          });
+          this.add.image(100, 450, "test");
+          // Obstacles
+          this.third.physics.add.box(
+            { x: 5, y: 1, z: -10 },
+            { lambert: { color: 0xff0000 } }
+          );
+
+          this.third.physics.add.box(
+            { x: 5, y: 1, z: -15 },
+            { lambert: { color: 0xff0 } }
+          );
+
+          // Lumière d'ambiance
+          this.third.add.existing(new THREE.AmbientLight(0xffffff, 0.5));
+        }
+
+        update() {}
+      }
+
+      const config = {
+        type: Phaser.WEBGL,
+        transparent: true,
+        scale: {
+          autoCenter: Phaser.Scale.CENTER_BOTH,
+          width: window.innerWidth,
+          height: window.innerHeight,
+        },
+        scene: [MainScene],
+        ...Canvas(),
+      };
+
+      window.addEventListener("load", () => {
+        enable3d(() => new Phaser.Game(config)).withPhysics(
+          "/lib/ammo/kripken"
+        );
+      });
+    </script>
+  </body>
+</html>

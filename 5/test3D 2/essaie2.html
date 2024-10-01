@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Walk Animation with Mirror Effect</title>
+
+    <script src="/lib/phaser.min.js_ver=3.52.0"></script>
+    <script src="/lib/enable3d/enable3d.phaserExtension.0.25.4.min.js"></script>
+  </head>
+
+  <body>
+    <div id="info-text">Walk Animation with Mirror Effect</div>
+    <script>
+      const { enable3d, Scene3D, Canvas, THREE } = ENABLE3D;
+
+      class MainScene extends Scene3D {
+        constructor() {
+          super({ key: "MainScene" });
+        }
+
+        init() {
+          this.accessThirdDimension();
+        }
+
+        create() {
+          this.third.warpSpeed();
+          this.third.physics.debug.enable();
+
+          this.third.load.texture("/examples/grass.jpg ").then((grass) => {
+            grass.wrapS = grass.wrapT = 1000;
+            grass.repeat.set(2, 2);
+
+            this.third.physics.add.ground(
+              { width: 200, height: 200, y: 0 },
+              { phong: { map: grass, transparent: true } }
+            );
+          });
+
+          const textureLoaderr = new THREE.TextureLoader();
+          textureLoaderr.load("/examples/maison.jpg", (texture) => {
+            const planeGeometry = new THREE.PlaneGeometry(10, 10);
+            const planeMaterial = new THREE.MeshBasicMaterial({
+              map: texture,
+              side: THREE.DoubleSide,
+              transparent: true,
+              alphaTest: 0.5,
+            });
+            const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+
+            plane.position.set(0, 5, -5);
+            plane.rotation.y = 0;
+
+            this.third.scene.add(plane);
+          });
+          const loader = new THREE.TextureLoader();
+          const grassTexture = loader.load("/examples/herbe.png");
+
+          const grassGeometry = new THREE.PlaneGeometry(1, 2);
+
+          const grassMaterial = new THREE.MeshBasicMaterial({
+            map: grassTexture,
+            transparent: true,
+            side: THREE.DoubleSide,
+            alphaTest: 0.5,
+            depthWrite: true,
+          });
+
+          const grassCount = 1000;
+          const grassMesh = new THREE.InstancedMesh(
+            grassGeometry,
+            grassMaterial,
+            grassCount
+          );
+
+          const dummy = new THREE.Object3D();
+          for (let i = 0; i < grassCount; i++) {
+            dummy.position.set(
+              (Math.random() - 0.5) * 50,
+              1,
+              (Math.random() - 0.5) * 50
+            );
+
+            dummy.rotation.y = Math.random() * Math.PI;
+            dummy.updateMatrix();
+            grassMesh.setMatrixAt(i, dummy.matrix);
+          }
+
+          this.third.scene.add(grassMesh);
+
+          const textureLoaderrr = new THREE.TextureLoader();
+          textureLoaderrr.load("/examples/bush.png", (texture) => {
+            const planeGeometry = new THREE.PlaneGeometry(2.5, 2.5);
+            const planeMaterial = new THREE.MeshBasicMaterial({
+              map: texture,
+              side: THREE.DoubleSide,
+              transparent: true,
+              alphaTest: 0.5,
+            });
+            const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+
+            plane.position.set(0, 1, 3);
+            plane.rotation.y = 0;
+
+            this.third.scene.add(plane);
+          });
+
+          const framePaths = [];
+          for (let i = 1; i <= 10; i++) {
+            framePaths.push(`/examples/png/Walk (${i}).png`);
+          }
+
+          const walkTextures = [];
+          const textureLoader = new THREE.TextureLoader();
+          let framesLoaded = 0;
+
+          framePaths.forEach((path, index) => {
+            textureLoader.load(path, (texture) => {
+              walkTextures[index] = texture;
+              framesLoaded++;
+
+              if (framesLoaded === framePaths.length) {
+                this.createWalkAnimation(walkTextures);
+              }
+            });
+          });
+          this.keys = {
+            left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q),
+            right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
+          };
+
+          this.input.mouse.disableContextMenu();
+          this.input.on("pointermove", this.handleMouseMovement, this);
+
+          this.third.camera.position.set(0, 2, 10);
+          this.third.camera.lookAt(0, 1.6, 1100);
+
+          this.playerPosition = new THREE.Vector3(0, 1.6, 0);
+        }
+
+        handleMouseMovement(pointer) {
+          this.mouseX =
+            pointer.movementX || pointer.movementX === 0
+              ? pointer.movementX
+              : this.mouseX;
+          this.mouseY =
+            pointer.movementY || pointer.movementY === 0
+              ? pointer.movementY
+              : this.mouseY;
+        }
+
+        createWalkAnimation(walkTextures) {
+          const geometry = new THREE.PlaneGeometry(2.5, 2.5);
+          const material = new THREE.MeshBasicMaterial({
+            map: walkTextures[0],
+            side: THREE.DoubleSide,
+            transparent: true,
+            alphaTest: 0.5,
+          });
+          const walkPlane = new THREE.Mesh(geometry, material);
+          walkPlane.position.set(0, 1.6, 0);
+          this.third.scene.add(walkPlane);
+
+          let currentFrame = 0;
+          const totalFrames = walkTextures.length;
+          let isWalking = false;
+          let direction = 1;
+
+          const animateWalk = () => {
+            if (isWalking) {
+              material.map = walkTextures[currentFrame];
+              material.needsUpdate = true;
+              currentFrame = (currentFrame + 1) % totalFrames;
+              setTimeout(animateWalk, 100);
+            }
+          };
+
+          animateWalk();
+
+          this.events.on("update", () => {
+            if (this.keys.left.isDown || this.keys.right.isDown) {
+              if (!isWalking) {
+                isWalking = true;
+                animateWalk();
+              }
+
+              if (this.keys.left.isDown) {
+                walkPlane.position.x -= 0.05;
+                if (direction !== -1) {
+                  walkPlane.scale.x = -1;
+                  direction = -1;
+                }
+              } else if (this.keys.right.isDown) {
+                walkPlane.position.x += 0.05;
+                if (direction !== 1) {
+                  walkPlane.scale.x = 1;
+                  direction = 1;
+                }
+              }
+            } else {
+              isWalking = false;
+            }
+
+            this.playerPosition.copy(walkPlane.position);
+
+            const cameraOffset = new THREE.Vector3(0, 2, 15);
+            const cameraPosition = this.playerPosition
+              .clone()
+              .add(cameraOffset);
+            this.third.camera.position.lerp(cameraPosition, 0.1);
+            this.third.camera.lookAt(this.playerPosition);
+
+            if (this.mouseX || this.mouseY) {
+              this.third.camera.rotation.y -=
+                this.mouseX * this.cameraRotationSpeed;
+              this.third.camera.rotation.x -=
+                this.mouseY * this.cameraRotationSpeed;
+
+              this.third.camera.rotation.x = Math.max(
+                Math.min(this.third.camera.rotation.x, Math.PI / 2),
+                -Math.PI / 2
+              );
+
+              this.mouseX = 0;
+              this.mouseY = 0;
+            }
+          });
+        }
+      }
+
+      const config = {
+        type: Phaser.WEBGL,
+        transparent: true,
+        scale: {
+          mode: Phaser.Scale.FIT,
+          autoCenter: Phaser.Scale.CENTER_BOTH,
+          width: window.innerWidth * Math.max(1, window.devicePixelRatio / 2),
+          height: window.innerHeight * Math.max(1, window.devicePixelRatio / 2),
+        },
+        scene: [MainScene],
+        ...Canvas(),
+      };
+
+      window.addEventListener("load", () => {
+        enable3d(() => new Phaser.Game(config)).withPhysics(
+          "/lib/ammo/kripken"
+        );
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>TextureAtlas</title>
+    <script src="./lib/enable3d/enable3d.framework.0.25.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+  </head>
+
+  <body>
+    <script>
+      const { Project, Scene3D, PhysicsLoader, THREE, FLAT } = ENABLE3D;
+
+      class MainScene extends Scene3D {
+        constructor() {
+          super({ key: "MainScene" });
+          this.ninja = null;
+        }
+
+        preload() {
+          this.load.preload("ninja.png", "/examples/ninja-texture-atlas.png");
+          this.load.preload("ninja.json", "/examples/ninja-texture-atlas.json");
+        }
+
+        async create() {
+          this.ui = FLAT.init(this.renderer);
+
+          // Call Flat.destroy() on scene restart or stop
+          this.deconstructor.add(FLAT);
+
+          // prepare the atlas
+          const atlas = await this.load.textureAtlas("ninja.png", "ninja.json");
+
+          // add ninja to the 3d space
+          this.ninja = new FLAT.TextureAtlas(atlas);
+          this.ninja.setScale(0.01);
+          this.ninja.position.set(1.5, 2, 5);
+          this.ninja.flipX(true);
+          this.animate(this.ninja);
+          this.scene.add(this.ninja);
+
+          // Keyboard controls
+          window.addEventListener("keydown", (event) => {
+            this.handleInput(event);
+          });
+        }
+
+        animate(textureAtlas) {
+          let index = 0;
+          // set initial frame
+          textureAtlas.setFrame(`Attack__00${index}.png`);
+          // update the frame 5 times per second
+          setInterval(() => {
+            index++;
+            textureAtlas.setFrame(`Attack__00${index}.png`);
+            if (index === 9) index = 0;
+          }, 1000 / 5);
+        }
+
+        handleInput(event) {
+          // Change ninja's position based on input
+          switch (event.key) {
+            case "ArrowUp":
+              this.ninja.position.z -= 0.1; // Move forward
+              break;
+            case "ArrowDown":
+              this.ninja.position.z += 0.1; // Move backward
+              break;
+            case "ArrowLeft":
+              this.ninja.position.x -= 0.1; // Move left
+              break;
+            case "ArrowRight":
+              this.ninja.position.x += 0.1; // Move right
+              break;
+          }
+        }
+
+        preRender() {
+          FLAT.preRender(this.renderer);
+        }
+
+        postRender() {
+          FLAT.postRender(this.renderer, this.ui);
+        }
+      }
+
+      PhysicsLoader(
+        "/lib/ammo/kripken",
+        () => new Project({ scenes: [MainScene] })
+      );
+    </script>
+  </body>
+</html>
