@@ -26,7 +26,12 @@
         }
 
         create() {
+<<<<<<< Updated upstream
           this.third.warpSpeed("light", "camera", "fog", "orbitControls");
+=======
+          this.third.add.existing(new THREE.AmbientLight(0xffffff, 0.5));
+
+>>>>>>> Stashed changes
           this.third.physics.debug.enable();
 
           const textureLoader = new THREE.TextureLoader();
