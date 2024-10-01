@@ -31,18 +31,20 @@
           this.third.warpSpeed();
           this.third.physics.debug.enable();
 
-          this.third.load.texture("/examples/grass.jpg ").then((grass) => {
-            grass.wrapS = grass.wrapT = 1000;
-            grass.repeat.set(2, 2);
+          this.third.load
+            .texture("/5/test3D 2/examples/grass.jpg ")
+            .then((grass) => {
+              grass.wrapS = grass.wrapT = 1000;
+              grass.repeat.set(2, 2);
 
-            this.third.physics.add.ground(
-              { width: 200, height: 200, y: 0 },
-              { phong: { map: grass, transparent: true } }
-            );
-          });
+              this.third.physics.add.ground(
+                { width: 200, height: 200, y: 0 },
+                { phong: { map: grass, transparent: true } }
+              );
+            });
 
           const textureLoaderr = new THREE.TextureLoader();
-          textureLoaderr.load("/examples/maison.jpg", (texture) => {
+          textureLoaderr.load("/5/test3D 2/examples/maison.jpg", (texture) => {
             const planeGeometry = new THREE.PlaneGeometry(10, 10);
             const planeMaterial = new THREE.MeshBasicMaterial({
               map: texture,
@@ -58,7 +60,7 @@
             this.third.scene.add(plane);
           });
           const loader = new THREE.TextureLoader();
-          const grassTexture = loader.load("/examples/herbe.png");
+          const grassTexture = loader.load("/5/test3D 2/examples/herbe.png");
 
           const grassGeometry = new THREE.PlaneGeometry(1, 2);
 
@@ -93,7 +95,7 @@
           this.third.scene.add(grassMesh);
 
           const textureLoaderrr = new THREE.TextureLoader();
-          textureLoaderrr.load("/examples/bush.png", (texture) => {
+          textureLoaderrr.load("/5/test3D 2/examples/bush.png", (texture) => {
             const planeGeometry = new THREE.PlaneGeometry(2.5, 2.5);
             const planeMaterial = new THREE.MeshBasicMaterial({
               map: texture,
@@ -111,7 +113,7 @@
 
           const framePaths = [];
           for (let i = 1; i <= 10; i++) {
-            framePaths.push(`/examples/png/Walk (${i}).png`);
+            framePaths.push(`/5/test3D 2/examples/png/Walk (${i}).png`);
           }
 
           const walkTextures = [];
