@@ -75,13 +75,6 @@
           this.third.scene.add(cube);
           this.third.scene.add(water);
 
-          const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // Lumière diffuse pour toute la scène
-          this.third.scene.add(ambientLight);
-
-          const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.5);
-          hemiLight.position.set(0, 1000, 0); // Au-dessus de la scène
-          this.third.scene.add(hemiLight);
-
           textureLoader.load("/5/test3D/examples/maison.jpg", (texture) => {
             const planeGeometry = new THREE.PlaneGeometry(10, 10);
             const planeMaterial = new THREE.MeshBasicMaterial({
