@@ -9,8 +9,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Walk Animation with Mirror Effect</title>
 
-    <script src="/5/test3D 2/lib/enable3d/enable3d.phaserExtension.0.25.4.min.js"></script>
-    <script src="/5/test3D 2/lib/phaser.min.js_ver=3.52.0"></script>
+    <script src="/5/test3D/lib/enable3d/enable3d.phaserExtension.0.25.4.min.js"></script>
+    <script src="/5/test3D/lib/phaser.min.js_ver=3.52.0"></script>
   </head>
 
   <body>
@@ -32,7 +32,7 @@
           this.third.physics.debug.enable();
 
           this.third.load
-            .texture("/5/test3D 2/examples/grass.jpg ")
+            .texture("/5/test3D/examples/grass.jpg ")
             .then((grass) => {
               grass.wrapS = grass.wrapT = 1000;
               grass.repeat.set(2, 2);
@@ -44,7 +44,7 @@
             });
 
           const textureLoaderr = new THREE.TextureLoader();
-          textureLoaderr.load("/5/test3D 2/examples/maison.jpg", (texture) => {
+          textureLoaderr.load("/5/test3D/examples/maison.jpg", (texture) => {
             const planeGeometry = new THREE.PlaneGeometry(10, 10);
             const planeMaterial = new THREE.MeshBasicMaterial({
               map: texture,
@@ -60,7 +60,7 @@
             this.third.scene.add(plane);
           });
           const loader = new THREE.TextureLoader();
-          const grassTexture = loader.load("/5/test3D 2/examples/herbe.png");
+          const grassTexture = loader.load("/5/test3D/examples/herbe.png");
 
           const grassGeometry = new THREE.PlaneGeometry(1, 2);
 
@@ -95,7 +95,7 @@
           this.third.scene.add(grassMesh);
 
           const textureLoaderrr = new THREE.TextureLoader();
-          textureLoaderrr.load("/5/test3D 2/examples/bush.png", (texture) => {
+          textureLoaderrr.load("/5/test3D/examples/bush.png", (texture) => {
             const planeGeometry = new THREE.PlaneGeometry(2.5, 2.5);
             const planeMaterial = new THREE.MeshBasicMaterial({
               map: texture,
@@ -113,7 +113,7 @@
 
           const framePaths = [];
           for (let i = 1; i <= 10; i++) {
-            framePaths.push(`/5/test3D 2/examples/png/Walk (${i}).png`);
+            framePaths.push(`/5/test3D/examples/png/Walk (${i}).png`);
           }
 
           const walkTextures = [];
@@ -136,7 +136,7 @@
           };
 
           this.input.mouse.disableContextMenu();
-
+          this.cameraRotationSpeed = 0.005;
           this.third.camera.position.set(0, 2, 10);
           this.third.camera.lookAt(0, 1.6, 1100);
 
