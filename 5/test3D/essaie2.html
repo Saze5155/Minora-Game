@@ -10,7 +10,6 @@
     <title>tst</title>
     <script src="/5/test3D/lib/phaser.min.js_ver=3.52.0"></script>
     <script src="/5/test3D/lib/enable3d/enable3d.phaserExtension.0.25.4.min.js"></script>
-
   </head>
 
   <body>
@@ -64,7 +63,7 @@
           `,
             side: THREE.BackSide, // Inverser la sphère pour voir de l'intérieur
           });
-          
+
           const skyGeometry = new THREE.SphereGeometry(4000, 32, 32);
           const skySphere = new THREE.Mesh(skyGeometry, skyMat);
           this.third.scene.add(skySphere);
@@ -80,7 +79,8 @@
           const starMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff }); // Couleur blanche pour les étoiles
 
           const starRadius = 4000; // Rayon de la sphère (correspond à la sphère de nuit)
-          for (let i = 0; i < 2000; i++) { // Créer 200 étoiles
+          for (let i = 0; i < 2000; i++) {
+            // Créer 200 étoiles
             const star = new THREE.Mesh(starGeometry, starMaterial);
 
             // Calculer une position aléatoire sur la sphère
@@ -93,7 +93,8 @@
             const z = starRadius * Math.sin(phi) * Math.sin(theta);
 
             star.position.set(x, y, z); // Positionner l'étoile
-            stars.push(star); // Ajouter l'étoile au tableau
+            star.visible = false; // Cacher les étoiles par défaut
+            stars.push(star); // Ajouter l'étoile au tableaus
             this.third.scene.add(star); // Ajouter chaque étoile à la scène
           }
 
@@ -103,8 +104,8 @@
             isDay = !isDay; // Changer l'état du jour à nuit ou vice versa
 
             // Gérer la visibilité des étoiles
-            stars.forEach(star => {
-              star.visible = !isDay; // Afficher les étoiles seulement la nuit
+            stars.forEach((star) => {
+              star.visible = isDay; // Afficher les étoiles seulement la nuit
             });
           };
 
@@ -117,10 +118,16 @@
             // Interpoler les couleurs
             if (isDay) {
               uniforms.topColor.value.lerp(new THREE.Color(0x000033), progress); // Fondu vers le bleu foncé
-              uniforms.bottomColor.value.lerp(new THREE.Color(0x0022BB), progress); // Fondu vers le bleu foncé
+              uniforms.bottomColor.value.lerp(
+                new THREE.Color(0x0022bb),
+                progress
+              ); // Fondu vers le bleu foncé
             } else {
               uniforms.topColor.value.lerp(new THREE.Color(0x0077ff), progress); // Fondu vers le bleu clair
-              uniforms.bottomColor.value.lerp(new THREE.Color(0xffffff), progress); // Fondu vers le blanc
+              uniforms.bottomColor.value.lerp(
+                new THREE.Color(0xffffff),
+                progress
+              ); // Fondu vers le blanc
             }
 
             // Indiquer que les uniformes doivent être mis à jour
@@ -137,8 +144,6 @@
             changeSkyColor(); // Démarrer le changement de couleur
             requestAnimationFrame(animateColorTransition); // Commencer l'animation de fondu
           }, 1 * 5 * 1000); // 2 minutes
-
-  
 
           // Accéder à la caméra et modifier les paramètres near et far
           this.third.camera.near = 0.1; // Distance minimale de rendu (par défaut c'est souvent 0.1)
@@ -192,6 +197,122 @@
 
           this.third.scene.add(cube);
           this.third.scene.add(water);
+
+          const heightMapTexture = new THREE.TextureLoader().load(
+            "/5/test3D/examples/heightmap-island.png",
+            (texture) => {
+              texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+
+              // Créer un grand plan carré pour le terrain
+              const terrainSize = 12500; // Taille du terrain
+              const segments = 256;
+
+              // Créer la géométrie du plan
+              const planeGeometry = new THREE.PlaneGeometry(
+                terrainSize,
+                terrainSize,
+                segments,
+                segments
+              );
+
+              // Créer le matériau avec la displacement map
+              const planeMaterial = new THREE.MeshPhongMaterial({
+                color: 0x8b4513,
+                side: THREE.DoubleSide,
+                displacementMap: heightMapTexture,
+                displacementScale: 2500,
+              });
+
+              // Créer le mesh du terrain
+              const terrain = new THREE.Mesh(planeGeometry, planeMaterial);
+              terrain.rotation.x = -Math.PI / 2;
+              terrain.position.y = -10;
+
+              // Aplatir la zone où se trouve l'eau
+
+              this.third.scene.add(terrain);
+
+              // Ajouter le bloc d'eau
+              const waterTexture = new THREE.TextureLoader().load(
+                "/5/test3D/examples/eau.png"
+              );
+              const waterMaterial = new THREE.MeshBasicMaterial({
+                map: waterTexture,
+                transparent: true,
+                opacity: 0.7,
+                side: THREE.DoubleSide,
+              });
+
+              const waterGeometry = new THREE.CircleGeometry(waterRadius, 64);
+              const water = new THREE.Mesh(waterGeometry, waterMaterial);
+              water.rotation.x = -Math.PI / 2;
+              water.position.y = -1;
+
+              this.third.scene.add(water);
+
+              // Créer et positionner les rectangles autour du bloc d'eau
+              const rectangleWidth = 6000;
+              const rectangleHeight = 3000;
+
+              const rectGeometry = new THREE.PlaneGeometry(
+                rectangleWidth,
+                rectangleHeight,
+                1,
+                1
+              );
+              const rectMaterial = new THREE.MeshPhongMaterial({
+                color: 0x8b4513, // Couleur de base
+                side: THREE.DoubleSide,
+                displacementMap: heightMapTexture,
+                displacementScale: -100000, // Ajuster pour le relief
+              });
+
+              // Positions des rectangles
+              const positions = [
+                { x: 0, z: -waterRadius - rectangleHeight / 2 }, // Dessus
+                { x: 0, z: waterRadius + rectangleHeight / 2 }, // Dessous
+                { x: -waterRadius - rectangleWidth / 2, z: 0 }, // Gauche
+                { x: waterRadius + rectangleWidth / 2, z: 0 }, // Droite
+              ];
+
+              positions.forEach((pos) => {
+                const rectangle = new THREE.Mesh(rectGeometry, rectMaterial);
+                rectangle.rotation.x = -Math.PI / 2; // Orienter le rectangle horizontalement
+                rectangle.position.set(pos.x, -10, pos.z); // Positionner les rectangles
+                this.third.scene.add(rectangle);
+              });
+            }
+          );
+
+          var heightMap = new THREE.TextureLoader().load(
+            "/5/test3D/examples/heightmap-island.png"
+          );
+          const planeGeometry = new THREE.PlaneGeometry(1000, 1000, 1000, 1000);
+          const planeMaterial = new THREE.MeshPhongMaterial({
+            color: 0xff0000,
+            side: THREE.DoubleSide,
+            displacementMap: heightMap,
+            displacementScale: -50,
+          });
+          const mesh = new THREE.Mesh(planeGeometry, planeMaterial);
+          mesh.rotation.x = Math.PI / 2;
+          this.third.scene.add(mesh);
+
+          textureLoader.load("/5/test3D/examples/maison.jpg", (texture) => {
+            const planeGeometry = new THREE.PlaneGeometry(10, 10);
+            const planeMaterial = new THREE.MeshBasicMaterial({
+              map: texture,
+              side: THREE.DoubleSide,
+              transparent: true,
+              alphaTest: 0.5,
+            });
+            const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+
+            plane.position.set(0, 60, -5);
+            plane.rotation.y = 0;
+
+            this.third.scene.add(plane);
+          });
 
           textureLoader.load("/5/test3D/examples/maison.jpg", (texture) => {
             const planeGeometry = new THREE.PlaneGeometry(10, 10);
@@ -292,39 +413,37 @@
           };
 
           // Étape 1 : Créer un terrain plat
-const terrainGeometry = new THREE.PlaneGeometry(4000, 4000, 100, 100);  // Terrain plat de 4000x4000
-const terrainMaterial = new THREE.MeshLambertMaterial({
-  map: textureLoader.load("/5/test3D/examples/grass.jpg"),  // Appliquer une texture d'herbe
-  side: THREE.DoubleSide  // Permet de voir des deux côtés du terrain
-});
+          const terrainGeometry = new THREE.PlaneGeometry(4000, 4000, 100, 100); // Terrain plat de 4000x4000
+          const terrainMaterial = new THREE.MeshLambertMaterial({
+            map: textureLoader.load("/5/test3D/examples/grass.jpg"), // Appliquer une texture d'herbe
+            side: THREE.DoubleSide, // Permet de voir des deux côtés du terrain
+          });
 
-const terrain = new THREE.Mesh(terrainGeometry, terrainMaterial);
+          const terrain = new THREE.Mesh(terrainGeometry, terrainMaterial);
 
-// Positionner correctement le terrain
-terrain.rotation.x = -Math.PI / 2;  // Aligne le terrain horizontalement
-terrain.position.y = 0;  // Place le terrain à la hauteur 0
+          // Positionner correctement le terrain
+          terrain.rotation.x = -Math.PI / 2; // Aligne le terrain horizontalement
+          terrain.position.y = 0; // Place le terrain à la hauteur 0
 
-this.third.scene.add(terrain);  // Ajoute le terrain à la scène
+          this.third.scene.add(terrain); // Ajoute le terrain à la scène
 
-// Parcourir les sommets de la géométrie pour les déformer
-const vertices = terrainGeometry.attributes.position.array;
+          // Parcourir les sommets de la géométrie pour les déformer
+          const vertices = terrainGeometry.attributes.position.array;
 
-for (let i = 0; i < vertices.length; i += 3) {
-  const x = vertices[i];       // Coordonnée X du sommet
-  const y = vertices[i + 1];   // Coordonnée Y du sommet (qui ne change pas)
-  const z = vertices[i + 2];   // Coordonnée Z du sommet (que nous allons modifier)
+          for (let i = 0; i < vertices.length; i += 3) {
+            const x = vertices[i]; // Coordonnée X du sommet
+            const y = vertices[i + 1]; // Coordonnée Y du sommet (qui ne change pas)
+            const z = vertices[i + 2]; // Coordonnée Z du sommet (que nous allons modifier)
 
-  // Appliquer un relief simple basé sur la coordonnée X et Y
-  const height = Math.sin(x / 100) * 20 + Math.cos(y / 100) * 20;
+            // Appliquer un relief simple basé sur la coordonnée X et Y
+            const height = Math.sin(x / 100) * 20 + Math.cos(y / 100) * 20;
 
-  vertices[i + 2] = height;  // Modifier la coordonnée Z pour ajouter du relief
-}
+            vertices[i + 2] = height; // Modifier la coordonnée Z pour ajouter du relief
+          }
 
-// Dire à Three.js de mettre à jour la géométrie après modification
-terrainGeometry.attributes.position.needsUpdate = true;
-terrainGeometry.computeVertexNormals();  // Recalculer les normales pour l'éclairage
-
-          
+          // Dire à Three.js de mettre à jour la géométrie après modification
+          terrainGeometry.attributes.position.needsUpdate = true;
+          terrainGeometry.computeVertexNormals(); // Recalculer les normales pour l'éclairage
         }
 
         createWalkAnimation(walkTextures) {
