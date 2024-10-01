@@ -26,7 +26,7 @@
         }
 
         create() {
-          this.third.warpSpeed();
+          this.third.warpSpeed("light", "camera", "fog", "orbitControls");
           this.third.physics.debug.enable();
 
           const textureLoader = new THREE.TextureLoader();
@@ -159,20 +159,19 @@
               }
             });
           });
-          this.keys = {
-            left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q),
-            right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
-          };
 
           this.input.mouse.disableContextMenu();
 
-this.keys = {
-  left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q),
-  right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
-  forward: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z),
-  backward: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S),
-};
-
+          this.keys = {
+            left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q),
+            right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
+            forward: this.input.keyboard.addKey(
+              Phaser.Input.Keyboard.KeyCodes.Z
+            ),
+            backward: this.input.keyboard.addKey(
+              Phaser.Input.Keyboard.KeyCodes.S
+            ),
+          };
         }
 
         createWalkAnimation(walkTextures) {
@@ -184,7 +183,7 @@ this.keys = {
             alphaTest: 0.5,
           });
           const walkPlane = new THREE.Mesh(geometry, material);
-          walkPlane.position.set(0, 1.6, 0);
+          walkPlane.position.set(0, 52, 0);
           this.third.scene.add(walkPlane);
 
           let currentFrame = 0;
@@ -204,11 +203,16 @@ this.keys = {
           animateWalk();
 
           this.events.on("update", () => {
-  if (this.keys.left.isDown || this.keys.right.isDown || this.keys.forward.isDown || this.keys.backward.isDown) {
-    if (!isWalking) {
-      isWalking = true;
-      animateWalk();
-    }
+            if (
+              this.keys.left.isDown ||
+              this.keys.right.isDown ||
+              this.keys.forward.isDown ||
+              this.keys.backward.isDown
+            ) {
+              if (!isWalking) {
+                isWalking = true;
+                animateWalk();
+              }
 
               if (this.keys.left.isDown) {
                 walkPlane.position.x -= 0.05;
@@ -223,16 +227,15 @@ this.keys = {
                   direction = 1;
                 }
               }
-            // Déplacement avant/arrière
-    if (this.keys.forward.isDown) {
-      walkPlane.position.z -= 0.05;  // Se déplacer vers l'avant (réduit Z)
-    } else if (this.keys.backward.isDown) {
-      walkPlane.position.z += 0.05;  // Se déplacer vers l'arrière (augmente Z)
-    }
-  } else {
-    isWalking = false;
-  }
-  
+              // Déplacement avant/arrière
+              if (this.keys.forward.isDown) {
+                walkPlane.position.z -= 0.05; // Se déplacer vers l'avant (réduit Z)
+              } else if (this.keys.backward.isDown) {
+                walkPlane.position.z += 0.05; // Se déplacer vers l'arrière (augmente Z)
+              }
+            } else {
+              isWalking = false;
+            }
           });
         }
       }
