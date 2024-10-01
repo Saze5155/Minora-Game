@@ -10,6 +10,7 @@
     <title>tst</title>
     <script src="/5/test3D/lib/phaser.min.js_ver=3.52.0"></script>
     <script src="/5/test3D/lib/enable3d/enable3d.phaserExtension.0.25.4.min.js"></script>
+
   </head>
 
   <body>
@@ -63,14 +64,85 @@
           `,
             side: THREE.BackSide, // Inverser la sphère pour voir de l'intérieur
           });
-
+          
           const skyGeometry = new THREE.SphereGeometry(4000, 32, 32);
           const skySphere = new THREE.Mesh(skyGeometry, skyMat);
           this.third.scene.add(skySphere);
 
+          // Variables pour gérer le changement de couleur et l'opacité
+          let isDay = true;
+          const fadeDuration = 2000; // Durée du fondu en millisecondes
+          let startTime = 0;
+
+          // Tableau pour stocker les étoiles
+          const stars = [];
+          const starGeometry = new THREE.SphereGeometry(20, 8, 8); // Petite sphère pour représenter une étoile
+          const starMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff }); // Couleur blanche pour les étoiles
+
+          const starRadius = 4000; // Rayon de la sphère (correspond à la sphère de nuit)
+          for (let i = 0; i < 2000; i++) { // Créer 200 étoiles
+            const star = new THREE.Mesh(starGeometry, starMaterial);
+
+            // Calculer une position aléatoire sur la sphère
+            const phi = Math.random() * Math.PI; // Angle azimutal
+            const theta = Math.random() * 2 * Math.PI; // Angle polaire
+
+            // Convertir les coordonnées sphériques en coordonnées cartésiennes
+            const x = starRadius * Math.sin(phi) * Math.cos(theta);
+            const y = starRadius * Math.cos(phi);
+            const z = starRadius * Math.sin(phi) * Math.sin(theta);
+
+            star.position.set(x, y, z); // Positionner l'étoile
+            stars.push(star); // Ajouter l'étoile au tableau
+            this.third.scene.add(star); // Ajouter chaque étoile à la scène
+          }
+
+          // Fonction pour changer la couleur de la sphère avec fondu
+          const changeSkyColor = () => {
+            startTime = performance.now(); // Obtenir l'heure de départ
+            isDay = !isDay; // Changer l'état du jour à nuit ou vice versa
+
+            // Gérer la visibilité des étoiles
+            stars.forEach(star => {
+              star.visible = !isDay; // Afficher les étoiles seulement la nuit
+            });
+          };
+
+          const animateColorTransition = (timestamp) => {
+            const elapsedTime = timestamp - startTime;
+
+            // Calculer la progression du fondu
+            const progress = Math.min(elapsedTime / fadeDuration, 1);
+
+            // Interpoler les couleurs
+            if (isDay) {
+              uniforms.topColor.value.lerp(new THREE.Color(0x000033), progress); // Fondu vers le bleu foncé
+              uniforms.bottomColor.value.lerp(new THREE.Color(0x0022BB), progress); // Fondu vers le bleu foncé
+            } else {
+              uniforms.topColor.value.lerp(new THREE.Color(0x0077ff), progress); // Fondu vers le bleu clair
+              uniforms.bottomColor.value.lerp(new THREE.Color(0xffffff), progress); // Fondu vers le blanc
+            }
+
+            // Indiquer que les uniformes doivent être mis à jour
+            skyMat.needsUpdate = true;
+
+            // Continuer l'animation jusqu'à ce que le fondu soit terminé
+            if (progress < 1) {
+              requestAnimationFrame(animateColorTransition);
+            }
+          };
+
+          // Appeler la fonction de changement de couleur toutes les 2 minutes
+          setInterval(() => {
+            changeSkyColor(); // Démarrer le changement de couleur
+            requestAnimationFrame(animateColorTransition); // Commencer l'animation de fondu
+          }, 1 * 5 * 1000); // 2 minutes
+
+  
+
           // Accéder à la caméra et modifier les paramètres near et far
           this.third.camera.near = 0.1; // Distance minimale de rendu (par défaut c'est souvent 0.1)
-          this.third.camera.far = 10000; // Augmente la distance maximale de rendu à 2000
+          this.third.camera.far = 100000; // Augmente la distance maximale de rendu à 2000
           this.third.camera.updateProjectionMatrix(); // Applique les changements
 
           // Charger les textures pour la face supérieure et les côtés
@@ -108,7 +180,7 @@
 
           // Créer une géométrie, ici un cube
           const cubeGeometry = new THREE.BoxGeometry(4000, 500, 4000);
-          const cubeWater = new THREE.BoxGeometry(6000, -5, 6000);
+          const cubeWater = new THREE.BoxGeometry(8000, -5, 8000);
 
           // Appliquer le tableau de matériaux au cube
           const cube = new THREE.Mesh(cubeGeometry, materials);
@@ -218,6 +290,41 @@
               Phaser.Input.Keyboard.KeyCodes.S
             ),
           };
+
+          // Étape 1 : Créer un terrain plat
+const terrainGeometry = new THREE.PlaneGeometry(4000, 4000, 100, 100);  // Terrain plat de 4000x4000
+const terrainMaterial = new THREE.MeshLambertMaterial({
+  map: textureLoader.load("/5/test3D/examples/grass.jpg"),  // Appliquer une texture d'herbe
+  side: THREE.DoubleSide  // Permet de voir des deux côtés du terrain
+});
+
+const terrain = new THREE.Mesh(terrainGeometry, terrainMaterial);
+
+// Positionner correctement le terrain
+terrain.rotation.x = -Math.PI / 2;  // Aligne le terrain horizontalement
+terrain.position.y = 0;  // Place le terrain à la hauteur 0
+
+this.third.scene.add(terrain);  // Ajoute le terrain à la scène
+
+// Parcourir les sommets de la géométrie pour les déformer
+const vertices = terrainGeometry.attributes.position.array;
+
+for (let i = 0; i < vertices.length; i += 3) {
+  const x = vertices[i];       // Coordonnée X du sommet
+  const y = vertices[i + 1];   // Coordonnée Y du sommet (qui ne change pas)
+  const z = vertices[i + 2];   // Coordonnée Z du sommet (que nous allons modifier)
+
+  // Appliquer un relief simple basé sur la coordonnée X et Y
+  const height = Math.sin(x / 100) * 20 + Math.cos(y / 100) * 20;
+
+  vertices[i + 2] = height;  // Modifier la coordonnée Z pour ajouter du relief
+}
+
+// Dire à Three.js de mettre à jour la géométrie après modification
+terrainGeometry.attributes.position.needsUpdate = true;
+terrainGeometry.computeVertexNormals();  // Recalculer les normales pour l'éclairage
+
+          
         }
 
         createWalkAnimation(walkTextures) {
