@@ -26,10 +26,56 @@
         }
 
         create() {
-          this.third.warpSpeed("light", "camera", "fog", "orbitControls");
+          this.third.warpSpeed("light", "fog", "orbitControls");
           this.third.physics.debug.enable();
 
           const textureLoader = new THREE.TextureLoader();
+
+          const uniforms = {
+  topColor: { value: new THREE.Color(0x0077ff) },  // Bleu clair pour le haut du ciel
+  bottomColor: { value: new THREE.Color(0xffffff) },  // Blanc pour l'horizon
+  offset: { value: 33 },  // Pour ajuster la position du dégradé
+  exponent: { value: 0.6 }  // Pour contrôler la courbure du dégradé
+};
+
+const skyMat = new THREE.ShaderMaterial({
+  uniforms: uniforms,
+  vertexShader: `
+    varying vec3 vWorldPosition;
+    void main() {
+      vec4 worldPosition = modelMatrix * vec4(position, 1.0);
+      vWorldPosition = worldPosition.xyz;
+      gl_Position = projectionMatrix * viewMatrix * worldPosition;
+    }
+  `,
+  fragmentShader: `
+    uniform vec3 topColor;
+    uniform vec3 bottomColor;
+    uniform float offset;
+    uniform float exponent;
+
+    varying vec3 vWorldPosition;
+
+    void main() {
+      float h = normalize(vWorldPosition + offset).y;
+      gl_FragColor = vec4(mix(bottomColor, topColor, max(pow(max(h, 0.0), exponent), 0.0)), 1.0);
+    }
+  `,
+  side: THREE.BackSide // Inverser la sphère pour voir de l'intérieur
+});
+
+const skyGeometry = new THREE.SphereGeometry(1000, 32, 32);
+const skySphere = new THREE.Mesh(skyGeometry, skyMat);
+this.third.scene.add(skySphere);
+
+
+// Accéder à la caméra et modifier les paramètres near et far
+this.third.camera.near = 0.1;  // Distance minimale de rendu (par défaut c'est souvent 0.1)
+this.third.camera.far = 9000;  // Augmente la distance maximale de rendu à 2000
+this.third.camera.updateProjectionMatrix();  // Applique les changements
+
+
+
 
           // Charger les textures pour la face supérieure et les côtés
           const topTexture = textureLoader.load("/5/test3D/examples/grass.jpg");
