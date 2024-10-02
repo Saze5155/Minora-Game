@@ -49,8 +49,9 @@
               vec4 worldPosition = modelMatrix * vec4(position, 1.0);
               vWorldPosition = worldPosition.xyz;
               gl_Position = projectionMatrix * viewMatrix * worldPosition;
-            }`,
-            fragmentShader: ` 
+            }
+          `,
+            fragmentShader: `
             uniform vec3 topColor;
             uniform vec3 bottomColor;
             uniform float offset;
@@ -61,7 +62,8 @@
             void main() {
               float h = normalize(vWorldPosition + offset).y;
               gl_FragColor = vec4(mix(bottomColor, topColor, max(pow(max(h, 0.0), exponent), 0.0)), 1.0);
-            }`,
+            }
+          `,
             side: THREE.BackSide, // Inverser la sphère pour voir de l'intérieur
           });
 
@@ -152,70 +154,52 @@
           this.third.camera.updateProjectionMatrix(); // Applique les changements
 
           // Charger les textures pour la face supérieure et les côtés
-          const topTexture = textureLoader.load("/5/test3D/examples/grass.jpg");
-          const sideTexture = textureLoader.load(
-            "/5/test3D/examples/cliff.jpg"
-          );
+const topTexture = textureLoader.load("/5/test3D/examples/grass.jpg");
+const sideTexture = textureLoader.load("/5/test3D/examples/cliff.jpg");
+const waterTexture = textureLoader.load("/5/test3D/examples/eau.png");
 
-          const waterTexture = textureLoader.load("/5/test3D/examples/eau.png");
+// Répétition des textures
+sideTexture.wrapS = THREE.RepeatWrapping;
+sideTexture.wrapT = THREE.RepeatWrapping;
+sideTexture.repeat.set(5, 1);
 
-          sideTexture.wrapS = THREE.RepeatWrapping;
-          sideTexture.wrapT = THREE.RepeatWrapping;
-          sideTexture.repeat.set(5, 1);
+topTexture.wrapS = THREE.RepeatWrapping;
+topTexture.wrapT = THREE.RepeatWrapping;
+topTexture.repeat.set(5, 5);
 
-          topTexture.wrapS = THREE.RepeatWrapping;
-          topTexture.wrapT = THREE.RepeatWrapping;
-          topTexture.repeat.set(5, 5);
+// Créer des matériaux distincts pour chaque face
+const materials = [
+  new THREE.MeshBasicMaterial({ map: sideTexture }), // Face 1
+  new THREE.MeshBasicMaterial({ map: sideTexture }), // Face 2
+  new THREE.MeshBasicMaterial({ map: topTexture }),  // Face supérieure (herbe)
+  new THREE.MeshBasicMaterial({ map: sideTexture }), // Face 4
+  new THREE.MeshBasicMaterial({ map: sideTexture }), // Face inférieure
+  new THREE.MeshBasicMaterial({ map: sideTexture }), // Face 6
+];
 
-          // Créer des matériaux distincts pour chaque face
-          const materials = [
-            new THREE.MeshBasicMaterial({ map: sideTexture }), // Face 1
-            new THREE.MeshBasicMaterial({ map: sideTexture }), // Face 2
-            new THREE.MeshBasicMaterial({ map: topTexture }), // Face 3
-            new THREE.MeshBasicMaterial({ map: sideTexture }), // Face 4
-            new THREE.MeshBasicMaterial({ map: sideTexture }), // Face supérieure
-            new THREE.MeshBasicMaterial({ map: sideTexture }), // Face inférieure (si nécessaire)
-          ];
+const waterMaterial = new THREE.MeshBasicMaterial({
+  map: waterTexture,
+  transparent: true, // Transparence pour l'eau
+  opacity: 0.7,     // Ajuste la transparence
+  side: THREE.DoubleSide, // Visible des deux côtés
+});
 
-          const waterMaterial = new THREE.MeshBasicMaterial({
-            map: waterTexture,
-            transparent: true, // Optionnel si tu veux rendre l'eau partiellement transparente
-            opacity: 0.7, // Ajuste la transparence
-            side: THREE.DoubleSide, // Pour rendre visible l'eau des deux côtés
-          });
+// Créer une géométrie, ici un cube
+const cubeGeometry = new THREE.BoxGeometry(4000, 500, 4000);
+const cube = new THREE.Mesh(cubeGeometry, materials);
 
-          // Créer une géométrie, ici un cube
-          const cubeWater = new THREE.BoxGeometry(9000, 100, 9000);
+// Ajouter le cube à la scène
+cube.position.set(0, 1, 0);
+this.third.scene.add(cube);
 
-          // Appliquer le tableau de matériaux au cube
-          const water = new THREE.Mesh(cubeWater, waterMaterial);
+// Ajouter la physique au cube (collision)
+this.third.physics.add.existing(cube, { mass: 0 }); // Mass: 0 pour un objet statique
 
-          // Ajouter le cube à la scène
-          water.position.set(0, -1, 0);
-
-          this.third.scene.add(water);
-
-          textureLoader.load("/5/test3D/examples/iles.png", (texture) => {
-            // Créer la géométrie du dessus de l'île (le plan)
-            const topGeometry = new THREE.PlaneGeometry(4000, 4000, 256, 256);
-            const topMaterial = new THREE.MeshPhongMaterial({
-              map: texture,
-              displacementMap: texture,
-              displacementScale: 15, // Intensité du relief
-              transparent: true, // Activer la transparence
-              alphaTest: 0.5,
-            });
-
-            const topMesh = new THREE.Mesh(topGeometry, topMaterial);
-            topMesh.rotation.x = -Math.PI / 2; // Mettre à plat le plan
-            topMesh.position.y = 80; // Positionner en hauteur
-
-            this.third.scene.add(topMesh);
-            this.third.physics.add.existing(topMesh, {
-              shape: "concave", // Définir la forme de collision comme concave pour un terrain
-              mass: 0, // Mettre la masse à 0 pour rendre l'objet statique (pas affecté par la gravité)
-            });
-          });
+// Créer et ajouter l'eau
+const cubeWater = new THREE.BoxGeometry(9000, 100, 9000);
+const water = new THREE.Mesh(cubeWater, waterMaterial);
+water.position.set(0, -1, 0);
+this.third.scene.add(water);
 
           this.third.load
             .texture("/5/test3D/examples/heightmap-island.png")
@@ -250,9 +234,95 @@
               console.error("Erreur lors du chargement de la texture:", error);
             });
 
+          var heightMap = new THREE.TextureLoader().load(
+            "/5/test3D/examples/heightmap-island.png"
+          );
+          const planeGeometry = new THREE.PlaneGeometry(1000, 1000, 1000, 1000);
+          const planeMaterial = new THREE.MeshPhongMaterial({
+            color: 0xff0000,
+            side: THREE.DoubleSide,
+            displacementMap: heightMap,
+            displacementScale: -50,
+          });
+          const mesh = new THREE.Mesh(planeGeometry, planeMaterial);
+          mesh.rotation.x = Math.PI / 2;
+          this.third.scene.add(mesh);
+
+          textureLoader.load("/5/test3D/examples/maison.jpg", (texture) => {
+            const planeGeometry = new THREE.PlaneGeometry(10, 10);
+            const planeMaterial = new THREE.MeshBasicMaterial({
+              map: texture,
+              side: THREE.DoubleSide,
+              transparent: true,
+              alphaTest: 0.5,
+            });
+            const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+
+            plane.position.set(0, 256, -5);
+            plane.rotation.y = 0;
+
+            // Ajouter un corps physique (collision)
+  this.third.physics.add.existing(plane, { mass: 0 }); // mass: 0 pour un objet statique
+
+            this.third.scene.add(plane);
+          });
+
+
+          const loader = new THREE.TextureLoader();
+          const grassTexture = loader.load("/5/test3D/examples/herbe.png");
+
+          const grassGeometry = new THREE.PlaneGeometry(1, 2);
+
+          const grassMaterial = new THREE.MeshBasicMaterial({
+            map: grassTexture,
+            transparent: true,
+            side: THREE.DoubleSide,
+            alphaTest: 0.5,
+            depthWrite: true,
+          });
+
+          const grassCount = 1000;
+          const grassMesh = new THREE.InstancedMesh(
+            grassGeometry,
+            grassMaterial,
+            grassCount
+          );
+
+          const dummy = new THREE.Object3D();
+          for (let i = 0; i < grassCount; i++) {
+            dummy.position.set(
+              (Math.random() - 0.5) * 50,
+              52,
+              (Math.random() - 0.5) * 50
+            );
+
+            dummy.rotation.y = Math.random() * Math.PI;
+            dummy.updateMatrix();
+            grassMesh.setMatrixAt(i, dummy.matrix);
+          }
+          this.third.scene.add(grassMesh);
+
+          
+          textureLoader.load("/5/test3D/examples/bush.png", (texture) => {
+            const planeGeometry = new THREE.PlaneGeometry(2.5, 2.5);
+            const planeMaterial = new THREE.MeshBasicMaterial({
+              map: texture,
+              side: THREE.DoubleSide,
+              transparent: true,
+              alphaTest: 0.5,
+            });
+            const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+
+            plane.position.set(0, 52, 3);
+            plane.rotation.y = 0;
+
+            this.third.scene.add(plane);
+          });
+          
+
           const framePaths = [];
           for (let i = 1; i <= 10; i++) {
-            framePaths.push(`/5/test3D/examples/png/Walk(${i}).png`);
+            framePaths.push(`/5/test3D/examples/png/Walk (${i}).png`);
           }
 
           const walkTextures = [];
@@ -281,10 +351,11 @@
               Phaser.Input.Keyboard.KeyCodes.S
             ),
           };
+
         }
 
         createWalkAnimation(walkTextures) {
-          const geometry = new THREE.PlaneGeometry(10, 10);
+          const geometry = new THREE.PlaneGeometry(2.5, 2.5);
           const material = new THREE.MeshBasicMaterial({
             map: walkTextures[0],
             side: THREE.DoubleSide,
@@ -292,17 +363,13 @@
             alphaTest: 0.5,
           });
           const walkPlane = new THREE.Mesh(geometry, material);
-          walkPlane.position.set(0, 90, 0);
+          walkPlane.position.set(0, 260, 0);
           this.third.scene.add(walkPlane);
           // Ajouter un corps physique au personnage (walkPlane)
-          this.third.physics.add.existing(walkPlane, {
-            shape: "box",
-            width: 2.5,
-            height: 2.5,
-            depth: 0.1,
-          });
+          this.third.physics.add.existing(walkPlane, { shape: 'box', width: 2.5, height: 2.5, depth: 0.1 });
           // Empêcher le personnage de tourner sur les axes X et Z pour qu'il reste droit
-          walkPlane.body.setAngularFactor(0, 0, 0); // Permet uniquement la rotation sur l'axe Y (rotation horizontale)
+           walkPlane.body.setAngularFactor(0, 0, 0); // Permet uniquement la rotation sur l'axe Y (rotation horizontale)
+
 
           let currentFrame = 0;
           const totalFrames = walkTextures.length;
@@ -321,61 +388,62 @@
           animateWalk();
 
           this.events.on("update", () => {
-            const body = walkPlane.body; // Récupérer le corps physique du personnage
+  const body = walkPlane.body; // Récupérer le corps physique du personnage
 
-            if (
-              this.keys.left.isDown ||
-              this.keys.right.isDown ||
-              this.keys.forward.isDown ||
-              this.keys.backward.isDown
-            ) {
-              if (!isWalking) {
-                isWalking = true;
-                animateWalk();
-              }
+  if (
+    this.keys.left.isDown ||
+    this.keys.right.isDown ||
+    this.keys.forward.isDown ||
+    this.keys.backward.isDown
+  ) {
+    if (!isWalking) {
+      isWalking = true;
+      animateWalk();
+    }
 
-              let velocityX = 0;
-              let velocityZ = 0;
+    let velocityX = 0;
+    let velocityZ = 0;
 
-              // Gérer le déplacement gauche/droite
-              if (this.keys.left.isDown) {
-                velocityX = -2; // Déplace à gauche
-                if (direction !== -1) {
-                  walkPlane.scale.x = -1;
-                  direction = -1;
-                }
-              } else if (this.keys.right.isDown) {
-                velocityX = 2; // Déplace à droite
-                if (direction !== 1) {
-                  walkPlane.scale.x = 1;
-                  direction = 1;
-                }
-              }
+    // Gérer le déplacement gauche/droite
+    if (this.keys.left.isDown) {
+      velocityX = -2; // Déplace à gauche
+      if (direction !== -1) {
+        walkPlane.scale.x = -1;
+        direction = -1;
+      }
+    } else if (this.keys.right.isDown) {
+      velocityX = 2; // Déplace à droite
+      if (direction !== 1) {
+        walkPlane.scale.x = 1;
+        direction = 1;
+      }
+    }
 
-              // Gérer le déplacement avant/arrière
-              if (this.keys.forward.isDown) {
-                velocityZ = -2; // Déplace vers l'avant
-              } else if (this.keys.backward.isDown) {
-                velocityZ = 2; // Déplace vers l'arrière
-              }
+    // Gérer le déplacement avant/arrière
+    if (this.keys.forward.isDown) {
+      velocityZ = -2; // Déplace vers l'avant
+    } else if (this.keys.backward.isDown) {
+      velocityZ = 2; // Déplace vers l'arrière
+    }
 
-              // Appliquer la vélocité au corps physique
-              body.setVelocityX(velocityX);
-              body.setVelocityZ(velocityZ);
+    // Appliquer la vélocité au corps physique
+    body.setVelocityX(velocityX);
+    body.setVelocityZ(velocityZ);
 
-              // Mettre à jour la position de la caméra pour qu'elle suive le personnage
-              this.third.camera.position.set(
-                walkPlane.position.x,
-                walkPlane.position.y + 1, // Ajuster la hauteur de la caméra
-                walkPlane.position.z + 10 // Ajuster la distance de la caméra
-              );
+    // Mettre à jour la position de la caméra pour qu'elle suive le personnage
+    this.third.camera.position.set(
+      walkPlane.position.x, 
+      walkPlane.position.y + 1, // Ajuster la hauteur de la caméra
+      walkPlane.position.z + 10 // Ajuster la distance de la caméra
+    );
 
-              this.third.camera.lookAt(walkPlane.position);
-            } else {
-              isWalking = false;
-              body.setVelocity(0, 0, 0); // Arrête le personnage si aucune touche n'est appuyée
-            }
-          });
+    this.third.camera.lookAt(walkPlane.position);
+
+  } else {
+    isWalking = false;
+    body.setVelocity(0, 0, 0); // Arrête le personnage si aucune touche n'est appuyée
+  }
+});
         }
       }
 
