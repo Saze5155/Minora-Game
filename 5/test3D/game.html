@@ -49,9 +49,8 @@
               vec4 worldPosition = modelMatrix * vec4(position, 1.0);
               vWorldPosition = worldPosition.xyz;
               gl_Position = projectionMatrix * viewMatrix * worldPosition;
-            }
-          `,
-            fragmentShader: `
+            }`,
+            fragmentShader: ` 
             uniform vec3 topColor;
             uniform vec3 bottomColor;
             uniform float offset;
@@ -62,8 +61,7 @@
             void main() {
               float h = normalize(vWorldPosition + offset).y;
               gl_FragColor = vec4(mix(bottomColor, topColor, max(pow(max(h, 0.0), exponent), 0.0)), 1.0);
-            }
-          `,
+            }`,
             side: THREE.BackSide, // Inverser la sphère pour voir de l'intérieur
           });
 
@@ -187,19 +185,37 @@
           });
 
           // Créer une géométrie, ici un cube
-          const cubeGeometry = new THREE.BoxGeometry(4000, 500, 4000);
           const cubeWater = new THREE.BoxGeometry(9000, 100, 9000);
 
           // Appliquer le tableau de matériaux au cube
-          const cube = new THREE.Mesh(cubeGeometry, materials);
           const water = new THREE.Mesh(cubeWater, waterMaterial);
 
           // Ajouter le cube à la scène
-          cube.position.set(0, 1, 0);
           water.position.set(0, -1, 0);
 
-          this.third.scene.add(cube);
           this.third.scene.add(water);
+
+          textureLoader.load("/5/test3D/examples/iles.png", (texture) => {
+            // Créer la géométrie du dessus de l'île (le plan)
+            const topGeometry = new THREE.PlaneGeometry(4000, 4000, 256, 256);
+            const topMaterial = new THREE.MeshPhongMaterial({
+              map: texture,
+              displacementMap: texture,
+              displacementScale: 15, // Intensité du relief
+              transparent: true, // Activer la transparence
+              alphaTest: 0.5,
+            });
+
+            const topMesh = new THREE.Mesh(topGeometry, topMaterial);
+            topMesh.rotation.x = -Math.PI / 2; // Mettre à plat le plan
+            topMesh.position.y = 80; // Positionner en hauteur
+
+            this.third.scene.add(topMesh);
+            this.third.physics.add.existing(topMesh, {
+              shape: "concave", // Définir la forme de collision comme concave pour un terrain
+              mass: 0, // Mettre la masse à 0 pour rendre l'objet statique (pas affecté par la gravité)
+            });
+          });
 
           this.third.load
             .texture("/5/test3D/examples/heightmap-island.png")
@@ -234,105 +250,9 @@
               console.error("Erreur lors du chargement de la texture:", error);
             });
 
-          var heightMap = new THREE.TextureLoader().load(
-            "/5/test3D/examples/heightmap-island.png"
-          );
-          const planeGeometry = new THREE.PlaneGeometry(1000, 1000, 1000, 1000);
-          const planeMaterial = new THREE.MeshPhongMaterial({
-            color: 0xff0000,
-            side: THREE.DoubleSide,
-            displacementMap: heightMap,
-            displacementScale: -50,
-          });
-          const mesh = new THREE.Mesh(planeGeometry, planeMaterial);
-          mesh.rotation.x = Math.PI / 2;
-          this.third.scene.add(mesh);
-
-          textureLoader.load("/5/test3D/examples/maison.jpg", (texture) => {
-            const planeGeometry = new THREE.PlaneGeometry(10, 10);
-            const planeMaterial = new THREE.MeshBasicMaterial({
-              map: texture,
-              side: THREE.DoubleSide,
-              transparent: true,
-              alphaTest: 0.5,
-            });
-            const plane = new THREE.Mesh(planeGeometry, planeMaterial);
-
-            plane.position.set(0, 60, -5);
-            plane.rotation.y = 0;
-
-            this.third.scene.add(plane);
-          });
-
-          textureLoader.load("/5/test3D/examples/maison.jpg", (texture) => {
-            const planeGeometry = new THREE.PlaneGeometry(10, 10);
-            const planeMaterial = new THREE.MeshBasicMaterial({
-              map: texture,
-              side: THREE.DoubleSide,
-              transparent: true,
-              alphaTest: 0.5,
-            });
-            const plane = new THREE.Mesh(planeGeometry, planeMaterial);
-
-            plane.position.set(0, 60, -5);
-            plane.rotation.y = 0;
-
-            this.third.scene.add(plane);
-          });
-          const loader = new THREE.TextureLoader();
-          const grassTexture = loader.load("/5/test3D/examples/herbe.png");
-
-          const grassGeometry = new THREE.PlaneGeometry(1, 2);
-
-          const grassMaterial = new THREE.MeshBasicMaterial({
-            map: grassTexture,
-            transparent: true,
-            side: THREE.DoubleSide,
-            alphaTest: 0.5,
-            depthWrite: true,
-          });
-
-          const grassCount = 1000;
-          const grassMesh = new THREE.InstancedMesh(
-            grassGeometry,
-            grassMaterial,
-            grassCount
-          );
-
-          const dummy = new THREE.Object3D();
-          for (let i = 0; i < grassCount; i++) {
-            dummy.position.set(
-              (Math.random() - 0.5) * 50,
-              52,
-              (Math.random() - 0.5) * 50
-            );
-
-            dummy.rotation.y = Math.random() * Math.PI;
-            dummy.updateMatrix();
-            grassMesh.setMatrixAt(i, dummy.matrix);
-          }
-
-          this.third.scene.add(grassMesh);
-
-          textureLoader.load("/5/test3D/examples/bush.png", (texture) => {
-            const planeGeometry = new THREE.PlaneGeometry(2.5, 2.5);
-            const planeMaterial = new THREE.MeshBasicMaterial({
-              map: texture,
-              side: THREE.DoubleSide,
-              transparent: true,
-              alphaTest: 0.5,
-            });
-            const plane = new THREE.Mesh(planeGeometry, planeMaterial);
-
-            plane.position.set(0, 52, 3);
-            plane.rotation.y = 0;
-
-            this.third.scene.add(plane);
-          });
-
           const framePaths = [];
           for (let i = 1; i <= 10; i++) {
-            framePaths.push(`/5/test3D/examples/png/Walk (${i}).png`);
+            framePaths.push("/5/test3D/examples/png/Walk (${i}).png");
           }
 
           const walkTextures = [];
@@ -361,39 +281,6 @@
               Phaser.Input.Keyboard.KeyCodes.S
             ),
           };
-
-          // Étape 1 : Créer un terrain plat
-          const terrainGeometry = new THREE.PlaneGeometry(4000, 4000, 100, 100); // Terrain plat de 4000x4000
-          const terrainMaterial = new THREE.MeshLambertMaterial({
-            map: textureLoader.load("/5/test3D/examples/grass.jpg"), // Appliquer une texture d'herbe
-            side: THREE.DoubleSide, // Permet de voir des deux côtés du terrain
-          });
-
-          const terrain = new THREE.Mesh(terrainGeometry, terrainMaterial);
-
-          // Positionner correctement le terrain
-          terrain.rotation.x = -Math.PI / 2; // Aligne le terrain horizontalement
-          terrain.position.y = 0; // Place le terrain à la hauteur 0
-
-          this.third.scene.add(terrain); // Ajoute le terrain à la scène
-
-          // Parcourir les sommets de la géométrie pour les déformer
-          const vertices = terrainGeometry.attributes.position.array;
-
-          for (let i = 0; i < vertices.length; i += 3) {
-            const x = vertices[i]; // Coordonnée X du sommet
-            const y = vertices[i + 1]; // Coordonnée Y du sommet (qui ne change pas)
-            const z = vertices[i + 2]; // Coordonnée Z du sommet (que nous allons modifier)
-
-            // Appliquer un relief simple basé sur la coordonnée X et Y
-            const height = Math.sin(x / 100) * 20 + Math.cos(y / 100) * 20;
-
-            vertices[i + 2] = height; // Modifier la coordonnée Z pour ajouter du relief
-          }
-
-          // Dire à Three.js de mettre à jour la géométrie après modification
-          terrainGeometry.attributes.position.needsUpdate = true;
-          terrainGeometry.computeVertexNormals(); // Recalculer les normales pour l'éclairage
         }
 
         createWalkAnimation(walkTextures) {
