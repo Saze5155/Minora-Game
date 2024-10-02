@@ -162,6 +162,23 @@ const topTexture3 = textureLoader.load("/5/test3D/examples/eau.png");
 const sideTexture = textureLoader.load("/5/test3D/examples/vie/tuiles/tuiles-02.png");
 const waterTexture = textureLoader.load("/5/test3D/examples/eau.png");
 
+// Répétition des textures
+sideTexture.wrapS = THREE.RepeatWrapping;
+sideTexture.wrapT = THREE.RepeatWrapping;
+sideTexture.repeat.set(20, 3);
+
+topTexture1.wrapS = THREE.RepeatWrapping;
+topTexture1.wrapT = THREE.RepeatWrapping;
+topTexture1.repeat.set(50, 50); // Ajuste selon les besoins
+
+topTexture2.wrapS = THREE.RepeatWrapping;
+topTexture2.wrapT = THREE.RepeatWrapping;
+topTexture2.repeat.set(50, 50); // Ajuste selon les besoins
+
+topTexture3.wrapS = THREE.RepeatWrapping;
+topTexture3.wrapT = THREE.RepeatWrapping;
+topTexture3.repeat.set(50, 50); // Ajuste selon les besoins
+
 const topMaterials = [
   new THREE.MeshBasicMaterial({ map: topTexture1 }),
   new THREE.MeshBasicMaterial({ map: topTexture2 }),
