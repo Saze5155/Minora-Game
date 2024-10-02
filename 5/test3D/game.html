@@ -187,7 +187,6 @@
           // Créer une géométrie, ici un cube
           const cubeWater = new THREE.BoxGeometry(9000, 100, 9000);
 
-
           // Appliquer le tableau de matériaux au cube
           const water = new THREE.Mesh(cubeWater, waterMaterial);
 
@@ -243,7 +242,7 @@
 
               if (messh) {
                 // Nous positionnons, scalons, et ajoutons des propriétés physiques au mesh
-                messh.scale.set(2000, 2000, 2000);
+                messh.scale.set(2000, 2000, 500);
                 this.third.physics.add.existing(messh, { mass: 0 });
               }
             })
@@ -296,9 +295,14 @@
           walkPlane.position.set(0, 90, 0);
           this.third.scene.add(walkPlane);
           // Ajouter un corps physique au personnage (walkPlane)
-          this.third.physics.add.existing(walkPlane, { shape: 'box', width: 2.5, height: 2.5, depth: 0.1 });
+          this.third.physics.add.existing(walkPlane, {
+            shape: "box",
+            width: 2.5,
+            height: 2.5,
+            depth: 0.1,
+          });
           // Empêcher le personnage de tourner sur les axes X et Z pour qu'il reste droit
-           walkPlane.body.setAngularFactor(0, 0, 0); // Permet uniquement la rotation sur l'axe Y (rotation horizontale)
+          walkPlane.body.setAngularFactor(0, 0, 0); // Permet uniquement la rotation sur l'axe Y (rotation horizontale)
 
           let currentFrame = 0;
           const totalFrames = walkTextures.length;
@@ -317,62 +321,61 @@
           animateWalk();
 
           this.events.on("update", () => {
-  const body = walkPlane.body; // Récupérer le corps physique du personnage
+            const body = walkPlane.body; // Récupérer le corps physique du personnage
 
-  if (
-    this.keys.left.isDown ||
-    this.keys.right.isDown ||
-    this.keys.forward.isDown ||
-    this.keys.backward.isDown
-  ) {
-    if (!isWalking) {
-      isWalking = true;
-      animateWalk();
-    }
+            if (
+              this.keys.left.isDown ||
+              this.keys.right.isDown ||
+              this.keys.forward.isDown ||
+              this.keys.backward.isDown
+            ) {
+              if (!isWalking) {
+                isWalking = true;
+                animateWalk();
+              }
 
-    let velocityX = 0;
-    let velocityZ = 0;
+              let velocityX = 0;
+              let velocityZ = 0;
 
-    // Gérer le déplacement gauche/droite
-    if (this.keys.left.isDown) {
-      velocityX = -2; // Déplace à gauche
-      if (direction !== -1) {
-        walkPlane.scale.x = -1;
-        direction = -1;
-      }
-    } else if (this.keys.right.isDown) {
-      velocityX = 2; // Déplace à droite
-      if (direction !== 1) {
-        walkPlane.scale.x = 1;
-        direction = 1;
-      }
-    }
+              // Gérer le déplacement gauche/droite
+              if (this.keys.left.isDown) {
+                velocityX = -2; // Déplace à gauche
+                if (direction !== -1) {
+                  walkPlane.scale.x = -1;
+                  direction = -1;
+                }
+              } else if (this.keys.right.isDown) {
+                velocityX = 2; // Déplace à droite
+                if (direction !== 1) {
+                  walkPlane.scale.x = 1;
+                  direction = 1;
+                }
+              }
 
-    // Gérer le déplacement avant/arrière
-    if (this.keys.forward.isDown) {
-      velocityZ = -2; // Déplace vers l'avant
-    } else if (this.keys.backward.isDown) {
-      velocityZ = 2; // Déplace vers l'arrière
-    }
+              // Gérer le déplacement avant/arrière
+              if (this.keys.forward.isDown) {
+                velocityZ = -2; // Déplace vers l'avant
+              } else if (this.keys.backward.isDown) {
+                velocityZ = 2; // Déplace vers l'arrière
+              }
 
-    // Appliquer la vélocité au corps physique
-    body.setVelocityX(velocityX);
-    body.setVelocityZ(velocityZ);
+              // Appliquer la vélocité au corps physique
+              body.setVelocityX(velocityX);
+              body.setVelocityZ(velocityZ);
 
-    // Mettre à jour la position de la caméra pour qu'elle suive le personnage
-    this.third.camera.position.set(
-      walkPlane.position.x, 
-      walkPlane.position.y + 1, // Ajuster la hauteur de la caméra
-      walkPlane.position.z + 10 // Ajuster la distance de la caméra
-    );
+              // Mettre à jour la position de la caméra pour qu'elle suive le personnage
+              this.third.camera.position.set(
+                walkPlane.position.x,
+                walkPlane.position.y + 1, // Ajuster la hauteur de la caméra
+                walkPlane.position.z + 10 // Ajuster la distance de la caméra
+              );
 
-    this.third.camera.lookAt(walkPlane.position);
-
-  } else {
-    isWalking = false;
-    body.setVelocity(0, 0, 0); // Arrête le personnage si aucune touche n'est appuyée
-  }
-});
+              this.third.camera.lookAt(walkPlane.position);
+            } else {
+              isWalking = false;
+              body.setVelocity(0, 0, 0); // Arrête le personnage si aucune touche n'est appuyée
+            }
+          });
         }
       }
 
