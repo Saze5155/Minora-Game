@@ -1,5 +1,7 @@
 export default class Player {
-  constructor(scene, x, y, z, textureKey) {
+  constructor(scene, x, y, z, textureKey, combat) {
+
+
     // Charger la texture initiale
     const texture = new THREE.TextureLoader().load(textureKey);
     const geometry = new THREE.PlaneGeometry(2.5, 2.5);

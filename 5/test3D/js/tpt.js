@@ -15,11 +15,20 @@ export default class tpt extends Scene3D {
         // Variables pour gérer l'état d'affichage des menus
         this.attackMenuVisible = false;
         this.potionMenuVisible = false;
+
+        // Animation-related variables
+        this.playerTextures = []; // Initialisation ici
+        this.attackTextures = [];  // Pour l'animation d'attaque, initialisation ici
+        this.currentFrame = 0;
     }
 
     preload() {
+
+        this.loadTextures('idle', 'idle', 6, this.playerTextures); // Charger les images d'animation
+        this.loadTextures('attack', 'attaquedroite', 8, this.attackTextures);  // Pour l'attaque
+
         // Charger les images du joueur, de l'ennemi et des boutons
-        this.load.image('player', "/5/test3D/examples/desert/caillou2.png");
+        this.load.image('player', "/5/test3D/examples/anim_player/idle/_idle_1.png");
         this.load.image('enemy', "/5/test3D/examples/desert/caillou2.png");
         this.load.image('attackButton', "/5/test3D/examples/desert/caillou2.png");
         this.load.image('defendButton', "/5/test3D/examples/desert/caillou1.png");
@@ -27,9 +36,22 @@ export default class tpt extends Scene3D {
         this.load.image('fleeButton', "/5/test3D/examples/desert/caillou2.png");
     }
 
+    loadTextures(folder, name, frameCount, textureArray) {
+        const framePaths = [];
+        for (let i = 1; i <= frameCount; i++) {
+            const framePath = `/5/test3D/examples/anim_player/${folder}/_${name}_${i}.png`;
+            textureArray.push(framePath);
+            this.load.image(`${name}_${i}`, framePath); // Charger chaque image individuellement
+        }
+        
+    }
+
     create() {
-        // Placer les personnages et les boutons comme avant
-        this.player = this.add.image(100, 400, 'player');
+
+        // Afficher le joueur avec la première image de l'animation
+        this.player = this.add.image(100, 400, 'idle_1');
+        this.player.setScale(0.2); // Ajuste la taille du personnage (0.5 est un exemple, ajuste selon tes besoins)
+
         this.enemy = this.add.image(600, 100, 'enemy');
 
         // Ajouter les barres de vie au-dessus des personnages
@@ -90,7 +112,45 @@ export default class tpt extends Scene3D {
                 }
             }
         });
+
+        this.startAnimation(); // Démarrer l'animation manuelle
     }
+
+    playAttackAnimation() {
+        let currentFrame = 0;
+        const attackFrames = this.attackTextures; // Utiliser les frames d'attaque que tu as chargées
+    
+        const attackInterval = setInterval(() => {
+            if (currentFrame < attackFrames.length) {
+                this.player.setTexture(`attaquedroite_${currentFrame + 1}`); // Met à jour la texture du sprite
+                currentFrame++;
+            } else {
+                clearInterval(attackInterval); // Arrête l'animation après avoir joué toutes les frames
+                this.player.setTexture('idle_1'); // Reviens à la texture idle après l'attaque
+            }
+        }, 100); // Délai entre chaque frame (ajuste à ta convenance)
+    }
+    
+
+    startAnimation() {
+        this.time.addEvent({
+            delay: 150,  // Délai entre les frames en millisecondes
+            callback: this.updateAnimationFrame,
+            callbackScope: this,
+            loop: true
+        });
+    }
+
+    updateAnimationFrame() {
+        this.currentFrame = (this.currentFrame + 1) % this.playerTextures.length;
+        this.player.setTexture(`idle_${this.currentFrame + 1}`);
+    }
+
+    update() {
+        this.player.update(this);
+      }
+
+
 
     // Mettre à jour les barres de vie
     updateHealthBar(bar, currentHP, maxHP) {
@@ -172,14 +232,18 @@ export default class tpt extends Scene3D {
     // Attaque du joueur
     playerAttack(attack) {
         if (this.playerMP >= attack.mpCost) {
+
             this.playerMP -= attack.mpCost;
             this.playerMPText.setText(`MP: ${this.playerMP}`);
 
             const damage = attack.damage;
-            this.enemyHP -= damage;
+            this.enemyHP -= damage; 
 
             // Mettre à jour la barre de vie de l'ennemi
             this.updateHealthBar(this.enemyHealthBar, this.enemyHP, 100);
+
+            // Jouer l'animation d'attaque
+            this.playAttackAnimation(); 
 
             // Mettre à jour la chatbox du joueur
             let message = '';
@@ -377,13 +441,13 @@ enemyAttack() {
     
 }
 
-// // Ajouter la scène à la configuration Phaser
-// const config = {
-//     type: Phaser.AUTO,
-//     width: 800,
-//     height: 600,
-//     scene: [tpt], // Ta scène de combat
-//     parent: 'gameContainer'
-// };
+// Ajouter la scène à la configuration Phaser
+const config = {
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
+    scene: [tpt], // Ta scène de combat
+    parent: 'gameContainer'
+};
 
-// const game = new Phaser.Game(config);
+const game = new Phaser.Game(config);
