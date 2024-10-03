@@ -1,5 +1,6 @@
 import camera from "/5/test3D/js/cam.js";
 import laser from "/5/test3D/js/laser.js";
+//import player from "/5/test3D/js/player.js";
 import { FBXLoader } from "/5/test3D/lib/FBXLoader.js";
 
 export default class monde extends Scene3D {
@@ -16,8 +17,8 @@ export default class monde extends Scene3D {
     this.freeCamera = new camera(this);
 
     this.pointerLaser = new laser(this);
-
-    /*this.player = new player(
+    /*
+    this.player = new player(
       this,
       0,
       256,
@@ -181,6 +182,33 @@ export default class monde extends Scene3D {
       }
     );
 
+    const textureTower = textureLoader.load("/5/test3D/examples/tower.png");
+
+    loader.load(
+      "/5/test3D/examples/tower.fbx",
+      (fbx) => {
+        fbx.traverse((child) => {
+          if (child.isMesh) {
+            // Appliquer la texture au matériau du modèle
+            child.material.map = textureTower;
+            child.material.needsUpdate = true;
+          }
+        });
+
+        // Ajuster l'échelle et la rotation du modèle de base
+        fbx.scale.set(0.5, 0.5, 0.5);
+
+        fbx.position.set(0, 295, 0);
+
+        // Ajouter le modèle cloné à la scène
+        this.third.scene.add(fbx);
+      },
+      undefined,
+      function (error) {
+        console.error("Erreur lors du chargement du fichier FBX:", error);
+      }
+    );
+
     const topTexture1 = textureLoader.load(
       "/5/test3D/examples/vie/tuiles/tuile2.png"
     );
@@ -265,6 +293,553 @@ export default class monde extends Scene3D {
     const water = new THREE.Mesh(cubeWater, waterMaterial);
     water.position.set(0, -1, 0);
     this.third.scene.add(water);
+
+    // ARBRE
+
+    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(10, 10);
+      const planeMaterial = new THREE.MeshBasicMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      // Définir les coordonnées des coins
+      const topRight = { x: 109, z: -217 };
+      const topLeft = { x: -43, z: -245 };
+      const bottomLeft = { x: -48, z: -216 };
+      const bottomRight = { x: 99, z: -194 };
+
+      // Nombre d'arbres à générer
+      const treeCount = 150; // Ajuste ce nombre selon tes besoins
+
+      for (let i = 0; i < treeCount; i++) {
+        // Générer une position aléatoire entre les deux côtés (haut-bas)
+        const t1 = Math.random(); // Interpolation pour la position sur le côté gauche
+        const leftX = topLeft.x + t1 * (bottomLeft.x - topLeft.x);
+        const leftZ = topLeft.z + t1 * (bottomLeft.z - topLeft.z);
+
+        const t2 = Math.random(); // Interpolation pour la position sur le côté droit
+        const rightX = topRight.x + t1 * (bottomRight.x - topRight.x);
+        const rightZ = topRight.z + t1 * (bottomRight.z - topRight.z);
+
+        // Générer la position finale en interpolant entre les deux côtés
+        const finalT = Math.random();
+        const finalX = leftX + finalT * (rightX - leftX);
+        const finalZ = leftZ + finalT * (rightZ - leftZ);
+
+        // Créer chaque arbre
+        const tree = new THREE.Mesh(planeGeometry, planeMaterial);
+
+        // Placer l'arbre à la position générée
+        tree.position.set(finalX, 256, finalZ);
+        tree.rotation.y = Math.random() * Math.PI * 2; // Rotation aléatoire pour chaque arbre
+
+        // Ajouter l'arbre à la scène
+        this.third.scene.add(tree);
+      }
+    });
+
+    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(10, 10);
+      const planeMaterial = new THREE.MeshBasicMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      // Définir les coordonnées des nouveaux coins
+      const topRight = { x: -43, z: -245 };
+      const bottomRight = { x: -48, z: -216 };
+      const topLeft = { x: -189, z: -159 };
+      const bottomLeft = { x: -177, z: -144 };
+
+      // Nombre total d'arbres à générer dans cette nouvelle zone
+      const treeCount = 150; // Ajuste ce nombre selon tes besoins
+
+      for (let i = 0; i < treeCount; i++) {
+        // Générer une position aléatoire entre les deux côtés (haut-bas)
+        const t1 = Math.random(); // Interpolation pour la position sur le côté gauche
+        const leftX = topLeft.x + t1 * (bottomLeft.x - topLeft.x);
+        const leftZ = topLeft.z + t1 * (bottomLeft.z - topLeft.z);
+
+        const t2 = Math.random(); // Interpolation pour la position sur le côté droit
+        const rightX = topRight.x + t1 * (bottomRight.x - topRight.x);
+        const rightZ = topRight.z + t1 * (bottomRight.z - topRight.z);
+
+        // Générer la position finale en interpolant entre les deux côtés
+        const finalT = Math.random();
+        const finalX = leftX + finalT * (rightX - leftX);
+        const finalZ = leftZ + finalT * (rightZ - leftZ);
+
+        // Créer chaque arbre
+        const tree = new THREE.Mesh(planeGeometry, planeMaterial);
+
+        // Placer l'arbre à la position générée
+        tree.position.set(finalX, 256, finalZ);
+        tree.rotation.y = Math.random() * Math.PI * 2; // Rotation aléatoire pour chaque arbre
+
+        // Ajouter l'arbre à la scène
+        this.third.scene.add(tree);
+      }
+    });
+
+    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(10, 10);
+      const planeMaterial = new THREE.MeshBasicMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      // Définir les coordonnées des nouveaux coins
+      const topRight = { x: -189, z: -159 };
+      const bottomRight = { x: -177, z: -144 };
+      const topLeft = { x: -241, z: -16 };
+      const bottomLeft = { x: -213, z: -14 };
+
+      // Nombre total d'arbres à générer dans cette nouvelle zone
+      const treeCount = 150; // Ajuste ce nombre selon tes besoins
+
+      for (let i = 0; i < treeCount; i++) {
+        // Générer une position aléatoire entre les deux côtés (haut-bas)
+        const t1 = Math.random(); // Interpolation pour la position sur le côté gauche
+        const leftX = topLeft.x + t1 * (bottomLeft.x - topLeft.x);
+        const leftZ = topLeft.z + t1 * (bottomLeft.z - topLeft.z);
+
+        const t2 = Math.random(); // Interpolation pour la position sur le côté droit
+        const rightX = topRight.x + t1 * (bottomRight.x - topRight.x);
+        const rightZ = topRight.z + t1 * (bottomRight.z - topRight.z);
+
+        // Générer la position finale en interpolant entre les deux côtés
+        const finalT = Math.random();
+        const finalX = leftX + finalT * (rightX - leftX);
+        const finalZ = leftZ + finalT * (rightZ - leftZ);
+
+        // Créer chaque arbre
+        const tree = new THREE.Mesh(planeGeometry, planeMaterial);
+
+        // Placer l'arbre à la position générée
+        tree.position.set(finalX, 256, finalZ);
+        tree.rotation.y = Math.random() * Math.PI * 2; // Rotation aléatoire pour chaque arbre
+
+        // Ajouter l'arbre à la scène
+        this.third.scene.add(tree);
+      }
+    });
+
+    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(10, 10);
+      const planeMaterial = new THREE.MeshBasicMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      // Définir les 5 coins du pentagone
+      const points = [
+        { x: -213, z: -14 },
+        { x: -22, z: -22 },
+        { x: 97, z: -194 },
+        { x: -51, z: -219 },
+        { x: -180, z: -144 },
+      ];
+
+      // Calculer le centre du pentagone
+      const calculatePolygonCenter = (points) => {
+        const totalPoints = points.length;
+        const sumX = points.reduce((sum, point) => sum + point.x, 0);
+        const sumZ = points.reduce((sum, point) => sum + point.z, 0);
+        return {
+          x: sumX / totalPoints,
+          z: sumZ / totalPoints,
+        };
+      };
+
+      const villageCenter = calculatePolygonCenter(points); // Centre du pentagone
+      const villageRadius = 50; // Rayon autour du centre où aucun arbre ne doit être placé
+
+      // Fonction pour vérifier si un point est à l'intérieur du polygone
+      const isInsidePolygon = (point, polygon) => {
+        let inside = false;
+        for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+          const xi = polygon[i].x,
+            zi = polygon[i].z;
+          const xj = polygon[j].x,
+            zj = polygon[j].z;
+          const intersect =
+            zi > point.z !== zj > point.z &&
+            point.x < ((xj - xi) * (point.z - zi)) / (zj - zi) + xi;
+          if (intersect) inside = !inside;
+        }
+        return inside;
+      };
+
+      // Fonction pour vérifier si un point est à l'intérieur du rayon du village
+      const isOutsideVillageRadius = (point, villageCenter, villageRadius) => {
+        const distanceSquared =
+          (point.x - villageCenter.x) ** 2 + (point.z - villageCenter.z) ** 2;
+        return distanceSquared > villageRadius ** 2; // Vérifie si le point est en dehors du rayon du village
+      };
+
+      // Nombre d'arbres à générer dans cette zone
+      const treeCount = 150; // Ajuste ce nombre selon tes besoins
+
+      for (let i = 0; i < treeCount; i++) {
+        let treePlaced = false;
+
+        // Générer des arbres jusqu'à ce qu'un point valide à l'intérieur du polygone et à l'extérieur du village soit trouvé
+        while (!treePlaced) {
+          // Générer une position aléatoire dans les limites globales du polygone
+          const minX = Math.min(...points.map((p) => p.x));
+          const maxX = Math.max(...points.map((p) => p.x));
+          const minZ = Math.min(...points.map((p) => p.z));
+          const maxZ = Math.max(...points.map((p) => p.z));
+
+          const randomX = minX + Math.random() * (maxX - minX);
+          const randomZ = minZ + Math.random() * (maxZ - minZ);
+
+          const randomPoint = { x: randomX, z: randomZ };
+
+          // Vérifier si le point aléatoire est dans le polygone et en dehors du village
+          if (
+            isInsidePolygon(randomPoint, points) &&
+            isOutsideVillageRadius(randomPoint, villageCenter, villageRadius)
+          ) {
+            // Créer chaque arbre
+            const tree = new THREE.Mesh(planeGeometry, planeMaterial);
+
+            // Placer l'arbre à la position générée
+            tree.position.set(randomPoint.x, 256, randomPoint.z);
+            tree.rotation.y = Math.random() * Math.PI * 2; // Rotation aléatoire pour chaque arbre
+
+            // Ajouter l'arbre à la scène
+            this.third.scene.add(tree);
+            treePlaced = true;
+          }
+        }
+      }
+    });
+
+    textureLoader.load("/5/test3D/examples/vie/vie-07.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(10, 10);
+      const planeMaterial = new THREE.MeshBasicMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      // Définir les coordonnées des coins
+      const topRight = { x: 109, z: -217 };
+      const topLeft = { x: -43, z: -245 };
+      const bottomLeft = { x: -48, z: -216 };
+      const bottomRight = { x: 99, z: -194 };
+
+      // Nombre d'arbres à générer
+      const treeCount = 150; // Ajuste ce nombre selon tes besoins
+
+      for (let i = 0; i < treeCount; i++) {
+        // Générer une position aléatoire entre les deux côtés (haut-bas)
+        const t1 = Math.random(); // Interpolation pour la position sur le côté gauche
+        const leftX = topLeft.x + t1 * (bottomLeft.x - topLeft.x);
+        const leftZ = topLeft.z + t1 * (bottomLeft.z - topLeft.z);
+
+        const t2 = Math.random(); // Interpolation pour la position sur le côté droit
+        const rightX = topRight.x + t1 * (bottomRight.x - topRight.x);
+        const rightZ = topRight.z + t1 * (bottomRight.z - topRight.z);
+
+        // Générer la position finale en interpolant entre les deux côtés
+        const finalT = Math.random();
+        const finalX = leftX + finalT * (rightX - leftX);
+        const finalZ = leftZ + finalT * (rightZ - leftZ);
+
+        // Créer chaque arbre
+        const tree = new THREE.Mesh(planeGeometry, planeMaterial);
+
+        // Placer l'arbre à la position générée
+        tree.position.set(finalX, 256, finalZ);
+        tree.rotation.y = Math.random() * Math.PI * 2; // Rotation aléatoire pour chaque arbre
+
+        // Ajouter l'arbre à la scène
+        this.third.scene.add(tree);
+      }
+    });
+
+    textureLoader.load("/5/test3D/examples/vie/vie-06.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(10, 10);
+      const planeMaterial = new THREE.MeshBasicMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      // Définir les coordonnées des nouveaux coins
+      const topRight = { x: -43, z: -245 };
+      const bottomRight = { x: -48, z: -216 };
+      const topLeft = { x: -189, z: -159 };
+      const bottomLeft = { x: -177, z: -144 };
+
+      // Nombre total d'arbres à générer dans cette nouvelle zone
+      const treeCount = 150; // Ajuste ce nombre selon tes besoins
+
+      for (let i = 0; i < treeCount; i++) {
+        // Générer une position aléatoire entre les deux côtés (haut-bas)
+        const t1 = Math.random(); // Interpolation pour la position sur le côté gauche
+        const leftX = topLeft.x + t1 * (bottomLeft.x - topLeft.x);
+        const leftZ = topLeft.z + t1 * (bottomLeft.z - topLeft.z);
+
+        const t2 = Math.random(); // Interpolation pour la position sur le côté droit
+        const rightX = topRight.x + t1 * (bottomRight.x - topRight.x);
+        const rightZ = topRight.z + t1 * (bottomRight.z - topRight.z);
+
+        // Générer la position finale en interpolant entre les deux côtés
+        const finalT = Math.random();
+        const finalX = leftX + finalT * (rightX - leftX);
+        const finalZ = leftZ + finalT * (rightZ - leftZ);
+
+        // Créer chaque arbre
+        const tree = new THREE.Mesh(planeGeometry, planeMaterial);
+
+        // Placer l'arbre à la position générée
+        tree.position.set(finalX, 256, finalZ);
+        tree.rotation.y = Math.random() * Math.PI * 2; // Rotation aléatoire pour chaque arbre
+
+        // Ajouter l'arbre à la scène
+        this.third.scene.add(tree);
+      }
+    });
+
+    textureLoader.load("/5/test3D/examples/vie/vie-05.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(10, 10);
+      const planeMaterial = new THREE.MeshBasicMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      // Définir les coordonnées des nouveaux coins
+      const topRight = { x: -189, z: -159 };
+      const bottomRight = { x: -177, z: -144 };
+      const topLeft = { x: -241, z: -16 };
+      const bottomLeft = { x: -213, z: -14 };
+
+      // Nombre total d'arbres à générer dans cette nouvelle zone
+      const treeCount = 150; // Ajuste ce nombre selon tes besoins
+
+      for (let i = 0; i < treeCount; i++) {
+        // Générer une position aléatoire entre les deux côtés (haut-bas)
+        const t1 = Math.random(); // Interpolation pour la position sur le côté gauche
+        const leftX = topLeft.x + t1 * (bottomLeft.x - topLeft.x);
+        const leftZ = topLeft.z + t1 * (bottomLeft.z - topLeft.z);
+
+        const t2 = Math.random(); // Interpolation pour la position sur le côté droit
+        const rightX = topRight.x + t1 * (bottomRight.x - topRight.x);
+        const rightZ = topRight.z + t1 * (bottomRight.z - topRight.z);
+
+        // Générer la position finale en interpolant entre les deux côtés
+        const finalT = Math.random();
+        const finalX = leftX + finalT * (rightX - leftX);
+        const finalZ = leftZ + finalT * (rightZ - leftZ);
+
+        // Créer chaque arbre
+        const tree = new THREE.Mesh(planeGeometry, planeMaterial);
+
+        // Placer l'arbre à la position générée
+        tree.position.set(finalX, 256, finalZ);
+        tree.rotation.y = Math.random() * Math.PI * 2; // Rotation aléatoire pour chaque arbre
+
+        // Ajouter l'arbre à la scène
+        this.third.scene.add(tree);
+      }
+    });
+
+    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(10, 10);
+      const planeMaterial = new THREE.MeshBasicMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      // Définir les 5 coins du pentagone
+      const points = [
+        { x: -213, z: -14 },
+        { x: -22, z: -22 },
+        { x: 97, z: -194 },
+        { x: -51, z: -219 },
+        { x: -180, z: -144 },
+      ];
+
+      // Calculer le centre du pentagone
+      const calculatePolygonCenter = (points) => {
+        const totalPoints = points.length;
+        const sumX = points.reduce((sum, point) => sum + point.x, 0);
+        const sumZ = points.reduce((sum, point) => sum + point.z, 0);
+        return {
+          x: sumX / totalPoints,
+          z: sumZ / totalPoints,
+        };
+      };
+
+      const villageCenter = calculatePolygonCenter(points); // Centre du pentagone
+      const villageRadius = 50; // Rayon autour du centre où aucun arbre ne doit être placé
+
+      // Fonction pour vérifier si un point est à l'intérieur du polygone
+      const isInsidePolygon = (point, polygon) => {
+        let inside = false;
+        for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+          const xi = polygon[i].x,
+            zi = polygon[i].z;
+          const xj = polygon[j].x,
+            zj = polygon[j].z;
+          const intersect =
+            zi > point.z !== zj > point.z &&
+            point.x < ((xj - xi) * (point.z - zi)) / (zj - zi) + xi;
+          if (intersect) inside = !inside;
+        }
+        return inside;
+      };
+
+      // Fonction pour vérifier si un point est à l'intérieur du rayon du village
+      const isOutsideVillageRadius = (point, villageCenter, villageRadius) => {
+        const distanceSquared =
+          (point.x - villageCenter.x) ** 2 + (point.z - villageCenter.z) ** 2;
+        return distanceSquared > villageRadius ** 2; // Vérifie si le point est en dehors du rayon du village
+      };
+
+      // Nombre d'arbres à générer dans cette zone
+      const treeCount = 150; // Ajuste ce nombre selon tes besoins
+
+      for (let i = 0; i < treeCount; i++) {
+        let treePlaced = false;
+
+        // Générer des arbres jusqu'à ce qu'un point valide à l'intérieur du polygone et à l'extérieur du village soit trouvé
+        while (!treePlaced) {
+          // Générer une position aléatoire dans les limites globales du polygone
+          const minX = Math.min(...points.map((p) => p.x));
+          const maxX = Math.max(...points.map((p) => p.x));
+          const minZ = Math.min(...points.map((p) => p.z));
+          const maxZ = Math.max(...points.map((p) => p.z));
+
+          const randomX = minX + Math.random() * (maxX - minX);
+          const randomZ = minZ + Math.random() * (maxZ - minZ);
+
+          const randomPoint = { x: randomX, z: randomZ };
+
+          // Vérifier si le point aléatoire est dans le polygone et en dehors du village
+          if (
+            isInsidePolygon(randomPoint, points) &&
+            isOutsideVillageRadius(randomPoint, villageCenter, villageRadius)
+          ) {
+            // Créer chaque arbre
+            const tree = new THREE.Mesh(planeGeometry, planeMaterial);
+
+            // Placer l'arbre à la position générée
+            tree.position.set(randomPoint.x, 256, randomPoint.z);
+            tree.rotation.y = Math.random() * Math.PI * 2; // Rotation aléatoire pour chaque arbre
+
+            // Ajouter l'arbre à la scène
+            this.third.scene.add(tree);
+            treePlaced = true;
+          }
+        }
+      }
+    });
+    textureLoader.load("/5/test3D/examples/vie/vie-12.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(10, 10);
+      const planeMaterial = new THREE.MeshBasicMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const house = new THREE.Mesh(planeGeometry, planeMaterial);
+      const house1 = new THREE.Mesh(planeGeometry, planeMaterial);
+      const house2 = new THREE.Mesh(planeGeometry, planeMaterial);
+      const house3 = new THREE.Mesh(planeGeometry, planeMaterial);
+      const house4 = new THREE.Mesh(planeGeometry, planeMaterial);
+      const house5 = new THREE.Mesh(planeGeometry, planeMaterial);
+
+      // Placer l'arbre à la position générée
+      house.position.set(-81, 256, -152);
+      house.rotation.y = Math.PI * 2;
+
+      house1.position.set(-67, 256, -150);
+      house1.rotation.y = Math.PI * 2;
+
+      house2.position.set(-137, 256, -143);
+      house2.rotation.y = Math.PI * 1.5;
+
+      house3.position.set(-81, 256, -152);
+      house3.rotation.y = Math.PI * 2;
+
+      house4.position.set(-81, 256, -152);
+      house4.rotation.y = Math.PI * 2;
+
+      house5.position.set(-81, 256, -152);
+      house5.rotation.y = Math.PI * 2;
+
+      // Ajouter l'arbre à la scène
+      this.third.scene.add(house);
+      this.third.scene.add(house1);
+      this.third.scene.add(house2);
+      this.third.scene.add(house3);
+      this.third.scene.add(house4);
+      this.third.scene.add(house5);
+    });
+
+    textureLoader.load("/5/test3D/examples/vie/vie-13.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(10, 10);
+      const planeMaterial = new THREE.MeshBasicMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const house = new THREE.Mesh(planeGeometry, planeMaterial);
+      const house1 = new THREE.Mesh(planeGeometry, planeMaterial);
+      const house2 = new THREE.Mesh(planeGeometry, planeMaterial);
+      const house3 = new THREE.Mesh(planeGeometry, planeMaterial);
+      const house4 = new THREE.Mesh(planeGeometry, planeMaterial);
+      const house5 = new THREE.Mesh(planeGeometry, planeMaterial);
+
+      // Placer l'arbre à la position générée
+      house.position.set(-81, 256, -152);
+      house.rotation.y = Math.PI * 2;
+
+      house1.position.set(-67, 256, -150);
+      house1.rotation.y = Math.PI * 2;
+
+      house2.position.set(-137, 256, -143);
+      house2.rotation.y = Math.PI * 1.5;
+
+      house3.position.set(-81, 256, -152);
+      house3.rotation.y = Math.PI * 2;
+
+      house4.position.set(-81, 256, -152);
+      house4.rotation.y = Math.PI * 2;
+
+      house5.position.set(-81, 256, -152);
+      house5.rotation.y = Math.PI * 2;
+
+      // Ajouter l'arbre à la scène
+      this.third.scene.add(house);
+      this.third.scene.add(house1);
+      this.third.scene.add(house2);
+      this.third.scene.add(house3);
+      this.third.scene.add(house4);
+      this.third.scene.add(house5);
+    });
 
     this.third.load
       .texture("/5/test3D/examples/heightmap-island.png")
