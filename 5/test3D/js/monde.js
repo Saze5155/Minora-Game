@@ -1,4 +1,5 @@
 import camera from "/5/test3D/js/cam.js";
+import DevMode from "/5/test3D/js/dev.js";
 import laser from "/5/test3D/js/laser.js";
 //import player from "/5/test3D/js/player.js";
 import { FBXLoader } from "/5/test3D/lib/FBXLoader.js";
@@ -6,16 +7,19 @@ import { FBXLoader } from "/5/test3D/lib/FBXLoader.js";
 export default class monde extends Scene3D {
   constructor() {
     super({ key: "monde" });
+    this.devMode = null;
+    this.tilesData = [
+      // Format : { texture: "chemin/vers/texture.png", position: {x:0, y:0, z:0}, rotation: {x:0, y:0, z:0}}
+    ];
   }
 
   init() {
     this.accessThirdDimension();
   }
 
-  create() {
+  async create() {
     // Initialiser la caméra libre
     this.freeCamera = new camera(this);
-
     this.pointerLaser = new laser(this);
     /*
     this.player = new player(
@@ -30,6 +34,12 @@ export default class monde extends Scene3D {
     // this.third.physics.debug.enable();
 
     const textureLoader = new THREE.TextureLoader();
+
+    this.devMode = new DevMode(this, this.freeCamera.camera, textureLoader);
+
+    this.devMode = new DevMode(this, this.freeCamera.camera, textureLoader);
+
+    // Charger les tiles sauvegardées
 
     const uniforms = {
       topColor: { value: new THREE.Color(0x0077ff) }, // Bleu clair pour le haut du ciel
@@ -279,6 +289,7 @@ export default class monde extends Scene3D {
 
     // Ajouter la physique au cube (collision)
     this.third.physics.add.existing(cube, { mass: 0 });
+    this.devMode.setTargetCube(cube);
 
     const waterTexture = textureLoader.load("/5/test3D/examples/eau.png");
 
@@ -779,11 +790,11 @@ export default class monde extends Scene3D {
       house2.position.set(-137, 256, -143);
       house2.rotation.y = Math.PI * 1.5;
 
-      house3.position.set(-81, 256, -152);
+      house3.position.set(-114, 256, -97);
       house3.rotation.y = Math.PI * 2;
 
-      house4.position.set(-81, 256, -152);
-      house4.rotation.y = Math.PI * 2;
+      house4.position.set(-26, 256, -116);
+      house4.rotation.y = Math.PI * 2.5;
 
       house5.position.set(-81, 256, -152);
       house5.rotation.y = Math.PI * 2;
@@ -814,16 +825,16 @@ export default class monde extends Scene3D {
       const house5 = new THREE.Mesh(planeGeometry, planeMaterial);
 
       // Placer l'arbre à la position générée
-      house.position.set(-81, 256, -152);
+      house.position.set(-100, 256, -161);
       house.rotation.y = Math.PI * 2;
 
-      house1.position.set(-67, 256, -150);
-      house1.rotation.y = Math.PI * 2;
+      house1.position.set(-51, 256, -150);
+      house1.rotation.y = Math.PI * 1;
 
       house2.position.set(-137, 256, -143);
       house2.rotation.y = Math.PI * 1.5;
 
-      house3.position.set(-81, 256, -152);
+      house3.position.set(-83, 256, -87);
       house3.rotation.y = Math.PI * 2;
 
       house4.position.set(-81, 256, -152);
@@ -875,6 +886,68 @@ export default class monde extends Scene3D {
       });
 
     this.input.mouse.disableContextMenu();
+
+    const lightPosition = new THREE.Vector3(0, 100, 100); // Position de la lumière fictive
+
+    textureLoader.load("/5/test3D/examples/vie/vie-14.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(10, 10);
+
+      // Shader Material pour simuler l'effet de lumière
+      const planeMaterial = new THREE.ShaderMaterial({
+        uniforms: {
+          lightPosition: { value: lightPosition }, // Position de la lumière
+          textureSampler: { value: texture }, // Texture du sprite
+        },
+        vertexShader: `
+          varying vec2 vUv;
+          varying vec3 vNormal;
+          varying vec3 vPosition;
+    
+          void main() {
+            vUv = uv;
+            vPosition = (modelViewMatrix * vec4(position, 1.0)).xyz;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+          }
+        `,
+        fragmentShader: `
+          uniform sampler2D textureSampler;
+          uniform vec3 lightPosition;
+          varying vec2 vUv;
+          varying vec3 vPosition;
+    
+          void main() {
+            vec3 lightDir = normalize(lightPosition - vPosition);
+            float lightIntensity = max(dot(normalize(vec3(0.0, 0.0, 1.0)), lightDir), 0.0);
+            
+            // Ajout de la texture
+            vec4 textureColor = texture2D(textureSampler, vUv);
+    
+            // Couleur finale modifiée par l'intensité de la lumière
+            vec3 finalColor = textureColor.rgb * lightIntensity;
+    
+            // Garde la transparence de la texture
+            gl_FragColor = vec4(finalColor, textureColor.a);
+          }
+        `,
+        transparent: true,
+        side: THREE.DoubleSide,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(
+        -30.211321173606162,
+        256.40000000000003,
+        -144.82520030950528
+      );
+
+      if (0.39269908169872414 != undefined) {
+        tile.rotation.y = 0.39269908169872414;
+      }
+
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
   }
 
   // Correction de l'orthographe d'update

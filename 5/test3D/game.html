@@ -21,6 +21,23 @@
   </head>
 
   <body>
+    <div
+      id="image-selector"
+      style="
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        width: 120px; /* Largeur plus petite */
+        height: 300px; /* Hauteur maximale pour limiter la taille */
+        overflow-y: scroll; /* Défilement si le contenu dépasse */
+        display: flex;
+        flex-direction: column; /* Les tuiles seront disposées verticalement */
+        z-index: 1000;
+        border: 1px solid #ccc; /* Bordure pour voir la limite de la div */
+        background-color: #f9f9f9; /* Optionnel : Couleur de fond */
+      "
+    ></div>
+
     <script type="module" src="/5/test3D/js/index.js"></script>
   </body>
 </html>

@@ -410,9 +410,9 @@ playerAttack(attack) {
     }
 
     updateEnemyMPText() {
-        this.enemyMPText.setText(`MP: ${this.enemyMP}`);
-    }
-    
+    this.enemyMPText.setText(`MP: ${this.enemyMP}`);
+}
+
     
 
     enemyTurn() {
