@@ -1,7 +1,7 @@
+import Global from "/5/test3D/js/inventaire.js";
+
 export default class Player {
   constructor(scene, x, y, z, textureKey, combat) {
-
-
     // Charger la texture initiale
     const texture = new THREE.TextureLoader().load(textureKey);
     const geometry = new THREE.PlaneGeometry(2.5, 2.5);
@@ -20,10 +20,11 @@ export default class Player {
     // Ajouter un corps physique au personnage (walkPlane)
     scene.third.physics.add.existing(this.walkPlane, {
       shape: "box",
-      width: 2.5,
-      height: 2.5,
+      width: 1.5,
+      height: 2,
       depth: 0.1,
     });
+    this.walkPlane.geometry = new THREE.PlaneGeometry(1.5, 2); // Dimensions mises à jour
 
     // Appliquer la gravité à walkPlane
     this.walkPlane.body.setGravity(0, -9.8, 0); // Gravité dirigée vers le bas
@@ -38,7 +39,11 @@ export default class Player {
       forward: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z),
       backward: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S),
       jump: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE),
-      attack: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O), // Clé pour le saut
+      attack: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O),
+      interact: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E),
+      inventory: scene.input.keyboard.addKey(
+        Phaser.Input.Keyboard.KeyCodes.TAB
+      ),
     };
 
     this.material = material; // Stocker le matériau pour l'utiliser dans animateWalk
@@ -57,6 +62,10 @@ export default class Player {
     this.marcheArriereTextures = []; // Animations arrière
     this.isWalking = false;
     this.isJumping = false;
+    this.inventory = true;
+
+    this.savedVelocityX = 0; // Mémoriser la vitesse X pendant l'attaque
+    this.savedVelocityZ = 0;
 
     // Charger toutes les animations en tenant compte des dossiers
     this.loadTextures("attack", "_attaquedroite", 8, this.attaqueDroite);
@@ -78,6 +87,10 @@ export default class Player {
       4,
       this.marcheArriereTextures
     ); // Reculer
+  }
+
+  preload() {
+    this.load.image("steak", "/5/test3D/examples/cuisine/steak_cru.png");
   }
 
   // Fonction pour charger les textures depuis un dossier spécifique
@@ -158,8 +171,6 @@ export default class Player {
       frameRate = 150;
     }
 
-    console.log(action, frameRate);
-
     let lastFrameTime = 0;
 
     const animateFrame = (time) => {
@@ -195,35 +206,37 @@ export default class Player {
 
     // Vérifier si une attaque est en cours
     if (this.isAttacking) {
-      // Si une attaque est en cours, on ne fait rien d'autre
+      body.setVelocityX(0);
+      body.setVelocityZ(0);
       return;
     }
 
     // Mouvement gauche/droite
     if (this.keys.left.isDown) {
-      velocityX = -2;
+      velocityX = -6;
       this.walkPlane.scale.x = -1;
       isWalking = true;
       if (!this.isJumping && this.isOnGround()) {
         this.animateAction("walkgauche");
       }
     } else if (this.keys.right.isDown) {
-      velocityX = 2;
+      velocityX = 6;
       this.walkPlane.scale.x = 1;
       isWalking = true;
       if (!this.isJumping && this.isOnGround()) {
         this.animateAction("walkdroite");
       }
-    }
-
-    if (this.keys.forward.isDown) {
-      velocityZ = -2; // Avancer
-      isWalking = true;
-      if (!this.isJumping) this.animateAction("marcheArriere");
-    } else if (this.keys.backward.isDown) {
-      velocityZ = 2; // Reculer
-      isWalking = true;
-      if (!this.isJumping) this.animateAction("marcheAvant");
+    } else {
+      // Seulement vérifier le mouvement avant/arrière si gauche/droite n'est pas activé
+      if (this.keys.forward.isDown && !this.isAttacking) {
+        velocityZ = -6; // Avancer
+        isWalking = true;
+        if (!this.isJumping) this.animateAction("marcheArriere");
+      } else if (this.keys.backward.isDown && !this.isAttacking) {
+        velocityZ = 6; // Reculer
+        isWalking = true;
+        if (!this.isJumping) this.animateAction("marcheAvant");
+      }
     }
 
     if (this.keys.jump.isDown && this.isOnGround()) {
@@ -241,6 +254,10 @@ export default class Player {
     if (this.keys.attack.isDown && this.isOnGround()) {
       this.isAttacking = true;
       this.attack = true;
+      this.savedVelocityX = velocityX;
+      this.savedVelocityZ = velocityZ;
+      velocityZ = 0;
+      velocityX = 0;
 
       // Lancer l'animation d'attaque
       if (this.keys.left.isDown) {
@@ -251,24 +268,42 @@ export default class Player {
 
       // Bloquer toute autre animation pendant l'attaque
       setTimeout(() => {
-        this.isAttacking = false; // L'attaque est terminée après un certain temps
+        this.isAttacking = false;
+        if (
+          !this.keys.left.isDown &&
+          !this.keys.right.isDown &&
+          !this.keys.forward.isDown &&
+          !this.keys.backward.isDown
+        ) {
+          body.setVelocityX(0);
+          body.setVelocityZ(0);
+        } // L'attaque est terminée après un certain temps
       }, 1000); // Durée de l'attaque (en millisecondes) — ajuste selon la durée de ton animation
     }
-
-    // Appliquer les vitesses
-    body.setVelocityX(velocityX);
-    body.setVelocityY(velocityY);
-    body.setVelocityZ(velocityZ);
-
-    // Si le personnage atterrit, revenir à l'animation idle
     if (this.isOnGround() && !this.isAttacking) {
       this.isJumping = false;
+
       if (!isWalking) {
+        body.setVelocityX(0);
+        body.setVelocityZ(0);
         this.animateAction("idle");
       }
     }
+    if (!this.isAttacking) {
+      body.setVelocityX(velocityX);
+      body.setVelocityY(velocityY);
+      body.setVelocityZ(velocityZ);
+    }
 
-    // Suivre le joueur avec la caméra
+    if (this.keys.inventory.isDown && this.inventory) {
+      this.inventory = false;
+      Global.toggleInventory(scene);
+
+      setTimeout(() => {
+        this.inventory = true;
+      }, 1000);
+    }
+
     scene.third.camera.position.set(
       this.walkPlane.position.x,
       this.walkPlane.position.y + 2,

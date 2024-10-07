@@ -1,0 +1,4502 @@
+[
+  {
+    "x": 70.84433831849273,
+    "z": -200.1692065759092,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": 17.491395787806503,
+    "z": -219.68063465833876,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": 95.24984227066611,
+    "z": -207.0877609303769,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 18.358180230886774,
+    "z": -221.2369225501217,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -30.033286879737478,
+    "z": -232.7389718672129,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -1.0651964273566108,
+    "z": -230.57267113112326,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 95.23897768535214,
+    "z": -215.39775392099494,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -20.995575664394032,
+    "z": -230.93644849043383,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": 35.34860997586324,
+    "z": -217.3441498140609,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -43.98416897861486,
+    "z": -234.8454020772693,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 79.51292225193959,
+    "z": -206.73552122154052,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": 100.66053247316908,
+    "z": -199.1684391195393,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 39.46693792147329,
+    "z": -205.63046770803118,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -34.1523670565627,
+    "z": -225.5923275883168,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": 77.58259273254427,
+    "z": -199.87622917690825,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": 9.203335540947329,
+    "z": -232.19222565881114,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": 29.25235616932632,
+    "z": -215.7690021357582,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": 93.91416253431234,
+    "z": -213.2124414229409,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 55.6678876116883,
+    "z": -213.27348584938565,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -44.90307319291946,
+    "z": -217.94982530342224,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": 86.0969741521665,
+    "z": -205.4875939831655,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -20.955585629572465,
+    "z": -214.15466202523334,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 55.468816012568396,
+    "z": -215.67820151545567,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 78.55291315392097,
+    "z": -211.63220935039462,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 4.202276370091745,
+    "z": -224.0864624005833,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": 47.870837356430556,
+    "z": -204.22381686870006,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 22.73606679735188,
+    "z": -222.16917219708205,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": 79.66667674257522,
+    "z": -213.55150118097532,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 34.883871734426144,
+    "z": -222.50729744944712,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 35.16909765412935,
+    "z": -227.2038578554964,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -27.83915037497001,
+    "z": -217.53077237679076,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": 17.549927022280315,
+    "z": -214.2522501845178,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -6.573863056035847,
+    "z": -230.87322673540015,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -7.918840296014039,
+    "z": -233.68514371139034,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 91.07993876140482,
+    "z": -215.13001245050873,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -12.353965006166625,
+    "z": -212.5798336819046,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": 0.1556740972042121,
+    "z": -210.00775520690487,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 52.99056666924386,
+    "z": -217.4412881586292,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 36.539509084439594,
+    "z": -228.42790131391962,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -24.28895870747059,
+    "z": -216.38315633632155,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": 68.16221536286665,
+    "z": -206.1997544543863,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -15.041101221420636,
+    "z": -230.98210463068904,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -1.4265431309639283,
+    "z": -220.33426724096825,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": 78.28046646399264,
+    "z": -197.7438016586319,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -28.784210949222782,
+    "z": -232.30431023531386,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": 46.740347913393954,
+    "z": -213.12993488653348,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": 101.33367990563582,
+    "z": -204.7751148504807,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": 104.91694254796232,
+    "z": -216.13348217235324,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -3.0038859373168236,
+    "z": -232.4588611511475,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -0.4704571641809778,
+    "z": -220.09087491424927,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": 4.0067084764515,
+    "z": -217.42160664789174,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 3.389174143664185,
+    "z": -229.3825187975,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": 98.30304531165932,
+    "z": -197.26226360150963,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -9.52140705619643,
+    "z": -235.07268703389224,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": 87.35257680043276,
+    "z": -219.24952313252885,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 59.69102778141751,
+    "z": -221.4002979218287,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 27.845705712111403,
+    "z": -205.85210115369256,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -22.020535946138843,
+    "z": -217.52452151453343,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 20.408774598779146,
+    "z": -228.81891191626718,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": 30.790634370320888,
+    "z": -230.5230183117038,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 91.20058129444155,
+    "z": -206.63843929995028,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -7.217300154651809,
+    "z": -234.52537886401845,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": 67.21660198377157,
+    "z": -200.06972949643534,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -38.796835705373546,
+    "z": -238.26457615037387,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -40.69865162188427,
+    "z": -236.16826954144202,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 38.08086527708821,
+    "z": -208.2312108975229,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -31.94046975775513,
+    "z": -216.6758603146686,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 75.1678857462262,
+    "z": -214.48631190655163,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 94.92205256663203,
+    "z": -197.0602169048812,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -43.8089437058358,
+    "z": -233.52152324807807,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": 69.24628041004416,
+    "z": -212.98596306679605,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -39.07049369477499,
+    "z": -239.8119687368068,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": 71.61310204785455,
+    "z": -201.7241090309832,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 103.86714523010878,
+    "z": -217.59847674037002,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -22.894522301136302,
+    "z": -218.1775827254904,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 45.931682392351355,
+    "z": -206.54439536613108,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": 15.055725066340116,
+    "z": -226.1915477301688,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -28.80935081672084,
+    "z": -233.9104001497062,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 93.90898053677547,
+    "z": -208.54134943042598,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": 14.118680427993404,
+    "z": -232.59220988384897,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": 71.86927972254297,
+    "z": -210.12884306738832,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 40.1678880984291,
+    "z": -217.1143160125201,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": 30.30469761978255,
+    "z": -231.4814875321518,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 86.816640764319,
+    "z": -212.23678097948715,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 13.378718071000833,
+    "z": -218.72161863994583,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": 77.56759354979536,
+    "z": -222.23428335070938,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": 38.26380515381352,
+    "z": -220.22857167735992,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": 62.7754573656519,
+    "z": -204.49305312127515,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": 17.725192968150594,
+    "z": -220.9662111793902,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": 6.435324060740278,
+    "z": -231.8405913850827,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -34.47911371266858,
+    "z": -219.14153985306783,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": 55.40106968051897,
+    "z": -218.4816858208441,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": 80.27223576950219,
+    "z": -219.51646011943848,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": 22.594879343145237,
+    "z": -232.510273540413,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -12.32337948234262,
+    "z": -236.87772811001486,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -29.845719150029826,
+    "z": -230.56940455912732,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": 80.14285146870255,
+    "z": -203.02388612009338,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 16.70037679571064,
+    "z": -208.20387195017042,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -12.646256535350929,
+    "z": -211.00145188997368,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 82.80315068940638,
+    "z": -207.9649138051159,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 10.393200122151796,
+    "z": -211.2501795093988,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": 75.91524562933408,
+    "z": -203.5164829636366,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": 8.680047295717955,
+    "z": -223.24965615755775,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 64.85139439666852,
+    "z": -219.62124507438574,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -40.402521030564486,
+    "z": -238.49530338853393,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 46.858675702306165,
+    "z": -202.89776636277938,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -31.48802706700649,
+    "z": -232.04600224225908,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -37.026369625996836,
+    "z": -233.99892069455615,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": 6.279701833984021,
+    "z": -225.7791361183302,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 103.98435781922367,
+    "z": -214.5173521114278,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 82.10895817581151,
+    "z": -197.5251680097606,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": 10.764135921023971,
+    "z": -208.1742772970074,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -37.68996240672629,
+    "z": -241.8129937787021,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 72.74767398962207,
+    "z": -218.67626641801942,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 6.542726846787815,
+    "z": -210.30750951530754,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -16.890539846635424,
+    "z": -238.71381148949956,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": 6.541237241753201,
+    "z": -228.5705384646793,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -30.80226968527565,
+    "z": -236.06988700825892,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -20.490371010971387,
+    "z": -238.1176561391237,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 85.67065271555448,
+    "z": -216.88029499901654,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": 86.10559590482383,
+    "z": -200.4528203056794,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -7.365274670356037,
+    "z": -227.10651967282308,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 22.09275047820571,
+    "z": -216.82682602180964,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": 20.453959805122352,
+    "z": -232.95050516269748,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -28.090413487634,
+    "z": -231.88330296518006,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 12.940649643849326,
+    "z": -220.32998469775265,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 83.9069746146107,
+    "z": -200.5191817458528,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 40.13636812565065,
+    "z": -210.47866200497302,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 14.32508706382933,
+    "z": -220.54610717453636,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 39.88476830803489,
+    "z": -212.84615685140201,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": 34.87716636996817,
+    "z": -217.75031375772548,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": 18.977189845797433,
+    "z": -223.98194247651088,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 104.88657984287883,
+    "z": -209.76045454235214,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -21.45127174832454,
+    "z": -212.94144180922513,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -21.900128864164692,
+    "z": -234.81436327236108,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": 59.725980867376805,
+    "z": -222.8660202526155,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 36.37580618979915,
+    "z": -213.09476414845136,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 73.92522874543232,
+    "z": -205.46757041552772,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 88.49620126163046,
+    "z": -195.8986189636972,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": 90.55419968450843,
+    "z": -208.66482921145393,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -25.976979649786873,
+    "z": -232.58656894705373,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -29.402420979449964,
+    "z": -238.5132280301994,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -32.64545297255265,
+    "z": -229.47059329726665,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -33.745902745417695,
+    "z": -225.768748340834,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": 2.8407371520221716,
+    "z": -226.59059531522644,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 20.104569636914846,
+    "z": -230.10274233467948,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -9.52707478003213,
+    "z": -215.61004545693257,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": 94.34667071371777,
+    "z": -197.2985907900701,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": 17.403575902857355,
+    "z": -232.64669345055407,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 93.0441542899687,
+    "z": -202.5399900132882,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -176.3822970324769,
+    "z": -160.84577648107393,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -115.47436841698119,
+    "z": -201.9063825497314,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -181.90841039888554,
+    "z": -155.26342080987735,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -66.86945753897244,
+    "z": -206.78324808827955,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -112.55701103119992,
+    "z": -193.83809126828743,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -121.6093736531172,
+    "z": -175.6077947876521,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -130.4589534398166,
+    "z": -186.47840344232108,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -77.92638459519308,
+    "z": -217.27033113063024,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -101.88407963444288,
+    "z": -195.8978756817439,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -95.37612260708983,
+    "z": -196.5305460853493,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -121.38103610887535,
+    "z": -189.02055459426137,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -53.437956270823946,
+    "z": -214.0880385034377,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -117.28334603054215,
+    "z": -184.3302566866629,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -97.17190015120275,
+    "z": -201.64633122757465,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -187.92861555364001,
+    "z": -159.29449831863468,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -172.840834579162,
+    "z": -160.01731665836118,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -147.3189153386815,
+    "z": -181.8818753971325,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -89.39517187877989,
+    "z": -201.37374170649946,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -121.82154518075347,
+    "z": -194.42964792916564,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -61.49937346368297,
+    "z": -212.04296132479902,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -102.31540865312395,
+    "z": -186.34738170902867,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -62.20954184577769,
+    "z": -213.52153036589363,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -97.06065452955347,
+    "z": -188.64792391071236,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -83.50472823043204,
+    "z": -210.77634008313413,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -57.13544418078733,
+    "z": -222.0132646552638,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -64.96193262315349,
+    "z": -209.46681233873474,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -135.77969348906132,
+    "z": -170.03424161091095,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -138.731580326843,
+    "z": -184.13238588995875,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -66.12431388280312,
+    "z": -208.5629027523208,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -70.60941268269205,
+    "z": -210.34615631842777,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -107.83320518397035,
+    "z": -200.87250028044062,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -81.27484386665463,
+    "z": -221.0362526677684,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -170.47422212529668,
+    "z": -154.73830515207158,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -62.74021930877922,
+    "z": -209.2515928677056,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -119.83098260290235,
+    "z": -198.73576226046438,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -163.2081995330702,
+    "z": -169.8175099142658,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -117.94433561116713,
+    "z": -179.5389562093011,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -63.94249291257276,
+    "z": -232.157406291088,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -76.14511710388653,
+    "z": -205.8063043264341,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -109.0967607942038,
+    "z": -187.26986988778427,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -83.69645902021976,
+    "z": -206.23554704768225,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -162.19491464275495,
+    "z": -168.57810578238505,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -97.41791619164646,
+    "z": -203.25650422051257,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -138.6499975248389,
+    "z": -173.47551481430773,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -56.66796093309904,
+    "z": -234.27312269426807,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -69.00016593745197,
+    "z": -206.77455215391257,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -87.89379940945457,
+    "z": -194.4010390265635,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -61.12526968554869,
+    "z": -209.3791442642885,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -59.60009556177208,
+    "z": -221.4650066980088,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -64.1893441773656,
+    "z": -225.2787966277403,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -134.65088378353235,
+    "z": -181.80756418122155,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -146.8159677480238,
+    "z": -177.11645522754267,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -173.5009699367814,
+    "z": -148.13453824660888,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -88.99425382030327,
+    "z": -216.22910576217674,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -63.01091419548071,
+    "z": -213.3163787920451,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -139.14341979736272,
+    "z": -183.65922530680808,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -157.07313586366604,
+    "z": -165.12288016127025,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -63.56919406297385,
+    "z": -223.74679404305323,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -128.1845369553652,
+    "z": -187.2438638705131,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -100.78388879099066,
+    "z": -203.23998822168787,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -51.06216052114567,
+    "z": -234.6718657125943,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -114.95742302564547,
+    "z": -188.45514781253166,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -47.281559770579406,
+    "z": -226.28414103705967,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -75.93251518323602,
+    "z": -204.75450522541837,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -161.60929430806507,
+    "z": -168.59210402469316,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -182.73625813004162,
+    "z": -154.7929695888298,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -65.59381206139717,
+    "z": -231.34596013908993,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -111.21949683223465,
+    "z": -199.83639132567643,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -153.45662609926822,
+    "z": -167.21219056812205,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -65.41749941672911,
+    "z": -214.5608052904995,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -180.5397826161037,
+    "z": -150.41000359148617,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -162.2983502812604,
+    "z": -164.1999915736401,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -139.483121671147,
+    "z": -165.64111682002994,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -52.10494439831584,
+    "z": -235.1185685773365,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -116.42892633138123,
+    "z": -196.17896019435491,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -149.38591692321822,
+    "z": -171.5770200226159,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -45.036880464272514,
+    "z": -234.65530911847725,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -161.75255201504092,
+    "z": -167.58948023911884,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -169.0618483885318,
+    "z": -159.79600139639638,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -46.668836368037205,
+    "z": -239.36884201025825,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -147.80723710538751,
+    "z": -182.35810780672955,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -135.8750855643487,
+    "z": -188.875037265643,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -73.92988781457102,
+    "z": -216.80089799500536,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -98.14647239746823,
+    "z": -201.36758662318218,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -181.43865982648828,
+    "z": -156.14335480849022,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -109.55952204116957,
+    "z": -192.6492986635255,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -61.62657655330196,
+    "z": -216.44734748890866,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -122.52359057290134,
+    "z": -197.68865914714172,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -163.13468586511397,
+    "z": -161.664016286831,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -88.57557445594885,
+    "z": -212.9581500335973,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -125.4331146778625,
+    "z": -175.5093062997812,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -55.79385342136666,
+    "z": -220.74989496715608,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -91.61995305543181,
+    "z": -215.50853045919362,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -75.8052524601519,
+    "z": -205.1394739392262,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -132.7772255274752,
+    "z": -173.8851969541176,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -143.21067940710722,
+    "z": -166.83778763003014,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -134.7102421266972,
+    "z": -187.80504133480486,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -71.57407334493173,
+    "z": -207.39461613073905,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -101.01200509277317,
+    "z": -196.93020392046913,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -162.01606156575295,
+    "z": -154.32107976576492,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -94.10616367278644,
+    "z": -205.80893683769787,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -141.77883788955162,
+    "z": -174.21863752395996,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -84.53234250450153,
+    "z": -211.5446491348864,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -72.29826394717034,
+    "z": -216.13062015146056,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -61.095564160167385,
+    "z": -215.79867529401292,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -73.1419286137044,
+    "z": -214.89300727287002,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -126.56027602768589,
+    "z": -181.93536925539956,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -141.8550874901749,
+    "z": -184.1896585839065,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -127.52207869806264,
+    "z": -178.20301501339597,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -159.48248522312375,
+    "z": -175.7299022704503,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -143.47647472366273,
+    "z": -167.10645011414059,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -106.89801682405026,
+    "z": -183.71665427362197,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -147.71405358466654,
+    "z": -171.8184511280478,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -127.26118480322445,
+    "z": -193.04751288208132,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -157.67348655782675,
+    "z": -157.54677801793756,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -107.05241121051687,
+    "z": -199.0930613057728,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -97.1158074696002,
+    "z": -190.06533458980368,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -125.33451803228667,
+    "z": -178.46616288094367,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -89.45307589495587,
+    "z": -208.53123464487425,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -100.55328348758349,
+    "z": -204.16752312692535,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -63.40559991516082,
+    "z": -225.30281966496534,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -147.46424090813417,
+    "z": -161.67306320469785,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -48.134707966897395,
+    "z": -223.84966769293771,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -50.31288913380499,
+    "z": -239.46970078895762,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -170.63049638354835,
+    "z": -168.56511136202388,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -127.44743602377102,
+    "z": -191.37178576614147,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -50.840298505884675,
+    "z": -219.20056033259476,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -65.84196408346571,
+    "z": -222.32464233276468,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -71.69949804307662,
+    "z": -224.98000605484808,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -75.69314530076105,
+    "z": -204.38408075474842,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -57.37416504230791,
+    "z": -219.32154762097676,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -160.8542583418885,
+    "z": -162.0722600978762,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -130.73013122479895,
+    "z": -176.88378864815118,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -133.4730281022184,
+    "z": -179.21122380349087,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -169.44769105383267,
+    "z": -163.70484667850022,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -120.38379652792938,
+    "z": -179.56677299783485,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -162.83476089417553,
+    "z": -162.9929055803965,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -128.39124192204363,
+    "z": -183.62327379182398,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -121.98379566538829,
+    "z": -178.8738497130068,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -151.33540773652288,
+    "z": -158.92601794422504,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -143.00673276160398,
+    "z": -172.11850163203246,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -183.75101994465587,
+    "z": -159.77717532688106,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -67.00265108802147,
+    "z": -222.06645869101717,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -155.3437983315986,
+    "z": -176.3833680535513,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -139.69806554472527,
+    "z": -174.99947287562688,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -92.53943152217876,
+    "z": -205.5647554105845,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -74.07203337557642,
+    "z": -213.03743420216745,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -81.84268717082743,
+    "z": -217.692635065377,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -78.27896741708115,
+    "z": -204.2787769989036,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -65.3110692717356,
+    "z": -213.31129862875463,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -216.47741728762674,
+    "z": -29.349226246539374,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -193.0512113573375,
+    "z": -110.46154400394505,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -207.68186321952322,
+    "z": -40.84988487839459,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -197.8484227734399,
+    "z": -131.21136354734128,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -221.30968004206278,
+    "z": -24.58381523037521,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -231.858396597798,
+    "z": -27.099139887327198,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -195.2645607971359,
+    "z": -82.9336147061518,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -182.8344118512459,
+    "z": -125.91887912826134,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -225.86855372239512,
+    "z": -52.9255191247318,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -232.55157075734482,
+    "z": -30.994891964189566,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -210.04220250659972,
+    "z": -25.210482575061498,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -211.07504048003162,
+    "z": -42.54293369489795,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -181.1438954587449,
+    "z": -145.26625426258474,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -191.76084326909097,
+    "z": -134.94203191007412,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -208.37097380386786,
+    "z": -37.13502360575208,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -194.31754109004464,
+    "z": -111.0769634930889,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -187.65659574683013,
+    "z": -138.98462982132213,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -207.67598055790452,
+    "z": -78.29345334678948,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -206.16846835924628,
+    "z": -109.94914730058576,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -206.9635149441474,
+    "z": -69.65806595794348,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -203.66187736721616,
+    "z": -65.71363658902106,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -180.13437896203163,
+    "z": -137.0127280817086,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -180.29159816140643,
+    "z": -143.61145879213856,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -206.13416060117194,
+    "z": -104.23357997820605,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -196.50322604416547,
+    "z": -92.23623157496169,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -203.66234876176333,
+    "z": -61.43143221563503,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -199.24302191161888,
+    "z": -113.43076812987125,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -202.34674479091188,
+    "z": -118.91814975064727,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -203.0540505560693,
+    "z": -107.10747685490553,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -193.23428385436722,
+    "z": -107.01310778523428,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -194.43708412794203,
+    "z": -81.73985311855483,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -201.55304217494867,
+    "z": -124.18410265300155,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -202.9670869902038,
+    "z": -111.52368729756634,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -238.2584885730409,
+    "z": -18.183229183098636,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -194.92776071624172,
+    "z": -112.2766594082497,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -201.67250080987304,
+    "z": -114.55858791727442,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -199.40846523943793,
+    "z": -94.70371030080841,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -216.79913755723038,
+    "z": -58.69225259707443,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -229.4669701490464,
+    "z": -44.29916367243715,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -185.80516180908924,
+    "z": -123.72550582780367,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -219.18600594566655,
+    "z": -35.63165102025808,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -203.03816939107605,
+    "z": -96.88894751588052,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -215.1109653254708,
+    "z": -82.20504360423075,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -177.77045372959412,
+    "z": -141.65851584804292,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -212.7141390161262,
+    "z": -45.15709362903384,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -213.05322044948412,
+    "z": -60.32050577758738,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -227.61211157218156,
+    "z": -42.502276135923026,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -210.821174541259,
+    "z": -53.01317522287975,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -182.6353911464642,
+    "z": -130.49349610297676,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -239.1742606572922,
+    "z": -20.419896476407757,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -199.391350688424,
+    "z": -66.66571208291846,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -209.7381414903328,
+    "z": -28.084073030969048,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -201.5296249966735,
+    "z": -115.54889674634126,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -194.943914167693,
+    "z": -95.49433824457657,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -202.04510053336753,
+    "z": -118.93713161155466,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -197.19232928325403,
+    "z": -77.20297115893807,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -198.08363824420093,
+    "z": -129.06403990187718,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -219.1332885737107,
+    "z": -61.022416921785556,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -188.16448656751206,
+    "z": -108.45493886871456,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -214.38003976110147,
+    "z": -15.94195133366659,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -183.56996323893858,
+    "z": -140.12874703577504,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -181.89102522923795,
+    "z": -130.67218510991486,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -218.2290943717696,
+    "z": -37.15560013199259,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -232.62075949733114,
+    "z": -26.335604284249765,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -228.79912722552663,
+    "z": -18.969151125032585,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -213.29424395593685,
+    "z": -56.60361326356095,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -205.16269989912874,
+    "z": -91.99594811960996,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -187.44169005099712,
+    "z": -120.21651780788063,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -187.1282550925892,
+    "z": -132.99421386031486,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -200.92268669040982,
+    "z": -87.75685853513228,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -197.16543213223747,
+    "z": -105.75633091242177,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -213.0236526833754,
+    "z": -90.36024417390078,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -211.4129451124309,
+    "z": -78.19726795470083,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -184.65198534186464,
+    "z": -131.19334403104835,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -193.77732066249203,
+    "z": -131.34549869913587,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -218.77713157150814,
+    "z": -50.75079983698762,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -201.09308795805632,
+    "z": -68.37096042229521,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -227.10260673249948,
+    "z": -44.49951363673952,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -182.00111360852577,
+    "z": -143.63250178361506,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -233.01789809171274,
+    "z": -22.761168399757715,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -204.9383833552569,
+    "z": -109.94428585013904,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -214.36619847988288,
+    "z": -16.75037764722604,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -191.92734719558706,
+    "z": -103.75098272032677,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -212.92765877806946,
+    "z": -41.09933962681335,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -186.09749415074378,
+    "z": -144.8228389117313,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -195.40264635043005,
+    "z": -98.27219553044681,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -185.69000085440567,
+    "z": -132.46324964209805,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -206.52242630535207,
+    "z": -60.4820725319412,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -226.3259379161421,
+    "z": -38.73362396981418,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -231.48600787852263,
+    "z": -30.153509875864707,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -207.9758762642361,
+    "z": -42.18755427847186,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -204.1150499108059,
+    "z": -51.58673134495755,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -178.35036024848927,
+    "z": -139.19295855454624,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -229.63736175843684,
+    "z": -41.7041547243497,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -188.94366839997505,
+    "z": -146.44327496723642,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -210.07539685201826,
+    "z": -47.247317921749904,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -218.2479046543196,
+    "z": -32.7755876632383,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -232.83398509619343,
+    "z": -30.37496140861267,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -218.0734496816402,
+    "z": -27.714404882367234,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -221.19461039778523,
+    "z": -15.902037447364386,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -190.8085139744697,
+    "z": -153.633515408476,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -205.6230873740937,
+    "z": -95.94517517662888,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -223.34205363673243,
+    "z": -50.23138688439738,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -225.0050281010649,
+    "z": -24.45878214746359,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -213.6342721256986,
+    "z": -50.24954977828294,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -214.25048241208214,
+    "z": -18.770500804071887,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -206.60676542557633,
+    "z": -75.62092156677348,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -188.97315447558972,
+    "z": -116.6153143168253,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -181.78506409379315,
+    "z": -143.35051928200573,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -199.91963812405606,
+    "z": -61.972556231949845,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -206.46464837097852,
+    "z": -63.68275932609356,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -200.43095858080218,
+    "z": -71.67743716772443,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -199.07089996909838,
+    "z": -74.15543958575344,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -220.1168470961534,
+    "z": -72.00685189051647,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -206.9689436274745,
+    "z": -81.68525273338457,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -196.99250457237954,
+    "z": -88.72231201362146,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -205.0137522953992,
+    "z": -60.139892403453246,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -190.20461791732254,
+    "z": -142.0962469768384,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -218.40677032136432,
+    "z": -17.902933159210022,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -200.6103624157255,
+    "z": -64.08748573150102,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -215.17291473885734,
+    "z": -18.084409412804227,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -209.4280044749127,
+    "z": -49.609715208299455,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -216.8904297832128,
+    "z": -63.36526067794553,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -221.29694420240205,
+    "z": -28.350393870708555,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -206.43116550131197,
+    "z": -70.99343061164359,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -228.41747134662194,
+    "z": -49.013089633312205,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -181.78603025106545,
+    "z": -147.30707764431762,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -221.00000703992967,
+    "z": -35.52018556241751,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -200.22803448860589,
+    "z": -96.72855221787795,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -209.08506063819223,
+    "z": -31.721966853798826,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -222.29777810943574,
+    "z": -43.485903528637316,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -177.37441817737624,
+    "z": -143.83714550778518,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -201.78053997574506,
+    "z": -107.09781447662714,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -188.67535060528834,
+    "z": -154.70467064781658,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -199.17601534597236,
+    "z": -64.74968906463924,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -199.54156750705747,
+    "z": -99.18341422740804,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -209.84355638313497,
+    "z": -78.33974750180765,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -199.19647206154943,
+    "z": -124.89399490544534,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -193.9720131061802,
+    "z": -117.0953860855801,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -229.07634872104097,
+    "z": -45.28623481221026,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -201.7154512726999,
+    "z": -74.73042248741814,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -222.94851290599138,
+    "z": -19.50741062418653,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -180.00521859331624,
+    "z": -139.375117327995,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -213.92094924060328,
+    "z": -68.30836934511322,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -185.5133497670178,
+    "z": -119.27044650602551,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -185.87943879199975,
+    "z": -138.85744333560157,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -203.28462806751912,
+    "z": -89.29205802936863,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -207.51023342554095,
+    "z": -39.15136780762779,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -209.2181018041134,
+    "z": -57.099779988073436,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -187.60308802718367,
+    "z": -114.1995877981986,
+    "hitboxWidth": 20,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -103.7109306364776,
+    "z": -169.55148992673318,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -145.0791743166114,
+    "z": -142.267464708423,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -1.8688695184707456,
+    "z": -138.22908657427496,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -20.929215872078913,
+    "z": -211.5380556784864,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": 5.163543973866609,
+    "z": -81.92916562754218,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -172.02157591442577,
+    "z": -105.07525336866418,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -82.23604485077942,
+    "z": -185.73656611696242,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -142.23078192686387,
+    "z": -113.30265566343054,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -77.88032080340514,
+    "z": -21.9546978228106,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -25.376794315785588,
+    "z": -73.05877707750858,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -70.33693603197446,
+    "z": -170.29574388967225,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -209.20280724927017,
+    "z": -21.380880867430363,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -36.939925215469685,
+    "z": -191.05185960379012,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": 4.668635211060035,
+    "z": -202.19127624363304,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": 12.167410854568772,
+    "z": -157.3283660316237,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -106.78126346778602,
+    "z": -184.75069009598403,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -132.65664691476056,
+    "z": -123.54841925080495,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -129.85503066500496,
+    "z": -36.322065521282724,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -68.99243439904538,
+    "z": -55.169233714586454,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -115.26866157189909,
+    "z": -166.86617801434932,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 5.825439139572808,
+    "z": -186.333964893074,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -161.37640680785486,
+    "z": -23.728189750155394,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -137.920897379988,
+    "z": -77.77633707798208,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -199.09568076082576,
+    "z": -15.51022711578355,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -123.29340097022423,
+    "z": -162.19028689762462,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 8.582002554548154,
+    "z": -80.83521899608348,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -153.76785186336983,
+    "z": -54.927746831818126,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -148.77381745339702,
+    "z": -148.57755235953368,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 14.547160128499513,
+    "z": -179.94289208908737,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -147.83619468822613,
+    "z": -44.21171561707601,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -17.43533441680657,
+    "z": -207.48800993826634,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -37.6009670140559,
+    "z": -211.37512067416188,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 60.11980286431282,
+    "z": -176.28628626316942,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -151.00147047171657,
+    "z": -142.0171407857481,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -25.54603609325926,
+    "z": -148.06186798330322,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -65.5971868934073,
+    "z": -208.70641928579556,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -50.11365257150504,
+    "z": -182.10233530244065,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -88.59822198975696,
+    "z": -188.89086536256966,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -62.8393809618959,
+    "z": -27.4104824377508,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -95.12125267897821,
+    "z": -170.24403147994164,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": 37.439990704556465,
+    "z": -150.62191376500908,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -61.1307188949454,
+    "z": -35.14202278645982,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -154.87243258002587,
+    "z": -105.92623916528457,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -134.07935235579103,
+    "z": -165.87057734605335,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -42.838239575754784,
+    "z": -70.13977155733119,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -36.14485515529341,
+    "z": -195.20121825781462,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -126.45954959755133,
+    "z": -140.75113326232128,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -10.129399495827073,
+    "z": -154.26810505271936,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -117.96356454359734,
+    "z": -170.08198619853061,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": 21.544385822510208,
+    "z": -132.81015513717563,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": 19.603659780031336,
+    "z": -175.82428419308445,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -15.38311211153092,
+    "z": -153.34804781157828,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -207.69168714277907,
+    "z": -20.995968370477442,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -23.80876001331066,
+    "z": -103.60615373214529,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -40.361044917524225,
+    "z": -49.685820310422116,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -17.2783592111478,
+    "z": -138.75009926727455,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -106.37485495171433,
+    "z": -166.34085707165954,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -167.6880331420553,
+    "z": -19.30840502663702,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -151.38207308881005,
+    "z": -159.5633995672505,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -36.216070824078685,
+    "z": -194.20906612477668,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -152.93077144828155,
+    "z": -99.25777963333452,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -200.76566148010963,
+    "z": -50.828367516306685,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -70.16287442695236,
+    "z": -42.84069378069594,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -38.668946125914175,
+    "z": -42.73902831887804,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -151.0931051346638,
+    "z": -95.82295681545656,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -29.80262884253645,
+    "z": -152.62618075643758,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -65.25031438577284,
+    "z": -44.076271998699184,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -162.00381532125027,
+    "z": -103.47808310203845,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -140.28419659130145,
+    "z": -108.80979190058133,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 25.62088796052106,
+    "z": -147.71525135670143,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -207.39827578071535,
+    "z": -24.370933440172763,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -96.6859536977417,
+    "z": -164.29820257409125,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -110.43133663357293,
+    "z": -154.44061416728886,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -6.320236002024274,
+    "z": -93.56972222503413,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -198.95821540502934,
+    "z": -22.464512313320228,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -128.23957239849693,
+    "z": -152.8173166280322,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 0.0629489406398136,
+    "z": -62.168564601929745,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -138.54451548071464,
+    "z": -149.42485002071365,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -26.88955064737027,
+    "z": -24.095164584306303,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -78.88161566969163,
+    "z": -53.511550750255196,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 77.3947256224667,
+    "z": -169.47814554342688,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -122.41110323545743,
+    "z": -26.39126911867035,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -156.8873125456863,
+    "z": -136.95789038878723,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -128.35086861041273,
+    "z": -152.3848711681146,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -7.40492609144593,
+    "z": -116.35018663532841,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -157.26777053101148,
+    "z": -49.05745017902322,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -134.4476190521488,
+    "z": -60.80312918432986,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -189.09359404836184,
+    "z": -103.43279254344468,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 24.584659482324525,
+    "z": -195.94653659460747,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -44.719140290101166,
+    "z": -215.74390353644046,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": 31.074922377582254,
+    "z": -160.87923447924067,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": 18.292863900490147,
+    "z": -160.0807139781446,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -32.982695103928336,
+    "z": -214.7991193011225,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -67.36742246117862,
+    "z": -173.28468291498018,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -85.55899899121664,
+    "z": -191.71134406237238,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -132.84449389708686,
+    "z": -129.57879087430592,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -80.78113015750239,
+    "z": -40.160703780808376,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -124.12849710568494,
+    "z": -119.58605425418752,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -195.01174538004742,
+    "z": -68.2281647119714,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -155.97523485548118,
+    "z": -111.89209526020487,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -131.97155756996204,
+    "z": -85.83625562784968,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 6.3428357032015015,
+    "z": -108.76291322609326,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -170.004656282018,
+    "z": -146.41603184084954,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -130.11096726485926,
+    "z": -77.70823059888,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -175.19108485055625,
+    "z": -56.81313232301537,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 19.462859988407303,
+    "z": -134.4221651627975,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 84.9384636734224,
+    "z": -176.95307411599217,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -135.42246583044545,
+    "z": -151.8110040504977,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": 27.890316312447112,
+    "z": -135.10990193308947,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 28.795221735584732,
+    "z": -168.60509260508994,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -128.73314124290414,
+    "z": -154.9665277935883,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -41.028285165527734,
+    "z": -206.10839475140398,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -3.3897385488669727,
+    "z": -195.60693589042967,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -133.89429941549196,
+    "z": -134.8298372279982,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -64.12598848666931,
+    "z": -197.1363136805332,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -175.05760921830432,
+    "z": -23.674107738310738,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -7.335762364940024,
+    "z": -154.43457301310673,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -23.40967060810246,
+    "z": -170.63439740569856,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -100.55125979201492,
+    "z": -20.16665964463124,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -3.616077290874273,
+    "z": -60.113541843998036,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -175.60791292179206,
+    "z": -83.16878258750279,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 79.69611676864281,
+    "z": -188.88734647090513,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -20.09772856699911,
+    "z": -182.2209986280539,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -146.50617359941992,
+    "z": -125.9984790379522,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -32.95009994948461,
+    "z": -214.10285138892934,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -130.90458502221287,
+    "z": -55.26707271566676,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -4.244626294148048,
+    "z": -99.12067515406856,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": 56.54160718664224,
+    "z": -136.4297879210981,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -123.37856185898507,
+    "z": -67.98966718245603,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -88.03518524666877,
+    "z": -44.11347982187198,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -112.54831283664856,
+    "z": -150.85203271805494,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -96.35586581382844,
+    "z": -189.86241261189116,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -2.224937614201167,
+    "z": -119.19968284274935,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 18.387876275974094,
+    "z": -194.6111508413855,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -39.51837265998179,
+    "z": -54.123727285153734,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -71.32321420507063,
+    "z": -52.81632265930659,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": 14.429837777208746,
+    "z": -92.52159946354863,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -13.21229796366984,
+    "z": -136.8685947093979,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -203.89375656085446,
+    "z": -35.033998472764665,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -181.84670848414996,
+    "z": -95.12060625452332,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -134.27215391638924,
+    "z": -159.82333731952076,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -0.07388368092966857,
+    "z": -169.41626721187671,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -172.4027172163274,
+    "z": -69.760758295687,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -6.596485536041854,
+    "z": -131.94380902450177,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": 56.453789379841965,
+    "z": -184.8136880053509,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 57.73928322716182,
+    "z": -185.03568756910363,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -119.72228147756466,
+    "z": -143.11209270688525,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -80.91248647281807,
+    "z": -181.7399924922278,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -202.75525861736088,
+    "z": -51.031811118473684,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 11.331773967502556,
+    "z": -154.09944870658563,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -34.43321380721875,
+    "z": -39.388495409978674,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -89.57788332344398,
+    "z": -24.730690365612134,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -26.058928031230863,
+    "z": -137.28380992910235,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -52.240824949093565,
+    "z": -38.373043425386385,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": 48.35891471302887,
+    "z": -168.50303467636644,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -182.66130570962088,
+    "z": -58.05442570952536,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -29.751825002423004,
+    "z": -185.3727807680329,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -23.436015712922597,
+    "z": -61.98616005852506,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -148.03947963854415,
+    "z": -159.63710858628443,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -8.527955991568035,
+    "z": -159.4105458704713,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -143.2168598250426,
+    "z": -49.321886038173204,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -133.27004265241925,
+    "z": -75.42294793395203,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -30.78363173240632,
+    "z": -162.65432218955954,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -41.158744578495885,
+    "z": -187.68953828233276,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -26.041696846932552,
+    "z": -60.112947319670525,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -47.16685611944715,
+    "z": -215.33299719671024,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -125.36377917580056,
+    "z": -151.44742002850165,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": 27.79289529744318,
+    "z": -192.88827527255714,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -1.3356982943704452,
+    "z": -56.14454406945234,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -42.64447212908948,
+    "z": -37.88248391095226,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -65.06605621618803,
+    "z": -36.27768371414243,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 33.97175061844291,
+    "z": -140.93507307349662,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -163.32335230820752,
+    "z": -78.37464065074951,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -17.458043281147127,
+    "z": -46.73948207677853,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -19.252373542082182,
+    "z": -38.66639993702657,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -160.29672327847805,
+    "z": -117.09418944392868,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -155.84113491631177,
+    "z": -63.3120772302224,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -22.849966449989267,
+    "z": -167.01536601340558,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -44.95239140497995,
+    "z": -57.53382550269171,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -14.871897686353634,
+    "z": -48.05171301316946,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -28.172088738030652,
+    "z": -78.98128045468343,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 9.530437551133929,
+    "z": -78.60066974496968,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -194.08991562880408,
+    "z": -18.328038408321248,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": 10.287912317375941,
+    "z": -201.91538359962024,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -89.14506769720026,
+    "z": -67.84809655741915,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -124.8629054368034,
+    "z": -92.65084331702835,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": 58.1385050125578,
+    "z": -179.98143115031382,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -161.85785307842136,
+    "z": -41.38476760374053,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": 17.318418846152866,
+    "z": -127.89854809363585,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -11.02373837950205,
+    "z": -70.45815551670668,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 64.5139708435405,
+    "z": -196.3522645173159,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -46.63931295709534,
+    "z": -58.356955262283066,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -88.52071425358955,
+    "z": -176.51403554364012,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -127.39927729598989,
+    "z": -151.0836442745466,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 37.98839888102441,
+    "z": -143.45763486318126,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -3.175684768221714,
+    "z": -208.55611468622914,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -106.85347185000634,
+    "z": -55.95624139879877,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": 45.290608871054815,
+    "z": -183.5135864466012,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -171.8914286705539,
+    "z": -21.08589607146152,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": 5.310351219080303,
+    "z": -125.09819052548833,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 8.21674324811903,
+    "z": -116.2245869229504,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -168.37279574659647,
+    "z": -134.71125716752016,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -206.89263245210248,
+    "z": -27.022374826965432,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -169.72946520460152,
+    "z": -111.65905353096714,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -14.681265438253035,
+    "z": -141.94218108256217,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -171.47377038700654,
+    "z": -61.76394552615267,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -91.69659003315498,
+    "z": -59.91324075566848,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -17.404287071996464,
+    "z": -155.82519443446935,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -126.50549883707747,
+    "z": -168.06168518668267,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -2.1255643807143656,
+    "z": -161.25603270411227,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -10.727991266825171,
+    "z": -209.42608978453566,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -62.74658074869072,
+    "z": -35.2427611539932,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 46.473064929934026,
+    "z": -168.37444454255356,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -54.92902904066693,
+    "z": -196.65827042712525,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -81.55043019973647,
+    "z": -67.45812592890891,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 31.457922017721188,
+    "z": -138.50116539583442,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -172.49835634730314,
+    "z": -36.48601401588601,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -9.810095635040852,
+    "z": -82.6096539917944,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -3.1870193544156677,
+    "z": -125.98093687876761,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -165.47623628492363,
+    "z": -126.52485268488881,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": 18.877255677720598,
+    "z": -205.27367133413264,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -145.66515946420517,
+    "z": -46.35621881027362,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -15.992067443028162,
+    "z": -109.41371925644889,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -192.60604914767686,
+    "z": -82.87498402712274,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -34.025177067840474,
+    "z": -178.55124130988239,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -90.60234638495432,
+    "z": -177.3214797504691,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": 16.825580475726355,
+    "z": -165.75688527644027,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -47.83071619663224,
+    "z": -195.00287500626195,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -2.203243815504976,
+    "z": -147.6824968829705,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -53.340373574278374,
+    "z": -23.76231570941559,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -33.58239922894694,
+    "z": -86.11917016538146,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -27.664523832758192,
+    "z": -173.6193895447688,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -35.540159862024154,
+    "z": -153.87812415198403,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -96.33521079023829,
+    "z": -22.200687316269466,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -126.24627213144986,
+    "z": -112.77795022462404,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -10.844019652274369,
+    "z": -75.84218828769298,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -44.73647088669256,
+    "z": -36.840517581081684,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -175.44535528187942,
+    "z": -88.57637233567772,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -143.2223063030849,
+    "z": -129.96078287964275,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -20.979951720299823,
+    "z": -34.0842306084904,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -160.00409821718392,
+    "z": -83.71898991014754,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -19.224979400795263,
+    "z": -51.93802678185159,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": 25.2800322072259,
+    "z": -145.2391599392315,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 29.260262832424445,
+    "z": -205.22733532133788,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -147.9291525173465,
+    "z": -46.489996520120144,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": 67.52335255128071,
+    "z": -163.44364812656795,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -26.741111194828477,
+    "z": -158.1169626420292,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": 18.45124236738576,
+    "z": -136.1466886266543,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -50.25995234645595,
+    "z": -26.944904992039,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -89.89645267168171,
+    "z": -38.14250298905594,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -113.23191213599786,
+    "z": -71.39623305142635,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -177.43271035649775,
+    "z": -79.55057736105692,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -20.73255573145113,
+    "z": -32.84904663000759,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -65.75636775335167,
+    "z": -168.24431368977852,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -14.562546756545714,
+    "z": -122.43641145352076,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -7.468354148043687,
+    "z": -121.616233844791,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -123.78925641839731,
+    "z": -123.83897060676543,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -35.81133834267163,
+    "z": -40.58714753274734,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -58.170544019689146,
+    "z": -175.15749580966312,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -52.802196674359635,
+    "z": -193.2929105454054,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -168.7049171901387,
+    "z": -120.50052287957654,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -54.450779083740315,
+    "z": -202.33931031964687,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 2.3835760343503694,
+    "z": -59.798000584103534,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -76.76663892271415,
+    "z": -30.73147442409956,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": 9.34890160671452,
+    "z": -206.7896278298618,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": 80.0827985762898,
+    "z": -195.27518418009913,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -172.00842407869587,
+    "z": -99.91004724467516,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -126.6687250492502,
+    "z": -97.43561160859558,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -29.702418399744005,
+    "z": -203.82086490566567,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": 9.181829408141084,
+    "z": -158.2304063027379,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": 9.059239048500558,
+    "z": -197.22881036499302,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -172.07603660264544,
+    "z": -74.08752377478754,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": 67.81992673681668,
+    "z": -192.25634724034842,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -164.06756316054884,
+    "z": -25.031256236843177,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -100.75688266600407,
+    "z": -73.55021263718226,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -17.721158699418595,
+    "z": -131.56305334403234,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -52.73984726271823,
+    "z": -47.890109365702784,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 12.989539150046625,
+    "z": -199.50001450356496,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -16.367017064156784,
+    "z": -83.88280521568322,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "x": -43.779700601728024,
+    "z": -165.44584306957557,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -136.58914735533506,
+    "z": -100.80841039371562,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -14.29566947631156,
+    "z": -87.0747979630014,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": 10.780972371580077,
+    "z": -71.93630989264241,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -8.650395497019218,
+    "z": -150.11758480855298,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": 28.768656451620643,
+    "z": -97.4779303631744,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -120.5003319444473,
+    "z": -146.6994250588873,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -81.95590786601733,
+    "z": -198.9420412482159,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -169.36745401805538,
+    "z": -63.6753183332759,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": 11.42437107913048,
+    "z": -192.0189004364252,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -0.3857636143251284,
+    "z": -105.75648151934102,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": -163.37500589210052,
+    "z": -106.4489924638049,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -17.80965471099219,
+    "z": -201.5740300728425,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -103.2237276734827,
+    "z": -47.80847185921468,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-04.png"
+  },
+  {
+    "x": 34.73809218436057,
+    "z": -139.26826734005948,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -130.99712671962794,
+    "z": -62.518001422966364,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": 27.235564546879516,
+    "z": -111.44569488567683,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -21.659547245447584,
+    "z": -38.565227177173966,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "x": -11.517953873980673,
+    "z": -50.6872712870113,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "x": -170.7423524789337,
+    "z": -91.17919635241573,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "x": -171.3864344963632,
+    "z": -48.40186393565267,
+    "hitboxWidth": 1,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  }
+]

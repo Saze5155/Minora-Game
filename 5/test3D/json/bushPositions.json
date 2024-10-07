@@ -1,0 +1,1502 @@
+[
+  {
+    "x": -96.411878899748,
+    "z": -32.35182302389063,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -42.96968264359188,
+    "z": -212.9919373833832,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -95.67064286202616,
+    "z": -164.547090845478,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -84.60777001018553,
+    "z": -146.1778775668052,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -181.487339389965,
+    "z": -21.475169610400144,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -61.34958315132178,
+    "z": -177.61638953199926,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -86.73722174258532,
+    "z": -125.31566960238968,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -115.40129529159405,
+    "z": -67.83419231325456,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -60.86519075918977,
+    "z": -145.43224935670702,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -64.94554711616371,
+    "z": -191.1320547556705,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": 4.971400017789023,
+    "z": -122.50402806817429,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -117.81222516208243,
+    "z": -70.5429227368621,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -124.46572873438006,
+    "z": -90.79314035183683,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -164.19681753637022,
+    "z": -87.08181217174743,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -128.724578127172,
+    "z": -59.05593042535318,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -30.924403461929415,
+    "z": -44.1654821897084,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -41.20568546124312,
+    "z": -205.3004927572713,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -53.209896287133034,
+    "z": -56.46800211195,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -160.08835034371225,
+    "z": -106.68239808955813,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -99.09680768564046,
+    "z": -74.327620506268,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -61.75915927508021,
+    "z": -55.766021702117,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": 72.84358194121347,
+    "z": -175.18315870854016,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -30.761631488991526,
+    "z": -210.3889920432843,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -155.62701924912065,
+    "z": -153.76602444028114,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -139.82411864753797,
+    "z": -65.17584904492946,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -174.93586993968708,
+    "z": -35.621033951372254,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -89.5110129080761,
+    "z": -169.59346674591023,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -73.45607435468301,
+    "z": -200.28877484300477,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -47.54113503146539,
+    "z": -89.36450369651487,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": 42.167360610340126,
+    "z": -186.53686296365322,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -118.93441384503986,
+    "z": -105.45962483843999,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -124.83784564019128,
+    "z": -175.90641808052794,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -164.26935970063002,
+    "z": -92.55630849919427,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -79.6182552342865,
+    "z": -195.18597197548902,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -80.28012094159917,
+    "z": -153.9661381540109,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -88.79999048628967,
+    "z": -82.41818548891774,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": 62.18586415741464,
+    "z": -154.58298224895228,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": 6.674171442652607,
+    "z": -117.620073028695,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -85.07456206755865,
+    "z": -120.02424785985026,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -76.20227822866408,
+    "z": -93.94191736579107,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -11.918395696131114,
+    "z": -171.91085256119706,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -88.16586986580809,
+    "z": -164.2397464104409,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -35.645384906407,
+    "z": -44.60319855859845,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -96.20257639010002,
+    "z": -157.92794774014914,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -156.4507219192098,
+    "z": -50.39254644109633,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": 54.38376745968043,
+    "z": -133.0897482049715,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -119.25365274019342,
+    "z": -178.87343050160763,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -105.71114866739367,
+    "z": -139.97460554991193,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -67.05763886486932,
+    "z": -176.19049779280138,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -63.37800511676949,
+    "z": -36.89371770721422,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": 11.383102197515,
+    "z": -115.20193376694289,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -133.8810787490253,
+    "z": -129.27649148928327,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -135.91297072478915,
+    "z": -69.47927956003034,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -28.85039201391598,
+    "z": -167.20787268640765,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -89.99060146009651,
+    "z": -147.6516467662643,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -41.015260183177844,
+    "z": -197.63014653509651,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -69.68201938803966,
+    "z": -68.61629978902107,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -24.116735284116288,
+    "z": -35.619597126968216,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -48.965717379269165,
+    "z": -177.83295447476493,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -37.21504035251874,
+    "z": -34.37780634275981,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": 2.3365864474461944,
+    "z": -205.07343990373536,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -194.88012050385743,
+    "z": -40.65226537779469,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -117.23450921445159,
+    "z": -164.5686923546044,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": 36.219528345744436,
+    "z": -176.10567000765522,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -47.99415936365628,
+    "z": -97.34833393832247,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -10.21611475207817,
+    "z": -85.06400596065205,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": 1.8878940643438398,
+    "z": -145.28393858111932,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -161.04198907974825,
+    "z": -134.78938842537036,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -155.99127518529835,
+    "z": -149.58702407281683,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -133.0553308212123,
+    "z": -119.29850914235462,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -31.028271169317748,
+    "z": -71.54842731444558,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -86.55749395198677,
+    "z": -160.82246777167575,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -46.93649042188795,
+    "z": -153.13204558580782,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -127.1386825643867,
+    "z": -154.50001747154465,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -25.44793024479506,
+    "z": -202.19877918147796,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -94.37369112391427,
+    "z": -94.644194163439,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -27.58383305165748,
+    "z": -157.76993673429592,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -66.91362312322718,
+    "z": -74.09591421560881,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -141.07060881872783,
+    "z": -22.82859785120661,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -70.17096869948168,
+    "z": -57.89239535813957,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -60.44381200611093,
+    "z": -67.89933537602238,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -135.019299993254,
+    "z": -41.55298874881629,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -36.01688717564946,
+    "z": -158.6028737249361,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -31.947364960726304,
+    "z": -207.20598057652043,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -113.91482301095803,
+    "z": -75.07853877735582,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -104.9942981015562,
+    "z": -106.16370435824284,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": 22.70450601004285,
+    "z": -196.63683506878132,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -94.33552477815941,
+    "z": -83.79034146121057,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -16.88806662563121,
+    "z": -33.48232948449797,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": 0.6637668232923204,
+    "z": -96.78588256006063,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -184.1661392843968,
+    "z": -122.76783643887693,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -18.88943286334316,
+    "z": -209.18489983049588,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -95.4739806434759,
+    "z": -126.72618944382185,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -31.676853727817218,
+    "z": -43.410977034117195,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -69.4739765132775,
+    "z": -49.00361003565189,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -105.38752648122079,
+    "z": -156.82293268609243,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -180.2442732328899,
+    "z": -36.9081800343771,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -174.21022928123128,
+    "z": -69.95970981175356,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": 43.42981979718945,
+    "z": -148.01498932283357,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -2.7920879181264695,
+    "z": -74.72660881951211,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -125.58264473392242,
+    "z": -159.17967303418527,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -133.03839790436717,
+    "z": -100.56954439574454,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -58.765364455766615,
+    "z": -212.9198582136401,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": 60.59952480451176,
+    "z": -191.69694474570534,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -159.96778265877956,
+    "z": -153.82783544737146,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -198.97217609715946,
+    "z": -47.476269246112,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": 46.322089893437976,
+    "z": -140.63060322628874,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -28.63799757991842,
+    "z": -167.62019397644957,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -9.716027130726957,
+    "z": -75.98977745502788,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -106.44107014626084,
+    "z": -63.66582703406826,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -54.06715688058057,
+    "z": -208.651865890123,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -40.77047040740774,
+    "z": -92.54892132500986,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -8.656013467809743,
+    "z": -150.5876687172424,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -189.19795398622801,
+    "z": -15.708055055014597,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -97.04242254218005,
+    "z": -121.0264343213289,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -89.93085024464351,
+    "z": -39.581677313663675,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -44.94098950546385,
+    "z": -120.77787088764828,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": 54.1138345021443,
+    "z": -149.24749754808212,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -101.83591541429121,
+    "z": -134.56450687433346,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": 68.20176645456638,
+    "z": -165.57905520061107,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -27.67139829310534,
+    "z": -33.641572007235,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -180.94169986327034,
+    "z": -15.67137562109383,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -85.26646362504262,
+    "z": -77.91172961456087,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -143.5421545049427,
+    "z": -28.214134162723695,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": 2.9207983471515035,
+    "z": -141.87331569788358,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -116.92329038859667,
+    "z": -145.2680809188841,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -11.290039792636804,
+    "z": -117.27889466540044,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -103.90468268533434,
+    "z": -96.66480406914474,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -151.8096647023007,
+    "z": -86.37773673383285,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -94.48857144806068,
+    "z": -158.3175860731812,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -12.250720880187885,
+    "z": -96.39805204401533,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -116.4015554411491,
+    "z": -53.300954777298756,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -48.0536356279097,
+    "z": -103.124139270385,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -142.38613173697797,
+    "z": -85.57412081528017,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -22.022473607625926,
+    "z": -155.46270898672054,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -167.07243652464388,
+    "z": -63.42463050779625,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -121.24224914246017,
+    "z": -87.34041176976595,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -191.40490668808084,
+    "z": -55.75358539749885,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -96.1596700898142,
+    "z": -163.79978759599638,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -198.3700117687672,
+    "z": -64.69060723443374,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -145.00146624431,
+    "z": -32.26889165220024,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -155.46158199343543,
+    "z": -100.31721254226218,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -43.026676738614896,
+    "z": -97.71369086018979,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": 44.516776784661545,
+    "z": -139.93513563642955,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": 49.65204377985327,
+    "z": -163.39707958896435,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": 14.536967899034607,
+    "z": -204.9600713330583,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -34.92612628396611,
+    "z": -159.30389929095998,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -170.49398692827893,
+    "z": -127.08862704855997,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -100.25933934226478,
+    "z": -87.98042811770057,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -184.39896718415372,
+    "z": -56.42999760830358,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -142.2405638265244,
+    "z": -91.85470825168238,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": 0.7004013168172207,
+    "z": -99.60398888596129,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -90.06181083851232,
+    "z": -123.2399388159418,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": 48.21796396611819,
+    "z": -140.00078884548685,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -30.55808017773262,
+    "z": -32.38804493523136,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -158.86752195505508,
+    "z": -144.33386995319717,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -197.91943143416103,
+    "z": -29.876838892714403,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -32.63318663225124,
+    "z": -36.05820639167894,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -28.67667903865666,
+    "z": -117.6733301726967,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -107.08992874255176,
+    "z": -45.556683895773205,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -123.65118234213831,
+    "z": -147.98418765598976,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -65.38389072863555,
+    "z": -31.60877977630895,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": 50.17494401465285,
+    "z": -176.4982296668167,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": 2.6199977246700996,
+    "z": -61.51617513820332,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -65.8564349961785,
+    "z": -100.92697014061187,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -86.7231993060238,
+    "z": -188.85895368460115,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": 14.72471730338492,
+    "z": -201.77153304859772,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -171.8281908157013,
+    "z": -33.781975455181964,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -14.685739856018586,
+    "z": -76.1157024933091,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -114.92109630489388,
+    "z": -32.46596623810774,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -13.580877538035026,
+    "z": -164.81458737546362,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -89.83245920853949,
+    "z": -133.62816680199734,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -107.07156362381313,
+    "z": -112.2435563484922,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -12.864846246994688,
+    "z": -112.704783042288,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -121.61034324386542,
+    "z": -119.68610391779588,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -69.7507223703121,
+    "z": -32.56230256190588,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -87.37960304668681,
+    "z": -163.28353793041606,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -138.02395723229034,
+    "z": -116.96569824737824,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -64.3808092633015,
+    "z": -51.53663211632323,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -200.95736795082863,
+    "z": -51.1381137518367,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -3.320344291394349,
+    "z": -187.0798184372407,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": 70.68271431018616,
+    "z": -169.6904605352206,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -21.12954968821677,
+    "z": -167.66525294593148,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -45.22030040846488,
+    "z": -71.8188392564322,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -69.97913068565711,
+    "z": -34.65726937148685,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -125.41980943368068,
+    "z": -74.23077353757594,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -34.43394481787291,
+    "z": -214.67188615982118,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -124.30419946877022,
+    "z": -96.28134308368152,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -30.568204236490942,
+    "z": -126.26453384542059,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": 37.81279559634254,
+    "z": -168.40660351621665,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -169.91020566104908,
+    "z": -58.09905320282567,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -7.000069488639326,
+    "z": -112.02407228974857,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -91.01089385051473,
+    "z": -155.6385357705076,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": 19.90634605205318,
+    "z": -201.82714505249814,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -72.45414374811719,
+    "z": -76.59411322584856,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -159.41796799020022,
+    "z": -111.60058249884749,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -28.853746254151815,
+    "z": -81.12080236872094,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -5.107292377439734,
+    "z": -112.7262280281933,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": 10.715376203440485,
+    "z": -119.42187611986752,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -82.1440009574348,
+    "z": -196.82808028422536,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -158.09846274253147,
+    "z": -149.17950671476706,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -56.80545180702299,
+    "z": -164.27452504289022,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": 6.129111153429534,
+    "z": -128.6689686928909,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -24.10721902150101,
+    "z": -39.9060767434064,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -56.62049503157411,
+    "z": -136.8727619162965,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -20.7881031886412,
+    "z": -196.1969279012545,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -175.74327112206305,
+    "z": -112.91497039493095,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -74.30961505266336,
+    "z": -130.15835545137554,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -110.060889849623,
+    "z": -94.70743561697796,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -37.871520184816035,
+    "z": -144.17813757952752,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -22.979591696995413,
+    "z": -96.62573044739014,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -122.16685616089248,
+    "z": -157.10591125176907,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": 37.77206389069099,
+    "z": -141.61646949262965,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -63.730720315491936,
+    "z": -200.19833982551248,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": 10.229609286059542,
+    "z": -82.92698769564643,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -83.51250457497741,
+    "z": -24.633551096226995,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": 30.252966631473726,
+    "z": -142.70710154892657,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": 13.140310715947749,
+    "z": -150.93807357981498,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -72.93776322676368,
+    "z": -170.23966441413273,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -62.8699743777681,
+    "z": -86.45291772466643,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -95.45481832785238,
+    "z": -135.7073760864579,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": 67.6564075275615,
+    "z": -191.1210451414019,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -166.55068259781322,
+    "z": -88.593202867766,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -102.90969678701062,
+    "z": -144.96027224863155,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -74.54053212574092,
+    "z": -43.63518062784243,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -21.498226241721795,
+    "z": -39.228011050573144,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -58.489008959760895,
+    "z": -23.943795899194697,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": 29.926151032992465,
+    "z": -186.1289454045565,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -38.76865155154306,
+    "z": -78.40399683790392,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -58.69999539949407,
+    "z": -28.530109567458823,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -3.789614931658406,
+    "z": -162.4160857765567,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -41.27398287996226,
+    "z": -120.73733020015088,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": 10.777345835058782,
+    "z": -171.97185561718658,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": 19.015822022725615,
+    "z": -177.84478668719333,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -5.312380026313122,
+    "z": -53.52990726633246,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -110.18940779000224,
+    "z": -23.91060669959211,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -119.59595038763753,
+    "z": -93.60086795412462,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -60.648632241916914,
+    "z": -97.98650396431036,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -12.271709484748044,
+    "z": -199.4557752077159,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -176.52500692414606,
+    "z": -115.98024373921201,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": 67.48869640707545,
+    "z": -187.505993363686,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": 14.415036274295232,
+    "z": -115.72164574995355,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": 0.780353931235112,
+    "z": -170.80844194592495,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -50.485432839911255,
+    "z": -188.31113591807633,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": 44.99179873014896,
+    "z": -165.984257194747,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": 34.4950112657385,
+    "z": -113.80128201916287,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -95.14158605257283,
+    "z": -47.80940236868054,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -95.37035668635059,
+    "z": -31.854208876249203,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -39.16296159475391,
+    "z": -150.8311987142174,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -34.203858812433964,
+    "z": -48.60955427869618,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -52.30915379017449,
+    "z": -193.56141892238068,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -101.58213293884201,
+    "z": -100.354189645495,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -131.60272751613195,
+    "z": -17.78804278701523,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -125.42008971890786,
+    "z": -35.586080372738195,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -122.01311676132143,
+    "z": -159.2604624616265,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -9.10674861588555,
+    "z": -204.90524316697648,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -104.67771514561927,
+    "z": -186.88214403887764,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -21.811329833933115,
+    "z": -162.89778434267248,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -46.83115324359815,
+    "z": -52.58340022415882,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -186.5902748032013,
+    "z": -72.28387245556854,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -29.81037536252009,
+    "z": -214.1085129150599,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -155.65581946780534,
+    "z": -47.331717548805074,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -23.93504788558994,
+    "z": -33.359138693018,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": 66.33994580373081,
+    "z": -186.77593688928425,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -114.72705523475427,
+    "z": -52.47013612239587,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": 17.133444178801312,
+    "z": -194.46085743626432,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -22.537829376311663,
+    "z": -81.0415795871073,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -138.69458316304917,
+    "z": -102.0789568367183,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -68.3018887148676,
+    "z": -44.59950841484425,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -200.2992899559099,
+    "z": -45.135514274484706,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": 7.611265107678207,
+    "z": -135.7351913589342,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -158.34896388575015,
+    "z": -101.00346287194327,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -2.0277990425528287,
+    "z": -161.48158214149908,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -52.0519676546472,
+    "z": -121.9341586888819,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": 2.567649815597804,
+    "z": -188.6268505370979,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -57.390245950314295,
+    "z": -82.0716793842297,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -183.1168799371095,
+    "z": -129.21834429652478,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -90.35523858632749,
+    "z": -37.66497537155297,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -28.703741341039688,
+    "z": -35.42606661224207,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -159.45514534142026,
+    "z": -155.13792626958974,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -1.9743660416240516,
+    "z": -129.9936380498139,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -70.02358631188844,
+    "z": -159.42597734646571,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": -75.3731180184613,
+    "z": -96.63151554339485,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -27.014568059883004,
+    "z": -77.6746917159895,
+    "texture": "/5/test3D/examples/vie/vie-24.png"
+  },
+  {
+    "x": 60.26414242516921,
+    "z": -189.5489952707693,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -121.20078841116172,
+    "z": -115.10868465468505,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -114.17023556734745,
+    "z": -91.51525101095149,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -39.247865180831184,
+    "z": -49.71549469879338,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": 61.18573452456201,
+    "z": -149.8419395359725,
+    "texture": "/5/test3D/examples/vie/vie-10.png"
+  },
+  {
+    "x": -109.10512539422743,
+    "z": -155.11746318239125,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": 82.29605644617084,
+    "z": -189.44057571501799,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": -68.17402576853041,
+    "z": -121.43273918557821,
+    "texture": "/5/test3D/examples/vie/vie-09.png"
+  },
+  {
+    "x": -89.01611892419406,
+    "z": -148.45971679295369,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -23.8961321274584,
+    "z": -134.8566319997633,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -74.25529826065798,
+    "z": -82.50142626781178,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -70.3777702411779,
+    "z": -203.77409669477382,
+    "texture": "/5/test3D/examples/vie/vie-31.png"
+  },
+  {
+    "x": -57.89366648058146,
+    "z": -201.41708917143413,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -152.44390880564407,
+    "z": -133.51454603355575,
+    "texture": "/5/test3D/examples/vie/vie-21.png"
+  },
+  {
+    "x": 12.022746112431577,
+    "z": -96.62066473393469,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  },
+  {
+    "x": -34.69935853546687,
+    "z": -66.1037699844178,
+    "texture": "/5/test3D/examples/vie/vie-11.png"
+  }
+]

@@ -11,6 +11,9 @@ export default class DevMode {
     this.isDragging = false; // Indicateur de glissement
     this.laser = new Laser(scene); // Initialiser le laser pour obtenir les coordonnées
     this.tilesData = [];
+    this.pathPoints = [];
+    this.snapToLastTile = false;
+    this.isPathMode = false;
     this.initImageSelector(); // Initialiser la galerie d'images
     this.setupEvents(); // Configurer les événements de clic et de touches
   }
@@ -18,25 +21,21 @@ export default class DevMode {
   // Initialiser la galerie d'images
   initImageSelector() {
     const images = [
-      "/5/test3D/examples/vie/vie-09.png",
-      "/5/test3D/examples/vie/vie-10.png",
-      "/5/test3D/examples/vie/vie-11.png",
+      "/5/test3D/examples/vie/grand arbre.png",
+      "/5/test3D/examples/vie/tuiles/tuiles_Plan de travail 1.png",
+      "/5/test3D/examples/vie/tuiles/tuiles-02.png",
+      "/5/test3D/examples/vie/tuiles/tuiles-03.png",
+      "/5/test3D/examples/vie/tuiles/tuiles-04.png",
+      "/5/test3D/examples/vie/tuiles/tuiles-05.png",
+      "/5/test3D/examples/vie/tuiles/tuiles-06.png",
+      "/5/test3D/examples/vie/tuiles/tuiles-07.png",
+      "/5/test3D/examples/vie/tuiles/tuiles-08.png",
+      "/5/test3D/examples/vie/tuiles/tuiles-09.png",
+      "/5/test3D/examples/vie/vie-08.png",
       "/5/test3D/examples/vie/vie-12.png",
       "/5/test3D/examples/vie/vie-13.png",
       "/5/test3D/examples/vie/vie-14.png",
       "/5/test3D/examples/vie/vie-15.png",
-      "/5/test3D/examples/vie/vie-16.png",
-      "/5/test3D/examples/vie/vie-17.png",
-      "/5/test3D/examples/vie/vie-18.png",
-      "/5/test3D/examples/vie/vie-19.png",
-      "/5/test3D/examples/vie/vie-20.png",
-      "/5/test3D/examples/vie/vie-21.png",
-      "/5/test3D/examples/vie/vie-22.png",
-      "/5/test3D/examples/vie/vie-23.png",
-      "/5/test3D/examples/vie/vie-24.png",
-      "/5/test3D/examples/vie/vie-25.png",
-      "/5/test3D/examples/vie/vie-26.png",
-      "/5/test3D/examples/vie/vie-27.png",
     ];
 
     const container = document.getElementById("image-selector");
@@ -102,10 +101,17 @@ export default class DevMode {
     }
   }
 
+  rotateXCurrentObject() {
+    if (this.currentObject) {
+      this.currentObject.rotation.x += Math.PI / 8; // Faire tourner l'objet autour de l'axe Y
+      console.log("Rotation de l'objet");
+    }
+  }
+
   // Gérer la hauteur de l'image avec la molette de la souris
   adjustHeight(event) {
     if (this.currentObject) {
-      const delta = event.deltaY * -0.01; // Utiliser le mouvement de la molette
+      const delta = event.deltaY * -0.001; // Utiliser le mouvement de la molette
       this.currentObject.position.y += delta; // Ajuster la hauteur (Y)
       console.log(`Hauteur ajustée : Y=${this.currentObject.position.y}`);
     }
@@ -114,11 +120,35 @@ export default class DevMode {
   // Enregistrer les données de la tuile et ajouter à tilesData
   confirmTile() {
     if (this.currentObject) {
+      // Si le mode de collage est activé et qu'il y a déjà une tuile placée
+      if (this.snapToLastTile && this.tilesData.length > 0) {
+        const lastTile = this.tilesData[this.tilesData.length - 1]; // Dernière tuile placée
+        const tileSize = 3.2; // Ajuste cette valeur selon la taille des barrières
+
+        // Récupérer la rotation Y de la dernière tuile
+        const rotationY = lastTile.rotationY % (Math.PI * 2); // Normaliser la rotation entre 0 et 2π
+
+        // Calculer l'offset en fonction de la rotation et du tileSize
+        const offsetX = Math.round(Math.cos(rotationY)) * tileSize;
+        const offsetZ = Math.round(Math.sin(rotationY)) * tileSize;
+
+        // Appliquer le décalage à la nouvelle tuile en fonction de la rotation
+        this.currentObject.position.set(
+          lastTile.position.x + offsetX,
+          this.currentObject.position.y, // Garder la même hauteur
+          lastTile.position.z + offsetZ
+        );
+
+        // Faire correspondre la rotation de la nouvelle tuile à celle de la dernière
+        this.currentObject.rotation.y = lastTile.rotationY;
+      }
+
       // Enregistrer les informations de la tuile dans tilesData
       this.tilesData.push({
         texture: this.selectedImage,
-        position: this.currentObject.position.clone(), // Copier la position pour éviter la référence
-        rotation: this.currentObject.rotation.y,
+        position: this.currentObject.position.clone(),
+        rotationY: this.currentObject.rotation.y,
+        rotationX: this.currentObject.rotation.x,
       });
 
       console.log("Tuile validée et ajoutée à tilesData", this.tilesData);
@@ -127,7 +157,8 @@ export default class DevMode {
       this.saveTileDataToServer({
         texture: this.selectedImage,
         position: this.currentObject.position.clone(),
-        rotation: this.currentObject.rotation.y,
+        rotationY: this.currentObject.rotation.y,
+        rotationX: this.currentObject.rotation.x,
       });
 
       this.currentObject = null; // Réinitialiser l'objet après ajout
@@ -169,16 +200,83 @@ export default class DevMode {
       });
   }
 
+  // Fonction pour gérer le clic de la souris et ajouter des points au chemin
+  addPathPoint(event) {
+    // Utiliser le laser pour obtenir les coordonnées de clic dans l'espace 3D
+    this.laser.updatePointer(event);
+    this.laser.update(); // Met à jour le laser pour obtenir les coordonnées d'intersection
+
+    const intersects = this.laser.raycaster.intersectObjects(
+      this.laser.objects
+    );
+
+    if (intersects.length > 0) {
+      const intersect = intersects[0];
+      const { x, y, z } = intersect.point;
+
+      // Ajouter le point au tableau
+      this.pathPoints.push(new THREE.Vector3(x, y, z));
+
+      console.log(`Point ajouté : X=${x}, Y=${y}, Z=${z}`);
+
+      // Vérifier si on a 4 points
+      if (this.pathPoints.length === 4) {
+        this.createRectangleFromPoints(this.pathPoints); // Créer un rectangle
+        this.pathPoints = []; // Réinitialiser les points pour commencer un nouveau rectangle
+      }
+    }
+  }
+
+  // Fonction pour créer un segment du chemin
+  createRectangleFromPoints(points) {
+    const material = new THREE.MeshBasicMaterial({
+      color: 0x00ff00,
+      wireframe: true,
+    });
+
+    // Calculer la taille du rectangle (approximé en fonction des points)
+    const width = points[1].distanceTo(points[0]);
+    const height = points[3].distanceTo(points[0]);
+    const depth = 1; // Tu peux ajuster cette valeur si nécessaire
+
+    const geometry = new THREE.BoxGeometry(width, depth, height);
+
+    // Positionner le centre du rectangle au milieu des 4 points
+    const centerX = (points[0].x + points[1].x + points[2].x + points[3].x) / 4;
+    const centerY = (points[0].y + points[1].y + points[2].y + points[3].y) / 4;
+    const centerZ = (points[0].z + points[1].z + points[2].z + points[3].z) / 4;
+
+    const rectangle = new THREE.Mesh(geometry, material);
+    rectangle.position.set(centerX, centerY, centerZ);
+
+    // Ajouter le rectangle à la scène
+    this.scene.third.scene.add(rectangle);
+
+    console.log("Rectangle créé avec les points fournis.");
+  }
+
+  onMouseClick(event) {
+    if (this.isPathMode) {
+      console.log("je clique");
+      this.addPathPoint(event); // Ajouter un point au chemin quand le mode est activé
+    }
+  }
   // Configurer les événements de clic, de molette, et de touches
   setupEvents() {
     window.addEventListener("mousedown", (event) => this.startDragging(event));
     window.addEventListener("mousemove", (event) => this.onMouseMove(event));
     window.addEventListener("mouseup", () => this.stopDragging());
-
+    window.addEventListener("mousedown", (event) => this.onMouseClick(event));
     // Touche "R" pour la rotation
     window.addEventListener("keydown", (event) => {
       if (event.code === "KeyR") {
         this.rotateCurrentObject();
+      }
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.code === "KeyE") {
+        this.rotateXCurrentObject();
       }
     });
 
@@ -189,6 +287,24 @@ export default class DevMode {
     window.addEventListener("keydown", (event) => {
       if (event.code === "Enter") {
         this.confirmTile();
+      }
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.code === "Tab") {
+        this.snapToLastTile = !this.snapToLastTile; // Inverser l'état de collage
+        console.log(
+          `Mode collage automatique : ${
+            this.snapToLastTile ? "Activé" : "Désactivé"
+          }`
+        );
+      }
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.code === "KeyQ") {
+        this.isPathMode = !this.isPathMode; // Bascule entre mode normal et mode chemin
+        console.log("Mode chemin activé :", this.isPathMode);
       }
     });
 

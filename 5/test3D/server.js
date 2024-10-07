@@ -16,6 +16,7 @@ app.use(
   "/5/test3D/examples",
   express.static(path.join(__dirname, "/examples"))
 );
+app.use("/5/test3D/json", express.static(path.join(__dirname, "/json")));
 app.use("/5/test3D/examples/vie", express.static(path.join(__dirname, "/vie")));
 
 app.use((req, res, next) => {
@@ -29,6 +30,9 @@ app.use((req, res, next) => {
       break;
     case ".fbx":
       res.setHeader("Content-Type", "application/octet-stream");
+      break;
+    case ".json":
+      res.setHeader("Content-Type", "application/json");
       break;
     default:
       break;
@@ -51,7 +55,7 @@ app.post("/save-tiles", (req, res) => {
   const tileCode = `
   textureLoader.load("${tileData.texture}", (texture) => {
     const planeGeometry = new THREE.PlaneGeometry(10, 10);
-    const planeMaterial = new THREE.MeshBasicMaterial({
+    const planeMaterial = new THREE.MeshStandardMaterial({
       map: texture,
       side: THREE.DoubleSide,
       transparent: true,
@@ -60,8 +64,11 @@ app.post("/save-tiles", (req, res) => {
 
     const tile = new THREE.Mesh(planeGeometry, planeMaterial);
     tile.position.set(${tileData.position.x}, ${tileData.position.y}, ${tileData.position.z});
-    if(${tileData.rotation} != undefined){
-      tile.rotation.y =  ${tileData.rotation};
+    if(${tileData.rotationY} != undefined){
+      tile.rotation.y =  ${tileData.rotationY};
+    }
+    if(${tileData.rotationX} != undefined){
+      tile.rotation.x =  ${tileData.rotationX};
     }
     this.third.physics.add.existing(tile, { mass: 0 });
     this.third.scene.add(tile);

@@ -1,6 +1,11 @@
 {
   "dependencies": {
+    "body-parser": "^1.20.3",
     "express": "^4.21.0",
-    "mime-types": "^2.1.35"
+    "mime-types": "^2.1.35",
+    "pako": "^2.1.0",
+    "potrace": "^2.1.8",
+    "raw-body": "^3.0.0",
+    "svg-path-parser": "^1.1.0"
   }
 }
