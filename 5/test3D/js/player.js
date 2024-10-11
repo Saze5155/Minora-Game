@@ -1,4 +1,5 @@
 import Global from "/5/test3D/js/inventaire.js";
+import playerConfig from "/5/test3D/js/playerConfig.js";
 
 export default class Player {
   constructor(scene, x, y, z, textureKey, combat) {
@@ -16,6 +17,8 @@ export default class Player {
     this.walkPlane = new THREE.Mesh(geometry, material);
     this.walkPlane.position.set(x, y, z);
     scene.third.scene.add(this.walkPlane);
+
+    this.scene = scene;
 
     // Ajouter un corps physique au personnage (walkPlane)
     scene.third.physics.add.existing(this.walkPlane, {
@@ -49,7 +52,6 @@ export default class Player {
     this.material = material; // Stocker le matériau pour l'utiliser dans animateWalk
     this.currentFrame = 0;
 
-    // Initialisation des tableaux de textures pour différentes animations
     this.walkTextures = [];
     this.jumpGaucheTextures = [];
     this.jumpDroiteTextures = [];
@@ -63,9 +65,37 @@ export default class Player {
     this.isWalking = false;
     this.isJumping = false;
     this.inventory = true;
+    this.isInvincible = false;
 
-    this.savedVelocityX = 0; // Mémoriser la vitesse X pendant l'attaque
-    this.savedVelocityZ = 0;
+    this.maxVelocity = 50;
+
+    this.healthImages = {};
+    this.healthImages[5] = scene.add
+      .image(820, 320, "heart_5")
+      .setScale(0.3)
+      .setVisible(false);
+    this.healthImages[4] = scene.add
+      .image(820, 320, "heart_4")
+      .setScale(0.3)
+      .setVisible(false);
+    this.healthImages[3] = scene.add
+      .image(820, 320, "heart_3")
+      .setScale(0.3)
+      .setVisible(false);
+    this.healthImages[2] = scene.add
+      .image(820, 320, "heart_2")
+      .setScale(0.3)
+      .setVisible(false);
+    this.healthImages[1] = scene.add
+      .image(820, 320, "heart_1")
+      .setScale(0.3)
+      .setVisible(false);
+    this.healthImages[6] = scene.add
+      .image(820, 320, "heart_6")
+      .setScale(0.3)
+      .setVisible(false);
+    this.currentHealthImage = null;
+    this.currentHitbox = null;
 
     // Charger toutes les animations en tenant compte des dossiers
     this.loadTextures("attack", "_attaquedroite", 8, this.attaqueDroite);
@@ -89,11 +119,77 @@ export default class Player {
     ); // Reculer
   }
 
-  preload() {
-    this.load.image("steak", "/5/test3D/examples/cuisine/steak_cru.png");
+  preload() {}
+
+  hitboxAttack() {
+    if (this.currentHitbox) {
+      return this.currentHitbox;
+    }
+
+    let offsetX = 0;
+    let offsetZ = 0;
+
+    let witdh = 0;
+    let depth = 0;
+
+    if (this.keys.left.isDown) {
+      offsetX = -1;
+      witdh = 0.5;
+      depth = 1.5;
+    } else if (this.keys.right.isDown) {
+      offsetX = 1;
+      witdh = 0.5;
+      depth = 1.5;
+    } else if (this.keys.forward.isDown) {
+      offsetZ = -1;
+      witdh = 1.5;
+      depth = 0.5;
+    } else if (this.keys.backward.isDown) {
+      offsetZ = 1;
+      witdh = 1.5;
+      depth = 0.5;
+    } else {
+      offsetX = 1;
+      witdh = 0.5;
+      depth = 1.5;
+    }
+
+    const hitboxGeometry = new THREE.BoxGeometry(0.5, 1, 0.5);
+    const hitboxMaterial = new THREE.MeshBasicMaterial({ visible: false });
+
+    const hitbox = new THREE.Mesh(hitboxGeometry, hitboxMaterial);
+    hitbox.position.set(
+      this.walkPlane.position.x + offsetX,
+      this.walkPlane.position.y,
+      this.walkPlane.position.z + offsetZ
+    );
+
+    this.scene.third.scene.add(hitbox);
+    this.scene.third.physics.add.existing(hitbox, {
+      shape: "box",
+      width: witdh,
+      height: 1,
+      depth: depth,
+      isTrigger: true,
+    });
+
+    // Stocke la hitbox active
+    this.currentHitbox = hitbox;
+
+    return hitbox;
   }
 
-  // Fonction pour charger les textures depuis un dossier spécifique
+  // Méthode pour supprimer la hitbox
+  removeHitbox() {
+    if (this.currentHitbox) {
+      this.scene.third.scene.remove(this.currentHitbox);
+      if (this.currentHitbox.body) {
+        this.scene.third.physics.destroy(this.currentHitbox.body);
+      }
+      this.currentHitbox = null; // Réinitialise la référence de la hitbox
+    }
+  }
+
   loadTextures(folder, name, frameCount, textureArray) {
     const framePaths = [];
     for (let i = 1; i <= frameCount; i++) {
@@ -160,13 +256,14 @@ export default class Player {
 
     this.isAnimating = true;
     this.currentAction = action;
+    this.currentFrame = 0; // Réinitialiser à la première frame
     let frameRate = 90;
 
     if (
-      action == "jumpgauche" ||
-      action == "jumpdroite" ||
-      action == "idle" ||
-      action == "marcheAvant"
+      action === "jumpgauche" ||
+      action === "jumpdroite" ||
+      action === "idle" ||
+      action === "marcheAvant"
     ) {
       frameRate = 150;
     }
@@ -179,9 +276,11 @@ export default class Player {
       if (time - lastFrameTime >= frameRate) {
         lastFrameTime = time;
         if (textures.length > 0) {
+          // Utiliser l'index modulo la longueur du tableau pour éviter de dépasser
+          this.currentFrame = this.currentFrame % textures.length;
           this.material.map = textures[this.currentFrame];
           this.material.needsUpdate = true;
-          this.currentFrame = (this.currentFrame + 1) % textures.length;
+          this.currentFrame++;
         }
       }
       requestAnimationFrame(animateFrame);
@@ -240,7 +339,7 @@ export default class Player {
     }
 
     if (this.keys.jump.isDown && this.isOnGround()) {
-      velocityY = 6; // Impulsion vers le haut
+      velocityY = 4; // Impulsion vers le haut
       this.isJumping = true;
       // Animation du saut en fonction de la direction
       if (this.keys.left.isDown) {
@@ -250,23 +349,19 @@ export default class Player {
       }
     }
 
-    // Détecter l'attaque
     if (this.keys.attack.isDown && this.isOnGround()) {
       this.isAttacking = true;
       this.attack = true;
-      this.savedVelocityX = velocityX;
-      this.savedVelocityZ = velocityZ;
+
       velocityZ = 0;
       velocityX = 0;
 
-      // Lancer l'animation d'attaque
       if (this.keys.left.isDown) {
         this.animateAction("attaquegauche");
       } else {
         this.animateAction("attaquedroite");
       }
 
-      // Bloquer toute autre animation pendant l'attaque
       setTimeout(() => {
         this.isAttacking = false;
         if (
@@ -277,8 +372,8 @@ export default class Player {
         ) {
           body.setVelocityX(0);
           body.setVelocityZ(0);
-        } // L'attaque est terminée après un certain temps
-      }, 1000); // Durée de l'attaque (en millisecondes) — ajuste selon la durée de ton animation
+        }
+      }, 800);
     }
     if (this.isOnGround() && !this.isAttacking) {
       this.isJumping = false;
@@ -301,7 +396,7 @@ export default class Player {
 
       setTimeout(() => {
         this.inventory = true;
-      }, 1000);
+      }, 800);
     }
 
     scene.third.camera.position.set(
@@ -310,5 +405,77 @@ export default class Player {
       this.walkPlane.position.z + 10
     );
     scene.third.camera.lookAt(this.walkPlane.position);
+  }
+
+  decreaseHealth(scene) {
+    if (this.isInvincible) {
+      return;
+    }
+
+    playerConfig.playerHealth--;
+    this.showHealth();
+
+    console.log("aie");
+
+    if (playerConfig.playerHealth <= 0) {
+      this.death(scene);
+    } else {
+      this.setInvincibility(); // Activer l'invincibilité
+    }
+  }
+
+  showHealth() {
+    if (this.currentHealthImage) {
+      this.currentHealthImage.setVisible(false);
+    }
+
+    if (this.healthImages[playerConfig.playerHealth]) {
+      this.currentHealthImage = this.healthImages[playerConfig.playerHealth];
+
+      this.currentHealthImage.setVisible(true);
+
+      setTimeout(() => {
+        if (this.currentHealthImage) {
+          this.currentHealthImage.setVisible(false);
+        }
+      }, 2000);
+    }
+  }
+
+  gainHealth(meatType) {
+    console.log("je mange");
+    if (
+      meatType === "viande bien cuite" &&
+      playerConfig.maxHealth > playerConfig.playerHealth
+    ) {
+      if (playerConfig.playerHealth == 5) {
+        console.log("fsfs");
+        playerConfig.playerHealth++;
+      } else {
+        playerConfig.playerHealth += 2;
+      }
+      this.showHealth();
+    } else if (
+      (meatType === "viande pas trop cuite" &&
+        playerConfig.maxHealth > playerConfig.playerHealth) ||
+      (meatType === "viande trop cuite" &&
+        playerConfig.maxHealth > playerConfig.playerHealth)
+    ) {
+      playerConfig.playerHealth++;
+      this.showHealth();
+    }
+  }
+
+  setInvincibility() {
+    this.isInvincible = true;
+
+    setTimeout(() => {
+      this.isInvincible = false;
+    }, 3000);
+  }
+
+  death(scene) {
+    console.log("mort");
+    scene.pause();
   }
 }

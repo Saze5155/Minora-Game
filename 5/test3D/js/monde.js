@@ -5,6 +5,7 @@ import EnemyRPG from "/5/test3D/js/enemy_rpg.js";
 import Global from "/5/test3D/js/inventaire.js";
 import laser from "/5/test3D/js/laser.js";
 import { getBushTexture, getTreeTexture } from "/5/test3D/js/loading.js";
+import Marchand from "/5/test3D/js/marchand.js";
 import player from "/5/test3D/js/player.js";
 import { FBXLoader } from "/5/test3D/lib/FBXLoader.js";
 
@@ -12,11 +13,10 @@ export default class monde extends Scene3D {
   constructor() {
     super({ key: "monde" });
     this.devMode = null;
-    this.tilesData = [
-      // Format : { texture: "chemin/vers/texture.png", position: {x:0, y:0, z:0}, rotation: {x:0, y:0, z:0}}
-    ];
+    this.tilesData = [];
     this.trees = [];
     this.enemies = [];
+    this.animaux = [];
     this.grandArbre = null;
   }
 
@@ -37,7 +37,8 @@ export default class monde extends Scene3D {
       "/5/test3D/examples/anim_player/idle/_idle_1.png"
     );
 
-    // Coordonnées du pentagone (pour que les ennemis apparaissent dans cette zone)
+    Global.player = this.player;
+
     const pentagonPoints = [
       { x: -213, z: -14 },
       { x: -22, z: -22 },
@@ -46,7 +47,6 @@ export default class monde extends Scene3D {
       { x: -180, z: -144 },
     ];
 
-    // Fonction pour vérifier si un point est à l'intérieur du pentagone
     const isInsidePentagon = (point, polygon) => {
       let inside = false;
       for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
@@ -62,14 +62,11 @@ export default class monde extends Scene3D {
       return inside;
     };
 
-    // Génération de 30 ennemis
     for (let i = 0; i < 30; i++) {
       let enemyPositionFound = false;
       let x, z;
 
-      // Essayer de générer une position aléatoire dans le pentagone jusqu'à ce qu'une position valide soit trouvée
       while (!enemyPositionFound) {
-        // Génération de coordonnées aléatoires dans les limites de la carte
         x = Math.random() * (97 - -213) + -213;
         z = Math.random() * (-14 - -194) + -194;
 
@@ -78,7 +75,6 @@ export default class monde extends Scene3D {
         }
       }
 
-      // Créer un nouvel ennemi avec les coordonnées aléatoires trouvées
       const enemy = new EnemyRPG(
         this,
         x,
@@ -88,56 +84,56 @@ export default class monde extends Scene3D {
         this.player
       );
 
-      // Ajouter l'ennemi dans le tableau des ennemis
       this.enemies.push(enemy);
     }
 
-    // Ajouter une collision entre le joueur et l'ennemi
     this.enemies.forEach((enemy) => {
       this.third.physics.add.collider(
         this.player.walkPlane,
         enemy.walkPlane,
         () => {
-          if (
-            (this.player.currentAction === "attaquegauche" ||
-              this.player.currentAction === "attaquedroite") &&
-            !enemy.isTakingDamage
-          ) {
-            enemy.isTakingDamage = true;
-            enemy.takeDamage(this.player.walkPlane.rotation.y); // Réduire les points de vie de l'ennemi
-            console.log("L'ennemi a perdu des PV !");
-            setTimeout(() => {
-              enemy.isTakingDamage = false;
-            }, 1000); // Ajuste cette durée en fonction de la durée de l'animation
-          }
+          this.player.decreaseHealth();
         }
       );
     });
 
-    this.animal = new Animal(
-      this,
-      -90,
-      254.2,
-      -109,
-      "/5/test3D/examples/vie/vie-20.png",
-      this.player
-    );
+    // ANIMAL
+
+    for (let i = 0; i < 30; i++) {
+      let animalPositionFound = false;
+      let x, z;
+
+      while (!animalPositionFound) {
+        x = Math.random() * (97 - -213) + -213;
+        z = Math.random() * (-14 - -194) + -194;
+
+        if (isInsidePentagon({ x, z }, pentagonPoints)) {
+          animalPositionFound = true;
+        }
+      }
+      const random = Math.random() < 0.5 ? 1 : 2;
+
+      let image = null;
+
+      if (random == 1) {
+        image = "/5/test3D/examples/vie/vie-20.png";
+      } else if (random == 2) {
+        image = "/5/test3D/examples/vie/vie-19.png";
+      }
+
+      const animal = new Animal(this, x, 254.2, z, image, this.player);
+
+      this.animaux.push(animal);
+    }
+
+    this.marchand = new Marchand(this, -80, 252.4, -110);
 
     this.third.physics.add.collider(
       this.player.walkPlane,
-      this.animal.walkPlane,
+      this.marchand.marchandMesh,
       () => {
-        if (
-          (this.player.currentAction === "attaquegauche" ||
-            this.player.currentAction === "attaquedroite") &&
-          !this.animal.isTakingDamage
-        ) {
-          this.animal.isTakingDamage = true;
-          this.animal.takeDamage(this.player.walkPlane.rotation.y); // Réduire les points de vie de l'ennemi
-          console.log("L'animal a perdu des PV !");
-          setTimeout(() => {
-            this.animal.isTakingDamage = false;
-          }, 1000);
+        if (this.player.keys.interact && this.player.keys.interact.isDown) {
+          this.marchand.showItemsForSale();
         }
       }
     );
@@ -168,18 +164,46 @@ export default class monde extends Scene3D {
     });
 
     this.marmitteBox = (marmitteBody) => {
-      console.log("hitbox", marmitteBody);
-      console.log("player", this.player.walkPlane.body);
       this.third.physics.add.collider(
         this.player.walkPlane,
         marmitteBody,
         () => {
-          console.log("Je touche la marmitte");
           if (this.player.keys.interact && this.player.keys.interact.isDown) {
-            const meatItem = Global.inventory.meats["viande cru"];
-            if (meatItem && meatItem > 0) {
+            const meatItem = Global.inventory.meatsAndHoney.find(
+              (item) => item.type === "viande cru"
+            );
+            if (meatItem && meatItem.quantity > 0) {
               this.scene.launch("Cook"); // Lance la scène du mini-jeu
               this.scene.pause();
+              meatItem.quantity--;
+              if (meatItem.quantity === 0) {
+                const index = Global.inventory.meatsAndHoney.indexOf(meatItem);
+                if (index !== -1) {
+                  Global.inventory.meatsAndHoney.splice(index, 1);
+                  Global.inventoryElements = Global.inventoryElements.filter(
+                    (element) => {
+                      if (
+                        element.texture &&
+                        element.texture.key === "viande cru" &&
+                        element.setVisible
+                      ) {
+                        element.destroy(); // Détruire l'image
+                        return false;
+                      }
+
+                      if (
+                        element.text &&
+                        element.text === `${meatItem.quantity}`
+                      ) {
+                        element.destroy(); // Détruire le texte de la quantité
+                        return false;
+                      }
+
+                      return true;
+                    }
+                  );
+                }
+              }
             } else {
               console.log("Vous n'avez pas de viande crue à cuire !");
             }
@@ -188,12 +212,94 @@ export default class monde extends Scene3D {
       );
     };
 
-    this.third.warpSpeed("light", "fog");
-    // this.third.physics.debug.enable();
+    this.third.warpSpeed("fog");
+    //this.third.physics.debug.enable();
 
     //this.devMode = new DevMode(this, this.freeCamera.camera, textureLoader);
+    // Soleil et Lune
+    const sunGeometry = new THREE.SphereGeometry(200, 32, 32); // Taille du soleil
+    const sunMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 }); // Couleur jaune pour le soleil
+    const sun = new THREE.Mesh(sunGeometry, sunMaterial);
 
-    // Charger les tiles sauvegardées
+    const moonGeometry = new THREE.SphereGeometry(200, 32, 32); // Taille de la lune
+    const moonMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff }); // Couleur blanche pour la lune
+    const moon = new THREE.Mesh(moonGeometry, moonMaterial);
+
+    // Ajouter le soleil et la lune à la scène
+    this.third.scene.add(sun);
+    this.third.scene.add(moon);
+
+    const sunDistance = 2000; // Distance du centre pour le soleil et la lune
+    const rotationSpeed = (2 * Math.PI) / 120000; // Vitesse de rotation pour 1 minute par tour complet
+
+    // Décalage du centre de rotation
+    const centerOffset = { x: 0, y: 500, z: 5000 };
+
+    let sunStartTime = performance.now();
+    let previousRotation = 0;
+
+    // Position initiale du soleil et de la lune (soleil à droite et lune à gauche)
+    sun.position.set(centerOffset.x + sunDistance, centerOffset.y, -6500);
+    moon.position.set(centerOffset.x - sunDistance, centerOffset.y, -6500);
+
+    // Créer la lumière directionnelle liée au soleil
+    const sunLight = new THREE.DirectionalLight(0xffc64b); // Couleur et intensité de la lumière
+    sunLight.castShadow = true;
+    this.third.scene.add(sunLight);
+
+    // Créer une lumière ambiante qui va simuler l'éclairage général
+    const ambientLight = new THREE.AmbientLight(0x0000ff, 10); // Couleur grise douce, intensité initiale à 0
+    this.third.scene.add(ambientLight);
+
+    // Fonction pour ajuster progressivement l'intensité de la lumière
+    const adjustLightIntensity = (angle) => {
+      // On calcule l'angle entre -π/2 (soleil à droite) et π/2 (lune à droite)
+      const normalizedAngle = (Math.sin(angle) + 1) / 2; // Normalise pour obtenir une valeur entre 0 et 1
+
+      // Ajuste l'intensité de la lumière du soleil et de la lune
+      sunLight.intensity = 10 * normalizedAngle; // La lumière rouge augmente quand le soleil est à droite
+      ambientLight.intensity = 1 - normalizedAngle; // La lumière ambiante augmente quand le soleil disparaît
+    };
+
+    // Fonction pour faire tourner le soleil et la lune
+    const rotateSunAndMoon = (timestamp) => {
+      const elapsedTime = timestamp - sunStartTime;
+
+      // Calcule l'angle de rotation en fonction du temps écoulé
+      const angle = rotationSpeed * elapsedTime;
+
+      // Mettre à jour les positions du soleil et de la lune
+      sun.position.x = centerOffset.x + sunDistance * Math.cos(angle);
+      sun.position.y = centerOffset.y + sunDistance * Math.sin(angle);
+      sun.position.z = -6500;
+
+      moon.position.x = centerOffset.x - sunDistance * Math.cos(angle); // Opposé du soleil
+      moon.position.y = centerOffset.y - sunDistance * Math.sin(angle); // Opposé du soleil
+      moon.position.z = -6500;
+
+      // Faire en sorte que la lumière directionnelle suive le soleil
+      sunLight.position.copy(sun.position);
+
+      // Ajuster l'intensité de la lumière en fonction de la position du soleil/lune
+      adjustLightIntensity(angle);
+
+      // Calculer si le soleil a complété une nouvelle rotation complète (chaque 2π = 1 rotation complète)
+      const currentRotation = Math.floor(angle / (2 * Math.PI));
+
+      // Vérifier si on a fait une rotation complète
+      if (currentRotation > previousRotation) {
+        previousRotation = currentRotation;
+        console.log(`Rotation complète du soleil : ${currentRotation}`);
+      }
+
+      // Continue la rotation en boucle
+      requestAnimationFrame(rotateSunAndMoon);
+    };
+
+    // Démarrer la rotation
+    requestAnimationFrame(rotateSunAndMoon);
+
+    this.third.renderer.shadowMap.enabled = true;
 
     const uniforms = {
       topColor: { value: new THREE.Color(0x0077ff) }, // Bleu clair pour le haut du ciel
@@ -240,7 +346,7 @@ export default class monde extends Scene3D {
     // Tableau pour stocker les étoiles
     const stars = [];
     const starGeometry = new THREE.SphereGeometry(15, 8, 8); // Petite sphère pour représenter une étoile
-    const starMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff }); // Couleur blanche pour les étoiles
+    const starMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff }); // Couleur blanche pour les étoiles
 
     const starRadius = 10000; // Rayon de la sphère (correspond à la sphère de nuit)
     for (let i = 0; i < 6000; i++) {
@@ -262,19 +368,25 @@ export default class monde extends Scene3D {
       this.third.scene.add(star); // Ajouter chaque étoile à la scène
     }
 
+    // Variable pour stocker le temps de départ
+    let startTime10 = null;
+
     // Fonction pour changer la couleur de la sphère avec fondu
     const changeSkyColor = () => {
-      startTime = performance.now(); // Obtenir l'heure de départ
+      startTime10 = performance.now(); // Obtenir l'heure de départ à chaque changement de couleur
       isDay = !isDay; // Changer l'état du jour à nuit ou vice versa
 
       // Gérer la visibilité des étoiles
       stars.forEach((star) => {
         star.visible = isDay; // Afficher les étoiles seulement la nuit
       });
+
+      // Commencer l'animation de fondu dès que la couleur change
+      requestAnimationFrame(animateColorTransition);
     };
 
     const animateColorTransition = (timestamp) => {
-      const elapsedTime = timestamp - startTime;
+      const elapsedTime = timestamp - startTime10;
 
       // Calculer la progression du fondu
       const progress = Math.min(elapsedTime / fadeDuration, 1);
@@ -297,14 +409,17 @@ export default class monde extends Scene3D {
       }
     };
 
+    // Appeler `changeSkyColor` immédiatement pour commencer le premier cycle de 1 minute
+    changeSkyColor();
+
+    // Utiliser un intervalle régulier de 1 minute (60 secondes) pour chaque cycle
     setInterval(() => {
       changeSkyColor(); // Démarrer le changement de couleur
-      requestAnimationFrame(animateColorTransition); // Commencer l'animation de fondu
-    }, 1 * 5 * 1000); // 2 minutes
+    }, 60000); // Intervalle régulier de 60 secondes pour chaque cycle
 
-    this.third.camera.near = 0.1; // Distance minimale de rendu (par défaut c'est souvent 0.1)
-    this.third.camera.far = 10000; // Augmente la distance maximale de rendu à 2000
-    this.third.camera.updateProjectionMatrix(); // Applique les changements
+    this.third.camera.near = 0.1;
+    this.third.camera.far = 10000;
+    this.third.camera.updateProjectionMatrix();
 
     /**************************** */
     const texture = textureLoader.load("/5/test3D/examples/murail.png");
@@ -315,28 +430,23 @@ export default class monde extends Scene3D {
       (fbx) => {
         fbx.traverse((child) => {
           if (child.isMesh) {
-            // Appliquer la texture au matériau du modèle
             child.material.map = texture;
             child.material.needsUpdate = true;
           }
         });
 
-        // Ajuster l'échelle et la rotation du modèle de base
         fbx.scale.set(0.3, 0.3, 0.3);
-        fbx.rotation.y = Math.PI / 1.2; // Garder la même rotation pour chaque instance
+        fbx.rotation.y = Math.PI / 1.2;
 
-        // Créer plusieurs instances du modèle
-        const modelCount = 4; // Par exemple, 5 instances
+        const modelCount = 4;
         for (let i = 0; i < modelCount; i++) {
           // Cloner le modèle
           const clonedModel = fbx.clone();
 
-          // Ajuster la position pour converger vers (0, 262, 0)
-          const offsetX = 114 - 28.5 * i; // Converger de 114 vers 0
-          const offsetZ = -198 + 50 * i; // Converger de -198 vers 0
+          const offsetX = 114 - 28.5 * i;
+          const offsetZ = -198 + 50 * i;
           clonedModel.position.set(offsetX, 262, offsetZ);
 
-          // Ajouter le modèle cloné à la scène
           this.third.scene.add(clonedModel);
         }
       },
@@ -644,13 +754,10 @@ export default class monde extends Scene3D {
     });
 
     this.hitbox = (grandArbreBody) => {
-      console.log("hitbox", grandArbreBody);
-      console.log("player", this.player.walkPlane.body);
       this.third.physics.add.collider(
         this.player.walkPlane,
         grandArbreBody,
         () => {
-          console.log("Je touche l'arbre");
           if (this.player.keys.interact && this.player.keys.interact.isDown) {
             this.handleInteraction();
           }
@@ -909,15 +1016,59 @@ export default class monde extends Scene3D {
     });
   }
 
+  attackPlayer() {
+    // Supprimer la hitbox actuelle s'il en existe déjà une
+    this.player.removeHitbox();
+
+    // Créer une nouvelle hitbox
+    const hitbox = this.player.hitboxAttack();
+
+    if (hitbox) {
+      this.enemies.forEach((enemy) => {
+        this.third.physics.add.collider(hitbox, enemy.walkPlane, () => {
+          if (enemy.isTakingDamage) {
+            enemy.isTakingDamage = false;
+            enemy.takeDamage(this.player.walkPlane.position);
+          }
+          setTimeout(() => {
+            enemy.isTakingDamage = true;
+          }, 500);
+        });
+      });
+
+      this.animaux.forEach((animal) => {
+        this.third.physics.add.collider(hitbox, animal.walkPlane, () => {
+          if (animal.isTakingDamage) {
+            animal.isTakingDamage = false;
+            animal.takeDamage(this.player.walkPlane.position);
+          }
+          setTimeout(() => {
+            animal.isTakingDamage = true;
+          }, 500);
+        });
+      });
+
+      // Supprimer la hitbox après un court délai
+      setTimeout(() => {
+        this.player.removeHitbox();
+      }, 100);
+    }
+  }
+
   update() {
     //this.freeCamera.update();
     this.pointerLaser.update();
-    this.animal.update(this.player);
+    this.animaux.forEach((animal) => {
+      animal.update(this.player);
+    });
     this.enemies.forEach((enemy) => {
       enemy.update(this.player);
     });
 
     this.player.update(this);
+    if (this.player.keys.attack.isDown && this.player.isOnGround()) {
+      this.attackPlayer();
+    }
   }
 
   handleInteraction = () => {

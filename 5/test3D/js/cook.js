@@ -3,17 +3,21 @@ import Global from "/5/test3D/js/inventaire.js";
 class Cook extends Phaser.Scene {
   constructor() {
     super({ key: "Cook" });
-    this.cookingStage = 1; // Étape du mini-jeu (1 : viande peu cuite, 2 : viande bien cuite)
-    this.success = false; // Statut de réussite
-    this.running = false; // Pour savoir si le mini-jeu est en cours
-    this.direction = 1; // Direction de la petite barre
   }
 
   create() {
-    this.createUI();
+    // Réinitialisation des variables pour chaque nouvelle session
+    this.cookingStage = 1;
+    this.success = false;
     this.running = true;
-    this.events.on("update", this.updateBar, this); // Ajouter l'événement d'update pour déplacer la barre
-    this.input.keyboard.on("keydown-SPACE", this.stopBar, this); // Écouter l'événement pour arrêter la barre
+    this.direction = 1;
+
+    // Créer l'interface utilisateur
+    this.createUI();
+
+    // Ajouter les écouteurs d'événements
+    this.input.keyboard.on("keydown-SPACE", this.stopBar, this);
+    this.events.on("update", this.updateBar, this);
   }
 
   createUI() {
@@ -33,7 +37,7 @@ class Cook extends Phaser.Scene {
     this.largeBar.setOrigin(0.5);
 
     // Zone verte (variable selon l’étape de cuisson)
-    const zoneWidth = this.cookingStage === 1 ? 100 : 50; // Plus petit à la deuxième étape
+    const zoneWidth = this.cookingStage === 1 ? 100 : 50;
     this.greenZone = this.add.rectangle(
       this.centerX,
       this.centerY,
@@ -56,7 +60,7 @@ class Cook extends Phaser.Scene {
 
   updateBar() {
     // Déplacer la petite barre manuellement
-    this.movingBar.x += this.direction * 5; // Vitesse de la petite barre
+    this.movingBar.x += this.direction * 5;
 
     // Inverser la direction si elle atteint les bords
     if (
@@ -68,8 +72,8 @@ class Cook extends Phaser.Scene {
   }
 
   stopBar() {
-    this.input.keyboard.off("keydown-SPACE", this.stopBar, this); // Désactiver l'écouteur
-    this.events.off("update", this.updateBar, this); // Désactiver l'update de la barre
+    this.input.keyboard.off("keydown-SPACE", this.stopBar, this);
+    this.events.off("update", this.updateBar, this);
 
     // Vérifie si la petite barre est dans la zone verte
     const inGreenZone =
@@ -78,9 +82,9 @@ class Cook extends Phaser.Scene {
 
     if (inGreenZone) {
       if (this.cookingStage === 1) {
-        this.cookingStage = 2; // Passe à l'étape suivante
+        this.cookingStage = 2;
         this.success = true;
-        this.resetUI(); // Relance le mini-jeu avec une zone plus petite
+        this.resetUI();
       } else {
         this.success = true;
         this.endGame("bien cuite");
@@ -96,14 +100,12 @@ class Cook extends Phaser.Scene {
   }
 
   resetUI() {
-    // Supprimer les éléments précédents
     this.greenZone.destroy();
     this.movingBar.destroy();
 
-    // Réinitialiser les éléments pour la deuxième étape
     this.createUI();
 
-    // Ajouter l'événement d'écoute à nouveau
+    // Réattacher les écouteurs d'événements
     this.input.keyboard.on("keydown-SPACE", this.stopBar, this);
     this.events.on("update", this.updateBar, this);
   }
@@ -116,22 +118,17 @@ class Cook extends Phaser.Scene {
 
     console.log(`La viande est ${result}!`);
 
-    // Met à jour l'inventaire en fonction du résultat
     if (result === "peu cuite") {
-      Global.addMeat("viande pas trop cuite", 1);
+      Global.addMeatOrHoney("viande pas trop cuite", 1);
     } else if (result === "bien cuite") {
-      Global.addMeat("viande bien cuite", 1);
+      Global.addMeatOrHoney("viande bien cuite", 1);
     } else if (result === "trop cuite") {
-      Global.addMeat("viande trop cuite", 1);
+      Global.addMeatOrHoney("viande trop cuite", 1);
     }
 
-    // Retire la viande crue de l'inventaire
-    Global.addMeat("viande cru", -1);
-
-    // Revenir à la scène principale après un léger délai
     this.time.delayedCall(500, () => {
-      this.scene.stop(); // Arrête la scène du mini-jeu
-      this.scene.resume("monde"); // Reprend la scène principale
+      this.scene.stop();
+      this.scene.resume("monde");
     });
   }
 }

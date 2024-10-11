@@ -18,9 +18,9 @@ export default class Animal {
     // Ajouter un corps physique
     scene.third.physics.add.existing(this.walkPlane, {
       shape: "box",
-      width: 1.5,
+      width: 1.8,
       height: 5,
-      depth: 0.1,
+      depth: 2,
     });
 
     this.walkPlane.body.setGravity(0, -9.8, 0);
@@ -36,18 +36,31 @@ export default class Animal {
     this.lastJumpTime = 0;
     this.jumpDuration = 1000; // Durée du saut en millisecondes
     this.isJumping = false;
-    this.canJump = true; // Empêche de sauter pendant un saut
+    this.canJump = true;
+    this.isTakingDamage = true; // Empêche de sauter pendant un saut
 
     // Points de patrouille dans le pentagone
     this.patrolPoints = this.generatePatrolPoints();
     this.currentTarget = null;
   }
 
-  takeDamage() {
+  takeDamage(playerPosition) {
     if (this.isDead) return;
 
     this.healthPoints -= 1;
-    console.log(`L'animal a pris 1 de dégâts, reste ${this.healthPoints} HP.`);
+    this.isKnockedBack = true;
+    const directionX = this.walkPlane.position.x - playerPosition.x;
+    const directionZ = this.walkPlane.position.z - playerPosition.z;
+    const magnitude = Math.sqrt(
+      directionX * directionX + directionZ * directionZ
+    );
+
+    this.walkPlane.body.setVelocityX((directionX / magnitude) * 5);
+    this.walkPlane.body.setVelocityZ((directionZ / magnitude) * 5);
+
+    setTimeout(() => {
+      this.isKnockedBack = false;
+    }, 500);
 
     if (this.healthPoints <= 0) {
       this.die();
@@ -87,8 +100,11 @@ export default class Animal {
           shape: "box",
           width: 1.5,
           height: 2,
-          depth: 0.1,
+          depth: 0.5,
+          mass: 0,
         });
+
+        steak.body.setCollisionFlags(4);
 
         this.scene.third.scene.add(steak);
         this.scene.third.physics.add.collider(
@@ -96,15 +112,13 @@ export default class Animal {
           steak,
           () => {
             // Ajoute de la viande crue à l'inventaire en utilisant la fonction de Global
-            Global.addMeat("viande cru", 1);
+            Global.addMeatOrHoney("viande cru", 1);
 
             console.log("Viande crue ramassée !");
             console.log("Inventaire mis à jour :", Global.inventory);
 
-            // Supprime le steak de la scène
             this.scene.third.scene.remove(steak);
 
-            // Supprime le body physique du steak
             if (steak.body) {
               this.scene.third.physics.destroy(steak.body);
             }
@@ -222,8 +236,9 @@ export default class Animal {
 
   update() {
     if (this.isDead) return;
-
-    this.jump();
-    this.patrol();
+    if (!this.isKnockedBack) {
+      this.jump();
+      this.patrol();
+    }
   }
 }

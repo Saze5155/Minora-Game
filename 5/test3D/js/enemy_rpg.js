@@ -1,3 +1,5 @@
+import Global from "/5/test3D/js/inventaire.js";
+
 export default class EnemyRPG {
   constructor(scene, x, y, z, textureKey, player) {
     // Utiliser les mêmes paramètres de construction que le joueur
@@ -14,23 +16,34 @@ export default class EnemyRPG {
     this.walkPlane.position.set(x, y, z);
     scene.third.scene.add(this.walkPlane);
 
-    // Ajouter un corps physique
     scene.third.physics.add.existing(this.walkPlane, {
       shape: "box",
       width: 1.5,
       height: 2,
-      depth: 0.1,
+      depth: 2,
     });
-    this.walkPlane.geometry = new THREE.PlaneGeometry(1.5, 1.5);
+    this.walkPlane.geometry = new THREE.PlaneGeometry(1.5, 2);
+
     this.walkPlane.body.setGravity(0, -9.8, 0);
     this.walkPlane.body.setAngularFactor(0, 0, 0);
 
-    // Charger les textures pour les animations
-    this.loadTextures("_walkdroite", 2, "walkdroite");
-    this.loadTextures("_marcheAvant", 2, "marcheAvant");
-    this.loadTextures("_marcheArriere", 2, "marcheArriere");
+    Promise.all([
+      this.loadTextures("_walkdroite", 2, "walkdroite"),
+      this.loadTextures("_marcheAvant", 2, "marcheAvant"),
+      this.loadTextures("_marcheArriere", 2, "marcheArriere"),
+    ])
+      .then(() => {
+        this.texturesLoaded = true; // Indiquer que les textures sont chargées
+      })
+      .catch((err) => {
+        console.error("Erreur lors du chargement des textures :", err);
+      });
+
     this.healthPoints = 2;
     this.isTakingDamage = false;
+
+    this.isTakingDamage = true;
+
     this.material = material;
     this.currentFrame = 0;
     this.isAnimating = false;
@@ -38,32 +51,181 @@ export default class EnemyRPG {
     this.randomTarget = null;
     this.patrolPoints = this.generatePatrolPoints();
     this.isMovingToRandomTarget = false;
-    this.player = player; // Référence au joueur pour la détection
+    this.player = player;
+    this.scene = scene;
     this.detectionRadius = 200; // Rayon de détection pour l'ennemi
-    this.speed = 0.05; // Vitesse de déplacement de l'ennemi
+    this.speed = 0.05;
   }
 
   takeDamage(playerPosition) {
-    if (this.isDead) return; // Si l'ennemi est déjà mort, ne rien faire
+    if (this.isDead) return;
 
-    this.healthPoints -= 1; // Diminuer les points de vie
-    console.log(`L'ennemi a pris 1 de dégâts, reste ${this.healthPoints} HP.`);
+    this.healthPoints -= 1;
+    this.isKnockedBack = true;
+    const directionX = this.walkPlane.position.x - playerPosition.x;
+    const directionZ = this.walkPlane.position.z - playerPosition.z;
+    const magnitude = Math.sqrt(
+      directionX * directionX + directionZ * directionZ
+    );
+
+    this.walkPlane.body.setVelocityX((directionX / magnitude) * 5);
+    this.walkPlane.body.setVelocityZ((directionZ / magnitude) * 5);
+
+    setTimeout(() => {
+      this.isKnockedBack = false;
+    }, 500);
 
     if (this.healthPoints <= 0) {
-      this.die(); // Appeler la fonction de mort si les HP sont à 0 ou moins
+      this.die();
     }
   }
 
   // Fonction pour tuer l'ennemi
   die() {
     this.isDead = true; // Marquer l'ennemi comme mort
-    console.log("L'ennemi est mort !");
-    this.walkPlane.visible = false; // Rendre l'ennemi invisible
-    this.walkPlane.geometry.dispose(); // Libérer la mémoire de la géométrie
+
+    this.scene.third.physics.destroy(this.walkPlane.body);
+    this.walkPlane.visible = false;
+    this.walkPlane.geometry.dispose();
     this.walkPlane.material.dispose();
+    this.spawnItem();
   }
 
-  // Fonction pour charger les textures de l'ennemi
+  spawnItem() {
+    const textureLoader = new THREE.TextureLoader();
+    const textureCoin = textureLoader.load(
+      "/5/test3D/examples/piece/piece-02.png"
+    );
+    const coinValue = this.getRandomCoinValue();
+    const coinGeometry = new THREE.PlaneGeometry(0.6, 0.6);
+    const coinMaterial = new THREE.MeshBasicMaterial({
+      map: textureCoin, // Utiliser la première texture
+      side: THREE.DoubleSide,
+      transparent: true,
+      alphaTest: 0.5,
+    });
+
+    const coin = new THREE.Mesh(coinGeometry, coinMaterial);
+    coin.position.set(
+      this.walkPlane.position.x,
+      251.5,
+      this.walkPlane.position.z
+    );
+
+    this.scene.third.physics.add.existing(coin, {
+      shape: "box",
+      width: 1.5,
+      height: 2,
+      depth: 0.5,
+      mass: 0,
+    });
+
+    const body = coin.body;
+    body.setCollisionFlags(4);
+
+    this.scene.third.scene.add(coin);
+
+    this.scene.third.physics.add.collider(this.player.walkPlane, coin, () => {
+      Global.addCoin(coinValue);
+
+      this.scene.third.scene.remove(coin);
+
+      if (body) {
+        this.scene.third.physics.destroy(body);
+      }
+    });
+
+    // Drop de la potion
+    const potionType = this.getRandomPotionType();
+    if (potionType) {
+      console.log(potionType);
+      const texture = textureLoader.load(
+        "/5/test3D/examples/potions/" + potionType[0] + ".png"
+      );
+      const potionGeometry = new THREE.PlaneGeometry(0.6, 0.6);
+      const potionMaterial = new THREE.MeshBasicMaterial({
+        map: texture, // Utiliser la texture de la potion
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const potion = new THREE.Mesh(potionGeometry, potionMaterial);
+      potion.position.set(
+        this.walkPlane.position.x + 1, // Décalage pour ne pas superposer avec la pièce
+        251.5,
+        this.walkPlane.position.z
+      );
+
+      this.scene.third.physics.add.existing(potion, {
+        shape: "box",
+        width: 1.5,
+        height: 2,
+        depth: 0.5,
+        mass: 0,
+      });
+
+      const potionBody = potion.body;
+      potionBody.setCollisionFlags(4);
+      this.scene.third.scene.add(potion);
+
+      this.scene.third.physics.add.collider(
+        this.player.walkPlane,
+        potion,
+        () => {
+          if (Global.inventory.potions.length < 4) {
+            Global.addPotion(potionType[1]);
+
+            this.scene.third.scene.remove(potion);
+
+            if (potionBody) {
+              this.scene.third.physics.destroy(potionBody);
+            }
+          } else {
+            console.log(
+              "Vous avez déjà 4 potions. Vous ne pouvez pas en ramasser plus."
+            );
+          }
+        }
+      );
+    }
+  }
+
+  getRandomCoinValue() {
+    const random = Math.random() * 100;
+
+    if (random <= 65) {
+      return 5;
+    } else if (random <= 80) {
+      return 10;
+    } else if (random <= 90) {
+      return 15;
+    } else if (random <= 98) {
+      return 25;
+    } else {
+      return 50;
+    }
+  }
+
+  getRandomPotionType() {
+    const potionChance = Math.random() * 100;
+
+    if (potionChance <= 60) {
+      const potionTypeChance = Math.random() * 100;
+
+      if (potionTypeChance <= 25) {
+        return ["force", "potion_force"];
+      } else if (potionTypeChance <= 50) {
+        return ["vie", "potion_vie"];
+      } else if (potionTypeChance <= 75) {
+        return ["mana", "potion_mana"];
+      } else {
+        return ["defense", "potion_defense"];
+      }
+    }
+    return null;
+  }
+
   loadTextures(name, frameCount, action) {
     const framePaths = [];
     for (let i = 1; i <= frameCount; i++) {
@@ -71,33 +233,38 @@ export default class EnemyRPG {
     }
 
     const textureLoader = new THREE.TextureLoader();
-    framePaths.forEach((path, index) => {
-      textureLoader.load(
-        path,
-        (texture) => {
-          if (!this[action]) {
-            this[action] = [];
-          }
-          this[action][index] = texture;
-        },
-        undefined,
-        (err) => {
-          console.error(
-            `Erreur lors du chargement de la texture ${path}:`,
-            err
+    return Promise.all(
+      framePaths.map((path, index) => {
+        return new Promise((resolve, reject) => {
+          textureLoader.load(
+            path,
+            (texture) => {
+              if (!this[action]) {
+                this[action] = [];
+              }
+              this[action][index] = texture;
+              resolve(texture);
+            },
+            undefined,
+            (err) => {
+              console.error(
+                `Erreur lors du chargement de la texture ${path}:`,
+                err
+              );
+              reject(err);
+            }
           );
-        }
-      );
-    });
+        });
+      })
+    );
   }
 
   // Fonction d'animation de l'ennemi
   animateAction(action) {
     let textures = this[action];
 
-    // Si l'action est "walkgauche", utiliser les frames de "walkdroite" mais inverser la texture
     if (action === "walkgauche") {
-      textures = this["walkdroite"]; // Utiliser les mêmes frames que walkdroite
+      textures = this["walkdroite"];
     }
 
     if (this.currentAction === action && this.isAnimating) return;
@@ -132,7 +299,6 @@ export default class EnemyRPG {
 
     requestAnimationFrame(animateFrame);
   }
-
   generatePatrolPoints() {
     const pentagon = [
       { x: -213, z: -14 },
@@ -169,34 +335,33 @@ export default class EnemyRPG {
     this.moveTowards(this.currentTarget.x, this.currentTarget.z);
   }
 
-  // Se déplacer vers une position donnée
   moveTowards(targetX, targetZ) {
     const dx = targetX - this.walkPlane.position.x;
     const dz = targetZ - this.walkPlane.position.z;
     const angle = Math.atan2(dz, dx);
 
-    this.walkPlane.body.setVelocityX(Math.cos(angle) * 2); // Vitesse sur l'axe X
-    this.walkPlane.body.setVelocityZ(Math.sin(angle) * 2); // Vitesse sur l'axe Z
+    if (this.walkPlane.body) {
+      this.walkPlane.body.setVelocityX(Math.cos(angle) * 2);
+      this.walkPlane.body.setVelocityZ(Math.sin(angle) * 2);
 
-    // Choisir l'animation en fonction de la direction de déplacement
-    if (Math.abs(dx) > Math.abs(dz)) {
-      // Déplacement horizontal (gauche/droite)
-      if (dx > 0) {
-        this.walkPlane.scale.x = 5; // Face à droite
-        this.animateAction("walkdroite");
+      if (Math.abs(dx) > Math.abs(dz)) {
+        if (dx > 0) {
+          this.walkPlane.scale.x = 5;
+          this.animateAction("walkdroite");
+        } else {
+          this.walkPlane.scale.x = -5;
+          this.animateAction("walkgauche");
+        }
       } else {
-        this.walkPlane.scale.x = -5; // Face à gauche (miroir)
-        this.animateAction("walkgauche"); // Utiliser la même animation pour gauche
-      }
-    } else {
-      // Déplacement vertical (avant/arrière)
-      if (dz > 0) {
-        this.animateAction("marcheAvant");
-      } else {
-        this.animateAction("marcheArriere");
+        if (dz > 0) {
+          this.animateAction("marcheAvant");
+        } else {
+          this.animateAction("marcheArriere");
+        }
       }
     }
   }
+
   // Vérifier si l'ennemi a atteint sa cible
   reachedTarget() {
     const distanceSquared =
@@ -207,6 +372,8 @@ export default class EnemyRPG {
 
   // Mettre à jour l'ennemi
   update() {
+    if (!this.texturesLoaded || this.isKnockedBack) return;
+
     if (this.isPlayerInDetectionRadius()) {
       this.isChasingPlayer = true;
       this.moveTowards(
