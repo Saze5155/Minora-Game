@@ -1,5 +1,4 @@
 import Global from "/5/test3D/js/inventaire.js";
-import playerConfig from "/5/test3D/js/playerConfig.js";
 
 export default class Player {
   constructor(scene, x, y, z, textureKey) {
@@ -454,12 +453,12 @@ export default class Player {
       return;
     }
     this.scene.sound.play("damage");
-    playerConfig.playerHealth--;
+    Global.playerHealth--;
     this.showHealth();
 
     console.log("aie");
 
-    if (playerConfig.playerHealth <= 0) {
+    if (Global.playerHealth <= 0) {
       this.death(scene);
     } else {
       this.setInvincibility(); // Activer l'invincibilité
@@ -471,8 +470,8 @@ export default class Player {
       this.currentHealthImage.setVisible(false);
     }
 
-    if (this.healthImages[playerConfig.playerHealth]) {
-      this.currentHealthImage = this.healthImages[playerConfig.playerHealth];
+    if (this.healthImages[Global.playerHealth]) {
+      this.currentHealthImage = this.healthImages[Global.playerHealth];
 
       this.currentHealthImage.setVisible(true);
 
@@ -488,32 +487,32 @@ export default class Player {
     console.log("je mange");
     if (
       meatType === "viande bien cuite" &&
-      playerConfig.maxHealth > playerConfig.playerHealth
+      Global.maxHealth > Global.playerHealth
     ) {
-      if (playerConfig.playerHealth == 5) {
+      if (Global.playerHealth == 5) {
         this.scene.sound.play("Manger");
         setTimeout(() => {
-          playerConfig.playerHealth++;
+          Global.playerHealth++;
           this.scene.sound.play("GagnerVie");
           this.showHealth();
         }, 700);
       } else {
         this.scene.sound.play("Manger");
         setTimeout(() => {
-          playerConfig.playerHealth += 2;
+          Global.playerHealth += 2;
           this.scene.sound.play("GagnerVie");
           this.showHealth();
         }, 700);
       }
     } else if (
       (meatType === "viande pas trop cuite" &&
-        playerConfig.maxHealth > playerConfig.playerHealth) ||
+        Global.maxHealth > Global.playerHealth) ||
       (meatType === "viande trop cuite" &&
-        playerConfig.maxHealth > playerConfig.playerHealth)
+        Global.maxHealth > Global.playerHealth)
     ) {
       this.scene.sound.play("Manger");
       setTimeout(() => {
-        playerConfig.playerHealth++;
+        Global.playerHealth++;
         this.scene.sound.play("GagnerVie");
         this.showHealth();
       }, 700);

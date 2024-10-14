@@ -1,5 +1,4 @@
 import Global from "/5/test3D/js/inventaire.js";
-import playerConfig from "/5/test3D/js/playerConfig.js";
 
 export default class tpt extends Scene3D {
   constructor() {
@@ -140,7 +139,7 @@ export default class tpt extends Scene3D {
     // Actions au clic des boutons
     this.attackButton.on("pointerdown", () => this.showAttackMenu());
     this.defendButton.on("pointerdown", () =>
-      this.playerDefend(playerConfig.defenses[0])
+      this.playerDefend(Global.defenses[0])
     );
     this.potionButton.on("pointerdown", () => this.showPotionMenu());
 
@@ -160,7 +159,7 @@ export default class tpt extends Scene3D {
 
     // Afficher les différentes attaques
     let attackText = "Choisissez une attaque :\n";
-    playerConfig.attacks.forEach((attack, index) => {
+    Global.attacks.forEach((attack, index) => {
       attackText += `${index + 1}. ${attack.name} (Dégâts: ${
         attack.damage
       }, Coût: ${attack.mpCost} MP)\n`;
@@ -172,8 +171,8 @@ export default class tpt extends Scene3D {
       const keyPressed = parseInt(event.key);
 
       if (this.attackMenuVisible) {
-        if (keyPressed >= 1 && keyPressed <= playerConfig.attacks.length) {
-          this.playerAttack(playerConfig.attacks[keyPressed - 1]);
+        if (keyPressed >= 1 && keyPressed <= Global.attacks.length) {
+          this.playerAttack(Global.attacks[keyPressed - 1]);
         }
       }
 
@@ -338,7 +337,7 @@ export default class tpt extends Scene3D {
   showAttackMenu() {
     // Afficher le menu des attaques
     let attackText = "Choisissez une attaque :\n";
-    playerConfig.attacks.forEach((attack, index) => {
+    Global.attacks.forEach((attack, index) => {
       attackText += `${index + 1}. ${attack.name} (Dégâts: ${
         attack.damage
       }, Coût: ${attack.mpCost} MP)\n`;
@@ -395,7 +394,7 @@ export default class tpt extends Scene3D {
           this.playerAttack();
           break;
         case "defend":
-          this.playerDefend(playerConfig.defenses[0]); // Passer les infos de défense
+          this.playerDefend(Global.defenses[0]); // Passer les infos de défense
           break;
         case "potion":
           this.usePotion();
@@ -488,8 +487,8 @@ export default class tpt extends Scene3D {
       return;
     }
 
-    // Récupérer les effets de la potion dans playerConfig
-    const potionEffect = playerConfig.potions[potionUsed];
+    // Récupérer les effets de la potion dans Global
+    const potionEffect = Global.potions[potionUsed];
 
     if (!potionEffect) {
       this.updatePlayerActionText("Potion inconnue.");

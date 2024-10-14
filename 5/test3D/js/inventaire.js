@@ -1,5 +1,3 @@
-import playerConfig from "/5/test3D/js/playerConfig.js";
-
 let Global = {
   inventory: {
     coins: 0,
@@ -193,7 +191,7 @@ let Global = {
 
   eatMeatOrHoney(index) {
     const item = this.inventory.meatsAndHoney[index];
-    if (item && item.quantity > 0 && playerConfig.playerHealth < 6) {
+    if (item && item.quantity > 0 && Global.playerHealth < 6) {
       this.player.gainHealth(item.type);
       item.quantity--;
 
@@ -265,6 +263,26 @@ let Global = {
       console.log("Slots de viande/miel pleins !");
     }
   },
+
+  attacks: [
+    { name: "Slash", damage: 15, mpCost: 10 },
+    { name: "Fireball", damage: 25, mpCost: 20 },
+    { name: "Ice Blast", damage: 30, mpCost: 30 },
+  ],
+  defenses: [{ name: "Shield", defenseBoost: 10, mpCost: 15 }],
+  potions: {
+    vie: { healAmount: 25, mpCost: 0 },
+    mana: { restoreAmount: 20, mpCost: 0 },
+    viePlus: { healAmount: 50, mpCost: 0 },
+    manaPlus: { restoreAmount: 40, mpCost: 0 },
+    vieFull: { healAmount: 100, mpCost: 0 },
+    force: { boost: 10, duration: 5000, mpCost: 0 },
+    defense: { boost: 10, duration: 5000, mpCost: 0 },
+    temps: { effect: "slow", duration: 3000, mpCost: 0 },
+    espace: { effect: "teleport", mpCost: 0 },
+  },
+  playerHealth: 6,
+  maxHealth: 6,
 };
 
 export default Global;

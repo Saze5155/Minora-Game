@@ -161,7 +161,13 @@ export default class Plateformer extends Phaser.Scene {
           },
         });
 
-        this.physics.add.collider(this.player.sprite, platform);
+        this.physics.add.collider(
+          this.player.sprite,
+          platform,
+          this.checkCollision,
+          null,
+          this
+        );
 
         this.platform_layer.removeTileAt(tile.x, tile.y);
       }
