@@ -6,8 +6,15 @@ const playerConfig = {
   ],
   defenses: [{ name: "Shield", defenseBoost: 10, mpCost: 15 }],
   potions: {
-    healAmount: 25, // Points de vie restaurés
-    manaAmount: 20, // Points de mana restaurés
+    vie: { healAmount: 25, mpCost: 0 },
+    mana: { restoreAmount: 20, mpCost: 0 },
+    viePlus: { healAmount: 50, mpCost: 0 },
+    manaPlus: { restoreAmount: 40, mpCost: 0 },
+    vieFull: { healAmount: 100, mpCost: 0 },
+    force: { boost: 10, duration: 5000, mpCost: 0 },
+    defense: { boost: 10, duration: 5000, mpCost: 0 },
+    temps: { effect: "slow", duration: 3000, mpCost: 0 },
+    espace: { effect: "teleport", mpCost: 0 },
   },
   playerHealth: 6,
   maxHealth: 6,

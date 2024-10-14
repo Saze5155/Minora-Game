@@ -5,7 +5,7 @@ export default class EnemyRPG {
     // Utiliser les mêmes paramètres de construction que le joueur
     const texture = new THREE.TextureLoader().load(textureKey);
     const geometry = new THREE.PlaneGeometry(2.5, 2.5);
-    const material = new THREE.MeshBasicMaterial({
+    const material = new THREE.MeshStandardMaterial({
       map: texture,
       side: THREE.DoubleSide,
       transparent: true,
@@ -59,9 +59,10 @@ export default class EnemyRPG {
 
   takeDamage(playerPosition) {
     if (this.isDead) return;
-
+    this.scene.sound.play("animal_damage");
     this.healthPoints -= 1;
     this.isKnockedBack = true;
+
     const directionX = this.walkPlane.position.x - playerPosition.x;
     const directionZ = this.walkPlane.position.z - playerPosition.z;
     const magnitude = Math.sqrt(
@@ -127,7 +128,7 @@ export default class EnemyRPG {
 
     this.scene.third.physics.add.collider(this.player.walkPlane, coin, () => {
       Global.addCoin(coinValue);
-
+      this.scene.sound.play("collect"); // Assurez-vous que 'collect' est chargé dans la scène
       this.scene.third.scene.remove(coin);
 
       if (body) {
@@ -173,18 +174,39 @@ export default class EnemyRPG {
         this.player.walkPlane,
         potion,
         () => {
-          if (Global.inventory.potions.length < 4) {
-            Global.addPotion(potionType[1]);
+          const potionTypeName = potionType[0];
+          const potionLimit = {
+            vie: 10,
+            mana: 10,
+            manaPlus: 5,
+            viePlus: 5,
+            defense: 2,
+            force: 2,
+            vieFull: 1,
+            temps: 1,
+            espace: 1,
+          };
 
+          if (!Global.inventory.potions[potionTypeName]) {
+            console.error(
+              `Le type de potion ${potionTypeName} n'existe pas dans l'inventaire.`
+            );
+            return;
+          }
+
+          if (
+            Global.inventory.potions[potionTypeName].length <
+            potionLimit[potionTypeName]
+          ) {
+            Global.addPotion(potionTypeName);
+            this.scene.sound.play("collect"); // Utilise la scène passée en argum
             this.scene.third.scene.remove(potion);
 
             if (potionBody) {
               this.scene.third.physics.destroy(potionBody);
             }
           } else {
-            console.log(
-              "Vous avez déjà 4 potions. Vous ne pouvez pas en ramasser plus."
-            );
+            console.log(`${potionTypeName} est plein.`);
           }
         }
       );

@@ -1,56 +1,23 @@
 const fs = require("fs");
 
-const treeTextures = [
-  "/5/test3D/examples/vie/vie-03.png",
-  "/5/test3D/examples/vie/vie-04.png",
-  "/5/test3D/examples/vie/vie-05.png",
-  "/5/test3D/examples/vie/vie-06.png",
-  "/5/test3D/examples/vie/vie-07.png",
-];
+const cactusTextures = ["/5/test3D/examples/éléments desert/cactus.png"];
 
-// Fonction pour obtenir une texture aléatoire
-function getRandomTreeTexture() {
-  const randomIndex = Math.floor(Math.random() * treeTextures.length);
-  return treeTextures[randomIndex];
+// Fonction pour générer un scale aléatoire
+function getRandomScale() {
+  return Math.random() * (1.5 - 0.5) + 0.5; // Génère une échelle entre 0.5 et 1.5
 }
 
-// Fonction pour générer des positions aléatoires pour une zone rectangulaire
-const generatePositions = (
-  topRight,
-  topLeft,
-  bottomLeft,
-  bottomRight,
+// Coordonnées du pentagone
+const pentagon = [
+  { x: 122, z: -174 },
+  { x: 218, z: -73 },
+  { x: 222, z: 86 },
+  { x: 131, z: 196 },
+  { x: 31, z: 8 },
+];
 
-  hitboxWidth
-) => {
-  const positions = [];
-
-  for (let i = 0; i < 150; i++) {
-    const t1 = Math.random();
-    const leftX = topLeft.x + t1 * (bottomLeft.x - topLeft.x);
-    const leftZ = topLeft.z + t1 * (bottomLeft.z - topLeft.z);
-
-    const t2 = Math.random();
-    const rightX = topRight.x + t1 * (bottomRight.x - topRight.x);
-    const rightZ = topRight.z + t1 * (bottomRight.z - topRight.z);
-
-    const finalT = Math.random();
-    const finalX = leftX + finalT * (rightX - leftX);
-    const finalZ = leftZ + finalT * (rightZ - leftZ);
-
-    positions.push({
-      x: finalX,
-      z: finalZ,
-      hitboxWidth,
-      texture: getRandomTreeTexture(),
-    });
-  }
-
-  return positions;
-};
-
-// Fonction pour générer des positions aléatoires dans un pentagone
-const generatePentagonPositions = (points, hitboxWidth) => {
+// Générer des positions aléatoires dans le pentagone
+const generatePentagonCactusPositions = (points, hitboxWidth) => {
   const calculatePolygonCenter = (points) => {
     const totalPoints = points.length;
     const sumX = points.reduce((sum, point) => sum + point.x, 0);
@@ -80,10 +47,10 @@ const generatePentagonPositions = (points, hitboxWidth) => {
   const villageCenter = calculatePolygonCenter(points);
   const villageRadius = 50;
 
-  for (let i = 0; i < 300; i++) {
-    let treePlaced = false;
+  for (let i = 0; i < 80; i++) {
+    let cactusPlaced = false;
 
-    while (!treePlaced) {
+    while (!cactusPlaced) {
       const minX = Math.min(...points.map((p) => p.x));
       const maxX = Math.max(...points.map((p) => p.x));
       const minZ = Math.min(...points.map((p) => p.z));
@@ -104,10 +71,12 @@ const generatePentagonPositions = (points, hitboxWidth) => {
         positions.push({
           x: randomX,
           z: randomZ,
+          y: 255,
           hitboxWidth,
-          texture: getRandomTreeTexture(),
+          texture: cactusTextures[0],
+          scale: getRandomScale(), // Ajoute un scale aléatoire pour chaque cactus
         });
-        treePlaced = true;
+        cactusPlaced = true;
       }
     }
   }
@@ -115,58 +84,16 @@ const generatePentagonPositions = (points, hitboxWidth) => {
   return positions;
 };
 
-// Coordonnées des bords
-const borders = [
-  {
-    topRight: { x: 109, z: -217 },
-    topLeft: { x: -43, z: -245 },
-    bottomLeft: { x: -48, z: -216 },
-    bottomRight: { x: 99, z: -194 },
-  },
-  {
-    topRight: { x: -43, z: -245 },
-    bottomRight: { x: -48, z: -216 },
-    topLeft: { x: -189, z: -159 },
-    bottomLeft: { x: -177, z: -144 },
-  },
-  {
-    topRight: { x: -189, z: -159 },
-    bottomRight: { x: -177, z: -144 },
-    topLeft: { x: -241, z: -16 },
-    bottomLeft: { x: -213, z: -14 },
-  },
-];
-
-// Coordonnées du pentagone
-const pentagon = [
-  { x: -213, z: -14 },
-  { x: -22, z: -22 },
-  { x: 97, z: -194 },
-  { x: -51, z: -219 },
-  { x: -180, z: -144 },
-];
-
-// Générer les positions pour les bords (hitbox large)
-let treePositions = [];
-borders.forEach((border) => {
-  const positions = generatePositions(
-    border.topRight,
-    border.topLeft,
-    border.bottomLeft,
-    border.bottomRight,
-    10
-  );
-  treePositions = treePositions.concat(positions);
-});
-
-// Générer les positions pour le pentagone (hitbox petite)
-const pentagonPositions = generatePentagonPositions(pentagon, 1);
-treePositions = treePositions.concat(pentagonPositions);
+// Générer les positions pour les cactus dans le pentagone
+const pentagonCactusPositions = generatePentagonCactusPositions(pentagon, 5);
 
 // Sauvegarder dans un fichier JSON
 fs.writeFileSync(
-  "treePositions.json",
-  JSON.stringify(treePositions, null, 2),
+  "cactusPositions.json",
+  JSON.stringify(pentagonCactusPositions, null, 2),
   "utf-8"
 );
-console.log("Positions des arbres sauvegardées dans treePositions.json");
+
+console.log(
+  "Positions des cactus avec scale aléatoire sauvegardées dans cactusPositions.json"
+);

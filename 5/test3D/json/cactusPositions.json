@@ -1,0 +1,642 @@
+[
+  {
+    "x": 194.74060526284802,
+    "z": -5.698455081877768,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.2954183093464577
+  },
+  {
+    "x": 158.64174623144856,
+    "z": 62.787088911461325,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.4596189248426028
+  },
+  {
+    "x": 119.66036240643737,
+    "z": -77.78144499169473,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.8740534091019123
+  },
+  {
+    "x": 133.98025905022146,
+    "z": 99.28396457411645,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.942909869571031
+  },
+  {
+    "x": 158.07073841423698,
+    "z": 92.90766238026106,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.5295360188263432
+  },
+  {
+    "x": 113.60471630718148,
+    "z": 91.87055534495124,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.9072085253388091
+  },
+  {
+    "x": 106.34445734047857,
+    "z": -58.17383435752454,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.2720209292541167
+  },
+  {
+    "x": 110.32166467434297,
+    "z": 125.81910511733952,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.5676663959452628
+  },
+  {
+    "x": 101.40678199168799,
+    "z": 124.14143737473347,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.4576932663279798
+  },
+  {
+    "x": 67.01859240839521,
+    "z": -36.498302663289394,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.8884518202793321
+  },
+  {
+    "x": 119.32044808413553,
+    "z": -153.6860946180168,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.8721221867849696
+  },
+  {
+    "x": 182.55393630398984,
+    "z": 51.983465676747755,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.4156495021056925
+  },
+  {
+    "x": 100.04847296260718,
+    "z": -100.13924894001579,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.1010830357879358
+  },
+  {
+    "x": 213.11988686737078,
+    "z": 64.30115955201592,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.2449268020178454
+  },
+  {
+    "x": 61.241240644183215,
+    "z": -30.267284426819373,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.0734661636895748
+  },
+  {
+    "x": 110.06964845786591,
+    "z": -116.1288448195701,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.5355695825623807
+  },
+  {
+    "x": 128.62519761719986,
+    "z": -134.27700200384498,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.193068761753939
+  },
+  {
+    "x": 100.65194183850079,
+    "z": 134.28767578281264,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.4472891663170993
+  },
+  {
+    "x": 203.6769355295871,
+    "z": 37.115243004172754,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.0758965370675562
+  },
+  {
+    "x": 61.220127303948374,
+    "z": 17.267192615069916,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.3100171552690119
+  },
+  {
+    "x": 118.97169469847442,
+    "z": -63.891562888329844,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.7191324242722841
+  },
+  {
+    "x": 100.66448115044426,
+    "z": -95.57788872908361,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.2115326957901742
+  },
+  {
+    "x": 58.46579918943207,
+    "z": 18.680464433220834,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.8049274606448693
+  },
+  {
+    "x": 62.10697463951164,
+    "z": 27.396082797541112,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.0215007250227903
+  },
+  {
+    "x": 183.5693584945086,
+    "z": -56.398188637943264,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.7319398700559139
+  },
+  {
+    "x": 88.61769730377536,
+    "z": -40.42345784740624,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.8042132094024865
+  },
+  {
+    "x": 157.55329982522403,
+    "z": -94.10833915653411,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.2967244783352008
+  },
+  {
+    "x": 178.97920216184747,
+    "z": 61.85427019574817,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.7726184281987718
+  },
+  {
+    "x": 152.1046284748919,
+    "z": -114.69888250583834,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.3250981981094867
+  },
+  {
+    "x": 187.0419037358864,
+    "z": 88.17383328385898,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.8880649838110708
+  },
+  {
+    "x": 129.9039467988734,
+    "z": -140.9338983317727,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.7087252917707851
+  },
+  {
+    "x": 96.93641512620451,
+    "z": -116.95105542523935,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.9417641228349929
+  },
+  {
+    "x": 36.109979774977354,
+    "z": 9.129978621187036,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.3572276398170533
+  },
+  {
+    "x": 161.12665106749415,
+    "z": -51.658445364838954,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.404222144613992
+  },
+  {
+    "x": 175.97241106039374,
+    "z": 83.42016567042731,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.9249943627982578
+  },
+  {
+    "x": 129.10553036693457,
+    "z": 59.89747420736123,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.0230426375290027
+  },
+  {
+    "x": 108.59274597868473,
+    "z": 133.95827533459095,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.5475234681642234
+  },
+  {
+    "x": 124.71844915014748,
+    "z": -84.02818263072905,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.8920929616953224
+  },
+  {
+    "x": 170.98491930811647,
+    "z": 133.3921267669112,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.1191952161945267
+  },
+  {
+    "x": 173.1842516189695,
+    "z": 71.73133344324626,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.047802519363228
+  },
+  {
+    "x": 77.38816701964743,
+    "z": 31.001807472417937,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.5527751140626187
+  },
+  {
+    "x": 136.37800568730995,
+    "z": -124.92012210725818,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.4953992749111638
+  },
+  {
+    "x": 94.65558914624377,
+    "z": -47.84560354906537,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.3512859176650363
+  },
+  {
+    "x": 118.04833511654678,
+    "z": 121.74306936463012,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.7695518719015191
+  },
+  {
+    "x": 101.30842005986099,
+    "z": -33.5337348729889,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.5289041066823954
+  },
+  {
+    "x": 205.60059754686492,
+    "z": -82.98062632187737,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.2954009917515725
+  },
+  {
+    "x": 114.77872602467268,
+    "z": 71.74886749010037,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.333702928939205
+  },
+  {
+    "x": 105.12553604718867,
+    "z": -98.00993075344839,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.8515603608497837
+  },
+  {
+    "x": 82.92512769188306,
+    "z": 1.0831218197067471,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.0199907690510746
+  },
+  {
+    "x": 160.9942064522759,
+    "z": -102.39871662002034,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.998629555149126
+  },
+  {
+    "x": 167.8569036541027,
+    "z": 102.1172022956373,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.7432843698817435
+  },
+  {
+    "x": 65.66415334326848,
+    "z": 58.19402725768123,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.380649380212537
+  },
+  {
+    "x": 220.7215666785947,
+    "z": 41.73783215961467,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.8575991618101202
+  },
+  {
+    "x": 155.1779611107716,
+    "z": -126.47178842308446,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.8226433787878846
+  },
+  {
+    "x": 121.55833085360027,
+    "z": -111.89690813353931,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.16664611978722
+  },
+  {
+    "x": 69.84588986931197,
+    "z": 37.18901351562465,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.4242358554994095
+  },
+  {
+    "x": 64.46035843495812,
+    "z": 50.24077058906735,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.736768787439664
+  },
+  {
+    "x": 147.77212593560373,
+    "z": 73.00866529096979,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.283274292424567
+  },
+  {
+    "x": 109.06490934210812,
+    "z": 61.237136387487965,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.9428914464126767
+  },
+  {
+    "x": 189.91223162339242,
+    "z": 108.21563204117882,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.3600637668575979
+  },
+  {
+    "x": 201.92489086130104,
+    "z": -6.871791384864537,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.7859392014919251
+  },
+  {
+    "x": 217.4627835302675,
+    "z": 33.53022928374807,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.9619737864673534
+  },
+  {
+    "x": 105.1168685173462,
+    "z": -124.58487970803009,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.7831877512385488
+  },
+  {
+    "x": 201.98632875960942,
+    "z": 109.04653948855054,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.0803197261217143
+  },
+  {
+    "x": 107.90326238032749,
+    "z": 94.28411662229126,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.5243201072826775
+  },
+  {
+    "x": 118.12538441869802,
+    "z": -120.2872711477375,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.7576311901714083
+  },
+  {
+    "x": 56.99834599673493,
+    "z": 35.42305277253615,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.3908956452153163
+  },
+  {
+    "x": 218.19839084190704,
+    "z": 13.562096130588145,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.9155068478954553
+  },
+  {
+    "x": 79.68502312617318,
+    "z": 0.31829580036082916,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.6406841417177505
+  },
+  {
+    "x": 104.79360467332616,
+    "z": 122.10023930565904,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.3596897656724312
+  },
+  {
+    "x": 87.91366089611569,
+    "z": 66.00868553283183,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.7160968617922083
+  },
+  {
+    "x": 76.66307945861482,
+    "z": -39.207304246520636,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.5147575604349377
+  },
+  {
+    "x": 206.38953906117612,
+    "z": 35.67711758622386,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.1519775227181057
+  },
+  {
+    "x": 160.18075418285926,
+    "z": -49.883584722816835,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.0410472686761105
+  },
+  {
+    "x": 122.68140727154584,
+    "z": 90.3703749119864,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.5141762269973102
+  },
+  {
+    "x": 209.41466241585877,
+    "z": 39.07436166876067,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.7856492052912936
+  },
+  {
+    "x": 213.79023164718305,
+    "z": -40.28107420076557,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.983035305434383
+  },
+  {
+    "x": 192.6344125595944,
+    "z": 43.008823416757394,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 1.2024407374312542
+  },
+  {
+    "x": 182.95758281247134,
+    "z": -109.32502978675322,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.80843575758976
+  },
+  {
+    "x": 145.44994810587912,
+    "z": 151.97632291890903,
+    "y": 255,
+    "hitboxWidth": 5,
+    "texture": "/5/test3D/examples/éléments desert/cactus.png",
+    "scale": 0.9089496211901984
+  }
+]

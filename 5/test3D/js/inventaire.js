@@ -3,7 +3,17 @@ import playerConfig from "/5/test3D/js/playerConfig.js";
 let Global = {
   inventory: {
     coins: 0,
-    potions: [],
+    potions: {
+      vie: [],
+      viePlus: [],
+      vieFull: [],
+      force: [],
+      defense: [],
+      temps: [],
+      espace: [],
+      mana: [],
+      manaPlus: [],
+    },
     meatsAndHoney: [],
   },
   inventoryOpen: false,
@@ -25,115 +35,100 @@ let Global = {
   showInventory(scene) {
     const width = scene.cameras.main.width;
     const height = scene.cameras.main.height;
-    const bgWidth = width / 3;
-    const bgHeight = height / 2;
-    const leftX = width / 6;
-    const centerY = height / 2;
-
-    const bg = scene.add.graphics();
-    bg.fillStyle(0x4d4d4d, 0.8);
-    bg.fillRect(leftX - bgWidth / 2, centerY - bgHeight / 2, bgWidth, bgHeight);
-    this.inventoryElements.push(bg);
-
     const slotSize = 50;
     const padding = 10;
     const potionScale = 0.08;
     const coinScale = 0.3;
     const meatScale = 0.2;
-    const slotPositions = [];
 
-    // Case des pièces
-    slotPositions.push({
-      x: leftX - bgWidth / 2 + padding,
-      y: centerY - bgHeight / 2 + padding,
-      type: "coins",
-    });
+    // Agrandir le rectangle gris en arrière-plan
+    const bgWidth = width / 2;
+    const bgHeight = height / 2;
+    const leftX = width / 6;
+    const centerY = height / 2;
 
-    // Cases des potions
-    for (let i = 0; i < 4; i++) {
-      slotPositions.push({
-        x: leftX - bgWidth / 2 + padding,
-        y:
-          centerY -
-          bgHeight / 2 +
-          slotSize +
-          padding * 2 +
-          i * (slotSize + padding),
-        type: "potion",
-        index: i,
-      });
-    }
+    // Rectangle gris
+    const bg = scene.add.graphics();
+    bg.fillStyle(0x4d4d4d, 0.8);
+    bg.fillRect(leftX - bgWidth / 2, centerY - bgHeight / 2, bgWidth, bgHeight);
+    this.inventoryElements.push(bg);
 
-    // Cases des viandes/miel
-    for (let i = 0; i < 4; i++) {
-      slotPositions.push({
-        x: leftX - bgWidth / 2 + slotSize + padding + i * (slotSize + padding),
-        y: centerY + bgHeight / 2 - slotSize - padding,
-        type: "meatHoney",
-        index: i,
-      });
-    }
+    // Pièce en haut à gauche
+    const coinX = leftX - bgWidth / 2 + padding;
+    const coinY = centerY - bgHeight / 2 + padding;
 
-    slotPositions.forEach((slot) => {
+    const coinImage = scene.add.image(
+      coinX + slotSize / 2,
+      coinY + slotSize / 2,
+      "coin_2"
+    );
+    coinImage.setScale(coinScale);
+    this.inventoryElements.push(coinImage);
+
+    const coinsText = scene.add
+      .text(
+        coinX + slotSize / 2,
+        coinY + slotSize - 5,
+        `${this.inventory.coins}`,
+        {
+          fontSize: "18px",
+          color: "#ffffff",
+          fontStyle: "bold",
+          stroke: "#000000",
+          strokeThickness: 2,
+        }
+      )
+      .setOrigin(0.5, 1);
+    this.inventoryElements.push(coinsText);
+
+    // 9 slots pour les potions
+    for (let i = 0; i < 9; i++) {
+      const slotX = coinX + slotSize + padding + i * (slotSize + padding);
+      const slotY = coinY;
+
       const slotBg = scene.add.graphics();
       slotBg.lineStyle(2, 0x000000, 1);
-      slotBg.strokeRect(slot.x, slot.y, slotSize, slotSize);
+      slotBg.strokeRect(slotX, slotY, slotSize, slotSize);
       this.inventoryElements.push(slotBg);
 
-      if (slot.type === "coins") {
-        const coinImage = scene.add.image(
-          slot.x + slotSize / 2,
-          slot.y + slotSize / 2,
-          "coin_2"
-        );
-        coinImage.setScale(coinScale);
-        this.inventoryElements.push(coinImage);
-
-        const coinsText = scene.add
-          .text(
-            slot.x + slotSize / 2,
-            slot.y + slotSize - 5,
-            `${this.inventory.coins}`,
-            {
-              fontSize: "18px",
-              color: "#ffffff",
-              fontStyle: "bold",
-              stroke: "#000000",
-              strokeThickness: 2,
-            }
-          )
-          .setOrigin(0.5, 1);
-        this.inventoryElements.push(coinsText);
-      } else if (slot.type === "potion" && this.inventory.potions[slot.index]) {
-        const potion = this.inventory.potions[slot.index];
+      const potionKeys = Object.keys(this.inventory.potions);
+      const potionType = potionKeys[i];
+      if (this.inventory.potions[potionType].length > 0) {
+        const potion = this.inventory.potions[potionType][0];
         const potionImage = scene.add.image(
-          slot.x + slotSize / 2,
-          slot.y + slotSize / 2,
-          potion.type
+          slotX + slotSize / 2,
+          slotY + slotSize / 2,
+          "potion_" + potion.type
         );
         potionImage.setScale(potionScale);
         potionImage.setInteractive();
         this.inventoryElements.push(potionImage);
 
         potionImage.on("pointerdown", () => {
-          this.startCharging(scene, slot, slot.index);
+          this.startCharging(scene, { x: slotX, y: slotY }, i);
         });
 
         potionImage.on("pointerup", () => {
           this.stopCharging();
         });
+      }
+    }
 
-        potionImage.on("pointerout", () => {
-          this.stopCharging();
-        });
-      } else if (
-        slot.type === "meatHoney" &&
-        this.inventory.meatsAndHoney[slot.index]
-      ) {
-        const item = this.inventory.meatsAndHoney[slot.index];
+    // 4 slots pour viandes/miel à droite
+    for (let i = 0; i < 4; i++) {
+      const slotX = leftX + bgWidth / 2 - slotSize - padding;
+      const slotY = centerY - bgHeight / 2 + i * (slotSize + padding);
+
+      const slotBg = scene.add.graphics();
+      slotBg.lineStyle(2, 0x000000, 1);
+      slotBg.strokeRect(slotX, slotY, slotSize, slotSize);
+      this.inventoryElements.push(slotBg);
+
+      if (this.inventory.meatsAndHoney[i]) {
+        const item = this.inventory.meatsAndHoney[i];
         const itemImage = scene.add.image(
-          slot.x + slotSize / 2,
-          slot.y + slotSize / 2,
+          slotX + slotSize / 2,
+          slotY + slotSize / 2,
           item.type
         );
         itemImage.setScale(meatScale);
@@ -142,8 +137,8 @@ let Global = {
 
         const itemText = scene.add
           .text(
-            slot.x + slotSize / 2,
-            slot.y + slotSize - 5,
+            slotX + slotSize / 2,
+            slotY + slotSize - 5,
             `${item.quantity}`,
             {
               fontSize: "18px",
@@ -155,16 +150,9 @@ let Global = {
           )
           .setOrigin(0.5, 1);
         this.inventoryElements.push(itemText);
-
-        itemImage.on("pointerdown", () => {
-          this.eatMeatOrHoney(slot.index);
-          this.hideInventory();
-          this.showInventory(scene);
-        });
       }
-    });
+    }
   },
-
   startCharging(scene, slot, potionIndex) {
     this.chargeCircle = scene.add
       .circle(slot.x + 25, slot.y + 25, 20, 0xff0000, 0.5)
@@ -234,13 +222,24 @@ let Global = {
   },
 
   addPotion(potionType) {
-    if (this.inventory.potions.length < 4) {
-      this.inventory.potions.push({ type: potionType });
+    const potionLimits = {
+      vie: 10,
+      mana: 10,
+      manaPlus: 5,
+      viePlus: 5,
+      defense: 2,
+      force: 2,
+      vieFull: 1,
+      temps: 1,
+      espace: 1,
+    };
+
+    if (this.inventory.potions[potionType].length < potionLimits[potionType]) {
+      this.inventory.potions[potionType].push({ type: potionType });
     } else {
-      console.log("Inventaire de potions plein !");
+      console.log(`${potionType} est plein !`);
     }
   },
-
   addMeatOrHoney(type, amount) {
     const existingItem = this.inventory.meatsAndHoney.find(
       (item) => item.type === type && item.quantity < 5

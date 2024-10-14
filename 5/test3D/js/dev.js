@@ -21,21 +21,9 @@ export default class DevMode {
   // Initialiser la galerie d'images
   initImageSelector() {
     const images = [
-      "/5/test3D/examples/vie/grand arbre.png",
-      "/5/test3D/examples/vie/tuiles/tuiles_Plan de travail 1.png",
-      "/5/test3D/examples/vie/tuiles/tuiles-02.png",
-      "/5/test3D/examples/vie/tuiles/tuiles-03.png",
-      "/5/test3D/examples/vie/tuiles/tuiles-04.png",
-      "/5/test3D/examples/vie/tuiles/tuiles-05.png",
-      "/5/test3D/examples/vie/tuiles/tuiles-06.png",
-      "/5/test3D/examples/vie/tuiles/tuiles-07.png",
-      "/5/test3D/examples/vie/tuiles/tuiles-08.png",
-      "/5/test3D/examples/vie/tuiles/tuiles-09.png",
-      "/5/test3D/examples/vie/vie-08.png",
-      "/5/test3D/examples/vie/vie-12.png",
-      "/5/test3D/examples/vie/vie-13.png",
-      "/5/test3D/examples/vie/vie-14.png",
-      "/5/test3D/examples/vie/vie-15.png",
+      "/5/test3D/examples/éléments desert/pierre2.png",
+      "/5/test3D/examples/éléments desert/pierre1.png",
+      "/5/test3D/examples/éléments desert/cactus.png",
     ];
 
     const container = document.getElementById("image-selector");

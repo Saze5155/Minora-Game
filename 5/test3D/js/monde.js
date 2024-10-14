@@ -1,10 +1,15 @@
-//import camera from "/5/test3D/js/cam.js";
-//import DevMode from "/5/test3D/js/dev.js";
 import Animal from "/5/test3D/js/animal.js";
+import camera from "/5/test3D/js/cam.js";
+import DevMode from "/5/test3D/js/dev.js";
 import EnemyRPG from "/5/test3D/js/enemy_rpg.js";
+import Insect from "/5/test3D/js/insect.js";
 import Global from "/5/test3D/js/inventaire.js";
 import laser from "/5/test3D/js/laser.js";
-import { getBushTexture, getTreeTexture } from "/5/test3D/js/loading.js";
+import {
+  getBushTexture,
+  getCactusTexture,
+  getTreeTexture,
+} from "/5/test3D/js/loading.js";
 import Marchand from "/5/test3D/js/marchand.js";
 import player from "/5/test3D/js/player.js";
 import { FBXLoader } from "/5/test3D/lib/FBXLoader.js";
@@ -18,15 +23,21 @@ export default class monde extends Scene3D {
     this.enemies = [];
     this.animaux = [];
     this.grandArbre = null;
+    this.isDay = true;
+    this.insects = [];
+    this.blockingObjects = [];
+    this.player = null;
+    this.shaderMaterials = new Map();
+    this.biomeMusic = null;
+    this.currentMusic = null;
   }
 
   init() {
     this.accessThirdDimension();
   }
-
   async create() {
     const textureLoader = new THREE.TextureLoader();
-    //this.freeCamera = new camera(this);
+    this.freeCamera = new camera(this);
     this.pointerLaser = new laser(this);
 
     this.player = new player(
@@ -132,11 +143,26 @@ export default class monde extends Scene3D {
       this.player.walkPlane,
       this.marchand.marchandMesh,
       () => {
-        if (this.player.keys.interact && this.player.keys.interact.isDown) {
+        if (
+          this.player.keys.interact &&
+          this.player.keys.interact.isDown &&
+          !this.isDay
+        ) {
           this.marchand.showItemsForSale();
         }
       }
     );
+    for (let i = 0; i < 10; i++) {
+      this.insects.push(
+        new Insect(this, "/5/test3D/examples/vie/vie-18.png", 0.1)
+      );
+      this.insects.push(
+        new Insect(this, "/5/test3D/examples/vie/vie-23.png", 0.1)
+      );
+      this.insects.push(
+        new Insect(this, "/5/test3D/examples/vie/vie-25.png", 0.1)
+      );
+    }
 
     textureLoader.load("/5/test3D/examples/cuisine/marmitte.png", (texture) => {
       const planeGeometry = new THREE.PlaneGeometry(2.5, 2.5);
@@ -155,7 +181,7 @@ export default class monde extends Scene3D {
         width: 1.3, // Utilise la largeur de hitbox fournie
         height: 1, // Hauteur fixe
         depth: 1, // Profondeur fixe
-        mass: 0, // Arbre statique
+        mass: 0,
       });
 
       this.third.scene.add(tile);
@@ -174,6 +200,7 @@ export default class monde extends Scene3D {
             );
             if (meatItem && meatItem.quantity > 0) {
               this.scene.launch("Cook"); // Lance la scène du mini-jeu
+              this.sound.play("marmitte");
               this.scene.pause();
               meatItem.quantity--;
               if (meatItem.quantity === 0) {
@@ -212,10 +239,12 @@ export default class monde extends Scene3D {
       );
     };
 
-    this.third.warpSpeed("fog");
+    this.third.warpSpeed("light", "fog");
+
     //this.third.physics.debug.enable();
 
-    //this.devMode = new DevMode(this, this.freeCamera.camera, textureLoader);
+    this.devMode = new DevMode(this, this.freeCamera.camera, textureLoader);
+
     // Soleil et Lune
     const sunGeometry = new THREE.SphereGeometry(200, 32, 32); // Taille du soleil
     const sunMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 }); // Couleur jaune pour le soleil
@@ -339,7 +368,6 @@ export default class monde extends Scene3D {
     this.third.scene.add(skySphere);
 
     // Variables pour gérer le changement de couleur et l'opacité
-    let isDay = true;
     const fadeDuration = 2000; // Durée du fondu en millisecondes
     let startTime = 0;
 
@@ -374,11 +402,11 @@ export default class monde extends Scene3D {
     // Fonction pour changer la couleur de la sphère avec fondu
     const changeSkyColor = () => {
       startTime10 = performance.now(); // Obtenir l'heure de départ à chaque changement de couleur
-      isDay = !isDay; // Changer l'état du jour à nuit ou vice versa
+      this.isDay = !this.isDay; // Changer l'état du jour à nuit ou vice versa
 
       // Gérer la visibilité des étoiles
       stars.forEach((star) => {
-        star.visible = isDay; // Afficher les étoiles seulement la nuit
+        star.visible = this.isDay; // Afficher les étoiles seulement la nuit
       });
 
       // Commencer l'animation de fondu dès que la couleur change
@@ -392,7 +420,7 @@ export default class monde extends Scene3D {
       const progress = Math.min(elapsedTime / fadeDuration, 1);
 
       // Interpoler les couleurs
-      if (isDay) {
+      if (this.isDay) {
         uniforms.topColor.value.lerp(new THREE.Color(0x000033), progress); // Fondu vers le bleu foncé
         uniforms.bottomColor.value.lerp(new THREE.Color(0x0022bb), progress); // Fondu vers le bleu foncé
       } else {
@@ -519,6 +547,17 @@ export default class monde extends Scene3D {
       }
     );
 
+    // Initialiser les musiques pour chaque biome avec volume par défaut
+    this.biomeMusic = {
+      nature: this.sound.add("nature_music", { loop: true, volume: 0.5 }), // Volume à 50%
+      desert: this.sound.add("desert_music", { loop: true, volume: 0.7 }), // Volume à 70%
+      space: this.sound.add("space_music", { loop: true, volume: 0.1 }), // Volume à 40%
+    };
+
+    // Jouer la première musique (par exemple Nature)
+    this.currentMusic = "nature";
+    this.biomeMusic.nature.play();
+
     const topTexture1 = textureLoader.load(
       "/5/test3D/examples/vie/tuiles/tuile2.png"
     );
@@ -551,18 +590,11 @@ export default class monde extends Scene3D {
       new THREE.MeshStandardMaterial({ map: topTexture3 }),
     ];
 
-    const geometries = [];
-
-    geometries.push(
-      new THREE.CircleGeometry(250, 3, Math.PI / 3, (2 * Math.PI) / 3)
-    ); // Ajuste selon la taille
-    geometries.push(
-      new THREE.CircleGeometry(250, 3, -Math.PI / 3, (2 * Math.PI) / 3)
-    ); // Ajuste selon la taille
-    geometries.push(
-      new THREE.CircleGeometry(250, 3, Math.PI, (2 * Math.PI) / 3)
-    ); // Ajuste selon la taille
-
+    const geometries = [
+      new THREE.CircleGeometry(250, 3, Math.PI / 3, (2 * Math.PI) / 3), // Nature
+      new THREE.CircleGeometry(250, 3, -Math.PI / 3, (2 * Math.PI) / 3), // Désert
+      new THREE.CircleGeometry(250, 3, Math.PI, (2 * Math.PI) / 3), // Espace
+    ];
     for (let i = 0; i < geometries.length; i++) {
       const topMesh = new THREE.Mesh(geometries[i], topMaterials[i]);
       topMesh.rotation.x = -Math.PI / 2; // Mettre à plat le plan
@@ -589,7 +621,7 @@ export default class monde extends Scene3D {
 
     // Ajouter la physique au cube (collision)
     this.third.physics.add.existing(cube, { mass: 0 });
-    //this.devMode.setTargetCube(cube);
+    this.devMode.setTargetCube(cube);
 
     const waterTexture = textureLoader.load("/5/test3D/examples/eau.png");
 
@@ -634,7 +666,7 @@ export default class monde extends Scene3D {
               depth: 1,
               mass: 0,
             });
-
+            this.blockingObjects.push(tree);
             this.third.scene.add(tree);
           }
         });
@@ -679,6 +711,53 @@ export default class monde extends Scene3D {
       .catch((error) => {
         console.error(
           "Erreur lors du chargement des positions des arbres:",
+          error
+        );
+      });
+
+    // CACTUS
+    fetch("/5/test3D/json/cactusPositions.json")
+      .then((response) => response.json())
+      .then((cactusPositions) => {
+        cactusPositions.forEach((cactusData) => {
+          const { x, z, hitboxWidth, texture, scale } = cactusData;
+
+          const loadedTexture = getCactusTexture(texture);
+          if (loadedTexture) {
+            const planeGeometry = new THREE.PlaneGeometry(
+              10 * scale,
+              10 * scale
+            ); // Applique le scale
+            const planeMaterial = new THREE.MeshStandardMaterial({
+              map: loadedTexture,
+              side: THREE.DoubleSide,
+              transparent: true,
+              alphaTest: 0.5,
+            });
+
+            const cactus = new THREE.Mesh(planeGeometry, planeMaterial);
+            cactus.position.set(x, 251 + 5 * scale, z);
+            cactus.rotation.y = Math.random() * Math.PI * 2;
+
+            this.third.physics.add.existing(cactus, {
+              shape: "box",
+              width: hitboxWidth,
+              height: 40 * scale, // Applique le scale à la hitbox aussi
+              depth: 1,
+              mass: 0,
+            });
+            this.blockingObjects.push(cactus);
+            this.third.scene.add(cactus);
+          }
+        });
+
+        console.log(
+          "Tous les cactus ont été placés avec leurs hitboxs et scale."
+        );
+      })
+      .catch((error) => {
+        console.error(
+          "Erreur lors du chargement des positions des cactus:",
           error
         );
       });
@@ -747,7 +826,7 @@ export default class monde extends Scene3D {
         depth: 1, // Profondeur fixe
         mass: 0, // Arbre statique
       });
-
+      this.blockingObjects.push(tile);
       this.third.scene.add(tile);
 
       this.hitbox(tile);
@@ -787,6 +866,8 @@ export default class monde extends Scene3D {
         tile.rotation.x = 0;
       }
       this.third.physics.add.existing(tile, { mass: 0 });
+
+      this.blockingObjects.push(tile);
       this.third.scene.add(tile);
     });
 
@@ -812,6 +893,7 @@ export default class monde extends Scene3D {
         tile.rotation.x = 0;
       }
       this.third.physics.add.existing(tile, { mass: 0 });
+      this.blockingObjects.push(tile);
       this.third.scene.add(tile);
     });
 
@@ -837,6 +919,7 @@ export default class monde extends Scene3D {
         tile.rotation.x = 0;
       }
       this.third.physics.add.existing(tile, { mass: 0 });
+      this.blockingObjects.push(tile);
       this.third.scene.add(tile);
     });
 
@@ -862,6 +945,7 @@ export default class monde extends Scene3D {
         tile.rotation.x = 0;
       }
       this.third.physics.add.existing(tile, { mass: 0 });
+      this.blockingObjects.push(tile);
       this.third.scene.add(tile);
     });
 
@@ -887,6 +971,7 @@ export default class monde extends Scene3D {
         tile.rotation.x = 0;
       }
       this.third.physics.add.existing(tile, { mass: 0 });
+      this.blockingObjects.push(tile);
       this.third.scene.add(tile);
     });
 
@@ -912,6 +997,7 @@ export default class monde extends Scene3D {
         tile.rotation.x = 0;
       }
       this.third.physics.add.existing(tile, { mass: 0 });
+      this.blockingObjects.push(tile);
       this.third.scene.add(tile);
     });
 
@@ -937,6 +1023,7 @@ export default class monde extends Scene3D {
         tile.rotation.x = 0;
       }
       this.third.physics.add.existing(tile, { mass: 0 });
+      this.blockingObjects.push(tile);
       this.third.scene.add(tile);
     });
 
@@ -962,6 +1049,7 @@ export default class monde extends Scene3D {
         tile.rotation.x = 0;
       }
       this.third.physics.add.existing(tile, { mass: 0 });
+      this.blockingObjects.push(tile);
       this.third.scene.add(tile);
     });
 
@@ -987,6 +1075,7 @@ export default class monde extends Scene3D {
         tile.rotation.x = 0;
       }
       this.third.physics.add.existing(tile, { mass: 0 });
+      this.blockingObjects.push(tile);
       this.third.scene.add(tile);
     });
 
@@ -1012,8 +1101,149 @@ export default class monde extends Scene3D {
         tile.rotation.x = 0;
       }
       this.third.physics.add.existing(tile, { mass: 0 });
+      this.blockingObjects.push(tile);
       this.third.scene.add(tile);
     });
+
+    this.updateVisibility();
+
+    textureLoader.load(
+      "/5/test3D/examples/éléments desert/cactus.png",
+      (texture) => {
+        const planeGeometry = new THREE.PlaneGeometry(10, 10);
+        const planeMaterial = new THREE.MeshStandardMaterial({
+          map: texture,
+          side: THREE.DoubleSide,
+          transparent: true,
+          alphaTest: 0.5,
+        });
+
+        const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+        tile.position.set(
+          124.4602279651803,
+          255.9680000000002,
+          -168.50844680142492
+        );
+        if (0 != undefined) {
+          tile.rotation.y = 0;
+        }
+        if (0 != undefined) {
+          tile.rotation.x = 0;
+        }
+        this.third.physics.add.existing(tile, { mass: 0 });
+        this.third.scene.add(tile);
+      }
+    );
+
+    textureLoader.load(
+      "/5/test3D/examples/éléments desert/cactus.png",
+      (texture) => {
+        const planeGeometry = new THREE.PlaneGeometry(10, 10);
+        const planeMaterial = new THREE.MeshStandardMaterial({
+          map: texture,
+          side: THREE.DoubleSide,
+          transparent: true,
+          alphaTest: 0.5,
+        });
+
+        const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+        tile.position.set(
+          136.91132944391012,
+          255.9680000000002,
+          -162.61215568582668
+        );
+        if (1.1780972450961724 != undefined) {
+          tile.rotation.y = 1.1780972450961724;
+        }
+        if (0 != undefined) {
+          tile.rotation.x = 0;
+        }
+        this.third.physics.add.existing(tile, { mass: 0 });
+        this.third.scene.add(tile);
+      }
+    );
+  }
+
+  createLoupeMaterial(object) {
+    const originalMaterial = object.material.clone();
+    this.shaderMaterials.set(object, originalMaterial);
+
+    const uniforms = {
+      playerPosition: { value: this.player.walkPlane.position },
+      loupeRadius: { value: 18.0 }, // Rayon de la zone transparente
+      texturee: { value: object.material.map }, // Utiliser la texture de l'objet
+      opacityFactor: { value: 0.3 }, // Facteur d'opacité pour la zone en dehors de la loupe
+    };
+
+    const loupeMaterial = new THREE.ShaderMaterial({
+      uniforms: uniforms,
+      vertexShader: `
+            varying vec3 vWorldPosition;
+            varying vec2 vUv;
+            void main() {
+                vUv = uv; // Passe les coordonnées UV au fragment shader
+                vec4 worldPosition = modelMatrix * vec4(position, 1.0);
+                vWorldPosition = worldPosition.xyz;
+                gl_Position = projectionMatrix * viewMatrix * worldPosition;
+            }
+        `,
+      fragmentShader: `
+            uniform vec3 playerPosition;
+            uniform float loupeRadius;
+            uniform sampler2D texturee;
+            uniform float opacityFactor;
+            varying vec3 vWorldPosition;
+            varying vec2 vUv;
+
+            void main() {
+                float distance = length(vWorldPosition - playerPosition);
+                vec4 texColor = texture2D(texturee, vUv);
+
+                // Si le pixel est transparent, on le garde transparent
+                if (texColor.a < 0.1) {
+                    discard; // Ne dessine pas les pixels transparents de la texture
+                }
+
+                // Si le joueur est derrière l'objet et à l'intérieur de la loupe, appliquer la transparence
+                if (distance < loupeRadius) {
+                    gl_FragColor = vec4(texColor.rgb, texColor.a * 0.1); // Appliquer une transparence légère dans la zone de la loupe
+                } else {
+                    gl_FragColor = texColor; // Garder la texture intacte en dehors de la loupe
+                }
+            }
+        `,
+      transparent: true,
+    });
+
+    object.material = loupeMaterial;
+  }
+
+  updateVisibility() {
+    const cameraPosition = this.third.camera.position;
+    const playerPosition = this.player.walkPlane.position;
+
+    // Créer un raycaster pour détecter les objets entre la caméra et le joueur
+    const raycaster = new THREE.Raycaster();
+    const direction = new THREE.Vector3()
+      .subVectors(playerPosition, cameraPosition)
+      .normalize();
+    raycaster.set(cameraPosition, direction);
+
+    // Vérifier les intersections avec les objets de `this.blockingObjects`
+    const intersects = raycaster.intersectObjects(this.blockingObjects, true);
+
+    // Réinitialiser les matériaux des objets précédemment détectés
+    this.blockingObjects.forEach((object) => {
+      if (this.shaderMaterials.has(object)) {
+        object.material = this.shaderMaterials.get(object);
+      }
+    });
+
+    // Si un objet est détecté entre la caméra et le joueur, appliquer le shader
+    if (intersects.length > 0) {
+      const firstObstacle = intersects[0].object;
+      this.createLoupeMaterial(firstObstacle);
+    }
   }
 
   attackPlayer() {
@@ -1056,8 +1286,9 @@ export default class monde extends Scene3D {
   }
 
   update() {
-    //this.freeCamera.update();
+    this.freeCamera.update();
     this.pointerLaser.update();
+
     this.animaux.forEach((animal) => {
       animal.update(this.player);
     });
@@ -1069,7 +1300,37 @@ export default class monde extends Scene3D {
     if (this.player.keys.attack.isDown && this.player.isOnGround()) {
       this.attackPlayer();
     }
+
+    this.insects.forEach((insect) => insect.update());
+    this.updateVisibility();
+
+    const playerX = this.player.walkPlane.position.x;
+    const playerZ = this.player.walkPlane.position.z;
+
+    const centerX = 0; // Coordonnées du centre du cercle
+    const centerZ = 0;
+
+    let newBiome = null;
+
+    // Définir les zones pour chaque biome
+    if (playerX > centerX && playerZ > centerZ) {
+      // Secteur Nature
+      newBiome = "nature";
+    } else if (playerX < centerX && playerZ > centerZ) {
+      // Secteur Désert
+      newBiome = "desert";
+    } else {
+      // Secteur Espace
+      newBiome = "space";
+    }
+
+    // Si le biome a changé, changer la musique
+    if (newBiome !== this.currentMusic) {
+      this.changeBiomeMusic(newBiome);
+    }
   }
+
+  // Méthode pour rendre les objets transparents si entre la caméra et le joueur
 
   handleInteraction = () => {
     this.scene.pause("monde");
@@ -1079,5 +1340,19 @@ export default class monde extends Scene3D {
   getRandomTree() {
     const randomIndex = Math.floor(Math.random() * this.trees.length);
     return this.trees[randomIndex];
+  }
+
+  // Fonction pour changer la musique
+  changeBiomeMusic(newBiome) {
+    // Arrêter la musique actuelle
+    if (this.currentMusic) {
+      this.biomeMusic[this.currentMusic].stop();
+    }
+
+    // Jouer la nouvelle musique
+    this.biomeMusic[newBiome].play();
+
+    // Mettre à jour le biome actuel
+    this.currentMusic = newBiome;
   }
 }

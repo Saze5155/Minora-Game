@@ -4,7 +4,7 @@ export default class Animal {
   constructor(scene, x, y, z, textureKey, player) {
     const texture = new THREE.TextureLoader().load(textureKey);
     const geometry = new THREE.PlaneGeometry(5, 5);
-    const material = new THREE.MeshBasicMaterial({
+    const material = new THREE.MeshStandardMaterial({
       map: texture,
       side: THREE.DoubleSide,
       transparent: true,
@@ -115,6 +115,7 @@ export default class Animal {
             Global.addMeatOrHoney("viande cru", 1);
 
             console.log("Viande crue ramassée !");
+            this.scene.sound.play("collect");
             console.log("Inventaire mis à jour :", Global.inventory);
 
             this.scene.third.scene.remove(steak);

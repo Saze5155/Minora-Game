@@ -2,11 +2,11 @@ import Global from "/5/test3D/js/inventaire.js";
 import playerConfig from "/5/test3D/js/playerConfig.js";
 
 export default class Player {
-  constructor(scene, x, y, z, textureKey, combat) {
+  constructor(scene, x, y, z, textureKey) {
     // Charger la texture initiale
     const texture = new THREE.TextureLoader().load(textureKey);
     const geometry = new THREE.PlaneGeometry(2.5, 2.5);
-    const material = new THREE.MeshBasicMaterial({
+    const material = new THREE.MeshStandardMaterial({
       map: texture,
       side: THREE.DoubleSide,
       transparent: true,
@@ -311,36 +311,75 @@ export default class Player {
     }
 
     // Mouvement gauche/droite
+    // Ajoute une variable pour suivre l'état du son de marche
+    if (!this.isWalkingSoundPlaying) {
+      this.isWalkingSoundPlaying = false;
+    }
+
+    // Mouvement gauche/droite
     if (this.keys.left.isDown) {
       velocityX = -6;
       this.walkPlane.scale.x = -1;
       isWalking = true;
+
       if (!this.isJumping && this.isOnGround()) {
         this.animateAction("walkgauche");
+
+        // Joue le son de marche uniquement si ce n'est pas déjà en train de jouer
+        if (!this.isWalkingSoundPlaying) {
+          this.scene.sound.play("walk_grass");
+          this.isWalkingSoundPlaying = true;
+        }
       }
     } else if (this.keys.right.isDown) {
       velocityX = 6;
       this.walkPlane.scale.x = 1;
       isWalking = true;
+
       if (!this.isJumping && this.isOnGround()) {
         this.animateAction("walkdroite");
+
+        if (!this.isWalkingSoundPlaying) {
+          this.scene.sound.play("walk_grass");
+          this.isWalkingSoundPlaying = true;
+        }
+      }
+    } else if (this.keys.forward.isDown && !this.isAttacking) {
+      velocityZ = -6; // Avancer
+      isWalking = true;
+
+      if (!this.isJumping) {
+        this.animateAction("marcheArriere");
+
+        if (!this.isWalkingSoundPlaying) {
+          this.scene.sound.play("walk_grass");
+          this.isWalkingSoundPlaying = true;
+        }
+      }
+    } else if (this.keys.backward.isDown && !this.isAttacking) {
+      velocityZ = 6; // Reculer
+      isWalking = true;
+
+      if (!this.isJumping) {
+        this.animateAction("marcheAvant");
+
+        if (!this.isWalkingSoundPlaying) {
+          this.scene.sound.play("walk_grass");
+          this.isWalkingSoundPlaying = true;
+        }
       }
     } else {
-      // Seulement vérifier le mouvement avant/arrière si gauche/droite n'est pas activé
-      if (this.keys.forward.isDown && !this.isAttacking) {
-        velocityZ = -6; // Avancer
-        isWalking = true;
-        if (!this.isJumping) this.animateAction("marcheArriere");
-      } else if (this.keys.backward.isDown && !this.isAttacking) {
-        velocityZ = 6; // Reculer
-        isWalking = true;
-        if (!this.isJumping) this.animateAction("marcheAvant");
+      // Arrête le son de marche lorsque le joueur arrête de marcher
+      if (this.isWalkingSoundPlaying) {
+        this.scene.sound.stopByKey("walk_grass");
+        this.isWalkingSoundPlaying = false;
       }
     }
 
     if (this.keys.jump.isDown && this.isOnGround()) {
       velocityY = 4; // Impulsion vers le haut
       this.isJumping = true;
+      this.scene.sound.play("Jump");
       // Animation du saut en fonction de la direction
       if (this.keys.left.isDown) {
         this.animateAction("jumpgauche");
@@ -352,7 +391,7 @@ export default class Player {
     if (this.keys.attack.isDown && this.isOnGround()) {
       this.isAttacking = true;
       this.attack = true;
-
+      this.scene.sound.play("Sword");
       velocityZ = 0;
       velocityX = 0;
 
@@ -399,11 +438,14 @@ export default class Player {
       }, 800);
     }
 
+    // Positionner la caméra
     scene.third.camera.position.set(
       this.walkPlane.position.x,
       this.walkPlane.position.y + 2,
       this.walkPlane.position.z + 10
     );
+
+    // La caméra regarde toujours vers le personnage
     scene.third.camera.lookAt(this.walkPlane.position);
   }
 
@@ -411,7 +453,7 @@ export default class Player {
     if (this.isInvincible) {
       return;
     }
-
+    this.scene.sound.play("damage");
     playerConfig.playerHealth--;
     this.showHealth();
 
@@ -449,20 +491,32 @@ export default class Player {
       playerConfig.maxHealth > playerConfig.playerHealth
     ) {
       if (playerConfig.playerHealth == 5) {
-        console.log("fsfs");
-        playerConfig.playerHealth++;
+        this.scene.sound.play("Manger");
+        setTimeout(() => {
+          playerConfig.playerHealth++;
+          this.scene.sound.play("GagnerVie");
+          this.showHealth();
+        }, 700);
       } else {
-        playerConfig.playerHealth += 2;
+        this.scene.sound.play("Manger");
+        setTimeout(() => {
+          playerConfig.playerHealth += 2;
+          this.scene.sound.play("GagnerVie");
+          this.showHealth();
+        }, 700);
       }
-      this.showHealth();
     } else if (
       (meatType === "viande pas trop cuite" &&
         playerConfig.maxHealth > playerConfig.playerHealth) ||
       (meatType === "viande trop cuite" &&
         playerConfig.maxHealth > playerConfig.playerHealth)
     ) {
-      playerConfig.playerHealth++;
-      this.showHealth();
+      this.scene.sound.play("Manger");
+      setTimeout(() => {
+        playerConfig.playerHealth++;
+        this.scene.sound.play("GagnerVie");
+        this.showHealth();
+      }, 700);
     }
   }
 

@@ -14,7 +14,7 @@ export default class Marchand {
       "/5/test3D/examples/marchand.png"
     );
     const geometry = new THREE.PlaneGeometry(1.5, 3);
-    const material = new THREE.MeshBasicMaterial({
+    const material = new THREE.MeshStandardMaterial({
       map: texture,
       side: THREE.DoubleSide,
       transparent: true,
