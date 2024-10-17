@@ -32,11 +32,16 @@ class MarchandScene extends Phaser.Scene {
     // Afficher les articles du marchand de manière centrée
     this.marchand.items.forEach((item, index) => {
       const itemX = xOffsetStart + index * spacingX;
+      console.log(item);
+      let image = item.nom;
+      if (item.nom != "viande bien cuite") {
+        console.log("potions");
+        image = "potion_" + item.nom;
+      }
 
-      // Afficher l'image de l'article
-      if (this.textures.exists(item.type)) {
-        const itemImage = this.add.image(itemX, yOffset, item.type);
-        itemImage.setScale(0.1);
+      if (this.textures.exists(image)) {
+        const itemImage = this.add.image(itemX, yOffset, image);
+        itemImage.setScale(0.15);
         this.interfaceElements.push(itemImage);
       }
 
@@ -48,7 +53,7 @@ class MarchandScene extends Phaser.Scene {
       const costText = this.add.text(
         itemX + 10,
         yOffset + 55,
-        `${this.marchand.getPrice(item.type)}`,
+        `${this.marchand.getPrice(item.nom)}`,
         {
           fontSize: "14px",
           color: "#ffffff",

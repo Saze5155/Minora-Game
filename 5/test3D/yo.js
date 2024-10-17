@@ -1,10 +1,24 @@
 const fs = require("fs");
 
-const cactusTextures = ["/5/test3D/examples/éléments desert/cactus.png"];
+const cactusTextures = [
+  "/5/test3D/examples/éléments desert/crane.png",
+  "/5/test3D/examples/éléments desert/plante1.png",
+  "/5/test3D/examples/éléments desert/plante2.png",
+  "/5/test3D/examples/éléments desert/plantemorte.png",
+  "/5/test3D/examples/éléments desert/arbremort.png",
+];
 
 // Fonction pour générer un scale aléatoire
-function getRandomScale() {
-  return Math.random() * (1.5 - 0.5) + 0.5; // Génère une échelle entre 0.5 et 1.5
+function getRandomScale(texture) {
+  if (
+    texture.includes("crane") ||
+    texture.includes("plante") ||
+    texture.includes("plantemorte")
+  ) {
+    return 2.5; // Échelle pour les petits objets
+  } else {
+    return 10; // Échelle pour les arbres
+  }
 }
 
 // Coordonnées du pentagone
@@ -46,8 +60,9 @@ const generatePentagonCactusPositions = (points, hitboxWidth) => {
   const positions = [];
   const villageCenter = calculatePolygonCenter(points);
   const villageRadius = 50;
+  let craneCount = 0; // Compteur de crânes
 
-  for (let i = 0; i < 80; i++) {
+  for (let i = 0; i < 150; i++) {
     let cactusPlaced = false;
 
     while (!cactusPlaced) {
@@ -68,14 +83,39 @@ const generatePentagonCactusPositions = (points, hitboxWidth) => {
         isInsidePolygon(randomPoint, points) &&
         distanceSquared > villageRadius ** 2
       ) {
-        positions.push({
+        let texture =
+          cactusTextures[Math.floor(Math.random() * cactusTextures.length)];
+
+        // Limiter le nombre de crânes à 15
+        if (texture.includes("crane")) {
+          if (craneCount >= 15) {
+            // Si le nombre de crânes est atteint, choisir une autre texture
+            texture =
+              cactusTextures.slice(1)[
+                Math.floor(Math.random() * (cactusTextures.length - 1))
+              ];
+          } else {
+            craneCount++;
+          }
+        }
+
+        const scale = getRandomScale(texture);
+        const yPosition = texture.includes("arbremort") ? 255.7 : 252.3;
+
+        const cactus = {
           x: randomX,
           z: randomZ,
-          y: 255,
-          hitboxWidth,
-          texture: cactusTextures[0],
-          scale: getRandomScale(), // Ajoute un scale aléatoire pour chaque cactus
-        });
+          y: yPosition,
+          texture: texture,
+          scale: scale,
+        };
+
+        // Ajouter la hitbox uniquement pour les arbres morts
+        if (texture.includes("arbremort")) {
+          cactus.hitboxWidth = hitboxWidth;
+        }
+
+        positions.push(cactus);
         cactusPlaced = true;
       }
     }
@@ -89,11 +129,11 @@ const pentagonCactusPositions = generatePentagonCactusPositions(pentagon, 5);
 
 // Sauvegarder dans un fichier JSON
 fs.writeFileSync(
-  "cactusPositions.json",
+  "decoDesertPositions.json",
   JSON.stringify(pentagonCactusPositions, null, 2),
   "utf-8"
 );
 
 console.log(
-  "Positions des cactus avec scale aléatoire sauvegardées dans cactusPositions.json"
+  "Positions des cactus avec scale aléatoire sauvegardées dans decoDesertPositions.json"
 );

@@ -41,7 +41,7 @@ export default class Player {
       forward: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z),
       backward: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S),
       jump: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE),
-      attack: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O),
+      attack: scene.input.mousePointer.leftButtonDown(),
       interact: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E),
       inventory: scene.input.keyboard.addKey(
         Phaser.Input.Keyboard.KeyCodes.TAB
@@ -56,6 +56,8 @@ export default class Player {
     this.jumpDroiteTextures = [];
     this.attaqueGauche = [];
     this.attaqueDroite = [];
+    this.attaqueAvant = [];
+    this.attaqueArriere = [];
     this.idleTextures = [];
     this.walkGaucheTextures = [];
     this.walkDroiteTextures = [];
@@ -65,32 +67,33 @@ export default class Player {
     this.isJumping = false;
     this.inventory = true;
     this.isInvincible = false;
+    this.direction = "right";
 
     this.maxVelocity = 50;
 
     this.healthImages = {};
     this.healthImages[5] = scene.add
-      .image(820, 320, "heart_5")
-      .setScale(0.3)
+      .image(1050, 460, "heart_5")
+      .setScale(0.4)
       .setVisible(false);
     this.healthImages[4] = scene.add
-      .image(820, 320, "heart_4")
-      .setScale(0.3)
+      .image(1050, 460, "heart_4")
+      .setScale(0.4)
       .setVisible(false);
     this.healthImages[3] = scene.add
-      .image(820, 320, "heart_3")
-      .setScale(0.3)
+      .image(1050, 460, "heart_3")
+      .setScale(0.4)
       .setVisible(false);
     this.healthImages[2] = scene.add
-      .image(820, 320, "heart_2")
-      .setScale(0.3)
+      .image(1050, 460, "heart_2")
+      .setScale(0.4)
       .setVisible(false);
     this.healthImages[1] = scene.add
-      .image(820, 320, "heart_1")
-      .setScale(0.3)
+      .image(1050, 460, "heart_1")
+      .setScale(0.4)
       .setVisible(false);
     this.healthImages[6] = scene.add
-      .image(820, 320, "heart_6")
+      .image(1050, 460, "heart_6")
       .setScale(0.3)
       .setVisible(false);
     this.currentHealthImage = null;
@@ -115,7 +118,9 @@ export default class Player {
       "_marcheArriere",
       4,
       this.marcheArriereTextures
-    ); // Reculer
+    );
+    this.loadTextures("attack", "attaqueavant", 7, this.attaqueAvant);
+    this.loadTextures("attack", "attaquearriere", 7, this.attaqueArriere);
   }
 
   preload() {}
@@ -131,19 +136,19 @@ export default class Player {
     let witdh = 0;
     let depth = 0;
 
-    if (this.keys.left.isDown) {
+    if (this.keys.left.isDown || this.direction == "left") {
       offsetX = -1;
       witdh = 0.5;
       depth = 1.5;
-    } else if (this.keys.right.isDown) {
+    } else if (this.keys.right.isDown || this.direction == "right") {
       offsetX = 1;
       witdh = 0.5;
       depth = 1.5;
-    } else if (this.keys.forward.isDown) {
+    } else if (this.keys.forward.isDown || this.direction == "back") {
       offsetZ = -1;
       witdh = 1.5;
       depth = 0.5;
-    } else if (this.keys.backward.isDown) {
+    } else if (this.keys.backward.isDown || this.direction == "front") {
       offsetZ = 1;
       witdh = 1.5;
       depth = 0.5;
@@ -197,7 +202,6 @@ export default class Player {
       );
     }
 
-    const textureLoader = new THREE.TextureLoader();
     framePaths.forEach((path, index) => {
       textureLoader.load(
         path,
@@ -245,6 +249,12 @@ export default class Player {
         break;
       case "attaquedroite":
         textures = this.attaqueDroite;
+        break;
+      case "attaqueavant":
+        textures = this.attaqueAvant;
+        break;
+      case "attaquearriere":
+        textures = this.attaqueArriere;
         break;
       default:
         console.error(`Action ${action} non reconnue`);
@@ -320,7 +330,7 @@ export default class Player {
       velocityX = -6;
       this.walkPlane.scale.x = -1;
       isWalking = true;
-
+      this.direction = "left";
       if (!this.isJumping && this.isOnGround()) {
         this.animateAction("walkgauche");
 
@@ -334,7 +344,7 @@ export default class Player {
       velocityX = 6;
       this.walkPlane.scale.x = 1;
       isWalking = true;
-
+      this.direction = "right";
       if (!this.isJumping && this.isOnGround()) {
         this.animateAction("walkdroite");
 
@@ -346,6 +356,7 @@ export default class Player {
     } else if (this.keys.forward.isDown && !this.isAttacking) {
       velocityZ = -6; // Avancer
       isWalking = true;
+      this.direction = "back";
 
       if (!this.isJumping) {
         this.animateAction("marcheArriere");
@@ -358,6 +369,7 @@ export default class Player {
     } else if (this.keys.backward.isDown && !this.isAttacking) {
       velocityZ = 6; // Reculer
       isWalking = true;
+      this.direction = "front";
 
       if (!this.isJumping) {
         this.animateAction("marcheAvant");
@@ -387,7 +399,7 @@ export default class Player {
       }
     }
 
-    if (this.keys.attack.isDown && this.isOnGround()) {
+    if (this.scene.input.activePointer.leftButtonDown() && this.isOnGround()) {
       this.isAttacking = true;
       this.attack = true;
       this.scene.sound.play("Sword");
@@ -396,8 +408,22 @@ export default class Player {
 
       if (this.keys.left.isDown) {
         this.animateAction("attaquegauche");
-      } else {
+      } else if (this.keys.right.isDown) {
         this.animateAction("attaquedroite");
+      } else if (this.keys.forward.isDown) {
+        this.animateAction("attaquearriere");
+      } else if (this.keys.backward.isDown) {
+        this.animateAction("attaqueavant");
+      } else {
+        if (this.direction == "left") {
+          this.animateAction("attaquegauche");
+        } else if (this.direction == "right") {
+          this.animateAction("attaquedroite");
+        } else if (this.direction == "back") {
+          this.animateAction("attaquearriere");
+        } else if (this.direction == "front") {
+          this.animateAction("attaqueavant");
+        }
       }
 
       setTimeout(() => {
@@ -495,14 +521,14 @@ export default class Player {
           Global.playerHealth++;
           this.scene.sound.play("GagnerVie");
           this.showHealth();
-        }, 700);
+        }, 3000);
       } else {
         this.scene.sound.play("Manger");
         setTimeout(() => {
           Global.playerHealth += 2;
           this.scene.sound.play("GagnerVie");
           this.showHealth();
-        }, 700);
+        }, 3000);
       }
     } else if (
       (meatType === "viande pas trop cuite" &&
@@ -515,7 +541,7 @@ export default class Player {
         Global.playerHealth++;
         this.scene.sound.play("GagnerVie");
         this.showHealth();
-      }, 700);
+      }, 3000);
     }
   }
 

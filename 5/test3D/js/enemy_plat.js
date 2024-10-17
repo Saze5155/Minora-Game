@@ -6,9 +6,10 @@ export default class EnemyPlat {
 
     this.sprite.body.setSize(this.sprite.width, this.sprite.height * 0.9);
     this.sprite.body.setOffset(0, this.sprite.height * 0.12);
-    this.sprite.setScale(0.1);
+    this.sprite.setScale(0.9);
     this.sprite.setCollideWorldBounds(true);
 
+    this.health = 2;
     this.speed = 100;
     this.direction = 1;
 
@@ -33,42 +34,52 @@ export default class EnemyPlat {
       frameRate: 10,
       repeat: -1,
     });
+
+    this.scene.anims.create({
+      key: "enemy_space",
+      frames: [
+        { key: "alien_1" },
+        { key: "alien_2" },
+        { key: "alien_3" },
+        { key: "alien_4" },
+        console.log("animation play"),
+      ],
+      frameRate: 10,
+      repeat: -1,
+    });
+
+    this.scene.anims.create({
+      key: "piece",
+      frames: [
+        { key: "piece_01" },
+        { key: "piece_02" },
+        { key: "piece_03" },
+        { key: "piece_04" },
+        { key: "piece_05" },
+        { key: "piece_06" },
+      ],
+      frameRate: 10,
+      repeat: -1,
+    });
   }
 
-  update(platform_layer) {
-    this.sprite.setVelocityX(this.speed * this.direction);
-
-    if (this.canChangeDirection) {
-      // Vérifier s'il n'y a plus de sol en dessous
-      const groundCheckX =
-        this.sprite.x + this.direction * (this.sprite.width / 2);
-      const groundCheckY = this.sprite.y + this.sprite.height / 2 + 1;
-      const tileBelow = platform_layer.getTileAtWorldXY(
-        groundCheckX,
-        groundCheckY
-      );
-
-      // Si l'ennemi n'a plus de sol en dessous ou touche un mur
-      if (
-        !tileBelow ||
-        this.sprite.body.blocked.left ||
-        this.sprite.body.blocked.right
-      ) {
-        this.canChangeDirection = false;
-        this.direction *= -1;
-        this.sprite.setVelocityX(this.speed * this.direction);
-        this.sprite.flipX = this.direction === -1;
-
-        // Ajouter un délai avant de pouvoir changer de direction à nouveau
-        this.scene.time.delayedCall(500, () => {
-          this.canChangeDirection = true;
-        });
-      }
+  takeDamage() {
+    this.health -= 1; // L'ennemi perd un point de vie
+    if (this.health <= 0) {
+      this.die(); // Si la vie tombe à 0, l'ennemi meurt
     }
+    console.log("take damage");
   }
+
+  die() {
+    // Détruire ou désactiver l'ennemi
+    this.sprite.destroy(); // Ou une autre logique pour gérer la mort de l'ennemi
+    console.log("eneemu mort");
+  }
+
+  update(platform_layer) {}
 
   changeDirection() {
-    // Inverser la direction et stopper temporairement pour éviter d'être bloqué
     this.direction *= -1;
     this.sprite.setVelocityX(this.speed * this.direction);
     this.sprite.flipX = this.direction === -1;

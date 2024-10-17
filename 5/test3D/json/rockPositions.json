@@ -1,0 +1,416 @@
+[
+  {
+    "x": 133,
+    "z": -204,
+    "y": 263,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre1.png",
+    "scale": 1.3958408819383568,
+    "rotation": 5.5
+  },
+  {
+    "x": 138.33079180011086,
+    "z": -197.14677463666462,
+    "y": 258,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre1.png",
+    "scale": 0.6979204409691784,
+    "rotation": 5.5
+  },
+  {
+    "x": 147,
+    "z": -186.57142857142858,
+    "y": 258,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre2.png",
+    "scale": 1.061940355142989,
+    "rotation": 5.5
+  },
+  {
+    "x": 150.50587744037318,
+    "z": -182.0512371125122,
+    "y": 255,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre2.png",
+    "scale": 0.5309701775714945,
+    "rotation": 5.5
+  },
+  {
+    "x": 161,
+    "z": -169.14285714285714,
+    "y": 258,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre2.png",
+    "scale": 0.8725210939943671,
+    "rotation": 5.5
+  },
+  {
+    "x": 165.55320637964323,
+    "z": -165.54399121922884,
+    "y": 255,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre2.png",
+    "scale": 0.43626054699718353,
+    "rotation": 5.5
+  },
+  {
+    "x": 175,
+    "z": -151.71428571428572,
+    "y": 263,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre1.png",
+    "scale": 1.2575595938275796,
+    "rotation": 5.5
+  },
+  {
+    "x": 182.68220731839045,
+    "z": -148.13094379820976,
+    "y": 258,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre1.png",
+    "scale": 0.6287797969137898,
+    "rotation": 5.5
+  },
+  {
+    "x": 189,
+    "z": -134.28571428571428,
+    "y": 258,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre2.png",
+    "scale": 0.925208465199661,
+    "rotation": 5.5
+  },
+  {
+    "x": 196.10673508637382,
+    "z": -128.7649906482307,
+    "y": 255,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre2.png",
+    "scale": 0.4626042325998305,
+    "rotation": 5.5
+  },
+  {
+    "x": 203,
+    "z": -116.85714285714286,
+    "y": 258,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre2.png",
+    "scale": 0.8500536328386106,
+    "rotation": 5.5
+  },
+  {
+    "x": 209.97851723124614,
+    "z": -110.48108841662082,
+    "y": 255,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre2.png",
+    "scale": 0.4250268164193053,
+    "rotation": 5.5
+  },
+  {
+    "x": 217,
+    "z": -99.42857142857143,
+    "y": 258,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre2.png",
+    "scale": 1.308083716933686,
+    "rotation": 5.5
+  },
+  {
+    "x": 221.57683378832527,
+    "z": -95.09190468013838,
+    "y": 255,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre2.png",
+    "scale": 0.654041858466843,
+    "rotation": 5.5
+  },
+  {
+    "x": 231,
+    "z": -82,
+    "y": 258,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre2.png",
+    "scale": 1.1015504241658587,
+    "rotation": 11
+  },
+  {
+    "x": 234.45204207584266,
+    "z": -78.12454763951683,
+    "y": 255,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre2.png",
+    "scale": 0.5507752120829293,
+    "rotation": 11
+  },
+  {
+    "x": 230.875,
+    "z": -61.125,
+    "y": 258,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre2.png",
+    "scale": 1.164606581183045,
+    "rotation": 11
+  },
+  {
+    "x": 234.23707526325313,
+    "z": -56.461106680954174,
+    "y": 255,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre2.png",
+    "scale": 0.5823032905915225,
+    "rotation": 11
+  },
+  {
+    "x": 230.75,
+    "z": -40.25,
+    "y": 263,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre1.png",
+    "scale": 1.4847972038759387,
+    "rotation": 11
+  },
+  {
+    "x": 238.57962160839264,
+    "z": -33.22126855643074,
+    "y": 258,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre1.png",
+    "scale": 0.7423986019379694,
+    "rotation": 11
+  },
+  {
+    "x": 230.625,
+    "z": -19.375,
+    "y": 259,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre1.png",
+    "scale": 0.8107791885895113,
+    "rotation": 11
+  },
+  {
+    "x": 235.08752412884226,
+    "z": -13.824389818286463,
+    "y": 258,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre1.png",
+    "scale": 0.40538959429475563,
+    "rotation": 11
+  },
+  {
+    "x": 230.5,
+    "z": 1.5,
+    "y": 259,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre1.png",
+    "scale": 0.9387153609741758,
+    "rotation": 11
+  },
+  {
+    "x": 234.0849106842334,
+    "z": 9.39859094267328,
+    "y": 258,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre1.png",
+    "scale": 0.4693576804870879,
+    "rotation": 11
+  },
+  {
+    "x": 230.375,
+    "z": 22.375,
+    "y": 258,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre2.png",
+    "scale": 0.9510279245063522,
+    "rotation": 11
+  },
+  {
+    "x": 234.07645063524424,
+    "z": 26.550268983914233,
+    "y": 255,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre2.png",
+    "scale": 0.4755139622531761,
+    "rotation": 11
+  },
+  {
+    "x": 230.25,
+    "z": 43.25,
+    "y": 258,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre2.png",
+    "scale": 0.9435175234879207,
+    "rotation": 11
+  },
+  {
+    "x": 233.90992697863572,
+    "z": 48.2365575060561,
+    "y": 255,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre2.png",
+    "scale": 0.47175876174396036,
+    "rotation": 11
+  },
+  {
+    "x": 230.125,
+    "z": 64.125,
+    "y": 258,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre2.png",
+    "scale": 1.3150881434810318,
+    "rotation": 11
+  },
+  {
+    "x": 233.90226678404326,
+    "z": 71.07582373612006,
+    "y": 255,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre2.png",
+    "scale": 0.6575440717405159,
+    "rotation": 11
+  },
+  {
+    "x": 230,
+    "z": 85,
+    "y": 258,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre2.png",
+    "scale": 1.1577834570838579,
+    "rotation": 10.3
+  },
+  {
+    "x": 235.82169016695403,
+    "z": 89.80727798062958,
+    "y": 255,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre2.png",
+    "scale": 0.5788917285419289,
+    "rotation": 10.3
+  },
+  {
+    "x": 217.125,
+    "z": 100.625,
+    "y": 263,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre1.png",
+    "scale": 0.8596332074438671,
+    "rotation": 10.3
+  },
+  {
+    "x": 224.67459065654108,
+    "z": 105.39899793620874,
+    "y": 255,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre1.png",
+    "scale": 0.42981660372193353,
+    "rotation": 10.3
+  },
+  {
+    "x": 204.25,
+    "z": 116.25,
+    "y": 261,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre1.png",
+    "scale": 0.9882231353492639,
+    "rotation": 10.3
+  },
+  {
+    "x": 210.8694303976871,
+    "z": 120.11068679014866,
+    "y": 255,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre1.png",
+    "scale": 0.49411156767463194,
+    "rotation": 10.3
+  },
+  {
+    "x": 191.375,
+    "z": 131.875,
+    "y": 258,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre2.png",
+    "scale": 1.1915664577987912,
+    "rotation": 10.3
+  },
+  {
+    "x": 196.1601581798371,
+    "z": 136.14188991797855,
+    "y": 255,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre2.png",
+    "scale": 0.5957832288993956,
+    "rotation": 10.3
+  },
+  {
+    "x": 178.5,
+    "z": 147.5,
+    "y": 258,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre2.png",
+    "scale": 1.4977441345342233,
+    "rotation": 10.3
+  },
+  {
+    "x": 181.8259867519507,
+    "z": 150.71354907530147,
+    "y": 255,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre2.png",
+    "scale": 0.7488720672671116,
+    "rotation": 10.3
+  },
+  {
+    "x": 165.625,
+    "z": 163.125,
+    "y": 263,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre1.png",
+    "scale": 1.0551284567009585,
+    "rotation": 10.3
+  },
+  {
+    "x": 168.8401551552043,
+    "z": 167.5152157950015,
+    "y": 255,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre1.png",
+    "scale": 0.5275642283504792,
+    "rotation": 10.3
+  },
+  {
+    "x": 152.75,
+    "z": 178.75,
+    "y": 258,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre2.png",
+    "scale": 1.1057919569063281,
+    "rotation": 10.3
+  },
+  {
+    "x": 160.58262859211777,
+    "z": 185.73207326269358,
+    "y": 255,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre2.png",
+    "scale": 0.5528959784531641,
+    "rotation": 10.3
+  },
+  {
+    "x": 139.875,
+    "z": 194.375,
+    "y": 263,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre1.png",
+    "scale": 1.4466225421411407,
+    "rotation": 10.3
+  },
+  {
+    "x": 143.05449219175512,
+    "z": 199.08297806750414,
+    "y": 258,
+    "hitboxWidth": 25,
+    "texture": "/5/test3D/examples/éléments desert/pierre1.png",
+    "scale": 0.7233112710705704,
+    "rotation": 10.3
+  }
+]

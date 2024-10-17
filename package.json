@@ -4,8 +4,10 @@
     "express": "^4.21.0",
     "mime-types": "^2.1.35",
     "pako": "^2.1.0",
-    "potrace": "^2.1.8",
+    "potrace": "^2.1.1",
     "raw-body": "^3.0.0",
-    "svg-path-parser": "^1.1.0"
+    "svg-path-parser": "^1.1.0",
+    "three": "^0.169.0",
+    "three-csg-ts": "^3.2.0"
   }
 }

@@ -14,27 +14,93 @@ export default class PlayerSpace {
     this.gravityInverted = false; // Suivre l'état de la gravité
     this.isJumping = false;
     this.isAttacking = false;
+    this.inventory = true;
     this.isAnimating = false;
     this.lastDirection = "right";
     this.createAnimations();
 
+    this.attackHitbox = this.scene.add.rectangle(0, 0, 120, 320, 0xff0000, 0);
+    this.scene.physics.add.existing(this.attackHitbox);
+    this.attackHitbox.body.setAllowGravity(false);
+    this.attackHitbox.body.enable = false;
+
     this.keys = {
       left: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q),
       right: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
-      attack: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O),
+      attack: scene.input.mousePointer.leftButtonDown(),
       jump: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE),
       interact: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E),
-      inventory: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB),
+      inventory: scene.input.keyboard.addKey(
+        Phaser.Input.Keyboard.KeyCodes.TAB
+      ),
     };
-
+    let width;
+    let height;
     this.healthImages = {};
-    this.healthImages[5] = scene.add.image(50, 50, "heart_5").setScrollFactor(0).setScale(0.5).setVisible(false);
-    this.healthImages[4] = scene.add.image(50, 50, "heart_4").setScrollFactor(0).setScale(0.5).setVisible(false);
-    this.healthImages[3] = scene.add.image(50, 50, "heart_3").setScrollFactor(0).setScale(0.5).setVisible(false);
-    this.healthImages[2] = scene.add.image(50, 50, "heart_2").setScrollFactor(0).setScale(0.5).setVisible(false);
-    this.healthImages[1] = scene.add.image(50, 50, "heart_1").setScrollFactor(0).setScale(0.5).setVisible(false);
-    this.healthImages[6] = scene.add.image(50, 50, "heart_6").setScrollFactor(0).setScale(0.4).setVisible(false);
+    if (scene == "RocketLevel") {
+      width = 50;
+      height = 50;
+    } else {
+      width = -885;
+      height = -485;
+    }
+
+    this.healthImages[5] = scene.add
+      .image(width, height, "heart_5")
+      .setOrigin(0, 0)
+      .setScrollFactor(0)
+      .setScale(2)
+      .setDepth(500)
+      .setVisible(false);
+    this.healthImages[4] = scene.add
+      .image(width, height, "heart_4")
+      .setOrigin(0, 0)
+      .setScrollFactor(0)
+      .setScale(2)
+      .setDepth(500)
+      .setVisible(false);
+    this.healthImages[3] = scene.add
+      .image(width, height, "heart_3")
+      .setOrigin(0, 0)
+      .setScrollFactor(0)
+      .setScale(2)
+      .setDepth(500)
+      .setVisible(false);
+    this.healthImages[2] = scene.add
+      .image(width, height, "heart_2")
+      .setOrigin(0, 0)
+      .setScrollFactor(0)
+      .setScale(2)
+      .setDepth(500)
+      .setVisible(false);
+    this.healthImages[1] = scene.add
+      .image(width, height, "heart_1")
+      .setOrigin(0, 0)
+      .setScrollFactor(0)
+      .setScale(2)
+      .setDepth(500)
+      .setVisible(false);
+    this.healthImages[6] = scene.add
+      .image(width, height, "heart_6")
+      .setOrigin(0, 0)
+      .setScrollFactor(0)
+      .setScale(1.9)
+      .setDepth(500)
+      .setVisible(false);
     this.currentHealthImage = null;
+
+    this.sprite.on("animationcomplete", (animation) => {
+      if (
+        animation.key === "attaquedroite" ||
+        animation.key === "attaquegauche" ||
+        animation.key === "jumpdroite" ||
+        animation.key === "jumpgauche"
+      ) {
+        this.isAnimating = false; // L'animation est terminée
+        this.isJumping = false;
+        this.isAttacking = false;
+      }
+    });
   }
 
   createAnimations() {
@@ -173,23 +239,22 @@ export default class PlayerSpace {
     // Réinitialiser la vitesse horizontale
     this.sprite.setVelocityX(0);
 
-      // Déplacement gauche/droite
-      if (this.keys.left.isDown) {
-        this.sprite.setVelocityX(-760); // Vitesse vers la gauche
-        this.lastDirection = "left"; // Mémoriser la direction gauche
-        if (this.isOnGround() && !this.isAttacking) {
-          this.sprite.anims.play("walkgauche", true); // Jouer l'animation de marche
-        }
-      } else if (this.keys.right.isDown) {
-        this.sprite.setVelocityX(760); // Vitesse vers la droite
-        this.lastDirection = "right"; // Mémoriser la direction droite
-        if (this.isOnGround() && !this.isAttacking) {
-          this.sprite.anims.play("walkdroite", true); // Jouer l'animation de marche
-        }
-      } else if (this.isOnGround() && !this.isAttacking && !this.isJumping) {
-        this.sprite.anims.play("idle", true); // Jouer l'animation idle
+    // Déplacement gauche/droite
+    if (this.keys.left.isDown) {
+      this.sprite.setVelocityX(-760); // Vitesse vers la gauche
+      this.lastDirection = "left"; // Mémoriser la direction gauche
+      if (this.isOnGround() && !this.isAttacking) {
+        this.sprite.anims.play("walkgauche", true); // Jouer l'animation de marche
       }
-      
+    } else if (this.keys.right.isDown) {
+      this.sprite.setVelocityX(760); // Vitesse vers la droite
+      this.lastDirection = "right"; // Mémoriser la direction droite
+      if (this.isOnGround() && !this.isAttacking) {
+        this.sprite.anims.play("walkdroite", true); // Jouer l'animation de marche
+      }
+    } else if (this.isOnGround() && !this.isAttacking && !this.isJumping) {
+      this.sprite.anims.play("idle", true); // Jouer l'animation idle
+    }
 
     // Saut
     if (
@@ -211,6 +276,37 @@ export default class PlayerSpace {
     // Vérifier si le joueur est sur le "sol" ou le "plafond"
     if (this.isOnGround()) {
       this.isJumping = false;
+    }
+
+    if (this.scene.input.activePointer.leftButtonDown() && !this.isAttacking) {
+      this.isAttacking = true;
+      this.isAnimating = true;
+      this.sprite.setVelocityX(0);
+
+      if (this.lastDirection === "left") {
+        this.sprite.anims.play("attaquegauche");
+        this.attackHitbox.setPosition(this.sprite.x - 300, this.sprite.y); // Ajuster la position
+      } else {
+        this.sprite.anims.play("attaquedroite");
+        this.attackHitbox.setPosition(this.sprite.x + 300, this.sprite.y);
+      }
+
+      // Activer la hitbox pendant l'attaque
+      this.attackHitbox.body.enable = true;
+
+      // Désactiver la hitbox après l'animation d'attaque
+      this.scene.time.delayedCall(300, () => {
+        this.attackHitbox.body.enable = false;
+      });
+    }
+
+    if (this.keys.inventory.isDown && this.inventory) {
+      this.inventory = false;
+      Global.toggleInventory(this.scene);
+
+      setTimeout(() => {
+        this.inventory = true;
+      }, 800);
     }
   }
 
@@ -239,13 +335,13 @@ export default class PlayerSpace {
   }
 
   increaseHealth() {
-    if (Global.playerHealth < 6) { // Assurer que la santé ne dépasse pas le maximum
+    if (Global.playerHealth < 6) {
+      // Assurer que la santé ne dépasse pas le maximum
       Global.playerHealth++;
       console.log(`Points de vie augmentés : ${Global.playerHealth}`);
       this.showHealth();
     }
   }
-  
 
   getHealth() {
     return this.health;
@@ -270,7 +366,10 @@ export default class PlayerSpace {
   }
 
   gainHealth(meatType) {
-    if (meatType === "viande bien cuite" && Global.maxHealth > Global.playerHealth) {
+    if (
+      meatType === "viande bien cuite" &&
+      Global.maxHealth > Global.playerHealth
+    ) {
       if (Global.playerHealth == 5) {
         this.scene.sound.play("Manger");
         setTimeout(() => {
@@ -286,8 +385,12 @@ export default class PlayerSpace {
           this.showHealth();
         }, 3000);
       }
-    } else if ((meatType === "viande pas trop cuite" && Global.maxHealth > Global.playerHealth) ||
-               (meatType === "viande trop cuite" && Global.maxHealth > Global.playerHealth)) {
+    } else if (
+      (meatType === "viande pas trop cuite" &&
+        Global.maxHealth > Global.playerHealth) ||
+      (meatType === "viande trop cuite" &&
+        Global.maxHealth > Global.playerHealth)
+    ) {
       this.scene.sound.play("Manger");
       setTimeout(() => {
         Global.playerHealth++;

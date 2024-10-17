@@ -47,30 +47,31 @@ export default class Marchand {
   getPrice(type) {
     const prices = {
       "viande bien cuite": 10,
-      potion_vie: 25,
-      potion_force: 25,
-      potion_mana: 25,
-      potion_temps: 30,
-      potion_defense: 25,
-      "potion_mana+": 35,
-      "potion_vie+": 35,
-      potion_vieFull: 50,
+      vie: 25,
+      force: 25,
+      mana: 25,
+      temps: 30,
+      defense: 25,
+      manaPlus: 35,
+      viePlus: 35,
+      vieFull: 50,
     };
     return prices[type] || 0;
   }
 
   purchaseItem(item) {
     const playerCoins = Global.inventory.coins;
-    const price = this.getPrice(item.type);
+    const price = this.getPrice(item.nom);
 
     if (playerCoins >= price && item.quantity > 0) {
       Global.inventory.coins -= price;
       item.quantity--;
 
-      if (item.type.startsWith("potion")) {
-        Global.addPotion(item.type);
-      } else if (item.type === "viande bien cuite") {
-        Global.addMeatOrHoney(item.type, 1);
+      if (item.type == "potion") {
+        console.log(item.nom, "jgfuv");
+        Global.addPotion(item.nom);
+      } else if (item.type === "viande") {
+        Global.addMeatOrHoney(item.nom, 1);
       }
     } else {
       console.log("Pas assez de pièces ou article en rupture de stock !");
@@ -83,7 +84,7 @@ export default class Marchand {
 
     if (randomChance <= 80) {
       // 80% de chance d'avoir 2 articles
-      this.items.push(this.createItem("viande bien cuite", 5));
+      this.items.push(this.createItem("viande bien cuite", "viande", 5));
 
       // Potion selon les pourcentages
       const potion = this.generatePotion();
@@ -92,7 +93,7 @@ export default class Marchand {
       }
     } else {
       // 20% de chance d'avoir 3 articles
-      this.items.push(this.createItem("viande bien cuite", 5));
+      this.items.push(this.createItem("viande bien cuite", "viande", 5));
 
       // Deux potions
       const potion1 = this.generatePotion();
@@ -111,19 +112,19 @@ export default class Marchand {
   generatePotion() {
     const potionChance = Math.random() * 100;
 
-    if (potionChance <= 15) return this.createItem("potion_vie", 1);
-    if (potionChance <= 30) return this.createItem("potion_force", 1);
-    if (potionChance <= 45) return this.createItem("potion_mana", 1);
-    if (potionChance <= 60) return this.createItem("potion_temps", 1);
-    if (potionChance <= 75) return this.createItem("potion_defense", 1);
-    if (potionChance <= 85) return this.createItem("potion_mana+", 1);
-    if (potionChance <= 95) return this.createItem("potion_vie+", 1);
-    if (potionChance <= 100) return this.createItem("potion_vieFull", 1);
+    if (potionChance <= 15) return this.createItem("vie", "potion", 1);
+    if (potionChance <= 30) return this.createItem("force", "potion", 1);
+    if (potionChance <= 45) return this.createItem("mana", "potion", 1);
+    if (potionChance <= 60) return this.createItem("temps", "potion", 1);
+    if (potionChance <= 75) return this.createItem("defense", "potion", 1);
+    if (potionChance <= 85) return this.createItem("manaPlus", "potion", 1);
+    if (potionChance <= 95) return this.createItem("viePlus", "potion", 1);
+    if (potionChance <= 100) return this.createItem("vieFull", "potion", 1);
 
     return null; // Aucun article si rien n'est généré
   }
-  createItem(type, quantity) {
-    return { type, quantity };
+  createItem(nom, type, quantity) {
+    return { nom, type, quantity };
   }
 
   destroy() {

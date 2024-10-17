@@ -1,0 +1,1100 @@
+[
+  {
+    "x": 159.06726798721127,
+    "z": -47.009665553796566,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 126.31871244092576,
+    "z": 176.6466851283676,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante1.png",
+    "scale": 2.5
+  },
+  {
+    "x": 84.95713107450248,
+    "z": 45.509919993875485,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/crane.png",
+    "scale": 2.5
+  },
+  {
+    "x": 188.39397573123944,
+    "z": 98.45240271763561,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante2.png",
+    "scale": 2.5
+  },
+  {
+    "x": 183.31312401072887,
+    "z": -43.552884792302336,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante2.png",
+    "scale": 2.5
+  },
+  {
+    "x": 162.358369225919,
+    "z": 66.68389445330172,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/crane.png",
+    "scale": 2.5
+  },
+  {
+    "x": 183.41210928851655,
+    "z": 46.046606308020955,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/crane.png",
+    "scale": 2.5
+  },
+  {
+    "x": 119.82973300065983,
+    "z": 161.04479939334436,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante2.png",
+    "scale": 2.5
+  },
+  {
+    "x": 116.51270623262185,
+    "z": 87.78516952127114,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plantemorte.png",
+    "scale": 2.5
+  },
+  {
+    "x": 113.9011262907726,
+    "z": 115.83174664479208,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/crane.png",
+    "scale": 2.5
+  },
+  {
+    "x": 157.79762403965847,
+    "z": -86.72484580233079,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plantemorte.png",
+    "scale": 2.5
+  },
+  {
+    "x": 128.1298156069504,
+    "z": 183.54886475936888,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/crane.png",
+    "scale": 2.5
+  },
+  {
+    "x": 116.72565777386897,
+    "z": -84.2843109949827,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 125.12311643069336,
+    "z": 89.82761055471695,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plantemorte.png",
+    "scale": 2.5
+  },
+  {
+    "x": 150.60031381177572,
+    "z": 143.52033913356547,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/crane.png",
+    "scale": 2.5
+  },
+  {
+    "x": 86.53545759764316,
+    "z": 73.2890430220348,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plantemorte.png",
+    "scale": 2.5
+  },
+  {
+    "x": 195.22219690846117,
+    "z": -85.70906792083048,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/crane.png",
+    "scale": 2.5
+  },
+  {
+    "x": 124.51648862439507,
+    "z": 118.93057343163815,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante2.png",
+    "scale": 2.5
+  },
+  {
+    "x": 200.47050617004072,
+    "z": 11.693128868874595,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 166.26461793618532,
+    "z": -56.37099519200967,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 64.08711216878969,
+    "z": 8.27247326932212,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 206.70506332652124,
+    "z": 32.94590494634849,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante2.png",
+    "scale": 2.5
+  },
+  {
+    "x": 187.9326231027234,
+    "z": 34.467399074339426,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante1.png",
+    "scale": 2.5
+  },
+  {
+    "x": 187.38165211960435,
+    "z": -94.503686557604,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/crane.png",
+    "scale": 2.5
+  },
+  {
+    "x": 161.55484034300997,
+    "z": 89.22943100166259,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante1.png",
+    "scale": 2.5
+  },
+  {
+    "x": 176.73954246252706,
+    "z": 79.61728516039832,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante2.png",
+    "scale": 2.5
+  },
+  {
+    "x": 135.40987505651282,
+    "z": 175.73985266941355,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/crane.png",
+    "scale": 2.5
+  },
+  {
+    "x": 133.35966282091368,
+    "z": -92.8436061209371,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/crane.png",
+    "scale": 2.5
+  },
+  {
+    "x": 129.1149859314719,
+    "z": -89.83054338917877,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 52.886602685666276,
+    "z": -33.80375714017464,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 95.69862729620529,
+    "z": -39.319591918183164,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 166.04214933960523,
+    "z": 64.50774563563414,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante1.png",
+    "scale": 2.5
+  },
+  {
+    "x": 131.8566444302881,
+    "z": 82.49192279485817,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plantemorte.png",
+    "scale": 2.5
+  },
+  {
+    "x": 83.81042401781193,
+    "z": 73.52946211972306,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 115.97937178132325,
+    "z": -84.41180841818446,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante1.png",
+    "scale": 2.5
+  },
+  {
+    "x": 211.11171610059466,
+    "z": 89.86905761082829,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante2.png",
+    "scale": 2.5
+  },
+  {
+    "x": 150.3351145212149,
+    "z": -90.26327393279635,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante2.png",
+    "scale": 2.5
+  },
+  {
+    "x": 188.8925111061833,
+    "z": 103.68209760453766,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/crane.png",
+    "scale": 2.5
+  },
+  {
+    "x": 218.4227970032103,
+    "z": 23.118861680884095,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante2.png",
+    "scale": 2.5
+  },
+  {
+    "x": 44.71092735259682,
+    "z": -13.080410417462957,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/crane.png",
+    "scale": 2.5
+  },
+  {
+    "x": 138.44387208347257,
+    "z": -143.52204179039623,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante2.png",
+    "scale": 2.5
+  },
+  {
+    "x": 169.7854649852918,
+    "z": -122.50134527835928,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 127.61354573102399,
+    "z": 161.65440105284864,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plantemorte.png",
+    "scale": 2.5
+  },
+  {
+    "x": 151.12594124548625,
+    "z": -92.06813252311683,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/crane.png",
+    "scale": 2.5
+  },
+  {
+    "x": 171.40136414380441,
+    "z": -97.88077242616514,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plantemorte.png",
+    "scale": 2.5
+  },
+  {
+    "x": 193.37475804725767,
+    "z": 62.125591458073814,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 145.5799953099506,
+    "z": -112.21804707454987,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/crane.png",
+    "scale": 2.5
+  },
+  {
+    "x": 130.0396343612026,
+    "z": -148.0407558253061,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/crane.png",
+    "scale": 2.5
+  },
+  {
+    "x": 164.55391738441622,
+    "z": 131.1173201314807,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante2.png",
+    "scale": 2.5
+  },
+  {
+    "x": 92.65491639423459,
+    "z": -45.08110683485259,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plantemorte.png",
+    "scale": 2.5
+  },
+  {
+    "x": 154.8140404650282,
+    "z": -49.224317705918025,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 177.14859096576706,
+    "z": 53.77370018114536,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plantemorte.png",
+    "scale": 2.5
+  },
+  {
+    "x": 81.01543936999599,
+    "z": 25.313409230256553,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 104.1808768730647,
+    "z": 72.35201442662432,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 138.3426152852127,
+    "z": -141.55656882087197,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante2.png",
+    "scale": 2.5
+  },
+  {
+    "x": 109.88475271490165,
+    "z": -147.5763341369238,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plantemorte.png",
+    "scale": 2.5
+  },
+  {
+    "x": 90.75600681301722,
+    "z": 0.11347438374926355,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 193.21465226632884,
+    "z": -5.60106389119386,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plantemorte.png",
+    "scale": 2.5
+  },
+  {
+    "x": 105.0053268026567,
+    "z": 131.6857871597129,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plantemorte.png",
+    "scale": 2.5
+  },
+  {
+    "x": 197.53879532925154,
+    "z": -59.98260086150472,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plantemorte.png",
+    "scale": 2.5
+  },
+  {
+    "x": 162.1916032122185,
+    "z": -114.88160306070324,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 115.15312049462985,
+    "z": 107.97052572226733,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante2.png",
+    "scale": 2.5
+  },
+  {
+    "x": 85.44268034576034,
+    "z": 40.543889605498975,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plantemorte.png",
+    "scale": 2.5
+  },
+  {
+    "x": 199.80648821157862,
+    "z": -47.84418198208611,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 168.0445541625037,
+    "z": 67.92112412964741,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 62.71366334416901,
+    "z": 25.25024025760021,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 103.5643149276766,
+    "z": 125.70100039679477,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante2.png",
+    "scale": 2.5
+  },
+  {
+    "x": 93.50124378827499,
+    "z": -23.59124148340038,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 156.28117381819087,
+    "z": -41.03005046022281,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 72.65833066066355,
+    "z": -47.1156851036647,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante1.png",
+    "scale": 2.5
+  },
+  {
+    "x": 89.51285238188035,
+    "z": -68.85818185130532,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plantemorte.png",
+    "scale": 2.5
+  },
+  {
+    "x": 146.49674781001033,
+    "z": 111.394260510533,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 190.7768559522361,
+    "z": 112.06059071517706,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante1.png",
+    "scale": 2.5
+  },
+  {
+    "x": 70.57738161060736,
+    "z": -55.012752053890566,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plantemorte.png",
+    "scale": 2.5
+  },
+  {
+    "x": 141.42938424631572,
+    "z": 125.37155663637685,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 192.14962991523004,
+    "z": -59.24913930795813,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante1.png",
+    "scale": 2.5
+  },
+  {
+    "x": 118.86835414446585,
+    "z": 83.95699942894237,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plantemorte.png",
+    "scale": 2.5
+  },
+  {
+    "x": 150.33455221980535,
+    "z": -127.46104719608945,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante1.png",
+    "scale": 2.5
+  },
+  {
+    "x": 65.69848472711615,
+    "z": 26.28991452556383,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante1.png",
+    "scale": 2.5
+  },
+  {
+    "x": 155.4282633861435,
+    "z": 62.66271266797378,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 148.4805948568963,
+    "z": -84.00021702786981,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante1.png",
+    "scale": 2.5
+  },
+  {
+    "x": 101.68615036328531,
+    "z": 105.02964573831377,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 157.51294341669563,
+    "z": -119.04741149311256,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante2.png",
+    "scale": 2.5
+  },
+  {
+    "x": 191.91283586226905,
+    "z": -46.0626249266502,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 211.77305355683166,
+    "z": -33.110419193624836,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 127.89937098081622,
+    "z": 138.00335746704593,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante1.png",
+    "scale": 2.5
+  },
+  {
+    "x": 184.91703427100862,
+    "z": 121.27529790026642,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 96.11221697302804,
+    "z": 63.864529714071324,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante1.png",
+    "scale": 2.5
+  },
+  {
+    "x": 171.24466085326725,
+    "z": 76.21956354237815,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plantemorte.png",
+    "scale": 2.5
+  },
+  {
+    "x": 182.70721777030332,
+    "z": 51.73338005624913,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plantemorte.png",
+    "scale": 2.5
+  },
+  {
+    "x": 137.0251788135956,
+    "z": -87.88931353739817,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante1.png",
+    "scale": 2.5
+  },
+  {
+    "x": 170.40223508926718,
+    "z": -93.7494751984108,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante1.png",
+    "scale": 2.5
+  },
+  {
+    "x": 140.45942127238362,
+    "z": -73.72121611732618,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante1.png",
+    "scale": 2.5
+  },
+  {
+    "x": 215.9574676407289,
+    "z": 83.31548618389911,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante2.png",
+    "scale": 2.5
+  },
+  {
+    "x": 57.07380699033168,
+    "z": 28.783270240872042,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plantemorte.png",
+    "scale": 2.5
+  },
+  {
+    "x": 116.4088957238174,
+    "z": 99.60368493972987,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 160.2309440475849,
+    "z": -48.32216476618159,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante1.png",
+    "scale": 2.5
+  },
+  {
+    "x": 139.94145058495513,
+    "z": -152.03873175053755,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 80.56695721883663,
+    "z": 73.79933479492072,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plantemorte.png",
+    "scale": 2.5
+  },
+  {
+    "x": 190.45619185818927,
+    "z": 92.88539586773169,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante2.png",
+    "scale": 2.5
+  },
+  {
+    "x": 157.73906752141266,
+    "z": 65.35860549401616,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plantemorte.png",
+    "scale": 2.5
+  },
+  {
+    "x": 85.29171646830024,
+    "z": -96.1113477556266,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 79.83335460925744,
+    "z": -40.73469118864628,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 42.90887368397874,
+    "z": -8.695621635880713,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante2.png",
+    "scale": 2.5
+  },
+  {
+    "x": 159.74592106218506,
+    "z": 124.81083922520082,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plantemorte.png",
+    "scale": 2.5
+  },
+  {
+    "x": 106.83965858316026,
+    "z": 81.00269090637013,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante1.png",
+    "scale": 2.5
+  },
+  {
+    "x": 139.87586345191727,
+    "z": 179.39541634177885,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante2.png",
+    "scale": 2.5
+  },
+  {
+    "x": 102.9179463111244,
+    "z": -106.42135307540379,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante1.png",
+    "scale": 2.5
+  },
+  {
+    "x": 160.10315716483197,
+    "z": 141.51951442800151,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 177.77139951453714,
+    "z": 80.94207405718538,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 154.30799222033346,
+    "z": -61.82005950433701,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante1.png",
+    "scale": 2.5
+  },
+  {
+    "x": 216.72153330642882,
+    "z": 48.35551524877309,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 220.2053396773439,
+    "z": 21.446076811411587,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 173.0732459487831,
+    "z": 80.56893321001724,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plantemorte.png",
+    "scale": 2.5
+  },
+  {
+    "x": 57.82396049717164,
+    "z": 32.80708146956198,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 101.17683413958217,
+    "z": 52.437782481695564,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante2.png",
+    "scale": 2.5
+  },
+  {
+    "x": 119.5192915252096,
+    "z": -59.91211337888545,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante2.png",
+    "scale": 2.5
+  },
+  {
+    "x": 76.81388512857217,
+    "z": -12.009404287588893,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante1.png",
+    "scale": 2.5
+  },
+  {
+    "x": 117.86113981039897,
+    "z": 61.281998257246556,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante2.png",
+    "scale": 2.5
+  },
+  {
+    "x": 121.30825355773308,
+    "z": 133.94420208293894,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 60.067714199588664,
+    "z": -22.813043780594853,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plantemorte.png",
+    "scale": 2.5
+  },
+  {
+    "x": 210.06740101569244,
+    "z": 57.576913262632274,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plantemorte.png",
+    "scale": 2.5
+  },
+  {
+    "x": 61.45966279396583,
+    "z": 24.41875904168765,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante1.png",
+    "scale": 2.5
+  },
+  {
+    "x": 117.3000047492267,
+    "z": -156.93309518885567,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plantemorte.png",
+    "scale": 2.5
+  },
+  {
+    "x": 166.83594247607326,
+    "z": 58.68785455050488,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 81.29063102534776,
+    "z": 26.457725804203562,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante1.png",
+    "scale": 2.5
+  },
+  {
+    "x": 77.78609697949923,
+    "z": 56.48426801553171,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 144.72220013271675,
+    "z": -119.40812121452151,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante1.png",
+    "scale": 2.5
+  },
+  {
+    "x": 100.32163338087783,
+    "z": 39.780895365947515,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante1.png",
+    "scale": 2.5
+  },
+  {
+    "x": 134.6222420417921,
+    "z": 103.67356199937831,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante1.png",
+    "scale": 2.5
+  },
+  {
+    "x": 63.42101088973944,
+    "z": 54.397509733532985,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 141.2815318126552,
+    "z": 163.61851511371992,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 149.74788028108162,
+    "z": 136.8392547729818,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante2.png",
+    "scale": 2.5
+  },
+  {
+    "x": 207.85273007281202,
+    "z": 12.424334975563426,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 154.2445835882711,
+    "z": 155.1973437234621,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 106.96725928268992,
+    "z": -93.16175561759925,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante2.png",
+    "scale": 2.5
+  },
+  {
+    "x": 214.0537356394681,
+    "z": -14.255614575602294,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plantemorte.png",
+    "scale": 2.5
+  },
+  {
+    "x": 161.65163421738995,
+    "z": 114.72265166496811,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 217.60178949766882,
+    "z": -10.407600286201301,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante2.png",
+    "scale": 2.5
+  },
+  {
+    "x": 206.58708069406578,
+    "z": 23.03415517881524,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plantemorte.png",
+    "scale": 2.5
+  },
+  {
+    "x": 110.62419202578712,
+    "z": -143.26316691611555,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante2.png",
+    "scale": 2.5
+  },
+  {
+    "x": 128.51783034853682,
+    "z": -60.912866206990515,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante2.png",
+    "scale": 2.5
+  },
+  {
+    "x": 91.64504003323361,
+    "z": 15.030640326875243,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante1.png",
+    "scale": 2.5
+  },
+  {
+    "x": 138.60052114296425,
+    "z": 59.5836552376486,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 80.88213680009241,
+    "z": -81.68085480153627,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 115.55032519628004,
+    "z": -66.72000547240144,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante2.png",
+    "scale": 2.5
+  },
+  {
+    "x": 215.13665763896,
+    "z": -22.009037808135417,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plantemorte.png",
+    "scale": 2.5
+  },
+  {
+    "x": 104.29005128510488,
+    "z": 64.79324616340864,
+    "y": 255.7,
+    "texture": "/5/test3D/examples/éléments desert/arbremort.png",
+    "scale": 10,
+    "hitboxWidth": 2
+  },
+  {
+    "x": 166.16989361274227,
+    "z": -80.67160963238892,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante2.png",
+    "scale": 2.5
+  },
+  {
+    "x": 112.06883546366396,
+    "z": -150.36186850970506,
+    "y": 252.3,
+    "texture": "/5/test3D/examples/éléments desert/plante2.png",
+    "scale": 2.5
+  }
+]

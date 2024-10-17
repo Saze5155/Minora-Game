@@ -9,7 +9,7 @@ export default class camera {
 
     // Créer une caméra libre à partir de scene.third.camera
     this.camera = scene.third.camera;
-    this.camera.position.set(0, 10, 20); // Position initiale
+    this.camera.position.set(0, 258, 20); // Position initiale
     this.camera.lookAt(0, 0, 0); // Faire regarder la caméra vers le centre de la scène
 
     // Initialisation des touches pour la caméra libre

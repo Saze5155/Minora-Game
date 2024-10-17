@@ -1,0 +1,242 @@
+[
+  {
+    "texture": "/5/test3D/examples/espace/espace-07.png",
+    "position": {
+      "x": -145.54377789407172,
+      "y": 257.79999999999995,
+      "z": 61.4760992643387
+    },
+    "rotation_y": 0
+  },
+  {
+    "texture": "/5/test3D/examples/espace/espace-14.png",
+    "position": {
+      "x": -136.95877566967695,
+      "y": 257.59999999999997,
+      "z": 61.49626130739749
+    },
+    "rotation_y": 0
+  },
+  {
+    "texture": "/5/test3D/examples/espace/espace-17.png",
+    "position": {
+      "x": -128.7758131451023,
+      "y": 252.6999999999999,
+      "z": 61.19092157440845
+    },
+    "rotation_y": 0
+  },
+  {
+    "texture": "/5/test3D/examples/espace/espace-15.png",
+    "position": {
+      "x": -120.33452399296054,
+      "y": 255.89999999999975,
+      "z": 61.46424822828673
+    },
+    "rotation_y": 0
+  },
+  {
+    "texture": "/5/test3D/examples/espace/espace-18.png",
+    "position": { "x": -111.66779937896517, "y": 251, "z": 61.45197846290151 },
+    "rotation_y": 0
+  },
+  {
+    "texture": "/5/test3D/examples/espace/espace-12.png",
+    "position": {
+      "x": -102.35082618673214,
+      "y": 255.29999999999976,
+      "z": 61.50825775910902
+    },
+    "rotation_y": 0
+  },
+  {
+    "texture": "/5/test3D/examples/espace/espace-14.png",
+    "position": {
+      "x": -187.75699420643483,
+      "y": 257.2999999999999,
+      "z": 113.56003882829197
+    },
+    "rotation_y": 0
+  },
+  {
+    "texture": "/5/test3D/examples/espace/espace-12.png",
+    "position": {
+      "x": -179.57115550795575,
+      "y": 250.70000000000002,
+      "z": 113.33041104125178
+    },
+    "rotation_y": 0
+  },
+  {
+    "texture": "/5/test3D/examples/espace/espace-07.png",
+    "position": {
+      "x": -171.15367916281804,
+      "y": 257.8999999999999,
+      "z": 113.2503717298182
+    },
+    "rotation_y": 0
+  },
+  {
+    "texture": "/5/test3D/examples/espace/espace-17.png",
+    "position": {
+      "x": -162.5426356061049,
+      "y": 252.49999999999991,
+      "z": 113.37841754547773
+    },
+    "rotation_y": 0
+  },
+  {
+    "texture": "/5/test3D/examples/espace/espace-15.png",
+    "position": {
+      "x": -154.24809432853658,
+      "y": 251.2,
+      "z": 113.52495160579312
+    },
+    "rotation_y": 0
+  },
+  {
+    "texture": "/5/test3D/examples/espace/espace-15.png",
+    "position": {
+      "x": -137.61241788848534,
+      "y": 251.29999999999998,
+      "z": 95.752719217066
+    },
+    "rotation_y": 0
+  },
+  {
+    "texture": "/5/test3D/examples/espace/espace-17.png",
+    "position": {
+      "x": -129.24475282684787,
+      "y": 253.89999999999984,
+      "z": 95.84150148950002
+    },
+    "rotation_y": 0
+  },
+  {
+    "texture": "/5/test3D/examples/espace/espace-18.png",
+    "position": { "x": -120.89346870675067, "y": 251, "z": 96.00586514873419 },
+    "rotation_y": 0
+  },
+  {
+    "texture": "/5/test3D/examples/espace/espace-07.png",
+    "position": {
+      "x": -111.69298792668825,
+      "y": 257.79999999999995,
+      "z": 95.92817001916886
+    },
+    "rotation_y": 0
+  },
+  {
+    "texture": "/5/test3D/examples/espace/espace-12.png",
+    "position": {
+      "x": -132.39920833485513,
+      "y": 257.9000000000001,
+      "z": 164.46083799735996
+    },
+    "rotation_y": 0
+  },
+  {
+    "texture": "/5/test3D/examples/espace/espace-07.png",
+    "position": {
+      "x": -123.57587026915688,
+      "y": 254.49999999999983,
+      "z": 164.17752721067313
+    },
+    "rotation_y": 0
+  },
+  {
+    "texture": "/5/test3D/examples/espace/espace-14.png",
+    "position": { "x": -114.60761388779231, "y": 251, "z": 164.3775851994488 },
+    "rotation_y": 0
+  },
+  {
+    "texture": "/5/test3D/examples/espace/espace-18.png",
+    "position": {
+      "x": -106.40904179461982,
+      "y": 253.79999999999984,
+      "z": 164.23881278916855
+    },
+    "rotation_y": 0
+  },
+  {
+    "texture": "/5/test3D/examples/espace/espace-14.png",
+    "position": {
+      "x": -60.35556069955683,
+      "y": 257.5999999999998,
+      "z": 146.18234676903552
+    },
+    "rotation_y": 0
+  },
+  {
+    "texture": "/5/test3D/examples/espace/espace-15.png",
+    "position": {
+      "x": -51.784687566685676,
+      "y": 254.39999999999984,
+      "z": 146.22589963995162
+    },
+    "rotation_y": 0
+  },
+  {
+    "texture": "/5/test3D/examples/espace/espace-17.png",
+    "position": {
+      "x": -43.04534453965853,
+      "y": 249.4000000000001,
+      "z": 146.3621913648622
+    },
+    "rotation_y": 0
+  },
+  {
+    "texture": "/5/test3D/examples/espace/espace-18.png",
+    "position": {
+      "x": -33.86162564897639,
+      "y": 253.89999999999986,
+      "z": 146.50256312647537
+    },
+    "rotation_y": 0
+  },
+  {
+    "texture": "/5/test3D/examples/espace/espace-07.png",
+    "position": {
+      "x": -33.21211705708084,
+      "y": 257.79999999999984,
+      "z": 106.894048513047
+    },
+    "rotation_y": 0
+  },
+  {
+    "texture": "/5/test3D/examples/espace/espace-12.png",
+    "position": {
+      "x": -24.004965461194033,
+      "y": 257.79999999999984,
+      "z": 107.20233599091927
+    },
+    "rotation_y": 0
+  },
+  {
+    "texture": "/5/test3D/examples/espace/espace-14.png",
+    "position": {
+      "x": -14.593065985394725,
+      "y": 255.99999999999986,
+      "z": 106.74787785729276
+    },
+    "rotation_y": 0
+  },
+  {
+    "texture": "/5/test3D/examples/espace/espace-15.png",
+    "position": {
+      "x": -5.629120626935941,
+      "y": 252.89999999999998,
+      "z": 107.25596016958511
+    },
+    "rotation_y": 0
+  },
+  {
+    "texture": "/5/test3D/examples/espace/espace-18.png",
+    "position": {
+      "x": 3.5548385290040767,
+      "y": 253.79999999999984,
+      "z": 107.20641783901922
+    },
+    "rotation_y": 0
+  }
+]
