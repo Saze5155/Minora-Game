@@ -1,16 +1,16 @@
 import Global from "/5/test3D/js/inventaire.js";
 
-export default class tpt extends Scene3D {
-  constructor() {
+export default class tpt extends Phaser.Scene {
+  constructor() { 
     super({ key: "tpt" });
     this.isPlayerTurn = true; // Initialement, c'est le tour du joueur
     this.combatEnded = false; // Initialement, le combat n'est pas terminé
-
+    this.isInitialized = false; 
     // Stats de combat de base
-    this.playerHP = 100; // Points de vie du joueur
-    this.playerMP = 50; // Points de mana du joueur
-    this.enemyHP = 100; // Points de vie de l'ennemi
-    this.enemyMP = 50; // Points de mana de l'ennemi
+    this.playerHP = 200; // Points de vie du joueur
+    this.playerMP = 25; // Points de mana du joueur
+    this.enemyHP = 200; // Points de vie de l'ennemi
+    this.enemyMP = 25; // Points de mana de l'ennemi
 
     // Variables pour gérer l'état d'affichage des menus
     this.attackMenuVisible = false;
@@ -20,221 +20,342 @@ export default class tpt extends Scene3D {
     this.playerTextures = []; // Initialisation ici
     this.attackTextures = []; // Pour l'animation d'attaque, initialisation ici
     this.currentFrame = 0;
+    this.animAttack = ""
+    this.animeIdle = ""
+  
   }
 
-  preload() {
-    this.loadTextures("idle", "idle", 6, this.playerTextures); // Charger les images d'animation
-    this.loadTextures("attack", "attaquedroite", 8, this.attackTextures); // Pour l'attaque
-  }
+  loadEnemyData(enemyId) {
+    let attack =""
+    let idle =""
+    let background = ""
+    let frame = ""
 
-  loadTextures(folder, name, frameCount, textureArray) {
-    const framePaths = [];
-    for (let i = 1; i <= frameCount; i++) {
-      const framePath = `/5/test3D/examples/anim_player/${folder}/_${name}_${i}.png`;
-      textureArray.push(framePath);
-      this.load.image(`${name}_${i}`, framePath); // Charger chaque image individuellement
+
+    if(enemyId == 1){    
+        attack = "attaque_vie_enemy";
+        idle = "attente_vie_enemy";
+        background = "background_vie";
+        frame ='vie_attente_enemy_1';
+    }else if(enemyId == 2){
+        attack = "attaque_espace_enemy";
+        idle = "attente_espace_enemy";
+        background = "background_espace";
+        frame ='espace_attente_enemy_1';
+    }else if(enemyId == 3){
+        attack =  "attaque_temps_enemy";
+        idle = "attente_temps_enemy";
+        background = "background_temps";
+        frame ='temps_attente_enemy_1'
+     
     }
-  }
 
-  create() {
-    // Ajouter le background et le redimensionner
-    const background = this.add.image(0, 0, "background");
-    background.setOrigin(0, 0);
-    background.setDisplaySize(this.scale.width, this.scale.height);
+    
+    
+    this.frame = frame
+    this.animAttack = attack
+    this.animeIdle = idle
 
-    // Redimensionner le background si l'écran change de taille
-    this.scale.on("resize", (gameSize) => {
-      const { width, height } = gameSize;
-      background.setDisplaySize(width, height);
-    });
+    console.log()
 
-    // Afficher le joueur avec la première image de l'animation
-    this.player = this.add.image(100, 400, "idle_1");
-    this.player.setScale(0.2);
+    this.background = this.add.image(0, 0, background);
+    this.background.setOrigin(0, 0);
+    this.background.setDepth(-1); 
+    this.background.setDisplaySize(this.scale.width, this.scale.height);
+    this.enemy = this.add.sprite(600, 300, this.frame); 
 
-    // Afficher l'ennemi
-    this.enemy = this.add.image(600, 100, "enemy");
-    this.enemy.setScale(0.3);
-    // Démarrer l'animation de "respiration" pour l'ennemi
-    this.startEnemyIdleAnimation();
+    this.enemy.setScale(1);
+this.enemy.setDepth(10)
+this.enemy.setFlipX(true);
 
-    // Ajouter les barres de vie et MP du joueur et de l'ennemi
-    this.playerHealthBar = this.add.rectangle(100, 360, 100, 10, 0x00ff00);
-    this.playerMPText = this.add.text(100, 390, `MP: ${this.playerMP}`, {
-      fontSize: "24px",
-      fill: "#fff",
-    });
-    this.enemyHealthBar = this.add.rectangle(600, 60, 100, 10, 0x00ff00);
-    this.enemyMPText = this.add.text(600, 90, `MP: ${this.enemyMP}`, {
-      fontSize: "24px",
-      fill: "#fff",
-    });
 
-    // Chatbox pour les actions du joueur et de l'ennemi
-    this.playerActionTextBox = this.add.text(50, 300, "", {
-      fontSize: "30px",
-      fill: "#00ff00",
-      fontWeight: "900",
-    });
-    this.enemyActionTextBox = this.add.text(450, 150, "", {
-      fontSize: "30px",
-      fill: "#ff0000",
-      fontWeight: "900",
-    });
+    //this.setupUI(); // Méthode pour initialiser les barres de vie, boutons, etc.
+  
+  // this.startAnimation();
 
-    // Positionner les éléments du joueur et de l'ennemi
-    this.positionPlayerElements();
-    this.positionEnemyElements();
 
-    // Positionner les boutons en bas à droite
-    const buttonSpacing = 200;
-    this.attackButton = this.add
-      .image(this.scale.width - 100, this.scale.height - 100, "attackButton")
-      .setInteractive();
-    this.defendButton = this.add
-      .image(
-        this.scale.width - (100 + buttonSpacing),
-        this.scale.height - 100,
-        "defendButton"
-      )
-      .setInteractive();
-    this.potionButton = this.add
-      .image(
-        this.scale.width - (100 + buttonSpacing * 2),
-        this.scale.height - 100,
-        "potionButton"
-      )
-      .setInteractive();
-    this.fleeButton = this.add
-      .image(
-        this.scale.width - (100 + buttonSpacing * 3),
-        this.scale.height - 100,
-        "fleeButton"
-      )
-      .setInteractive();
 
-    // Repositionner les boutons si l'écran est redimensionné
-    this.scale.on("resize", (gameSize) => {
-      const { width, height } = gameSize;
-      background.setDisplaySize(width, height);
+  Global.giveAllPotions();
 
-      this.attackButton.setPosition(width - 100, height - 100);
-      this.defendButton.setPosition(
-        width - (100 + buttonSpacing),
-        height - 100
-      );
-      this.potionButton.setPosition(
-        width - (100 + buttonSpacing * 2),
-        height - 100
-      );
-      this.fleeButton.setPosition(
-        width - (100 + buttonSpacing * 3),
-        height - 100
-      );
-    });
+  // Ajouter le background et le redimensionner
+  // const background = this.add.image(0, 0, "background");
+  // background.setOrigin(0, 0);
+  // background.setDisplaySize(this.scale.width, this.scale.height);
 
-    // Bouton de fuite pour revenir à "monde"
-    this.fleeButton.on("pointerdown", () => this.fleeCombat());
+  // Redimensionner le background si l'écran change de taille
+  this.scale.on("resize", (gameSize) => {
+    const { width, height } = gameSize;
+    background.setDisplaySize(width, height);
+  });
 
-    // Actions au clic des boutons
-    this.attackButton.on("pointerdown", () => this.showAttackMenu());
-    this.defendButton.on("pointerdown", () =>
-      this.playerDefend(Global.defenses[0])
+  // Afficher le joueur avec la première image de l'animation
+  this.player = this.add.sprite(100, 400, "idle_1");
+  this.player.setScale(0.2);
+  // this.createEnemyElements();
+  console.log(this.enemy1IddleTextures);
+
+  this.startenemyIdleAnimation();
+
+  // Ajouter les barres de vie et MP du joueur et de l'ennemi
+  this.playerHealthBar = this.add.rectangle(100, 360, 100, 10, 0x00ff00);
+  this.playerMPText = this.add.text(100, 390, `MANA: ${this.playerMP}`, {
+    fontSize: "24px",
+    fill: "#fff",
+  });
+  this.enemyHealthBar = this.add.rectangle(600, 60, 100, 10, 0x00ff00);
+  this.enemyMPText = this.add.text(600, 90, `MANA : ${this.enemyMP}`, {
+    fontSize: "24px",
+    fill: "#fff",
+  });
+
+  // Afficher temporairement les HP du joueur
+  this.playerHPText = this.add.text(100, 340, `HP: ${this.playerHP}`, {
+    fontSize: "24px",
+    fill: "#fff",
+  });
+
+  // Afficher temporairement les HP de l'ennemi
+  this.enemyHPText = this.add.text(600, 30, `HP: ${this.enemyHP}`, {
+    fontSize: "24px",
+    fill: "#fff",
+  });
+
+  // Chatbox pour les actions du joueur et de l'ennemi
+  this.playerActionTextBox = this.add.text(50, 300, "", {
+    fontSize: "30px",
+    fill: "#00ff00",
+    fontWeight: "900",
+  });
+  this.enemyActionTextBox = this.add.text(450, 150, "", {
+    fontSize: "30px",
+    fill: "#ff0000",
+    fontWeight: "900",
+  });
+
+  // Positionner les éléments du joueur et de l'ennemi
+  this.positionPlayerElements();
+  this.positionEnemyElements();
+
+  // Positionner les boutons en bas à droite dans l'ordre souhaité : attack, defense, potion, flee
+  const buttonSpacing = 200;
+
+  // Bouton fuite (flee)
+  this.fleeButton = this.add
+    .image(this.scale.width - 100, this.scale.height - 100, "fleeButton")
+    .setInteractive();
+  this.createButton(this.fleeButton);
+
+  // Bouton potion
+  this.potionButton = this.add
+    .image(
+      this.scale.width - (100 + buttonSpacing),
+      this.scale.height - 100,
+      "potionButton"
+    )
+    .setInteractive();
+  this.createButton(this.potionButton);
+
+  // Bouton défense
+  this.defendButton = this.add
+    .image(
+      this.scale.width - (100 + buttonSpacing * 2),
+      this.scale.height - 100,
+      "defendButton"
+    )
+    .setInteractive();
+  this.createButton(this.defendButton);
+
+  // Bouton attaque
+  this.attackButton = this.add
+    .image(
+      this.scale.width - (100 + buttonSpacing * 3),
+      this.scale.height - 100,
+      "attackButton"
+    )
+    .setInteractive();
+  this.createButton(this.attackButton);
+
+  // Repositionner les boutons si l'écran est redimensionné
+  this.scale.on("resize", (gameSize) => {
+    const { width, height } = gameSize;
+    background.setDisplaySize(width, height);
+
+    this.fleeButton.setPosition(width - 100, height - 100);
+    this.potionButton.setPosition(
+      width - (100 + buttonSpacing),
+      height - 100
     );
-    this.potionButton.on("pointerdown", () => this.showPotionMenu());
+    this.defendButton.setPosition(
+      width - (100 + buttonSpacing * 2),
+      height - 100
+    );
+    this.attackButton.setPosition(
+      width - (100 + buttonSpacing * 3),
+      height - 100
+    );
+  });
 
-    // Zone pour le message de fin de combat
-    this.endMessage = this.add
-      .text(400, 300, "", { fontSize: "32px", fill: "#fff" })
-      .setOrigin(0.5)
-      .setVisible(false);
+  // Bouton de fuite pour revenir à "monde"
+  this.fleeButton.on("pointerdown", () => this.fleeCombat());
 
-    // Initialisation des menus pour les attaques et potions
-    this.attackMenu = this.add
-      .text(500, 500, "", { fontSize: "24px", fill: "#fff" })
-      .setVisible(false);
-    this.potionMenu = this.add
-      .text(500, 500, "", { fontSize: "24px", fill: "#fff" })
-      .setVisible(false);
+  // Actions au clic des boutons
+  this.attackButton.on("pointerdown", () => this.showAttackMenu());
+  this.defendButton.on("pointerdown", () =>
+    this.playerDefend(Global.defenses[0])
+  );
+  this.potionButton.on("pointerdown", () => this.showPotionMenu());
 
-    // Afficher les différentes attaques
-    let attackText = "Choisissez une attaque :\n";
-    Global.attacks.forEach((attack, index) => {
-      attackText += `${index + 1}. ${attack.name} (Dégâts: ${
-        attack.damage
-      }, Coût: ${attack.mpCost} MP)\n`;
+  // Zone pour le message de fin de combat
+  this.endMessage = this.add
+    .text(400, 300, "", { fontSize: "32px", fill: "#fff" })
+    .setOrigin(0.5)
+    .setVisible(false);
+
+  // Initialisation des menus pour les attaques et potions
+  this.attackMenu = this.add
+    .text(500, 500, "", { fontSize: "24px", fill: "#fff" })
+    .setVisible(false);
+  this.potionMenu = this.add
+    .text(500, 500, "", { fontSize: "24px", fill: "#fff" })
+    .setVisible(false);
+
+  // Afficher les différentes attaques
+  let attackText = "Choisissez une attaque :\n";
+
+  // Parcourir les attaques de chaque biome
+  Object.keys(Global.attacks).forEach((biome) => {
+    Global.attacks[biome].forEach((attack, index) => {
+      attackText += `${index + 1}. ${attack.name} (Dégâts: ${attack.damage}, Coût: ${attack.mpCost} MP)\n`;
     });
-    this.attackMenu.setText(attackText);
+  });
 
-    // Gérer le clic pour choisir une attaque ou une potion
-    this.input.keyboard.on("keydown", (event) => {
-      const keyPressed = parseInt(event.key);
+  this.attackMenu.setText(attackText);
 
-      if (this.attackMenuVisible) {
-        if (keyPressed >= 1 && keyPressed <= Global.attacks.length) {
-          this.playerAttack(Global.attacks[keyPressed - 1]);
-        }
+  // Gérer le clic pour choisir une attaque ou une potion
+  this.input.keyboard.on("keydown", (event) => {
+    const keyPressed = parseInt(event.key);
+
+    if (this.attackMenuVisible) {
+      const currentBiome = "nature"; // Ici, tu peux déterminer dynamiquement le biome selon la situation
+      const biomeAttacks = Global.attacks[currentBiome];
+      const neutralAttacks = Global.attacks["neutre"];
+
+      // Combiner les attaques de biomes et les attaques neutres
+      const allAttacks = [...biomeAttacks, ...neutralAttacks];
+
+      if (keyPressed >= 1 && keyPressed <= allAttacks.length) {
+        const selectedAttack = allAttacks[keyPressed - 1];
+        this.playerAttack(selectedAttack);
       }
+    }
 
-      if (this.potionMenuVisible) {
-        let potionCount = 0;
-        let potionType = null;
+    if (this.potionMenuVisible) {
+      let potionCount = 0;
+      let potionType = null;
 
-        // Parcourir l'inventaire des potions pour trouver la potion correspondante
-        for (const [type, potions] of Object.entries(
-          Global.inventory.potions
-        )) {
-          if (potions.length > 0) {
-            potionCount++;
-            if (potionCount === keyPressed) {
-              potionType = type; // Trouver la potion correspondant à la touche pressée
-              break;
-            }
+      // Parcourir l'inventaire des potions pour trouver la potion correspondante
+      for (const [type, potions] of Object.entries(Global.inventory.potions)) {
+        if (potions.length > 0) {
+          potionCount++;
+          if (potionCount === keyPressed) {
+            potionType = type; // Trouver la potion correspondant à la touche pressée
+            break;
           }
         }
-
-        // Si la potion existe dans l'inventaire
-        if (potionType) {
-          this.usePotion(potionType); // Appeler la fonction usePotion avec le type de potion
-        } else {
-          this.updatePlayerActionText("Potion invalide ou non disponible.");
-        }
       }
-    });
 
-    this.startAnimation(); // Démarrer l'animation manuelle
+      // Si la potion existe dans l'inventaire
+      if (potionType) {
+        this.usePotion(potionType); // Appeler la fonction usePotion avec le type de potion
+      } else {
+        this.updatePlayerActionText("Potion invalide ou non disponible.");
+      }
+    }
+  });
+
+  this.startAnimation(); // Démarrer l'animation manuelle
   }
 
-  enemyAttackAnimation() {
-    const initialX = this.enemy.x;
 
-    // Animation d'attaque : avancer puis reculer
-    this.tweens.timeline({
-      targets: this.enemy,
-      ease: "Power1",
-      duration: 200,
-      tweens: [
-        { x: initialX - 20, duration: 150 }, // Avancer légèrement vers la gauche
-        { x: initialX, duration: 150 }, // Reculer à sa position initiale
-      ],
-      onComplete: () => {
-        // Appeler la fonction pour infliger des dégâts au joueur après l'animation
-        this.inflictDamageToPlayer();
-      },
-    });
-  }
 
-  startEnemyIdleAnimation() {
+
+
+
+
+  preload() {
+    this.loadEnemyData(Global.enemyId)
+ 
+    // Charger les images d'animation idle et attaque du joueur
+    
+
+    // Charger les textures spécifiques à l'ennemi en utilisant un ID par défaut (par exemple, ID 1 pour les tests)
+}
+
+
+
+
+  // Fonction pour créer les boutons avec des effets de hover et de clic
+createButton(button, scale = 1.1) {
+  // Scale initial
+  const initialScale = button.scale;
+
+  // Effet de survol (hover)
+  button.on("pointerover", () => {
     this.tweens.add({
-      targets: this.enemy,
-      scaleX: 0.32, // Augmenter légèrement le scale sur l'axe X
-      scaleY: 0.32, // Augmenter légèrement le scale sur l'axe Y
-      duration: 1000, // Durée de l'animation (1 seconde pour l'expansion)
-      yoyo: true, // Revenir à la taille d'origine
-      repeat: -1, // Répéter l'animation indéfiniment
-      ease: "Sine.easeInOut", // Utiliser un easing doux pour l'effet de "respiration"
+      targets: button,
+      scale: initialScale * scale,
+      duration: 100, // Durée de l'animation de hover
+      ease: "Power1",
     });
+  });
+
+  // Retour à la taille normale quand la souris sort du bouton
+  button.on("pointerout", () => {
+    this.tweens.add({
+      targets: button,
+      scale: initialScale,
+      duration: 100, // Durée de l'animation pour rétablir la taille
+      ease: "Power1",
+    });
+  });
+
+  // Effet de clic (simuler un bouton enfoncé)
+  button.on("pointerdown", () => {
+    this.tweens.add({
+      targets: button,
+      scale: initialScale * 0.9, // Réduire légèrement la taille pour l'effet de clic
+      duration: 50, // Durée rapide pour l'effet de clic
+      ease: "Power1",
+    });
+  });
+
+  // Retour à la taille normale après le clic
+  button.on("pointerup", () => {
+    this.tweens.add({
+      targets: button,
+      scale: initialScale,
+      duration: 50, // Rétablir la taille rapidement
+      ease: "Power1",
+    });
+  });
+}
+
+create() {
+  if (this.isInitialized) {
+    return; // Si la scène a déjà été initialisée, ne fais rien
   }
+  this.isInitialized = true; 
+}
+
+
+  startenemyIdleAnimation() {
+    this.enemy.anims.play(this.animeIdle)
+    
+  }
+  
+
+  
+
 
   flashRed(target, onComplete) {
     // Sauvegarder la teinte d'origine, sinon utiliser le blanc
@@ -270,36 +391,31 @@ export default class tpt extends Scene3D {
 
   inflictDamageToEnemy(damage) {
     this.enemyHP -= damage;
-    this.updateHealthBar(this.enemyHealthBar, this.enemyHP, 100);
-    this.flashRed(this.enemy); // Flash rouge pour l'ennemi
-
+    this.updateHealthBar(this.enemyHealthBar, this.enemyHP, 200); // Mettre à jour la barre de vie
+    this.enemyHPText.setText(`HP: ${this.enemyHP}`); // Mettre à jour l'affichage des HP
+    this.flashRed(this.enemy); // Faire clignoter l'ennemi en rouge
+  
     if (this.enemyHP <= 0) {
-      this.endCombat("win");
+      this.endCombat('win'); // Fin du combat si l'ennemi est mort
     }
   }
+  
+  playEnemyAttackAnimation() {
+    clearInterval(this.idleInterval); // Arrêter l'animation d'idle
+    
+    this.enemy.anims.play(this.animAttack)
+}
+
+
+
 
   playAttackAnimation() {
-    let currentFrame = 0;
-    const attackFrames = this.attackTextures; // Utiliser les frames d'attaque que tu as chargées
-
-    const attackInterval = setInterval(() => {
-      if (currentFrame < attackFrames.length) {
-        this.player.setTexture(`attaquedroite_${currentFrame + 1}`); // Met à jour la texture du sprite
-        currentFrame++;
-      } else {
-        clearInterval(attackInterval); // Arrête l'animation après avoir joué toutes les frames
-        this.player.setTexture("idle_1"); // Reviens à la texture idle après l'attaque
-      }
-    }, 100); // Délai entre chaque frame (ajuste à ta convenance)
+    this.player.anims.play('attaquedroite')
+    
   }
 
   startAnimation() {
-    this.time.addEvent({
-      delay: 150, // Délai entre les frames en millisecondes
-      callback: this.updateAnimationFrame,
-      callbackScope: this,
-      loop: true,
-    });
+    this.player.anims.play('idle')
   }
 
   updateAnimationFrame() {
@@ -315,14 +431,16 @@ export default class tpt extends Scene3D {
   updateHealthBar(bar, currentHP, maxHP) {
     const healthPercentage = currentHP / maxHP;
     bar.width = 100 * healthPercentage;
+    // Mettre à jour la couleur de la barre
     if (healthPercentage > 0.5) {
-      bar.fillColor = 0x00ff00; // Vert
+        bar.fillColor = 0x00ff00; // Vert
     } else if (healthPercentage > 0.2) {
-      bar.fillColor = 0xffcc00; // Orange
+        bar.fillColor = 0xffcc00; // Orange
     } else {
-      bar.fillColor = 0xff0000; // Rouge
+        bar.fillColor = 0xff0000; // Rouge
     }
-  }
+}
+
 
   // Mise à jour de la chatbox du joueur
   updatePlayerActionText(message) {
@@ -335,18 +453,37 @@ export default class tpt extends Scene3D {
   }
 
   showAttackMenu() {
-    // Afficher le menu des attaques
-    let attackText = "Choisissez une attaque :\n";
-    Global.attacks.forEach((attack, index) => {
-      attackText += `${index + 1}. ${attack.name} (Dégâts: ${
-        attack.damage
-      }, Coût: ${attack.mpCost} MP)\n`;
+    const currentBiome = 'nature'; // Ici, par exemple, 'nature' est utilisé.
+    const biomeAttacks = Global.attacks[currentBiome];
+    const neutralAttacks = Global.attacks['neutre'];
+    
+    // Vérifie que les attaques pour le biome actuel existent
+    if (!biomeAttacks || !neutralAttacks) {
+      console.error(`Attaques non trouvées pour le biome ${currentBiome}`);
+      return;
+    }
+    
+    // Affiche le texte pour les attaques du biome
+    let attackText = 'Choisissez une attaque :\n';
+    
+    biomeAttacks.forEach((attack, index) => {
+      attackText += `${index + 1}. ${attack.name} (Dégâts: ${attack.damage}, Coût: ${attack.mpCost} MP)\n`;
     });
+    
+    neutralAttacks.forEach((attack, index) => {
+      const neutralIndex = index + biomeAttacks.length;
+      attackText += `${neutralIndex + 1}. ${attack.name} (Dégâts: ${attack.damage}, Coût: ${attack.mpCost} MP)\n`;
+    });
+    
     this.attackMenu.setText(attackText).setVisible(true);
     this.attackMenuVisible = true;
     this.potionMenuVisible = false;
-    this.potionMenu.setVisible(false); // Cacher le menu de potion si ouvert
+    this.potionMenu.setVisible(false);
+    
   }
+  
+
+
 
   // Affichage des messages contextuels dans la textbox
   updateActionText(damage) {
@@ -362,30 +499,115 @@ export default class tpt extends Scene3D {
   }
 
   showPotionMenu() {
-    // Construire le texte des potions disponibles
-    let potionText = "Choisissez une potion :\n";
-    let index = 1;
+    // Masquer les autres boutons
+    this.attackButton.setVisible(false);
+    this.defendButton.setVisible(false);
+    this.fleeButton.setVisible(false);
+    this.potionButton.setVisible(false);
+  
+    // Afficher les potions en bas à droite
+    const potionImages = ['vie', 'viePlus', 'vieFull', 'mana', 'manaPlus', 'force', 'defense', 'temps', 'espace'];  // Ajout de la potion "espace"
+    const potionNames = ['Potion de Vie', 'Potion de Vie Plus', 'Potion de Vie Full', 'Potion de Mana', 'Potion de Mana Plus', 'Potion de Force', 'Potion de Défense', 'Potion de Temps', 'Potion d\'Espace']; // Nom de la potion "espace"
 
-    // Parcourir les potions de l'inventaire
-    for (const [potionType, potions] of Object.entries(
-      Global.inventory.potions
-    )) {
-      if (potions.length > 0) {
-        // Vérifier s'il y a des potions du type en stock
-        potionText += `${index}. ${potionType} (${potions.length} disponibles)\n`;
-        index++;
-      }
-    }
-
-    if (index === 1) {
-      potionText += "Aucune potion disponible.\n";
-    }
-
-    this.potionMenu.setText(potionText).setVisible(true);
-    this.potionMenuVisible = true;
-    this.attackMenuVisible = false;
-    this.attackMenu.setVisible(false); // Cacher le menu d'attaque si ouvert
+    const startX = this.scale.width - 1000; // Positionnement initial à droite
+    const startY = this.scale.height - 100; // Position en bas de l'écran
+    const spacing = 100; // Espacement de 100 pixels entre les potions
+  
+    this.potionIcons = []; // Pour stocker les icônes des potions
+    this.potionText = []; // Pour stocker les textes des potions
+  
+    potionImages.forEach((potion, index) => {
+      const potionImage = this.add.image(startX + (index * spacing), startY, potion).setInteractive();
+      potionImage.setScale(0.2); // Réduire la taille des potions
+      this.potionIcons.push(potionImage);
+  
+      // Création d'un texte pour afficher le nom de la potion et la quantité dans l'inventaire
+      const potionText = this.add.text(startX + (index * spacing), startY - 50, '', {
+        fontSize: '20px',
+        fill: '#fff',
+        fontStyle: 'bold',
+        align: 'center',
+      }).setOrigin(0.5).setVisible(false); // Masquer le texte initialement
+      this.potionText.push(potionText);
+  
+      // Gérer le survol de la potion pour afficher le nom et la quantité
+      potionImage.on('pointerover', () => {
+        const potionType = potionImages[index];
+        const quantity = Global.inventory.potions[potionType]?.length || 0;
+        const potionName = potionNames[index];
+        potionText.setText(`${potionName}\nQuantité: ${quantity}`);
+        potionText.setVisible(true); // Afficher le texte lorsque l'utilisateur survole la potion
+      });
+  
+      // Masquer le texte lorsqu'on ne survole plus la potion
+      potionImage.on('pointerout', () => {
+        potionText.setVisible(false); // Masquer le texte lorsque l'utilisateur ne survole plus la potion
+      });
+  
+      // Ajoute une interaction au clic pour utiliser la potion
+      potionImage.on('pointerdown', () => {
+        this.usePotion(potion); // Utiliser la potion
+        this.hidePotionMenu(); // Masquer les potions après utilisation
+        this.showMainButtons(); // Réafficher les boutons principaux après utilisation de la potion
+      });
+    });
+  
+    // Ajouter un bouton de retour
+    this.returnButton = this.add.image(this.scale.width - 50, this.scale.height - 100, 'returnButton').setInteractive();
+    this.returnButton.setScale(0.5); // Ajuster la taille si nécessaire
+  
+    // Lorsque le bouton retour est cliqué, on revient aux boutons d'attaque/défense/fuite
+    this.returnButton.on('pointerdown', () => {
+      this.hidePotionMenu(); // Masquer les potions
+      this.showMainButtons(); // Réafficher les boutons principaux
+    });
   }
+  
+  hidePotionMenu() {
+    // Masquer le menu des potions et supprimer les éléments liés
+    if (this.potionIcons) {
+      this.potionIcons.forEach((potionImage) => {
+        potionImage.destroy(); // Détruire les images des potions
+      });
+      this.potionIcons = []; // Réinitialiser le tableau des images de potions
+    }
+  
+    if (this.potionText) {
+      this.potionText.forEach((text) => {
+        text.destroy(); // Détruire les textes associés (nom et quantité)
+      });
+      this.potionText = []; // Réinitialiser le tableau des textes
+    }
+  
+    // Masquer le bouton de retour s'il existe
+    if (this.returnButton) {
+      this.returnButton.destroy();
+    }
+  
+    this.potionMenuVisible = false;
+  }
+  
+  // Méthode pour réafficher les boutons d'attaque, défense, etc.
+  showMainButtons() {
+    this.attackButton.setVisible(true);
+    this.defendButton.setVisible(true);
+    this.fleeButton.setVisible(true);
+    this.potionButton.setVisible(true);
+  }
+  
+  
+  hideAttackMenu() {
+    if (this.attackMenu) {
+      this.attackMenu.setVisible(false); // Masquer le menu d'attaque
+    }
+    this.attackMenuVisible = false;
+    
+    // Réafficher les boutons d'attaque/défense/potion/fuite
+    this.showMainButtons();
+  }
+  
+  
+
 
   handleAction(actionType) {
     if (this.isPlayerTurn) {
@@ -407,118 +629,157 @@ export default class tpt extends Scene3D {
     }
   }
 
-  // Attaque du joueur
-  // Attaque du joueur
-  playerAttack(attack) {
-    if (this.playerMP >= attack.mpCost) {
-      this.playerMP -= attack.mpCost;
-      this.playerMPText.setText(`MP: ${this.playerMP}`);
 
-      const damage = attack.damage;
-      this.enemyHP -= damage;
+// Fonction pour gérer l'attaque du joueur
+// Fonction pour gérer l'attaque du joueur
+playerAttack(attack) {
+  if (this.playerMP >= attack.mpCost) {
+    this.playerMP -= attack.mpCost;
+    this.playerMPText.setText(`MP: ${this.playerMP}`);
 
-      // Mettre à jour la barre de vie de l'ennemi
-      this.updateHealthBar(this.enemyHealthBar, this.enemyHP, 100);
+    let damage = this.applyBiomeBonus(attack); // Appliquer le bonus de biome si applicable
 
-      // Jouer l'animation d'attaque
-      this.playAttackAnimation();
-
-      // Appliquer le flash rouge à l'ennemi
-      this.flashRed(this.enemy);
-
-      // Mettre à jour la chatbox du joueur
-      let message = "";
-      if (damage > 15) {
-        message = `Coup critique avec ${attack.name} !`;
-      } else if (damage >= 10 && damage <= 15) {
-        message = `${attack.name} a infligé des dégâts solides.`;
-      } else {
-        message = `${attack.name} n'a pas eu beaucoup d'effet.`;
-      }
-      this.updatePlayerActionText(message);
-
-      this.attackMenu.setVisible(false);
-      this.attackMenuVisible = false;
-
-      if (this.enemyHP <= 0) {
-        this.endCombat("win");
-      } else {
-        this.endPlayerTurn();
-      }
-    } else {
-      this.updatePlayerActionText("Pas assez de mana !");
+    // Ajouter le boost de force si activé
+    if (this.forceBoost) {
+      damage += this.forceBoost;
+      this.updatePlayerActionText(`Votre attaque est boostée par ${this.forceBoost} points de force !`);
+      this.forceBoost = 0; // Réinitialiser le boost après l'attaque
     }
-  }
 
-  playerDefend(defense) {
-    if (this.playerMP >= defense.mpCost) {
-      this.playerMP -= defense.mpCost;
-      this.playerMPText.setText(`MP: ${this.playerMP}`);
-      this.isDefending = true;
-      this.updatePlayerActionText(
-        `Le joueur utilise ${defense.name} pour se défendre.`
-      );
+    // Appeler l'animation d'attaque
+    this.playAttackAnimation(); // Démarrer l'animation d'attaque
+
+    this.inflictDamageToEnemy(damage); // Dégâts infligés à l'ennemi
+    this.updatePlayerActionText(`${attack.name} inflige ${damage} dégâts à l'ennemi !`);
+
+    // Masquer le menu d'attaque après l'attaque
+    this.hideAttackMenu(); 
+
+    setTimeout(() => {
+      this.startAnimation()
+    }, 1000); // 2000 millisecondes = 2 secondes
+    
+    if (this.enemyHP <= 0) {
+      this.endCombat('win');
+    } else {
       this.endPlayerTurn();
-    } else {
-      this.updatePlayerActionText("Pas assez de mana pour se défendre !");
+    }
+  } else {
+    this.updatePlayerActionText("Pas assez de mana !");
+  }
+}
+
+
+
+
+// Fonction pour vérifier le biome supérieur
+isBiomeSuperior(playerBiome, enemyBiome) {
+    const biomeHierarchy = {
+        "espace": "temps",
+        "temps": "nature",
+        "nature": "espace"
+    };
+
+    return biomeHierarchy[playerBiome] === enemyBiome;
+}
+
+
+playerDefend() {
+  this.isDefending = true;
+  this.defenseBoost = Phaser.Math.Between(5, 25);  // Réduction de dégâts aléatoire entre 5 et 25
+  this.updatePlayerActionText(`Le joueur se défend et réduit les dégâts de ${this.defenseBoost} points.`);
+  this.endPlayerTurn();
+}
+
+
+
+usePotion(potionType) {
+  const potionInventory = Global.inventory.potions[potionType];
+
+  // Vérifier s'il reste au moins une potion
+  if (!potionInventory || potionInventory.length === 0) {
+    this.updatePlayerActionText("Vous n'avez plus de cette potion !");
+    return;
+  }
+
+  const potion = Global.potions[potionType];
+  if (!potion) {
+    this.updatePlayerActionText("Potion invalide !");
+    return;
+  }
+
+  // Appliquer l'effet de la potion
+  if (potionType === "vie" || potionType === "viePlus" || potionType === "vieFull") {
+    const healAmount = potion.healAmount;
+    this.playerHP = Math.min(this.playerHP + healAmount, 200); // Limiter les HP à 200
+    this.updatePlayerActionText(`Vous avez récupéré ${healAmount} HP.`);
+    this.updateHealthBar(this.playerHealthBar, this.playerHP, 200);
+
+  } else if (potionType === "mana" || potionType === "manaPlus") {
+    const restoreAmount = potion.restoreAmount;
+    this.playerMP = Math.min(this.playerMP + restoreAmount, 100); // Limiter les MP à 100
+    this.updatePlayerActionText(`Vous avez récupéré ${restoreAmount} MP.`);
+    this.playerMPText.setText(`MP: ${this.playerMP}`);
+
+  } else if (potionType === "force") {
+    this.forceBoost = potion.boost; // Ajouter un boost de force temporaire
+    this.updatePlayerActionText("Force augmentée pour le prochain tour !");
+
+  } else if (potionType === "defense") {
+    this.defenseBoost = potion.reduceDamage; // Ajouter un boost de défense temporaire
+    this.updatePlayerActionText("Défense augmentée, vous subirez moins de dégâts pendant un tour !");
+
+  } else if (potionType === "temps") {
+    this.skipEnemyTurn = true; // Permet au joueur de jouer deux fois
+    this.updatePlayerActionText("Vous jouez deux fois !");
+
+  } else if (potionType === "espace") {
+    const tempHP = this.enemyHP;
+    this.enemyHP = this.enemyMP;
+    this.enemyMP = tempHP;
+    this.updatePlayerActionText("Les HP et MP de l'ennemi sont inversés !");
+    
+    // Vérifier si l'ennemi a 0 HP après l'inversion
+    if (this.enemyHP <= 0) {
+      this.updatePlayerActionText("L'ennemi a 0 HP après l'inversion, vous avez gagné !");
+      this.endCombat("win");
     }
   }
 
-  // Fonction pour gérer l'utilisation d'une potion
-  usePotion(potionIndex) {
-    // Récupérer la potion dans l'inventaire
-    let potionUsed;
-    let index = 1;
+  // Retirer la potion de l'inventaire après utilisation
+  potionInventory.pop();
 
-    for (const [potionType, potions] of Object.entries(
-      Global.inventory.potions
-    )) {
-      if (potions.length > 0) {
-        if (index === potionIndex) {
-          potionUsed = potionType;
-          break;
-        }
-        index++;
-      }
+  // Mettre à jour et masquer le menu des potions après utilisation
+  this.potionMenu.setVisible(false);
+  this.potionMenuVisible = false;
+}
+
+
+
+
+
+
+
+
+
+
+
+// Fonction pour appliquer un boost temporaire
+boostStat(type, boostAmount, duration) {
+    if (type === "force") {
+        this.attackBoost = boostAmount;
+    } else if (type === "defense") {
+        this.defenseBoost = boostAmount;
     }
 
-    if (!potionUsed) {
-      this.updatePlayerActionText("Potion invalide.");
-      return;
-    }
+    // Réinitialiser après la durée
+    this.time.delayedCall(duration, () => {
+        this.attackBoost = 0;
+        this.defenseBoost = 0;
+    });
+}
 
-    // Récupérer les effets de la potion dans Global
-    const potionEffect = Global.potions[potionUsed];
 
-    if (!potionEffect) {
-      this.updatePlayerActionText("Potion inconnue.");
-      return;
-    }
-
-    // Appliquer l'effet de la potion (exemple pour soigner et mana)
-    if (potionEffect.healAmount) {
-      this.playerHP = Math.min(this.playerHP + potionEffect.healAmount, 100);
-      this.updateHealthBar(this.playerHealthBar, this.playerHP, 100);
-      this.updatePlayerActionText(
-        `Le joueur récupère ${potionEffect.healAmount} HP.`
-      );
-    }
-
-    if (potionEffect.restoreAmount) {
-      this.playerMP = Math.min(this.playerMP + potionEffect.restoreAmount, 50);
-      this.playerMPText.setText(`MP: ${this.playerMP}`);
-      this.updatePlayerActionText(
-        `Le joueur récupère ${potionEffect.restoreAmount} MP.`
-      );
-    }
-
-    // Retirer une potion de l'inventaire
-    Global.inventory.potions[potionUsed].pop();
-
-    this.potionMenu.setVisible(false);
-    this.potionMenuVisible = false;
-    this.endPlayerTurn(); // Fin du tour du joueur après l'utilisation d'une potion
-  }
 
   fleeCombat() {
     console.log("Le joueur tente de fuir !");
@@ -527,14 +788,13 @@ export default class tpt extends Scene3D {
 
   // Fin du tour du joueur
   endPlayerTurn() {
-    this.isPlayerTurn = false;
-    this.disableButtons(); // Désactiver les boutons d'action
+    this.playerMP = Math.min(this.playerMP + 10, 50); // Ajouter 10 MP à chaque tour
+    this.playerMPText.setText(`MP: ${this.playerMP}`);
 
-    // Ajoute un petit délai avant de lancer le tour de l'ennemi pour que tout se synchronise
-    this.time.delayedCall(500, () => {
-      this.enemyTurn(); // Appeler le tour de l'ennemi après une petite pause
-    });
-  }
+    // Passer au tour de l'ennemi
+    this.enemyTurn();
+}
+
 
   disableButtons() {
     this.attackButton.disableInteractive();
@@ -562,30 +822,37 @@ export default class tpt extends Scene3D {
   }
 
   enemyTurn() {
+    if (this.skipEnemyTurn) {
+      this.updateEnemyActionText("L'adversaire saute son tour !");
+      this.skipEnemyTurn = false; // Réinitialiser l'effet après avoir sauté un tour
+      this.startPlayerTurn(); // Repasser au tour du joueur immédiatement
+      return;
+    }
+  
     this.time.delayedCall(1000, () => {
       let actions = [];
-
-      // Chance d'utiliser une potion de vie si les HP sont faibles
-      if (this.enemyHP <= 30 && Math.random() < 0.004) {
+  
+      // Chance d'utiliser une potion de vie si les HP sont faibles et si une potion de vie est disponible
+      if (this.enemyHP <= 30 && Global.inventory.potions['vie'] && Global.inventory.potions['vie'].length > 0 && Math.random() < 0.2) {
         actions.push("usePotionHealth");
       }
-
-      // Chance d'utiliser une potion de mana si les MP sont faibles
-      if (this.enemyMP <= 10 && Math.random() < 0.004) {
+  
+      // Chance d'utiliser une potion de mana si les MP sont faibles et si une potion de mana est disponible
+      if (this.enemyMP <= 10 && Global.inventory.potions['mana'] && Global.inventory.potions['mana'].length > 0 && Math.random() < 0.2) {
         actions.push("usePotionMana");
       }
-
+  
       // Chance de se défendre
-      if (Math.random() < 0.003) {
+      if (Math.random() < 0.1) {
         actions.push("defend");
       }
-
+  
       // Ajouter l'attaque comme action principale
       actions.push("attack");
-
+  
       // Choisir une action au hasard parmi celles disponibles
       const randomAction = Phaser.Math.RND.pick(actions);
-
+  
       if (randomAction === "attack") {
         this.enemyAttack();
       } else if (randomAction === "defend") {
@@ -595,17 +862,19 @@ export default class tpt extends Scene3D {
       } else if (randomAction === "usePotionMana") {
         this.enemyUsePotion("mana");
       }
-
+  
       this.startPlayerTurn(); // Repasser au tour du joueur après l'action de l'ennemi
     });
   }
+  
+  
 
   // Utilisation de potion par l'ennemi
   enemyUsePotion(type) {
     if (type === "health") {
       const healAmount = Phaser.Math.Between(15, 25);
-      this.enemyHP = Math.min(this.enemyHP + healAmount, 100); // Limiter les HP à 100
-      this.updateHealthBar(this.enemyHealthBar, this.enemyHP, 100);
+      this.enemyHP = Math.min(this.enemyHP + healAmount, 200); // Limiter les HP à 100
+      this.updateHealthBar(this.enemyHealthBar, this.enemyHP, 200);
       this.updateEnemyActionText(
         `L'ennemi utilise une potion et récupère ${healAmount} HP.`
       );
@@ -619,35 +888,68 @@ export default class tpt extends Scene3D {
     }
   }
 
-  enemyAttack() {
-    const damage = Phaser.Math.Between(10, 20); // Dégâts aléatoires
-    this.playerHP -= damage;
+  applyBiomeBonus(attack) {
+    const enemyBiome = 'nature'; // Par exemple, ici l'ennemi est de type Nature
+    const playerBiome = attack.biome; // Le biome de l'attaque actuelle
 
-    // Si une attaque consomme des MP, les déduire ici (exemple)
-    this.enemyMP -= 5; // Ajuster la consommation de mana si nécessaire
-    this.updateEnemyMPText(); // Mettre à jour l'affichage des MP
+    const biomeBonus = {
+        espace: 'temps',
+        temps: 'nature',
+        nature: 'espace',
+    };
 
-    // Appeler le clignotement lorsque le joueur reçoit des dégâts
-    this.flashRed(this.player);
-
-    // Mettre à jour la barre de vie du joueur
-    this.updateHealthBar(this.playerHealthBar, this.playerHP, 100);
-
-    // Mise à jour du message dans la chatbox de l'ennemi
-    let message = "";
-    if (damage > 15) {
-      message = "L'ennemi a porté un coup critique !";
-    } else if (damage >= 10 && damage <= 15) {
-      message = "L'ennemi a infligé des dégâts solides.";
-    } else {
-      message = "L'attaque de l'ennemi n'a pas eu beaucoup d'effet.";
+    if (biomeBonus[playerBiome] === enemyBiome) {
+        return attack.damage * 1.2; // Appliquer un bonus de 20 % si le biome est supérieur
     }
-    this.updateEnemyActionText(message);
 
-    if (this.playerHP <= 0) {
-      this.endCombat("lose");
-    }
+    return attack.damage; // Pas de bonus, dégâts normaux
+}
+
+
+enemyAttack() {
+  let damage = Phaser.Math.Between(10, 20); // Dégâts aléatoires
+
+  // Lancer l'animation d'attaque de l'ennemi
+  this.playEnemyAttackAnimation();
+
+  // Appliquer le bonus de défense si présent
+  if (this.defenseBoost) {
+    damage = Math.max(0, damage - this.defenseBoost); // Réduire les dégâts subis
+    this.updatePlayerActionText(`Vous avez bloqué ${this.defenseBoost} points de dégâts !`);
   }
+
+  // Si l'ennemi utilise du mana pour l'attaque, vérifie que son mana ne tombe pas en dessous de 0
+  this.enemyMP = Math.max(0, this.enemyMP - 5); // Empêche le mana de tomber en dessous de zéro
+  this.updateEnemyMPText(); // Met à jour l'affichage des MP
+
+  // Appeler le clignotement lorsque le joueur reçoit des dégâts
+  this.flashRed(this.player);
+
+  this.playerHP -= damage;
+  this.updateHealthBar(this.playerHealthBar, this.playerHP, 200);
+
+  this.playerHPText.setText(`HP: ${this.playerHP}`);
+
+  // Message d'attaque
+  let message = (damage > 15) ? "L'ennemi a porté un coup critique !" : "L'ennemi a infligé des dégâts.";
+  this.updateEnemyActionText(message);
+
+  setTimeout(() => {
+    this.startenemyIdleAnimation();
+  }, 2000); 
+  
+  
+
+
+  if (this.playerHP <= 0) {
+    this.endCombat("lose");
+  }
+}
+
+
+
+
+
 
   enemyDefend() {
     console.log("L'ennemi se défend !");
@@ -701,9 +1003,9 @@ export default class tpt extends Scene3D {
   positionPlayerElements() {
     if (this.player && this.playerHealthBar && this.playerMPText) {
       // Position du joueur et de ses éléments liés (barres de vie, MP, etc.)
-      this.player.setPosition(390, 550);
-      this.playerHealthBar.setPosition(390, 400);
-      this.playerMPText.setPosition(340, 360);
+      this.player.setPosition(410, 670);
+      this.playerHealthBar.setPosition(410, 550);
+      this.playerMPText.setPosition(360, 500);
       this.playerActionTextBox.setPosition(250, 700);
     } else {
       console.error("Les éléments du joueur ne sont pas encore définis.");
@@ -713,12 +1015,18 @@ export default class tpt extends Scene3D {
   positionEnemyElements() {
     if (this.enemy && this.enemyHealthBar && this.enemyMPText) {
       // Position de l'ennemi et de ses éléments liés
-      this.enemy.setPosition(1480, 490);
-      this.enemyHealthBar.setPosition(1480, 390);
-      this.enemyMPText.setPosition(1430, 350);
+      this.enemy.setPosition(1510, 570);
+      this.enemyHealthBar.setPosition(1510, 470);
+      this.enemyMPText.setPosition(1460, 430);
       this.enemyActionTextBox.setPosition(1220, 600);
     } else {
       console.error("Les éléments de l'ennemi ne sont pas encore définis.");
     }
   }
+
+  gainManaPerTurn() {
+    this.playerMP = Math.min(this.playerMP + 10, 100); // Ajoute 10 MP jusqu'à un maximum de 100
+    this.playerMPText.setText(`MP: ${this.playerMP}`);
+}
+
 }
