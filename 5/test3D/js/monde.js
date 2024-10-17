@@ -702,6 +702,18 @@ export default class monde extends Scene3D {
     this.third.physics.add.existing(cube, { mass: 0 });
     this.devMode.setTargetCube(cube);
 
+    const cubeVillageGeometry = new THREE.BoxGeometry(50, 50, 50);
+
+    const materialVillage = new THREE.MeshStandardMaterial({
+      map: topTexture1,
+      side: THREE.DoubleSide,
+    });
+    const cubeVillage = new THREE.Mesh(cubeVillageGeometry, materialVillage);
+
+    cubeVillage.position.set(356, 251, -325);
+    this.third.physics.add.existing(cubeVillage, { mass: 0 });
+    this.third.scene.add(cubeVillage);
+
     const waterTexture = textureLoader.load("/5/test3D/examples/eau.png");
 
     const waterMaterial = new THREE.MeshStandardMaterial({
@@ -1640,7 +1652,7 @@ export default class monde extends Scene3D {
       });
 
     //////////////////////////////////////arbrebivdb
-
+    /*
     textureLoader.load("/5/test3D/examples/vie/vie-05.png", (texture) => {
       const planeGeometry = new THREE.PlaneGeometry(10, 10);
       const planeMaterial = new THREE.MeshStandardMaterial({
@@ -5240,7 +5252,7 @@ export default class monde extends Scene3D {
       }
       this.third.physics.add.existing(tile, { mass: 0 });
       this.third.scene.add(tile);
-    });
+    });*/
   }
 
   createLoupeMaterial(object) {

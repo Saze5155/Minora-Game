@@ -21,30 +21,18 @@ export default class DevMode {
   // Initialiser la galerie d'images
   initImageSelector() {
     const images = [
-      "/5/test3D/examples/espace/espace-07.png",
-      "/5/test3D/examples/espace/espace-12.png",
-      "/5/test3D/examples/espace/espace-14.png",
-      "/5/test3D/examples/espace/espace-15.png",
-      "/5/test3D/examples/espace/espace-17.png",
-      "/5/test3D/examples/espace/espace-18.png",
-      "/5/test3D/examples/espace/espace-16.png",
-      "/5/test3D/examples/espace/espace-06.png",
-      "/5/test3D/examples/espace/espace-08.png",
-      "/5/test3D/examples/espace/espace-01.png",
-      "/5/test3D/examples/espace/espace-04.png",
-      "/5/test3D/examples/espace/espace-05.png",
-      "/5/test3D/examples/espace/espace-11.png",
-      "/5/test3D/examples/espace/etoile.png",
+      "/5/test3D/examples/village/ruines5.png",
+      "/5/test3D/examples/village/ruines4.png",
+
+      "/5/test3D/examples/village/ruines3.png",
+      "/5/test3D/examples/village/ruines2.png",
+      "/5/test3D/examples/village/ruines1.png",
+
       "/5/test3D/examples/vie/vie-03.png",
       "/5/test3D/examples/vie/vie-04.png",
       "/5/test3D/examples/vie/vie-05.png",
       "/5/test3D/examples/vie/vie-06.png",
       "/5/test3D/examples/vie/vie-07.png",
-      "/5/test3D/examples/vie/vie-14.png",
-      "/5/test3D/examples/vie/vie-21.png",
-      "/5/test3D/examples/vie/vie-22.png",
-      "/5/test3D/examples/vie/vie-24.png",
-      "/5/test3D/examples/vie/vie-31.png",
     ];
 
     const container = document.getElementById("image-selector");

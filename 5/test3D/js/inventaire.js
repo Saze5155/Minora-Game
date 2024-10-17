@@ -23,47 +23,108 @@ let Global = {
   // Ajout des attaques ici
   attacks: {
     nature: [
-      { name: "Coup de racine", damage: 25, mpCost: 5 },
-      { name: "Colère de la nature", damage: 50, mpCost: 15 },
-      { name: "Souffle de l'arbre monde", damage: 115, mpCost: 40 },
+      { name: "Coup de racine", damage: 25, mpCost: 5, image: "attaque_vie_1" },
+      {
+        name: "Colère de la nature",
+        damage: 50,
+        mpCost: 15,
+        image: "attaque_vie_2",
+      },
+      {
+        name: "Souffle de l'arbre monde",
+        damage: 115,
+        mpCost: 40,
+        image: "attaque_vie_3",
+      },
     ],
     temps: [
-      { name: "Mirage Trompeur", damage: 25, mpCost: 5 },
-      { name: "Sable de l'éternité", damage: 50, mpCost: 15 },
-      { name: "Fissure Temporelle", damage: 115, mpCost: 40 },
+      {
+        name: "Mirage Trompeur",
+        damage: 25,
+        mpCost: 5,
+        image: "attaque_temps_1",
+      },
+      {
+        name: "Sable de l'éternité",
+        damage: 50,
+        mpCost: 15,
+        image: "attaque_temps_2",
+      },
+      {
+        name: "Fissure Temporelle",
+        damage: 115,
+        mpCost: 40,
+        image: "attaque_temps_3",
+      },
     ],
     espace: [
-      { name: "Poussière d'étoile", damage: 25, mpCost: 5 },
-      { name: "Tir céleste", damage: 50, mpCost: 15 },
-      { name: "L'éclipse", damage: 115, mpCost: 40 },
+      {
+        name: "Poussière d'étoile",
+        damage: 25,
+        mpCost: 5,
+        image: "attaque_espace_1",
+      },
+      {
+        name: "Tir céleste",
+        damage: 50,
+        mpCost: 15,
+        image: "attaque_espace_2",
+      },
+      { name: "L'éclipse", damage: 115, mpCost: 40, image: "attaque_espace_3" },
     ],
     neutre: [
-      { name: "Coup puissant", damage: 10, mpCost: 2 },
-      { name: "Contre-attaque", damage: 15, mpCost: 5 },
-      { name: "Charge fracassante", damage: 20, mpCost: 7 },
-      { name: "Frappe critique", damage: 30, mpCost: 10 },
+      {
+        name: "Coup puissant",
+        damage: 10,
+        mpCost: 2,
+        image: "attaque_normal_1",
+      },
+      {
+        name: "Contre-attaque",
+        damage: 15,
+        mpCost: 5,
+        image: "attaque_normal_2",
+      },
+      {
+        name: "Charge fracassante",
+        damage: 20,
+        mpCost: 7,
+        image: "attaque_normal_3",
+      },
+      {
+        name: "Frappe critique",
+        damage: 30,
+        mpCost: 10,
+        image: "attaque_normal_4",
+      },
     ],
   },
-  defenses: [{ name: "Shield", defenseBoost: 10, mpCost: 0 }],
-  giveAllPotions() {
-    const potionLimits = {
-      vie: 10,
-      mana: 10,
-      manaPlus: 5,
-      viePlus: 5,
-      defense: 2,
-      force: 2,
-      vieFull: 1,
-      temps: 1,
-      espace: 1,
-    };
 
-    Object.keys(potionLimits).forEach((potionType) => {
-      this.inventory.potions[potionType] = Array(potionLimits[potionType]).fill(
-        { type: potionType }
-      );
-    });
-  },
+  defenses: [{ name: "Shield", defenseBoost: 10, mpCost: 0 }],
+
+  attackActif: [
+    { name: "Coup puissant", damage: 10, mpCost: 2, image: "attaque_normal_1" },
+    {
+      name: "Contre-attaque",
+      damage: 15,
+      mpCost: 5,
+      image: "attaque_normal_2",
+    },
+    {
+      name: "Charge fracassante",
+      damage: 20,
+      mpCost: 7,
+      image: "attaque_normal_3",
+    },
+    {
+      name: "Frappe critique",
+      damage: 30,
+      mpCost: 10,
+      image: "attaque_normal_4",
+    },
+  ],
+
+  attackOff: [],
 
   toggleInventory(scene) {
     this.inventoryOpen = !this.inventoryOpen;
@@ -275,8 +336,77 @@ let Global = {
         this.inventoryElements.push(itemText);
       }
     }
-  },
 
+    const attackStartX = 10 + meatStartX + (slotSize + padding); // Placer à droite des slots de viande
+    const attackStartY = meatStartY;
+
+    for (let i = 0; i < 4; i++) {
+      const slotX = 300 + attackStartX;
+      const slotY = attackStartY + i * (slotSize + padding);
+
+      if (this.attackActif[i]) {
+        const attack = this.attackActif[i];
+        const attackImage = scene.add.image(
+          slotX + slotSize / 2,
+          slotY + slotSize / 2,
+          attack.image // Utilisation de l'image de l'attaque depuis attackActif
+        );
+        attackImage.setScale(meatScale); // Ajuster la taille si nécessaire
+        attackImage.setInteractive();
+        attackImage.setScrollFactor(0).setDepth(501).setScale(0.15); // Fixer l'image de l'attaque à l'écran
+        this.inventoryElements.push(attackImage);
+        attackImage.on("pointerdown", () => {
+          this.showOffAttacks(scene, i); // Affiche les attaques Off pour remplacer
+        });
+      }
+    }
+  },
+  showOffAttacks(scene, activeAttackIndex) {
+    const width = scene.cameras.main.width;
+    const height = scene.cameras.main.height;
+    const padding = 20;
+    const slotSize = 80;
+
+    const offStartX = width / 2;
+    const offStartY =
+      height / 2 - (this.attackOff.length * (slotSize + padding)) / 2;
+
+    // Affichage des attaques Off
+    for (let i = 0; i < this.attackOff.length; i++) {
+      const slotX = offStartX + 300;
+      const slotY = offStartY + i * (slotSize + padding);
+
+      const attack = this.attackOff[i];
+      const attackImage = scene.add.image(
+        slotX + slotSize / 2,
+        slotY + slotSize / 2,
+        attack.image // Utilisation de l'image de l'attaque dans attackOff
+      );
+      attackImage.setScale(0.15); // Ajuster la taille si nécessaire
+      attackImage.setInteractive();
+      attackImage.setScrollFactor(0).setDepth(501).setScale(0.15);
+
+      attackImage.on("pointerover", () => {
+        attackImage.setScale(0.18).setDepth(510); // Agrandir légèrement et amener devant
+      });
+      attackImage.on("pointerout", () => {
+        attackImage.setScale(0.15).setDepth(501); // Revenir à la taille normale
+      });
+
+      attackImage.on("pointerdown", () => {
+        // Échange l'attaque active avec l'attaque Off
+        const temp = this.attackActif[activeAttackIndex];
+        this.attackActif[activeAttackIndex] = this.attackOff[i];
+        this.attackOff[i] = temp;
+        console.log(this.attackActif);
+        // Mettre à jour l'inventaire pour afficher les changements
+        this.hideInventory();
+        this.showInventory(scene);
+      });
+
+      this.inventoryElements.push(attackImage);
+    }
+  },
   eatMeatOrHoney(index, scene) {
     const item = this.inventory.meatsAndHoney[index];
     if (item && item.quantity > 0 && this.playerHealth < 6) {

@@ -335,11 +335,6 @@ export default class loading {
     this.load.image("enemy_5", "/5/test3D/examples/monstre1/walk_5.png");
     this.load.image("enemy_6", "/5/test3D/examples/monstre1/walk_6.png");
 
-    this.load.image(
-      "enemy_space1",
-      "/5/test3D/examples/tpt/spritesheet_ataque_vie/attaque1.png"
-    );
-
     this.load.image("potion_defense", "/5/test3D/examples/potions/defense.png");
     this.load.image("potion_force", "/5/test3D/examples/potions/force.png");
     this.load.image("potion_mana", "/5/test3D/examples/potions/mana.png");
@@ -796,6 +791,65 @@ export default class loading {
       "vie_attente_enemy_8",
       "/5/test3D/examples/tpt/spritesheet_attente_vie/Attente_enemy8.png"
     );
+
+    // ATTAQUE
+
+    this.load.image(
+      "attaque_espace_1",
+      "/5/test3D/examples/boutons_attaques/espace_1.png"
+    );
+    this.load.image(
+      "attaque_espace_2",
+      "/5/test3D/examples/boutons_attaques/espace_2.png"
+    );
+    this.load.image(
+      "attaque_espace_3",
+      "/5/test3D/examples/boutons_attaques/espace_3.png"
+    );
+
+    this.load.image(
+      "attaque_vie_1",
+      "/5/test3D/examples/boutons_attaques/vie_1.png"
+    );
+    this.load.image(
+      "attaque_vie_2",
+      "/5/test3D/examples/boutons_attaques/vie_2.png"
+    );
+    this.load.image(
+      "attaque_vie_3",
+      "/5/test3D/examples/boutons_attaques/vie_3.png"
+    );
+
+    this.load.image(
+      "attaque_temps_1",
+      "/5/test3D/examples/boutons_attaques/temps_1.png"
+    );
+    this.load.image(
+      "attaque_temps_2",
+      "/5/test3D/examples/boutons_attaques/temps_2.png"
+    );
+    this.load.image(
+      "attaque_temps_3",
+      "/5/test3D/examples/boutons_attaques/temps_3.png"
+    );
+
+    this.load.image(
+      "attaque_normal_1",
+      "/5/test3D/examples/boutons_attaques/normal_1.png"
+    );
+    this.load.image(
+      "attaque_normal_2",
+      "/5/test3D/examples/boutons_attaques/normal_2.png"
+    );
+    this.load.image(
+      "attaque_normal_3",
+      "/5/test3D/examples/boutons_attaques/normal_3.png"
+    );
+
+    this.load.image(
+      "attaque_normal_4",
+      "/5/test3D/examples/boutons_attaques/normal_4.png"
+    );
   }
   create() {
     // Animation Tour par Tour
@@ -950,7 +1004,7 @@ export default class loading {
     this.scene.add("BossLevel", BossLevel, false);
     // this.scene.add('interfaceJeu', interfaceJeu, false, { remainingMonsters: remainingMonsters, remainingItems: remainingItems });
 
-    this.scene.start("BossLevel");
+    this.scene.start("Laby_map1");
   }
 }
 
