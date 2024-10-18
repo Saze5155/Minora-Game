@@ -13,6 +13,11 @@ export default class RocketLevel extends Phaser.Scene {
   preload() {}
 
   create() {
+    this.scene.launch("DialogueScene");
+
+    this.bossMusic = this.sound.add('RocketLevel', { volume: 0, loop: true });
+    this.bossMusic.play();
+
     // Créer le background fixe par rapport à la caméra
     this.background = this.add.image(0, 0, "space_bg").setOrigin(0, 0);
     this.background.setDisplaySize(1920, 1080); // Redimensionne l'image à 1920x1080
@@ -131,6 +136,25 @@ export default class RocketLevel extends Phaser.Scene {
     if (this.cursors.interact.isDown) {
       console.log("Coffre ouvert !");
       this.chest.setTexture("chest_open"); // Remplace "chest_open" par l'image du coffre ouvert
+      const newAttack = Global.attacks["espace"][1];
+      const earnedAttack = Global.attackOff.push(newAttack);
+
+      const width = this.cameras.main.width;
+      const height = this.cameras.main.height;
+
+      // Afficher l'image de l'attaque gagnée
+      const attackImage = this.add.image(
+        width / 2,
+        height / 2 + 60,
+        newAttack.image // Image de l'attaque gagnée
+      );
+      attackImage.setScale(0.5).setScrollFactor(0).setDepth(60001);
+
+      // Supprimer la notification après quelques secondes
+      setTimeout(() => {
+        attackImage.destroy();
+        this.soundCoffre.stop();
+      }, 2000);
     }
   }
 
@@ -186,6 +210,7 @@ export default class RocketLevel extends Phaser.Scene {
         .setOrigin(0, 0.5);
       laser.setAlpha(0.5);
       this.physics.add.existing(laser, true);
+      this.sound.play('Laser3', { volume: 0.3 });
 
       this.time.delayedCall(1500, () => {
         laser.setAlpha(1);
@@ -273,6 +298,7 @@ export default class RocketLevel extends Phaser.Scene {
     projectile.setVelocityX(800);
     projectile.body.allowGravity = false;
     projectile.setCollideWorldBounds(false);
+    this.sound.play('Laser1', { volume: 0.1 });
   }
 
   hitEnemy(playerProjectile, enemy) {
@@ -386,11 +412,23 @@ export default class RocketLevel extends Phaser.Scene {
     }
   }
 
+  restartLevel() {
+    // Arrêter la musique, si nécessaire
+    if (this.bossMusic) {
+        this.bossMusic.stop();
+    }
+    // Réinitialiser les paramètres nécessaires (comme le background)
+    // Redémarrer la scène actuelle
+    this.scene.restart();
+}
+  
+
   hitBlock(rocket, block) {
     this.player.decreaseHealth();
     block.destroy();
 
     if (this.player.getHealth() <= 0) {
+      
       console.log("Le joueur est mort !");
     }
   }

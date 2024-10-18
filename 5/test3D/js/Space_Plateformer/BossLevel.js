@@ -14,6 +14,14 @@ export default class BossLevel extends Phaser.Scene {
   preload() {}
 
   create() {
+
+    this.input.mouse.disableContextMenu();
+    Global.enemyId = 5;
+    this.scene.start('tpt');
+
+    this.bossMusic = this.sound.add('BossLevel', { volume: 0.2, loop: true });
+    this.bossMusic.play();
+
     this.background = this.add.image(0, 0, "space_bg").setOrigin(0, 0);
     this.background.setDisplaySize(1920, 1080); // Redimensionne l'image à 1920x1080
     this.background.setScrollFactor(0);
@@ -360,6 +368,9 @@ export default class BossLevel extends Phaser.Scene {
 
     // Orienter le projectile en fonction de l'angle
     projectile.rotation = angle;
+
+    // Joue le son du tir basique
+    this.sound.play('Laser1', { volume: 0.3 });
   }
 
   shootArcProjectile() {
@@ -381,6 +392,8 @@ export default class BossLevel extends Phaser.Scene {
       projectile.setVelocity(Math.cos(angle) * speed, Math.sin(angle) * speed);
       projectile.rotation = angle;
     });
+     // Joue le son du tir en arc
+     this.sound.play('Laser2', { volume: 0.3 });
   }
 
   shootLaser() {
@@ -410,6 +423,9 @@ export default class BossLevel extends Phaser.Scene {
     laser.x = this.rocket.x;
     laser.y = this.rocket.y;
     this.cooldowns.laser = this.time.now + 5000;
+
+     // Joue le son du tir laser
+     this.sound.play('Laser3', { volume: 0.3 });
 
     // Infliger les dégâts immédiatement lorsque le laser est tiré.
     this.bossHealth -= 300;
@@ -606,14 +622,33 @@ export default class BossLevel extends Phaser.Scene {
     if (this.cursors.interact.isDown) {
       console.log("Coffre ouvert !");
       this.chest.setTexture("chest_open"); // Remplace "chest_open" par l'image du coffre ouvert
+      this.chest.setTexture("chest_open");
+      const newAttack = Global.attacks["espace"][2];
+      const earnedAttack = Global.attackOff.push(newAttack);
+
+      const width = this.cameras.main.width;
+      const height = this.cameras.main.height;
+
+      // Afficher l'image de l'attaque gagnée
+      const attackImage = this.add.image(
+        width / 2,
+        height / 2 + 60,
+        newAttack.image // Image de l'attaque gagnée
+      );
+      attackImage.setScale(0.5).setScrollFactor(0).setDepth(60001);
+
+      // Supprimer la notification après quelques secondes
+      setTimeout(() => {
+        attackImage.destroy();
+        this.soundCoffre.stop();
+      }, 2000);
     }
   }
 
   attemptEnterPortal(player, portal) {
     if (this.cursors.interact.isDown) {
       console.log("Téléportation vers tpt.js !");
-      Global.enemyId = 2;
-      this.scene.start("tpt"); // Remplace 'TPT' par la clé correcte de ta scène tpt.js
+      this.scene.start('tpt', { enemyId: 2 });
     }
   }
 

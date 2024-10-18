@@ -282,7 +282,7 @@ export default class PlayerSpace {
       this.isAttacking = true;
       this.isAnimating = true;
       this.sprite.setVelocityX(0);
-
+      this.scene.sound.play("Sword");
       if (this.lastDirection === "left") {
         this.sprite.anims.play("attaquegauche");
         this.attackHitbox.setPosition(this.sprite.x - 300, this.sprite.y); // Ajuster la position
@@ -323,16 +323,27 @@ export default class PlayerSpace {
     if (this.isInvincible) {
       return;
     }
-    this.scene.sound.play("damage");
-    Global.playerHealth--;
-    this.showHealth();
 
+    // Joue le son de blessure
+    this.scene.sound.play("damage");
+
+    // Diminue la santé globale du joueur
+    Global.playerHealth--;
+
+    // Vérifie si le joueur est mort
     if (Global.playerHealth <= 0) {
-      this.death();
+      this.scene.restartLevel();
+      Global.playerHealth = 6;
     } else {
-      this.setInvincibility(); // Activer l'invincibilité
+      // Active une période d'invincibilité
+      this.setInvincibility();
     }
-  }
+
+    // Mettre à jour l'affichage de la santé, si nécessaire
+    this.showHealth();
+}
+
+
 
   increaseHealth() {
     if (Global.playerHealth < 6) {
@@ -340,6 +351,7 @@ export default class PlayerSpace {
       Global.playerHealth++;
       console.log(`Points de vie augmentés : ${Global.playerHealth}`);
       this.showHealth();
+      this.scene.sound.play("GagnerVie");
     }
   }
 
