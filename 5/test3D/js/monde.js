@@ -50,14 +50,22 @@ export default class monde extends Scene3D {
     this.scene.launch("DialogueScene");
     const textureLoader = new THREE.TextureLoader();
 
-    this.boat = new PNJBiomes(this, 360, 260.1, -350, this.player, 1);
-
     this.player = new player(
       this,
       357,
       256.2,
       -308,
       "/5/test3D/examples/anim_player/idle/_idle_1.png"
+    );
+    this.boat = new PNJBiomes(this, 360, 260.1, -350, this.player, 1);
+
+    this.enemy1 = new EnemyRPG(
+      this,
+      359,
+      256.3,
+      -340,
+      "/5/test3D/examples/monstre 2/_walkdroite_1.png",
+      this.player
     );
 
     Global.player = this.player;
@@ -2816,6 +2824,16 @@ export default class monde extends Scene3D {
         });
       });
 
+      this.third.physics.add.collider(hitbox, this.enemy1.walkPlane, () => {
+        if (this.enemy1.isTakingDamage) {
+          this.enemy1.isTakingDamage = false;
+          this.enemy1.takeDamage(this.player.walkPlane.position);
+        }
+        setTimeout(() => {
+          this.enemy1.isTakingDamage = true;
+        }, 500);
+      });
+
       this.animaux.forEach((animal) => {
         this.third.physics.add.collider(hitbox, animal.walkPlane, () => {
           if (animal.isTakingDamage) {
@@ -2842,6 +2860,7 @@ export default class monde extends Scene3D {
     this.enemies.forEach((enemy) => {
       enemy.update(this.player);
     });
+    this.enemy1.update(this.player);
 
     this.player.update(this);
 
