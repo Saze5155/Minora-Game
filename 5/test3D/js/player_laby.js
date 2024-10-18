@@ -29,7 +29,7 @@ export default class PlayerLaby {
       right: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
       forward: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z),
       backward: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S),
-      attack: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O),
+      attack: scene.input.mousePointer.leftButtonDown(),
       jump: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE),
       interact: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E),
       inventory: scene.input.keyboard.addKey(
@@ -183,7 +183,7 @@ export default class PlayerLaby {
       this.sprite.anims.play("marcheHaut", false);
     }
 
-    if (this.keys.attack.isDown && !this.isAttacking) {
+    if (this.scene.input.activePointer.leftButtonDown() && !this.isAttacking) {
       this.isAttacking = true;
       this.isAnimating = true;
       this.sprite.setVelocityX(0);
@@ -230,6 +230,7 @@ export default class PlayerLaby {
 
     if (Global.playerHealth <= 0) {
       this.death();
+      Global.playerHealth = 6;
     } else {
       this.setInvincibility(); // Activer l'invincibilité
     }

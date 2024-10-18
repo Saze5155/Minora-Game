@@ -1,6 +1,6 @@
 import EnemyPlat from "/5/test3D/js/enemy_plat.js";
+import Global from "/5/test3D/js/inventaire.js";
 import Player2D from "/5/test3D/js/player_2d.js";
-
 export default class Plateformer_map2 extends Phaser.Scene {
   constructor() {
     super({ key: "Plateformer_map2" });
@@ -10,6 +10,9 @@ export default class Plateformer_map2 extends Phaser.Scene {
   preload() {}
 
   create() {
+    this.bossMusic = this.sound.add('BossLevel', { volume: 0.2, loop: true });
+    this.bossMusic.play();
+
     this.physics.world.gravity.y = 2800;
     this.physics.world.setFPS(120);
     this.physics.world.TILE_BIAS = 40;
@@ -372,14 +375,32 @@ export default class Plateformer_map2 extends Phaser.Scene {
     enemy.destroy();
   }
 
-  coffreOuverture() {
-    if (this.player.keys.interact.isDown) {
+  coffreOuverture(scene) {
+    if (this.player.keys.interact.isDown && !this.isCoffreOuvert) {
       this.soundCoffre.play();
       this.coffre.setTexture("coffre_ouvert");
+
       this.isCoffreOuvert = true;
+
+      const newAttack = Global.attacks["nature"][1];
+      const earnedAttack = Global.attackOff.push(newAttack);
+
+      const width = this.cameras.main.width;
+      const height = this.cameras.main.height;
+
+      // Afficher l'image de l'attaque gagnée
+      const attackImage = this.add.image(
+        width / 2,
+        height / 2 + 60,
+        newAttack.image // Image de l'attaque gagnée
+      );
+      attackImage.setScale(2).setScrollFactor(0).setDepth(60001);
+
+      // Supprimer la notification après quelques secondes
       setTimeout(() => {
+        attackImage.destroy();
         this.soundCoffre.stop();
-      }, 3000);
+      }, 2000);
     }
   }
 

@@ -1,10 +1,12 @@
 import EnemyLaby from "/5/test3D/js/enemy_laby.js";
+import Global from "/5/test3D/js/inventaire.js";
 import PlayerLaby from "/5/test3D/js/player_laby.js";
 
 export default class Laby_map3 extends Phaser.Scene {
   constructor() {
     super({ key: "Laby_map3" });
     this.enemyGroups = null;
+    this.competence = false;
   }
 
   preload() {}
@@ -404,7 +406,7 @@ export default class Laby_map3 extends Phaser.Scene {
       this.player.decreaseHealth();
     } else {
       chest.setTexture("coffre_laby_ouvert");
-      this.soundCoffre.play();
+      this.collectReward();
     }
 
     if (isVertical) {
@@ -423,13 +425,48 @@ export default class Laby_map3 extends Phaser.Scene {
   }
 
   collectReward() {
-    console.log("Récompense obtenue !");
+    this.soundCoffre.play();
+
+    this.isCoffreOuvert = true;
+    if (!this.competence) {
+      this.competence = true;
+      const newAttack = Global.attacks["temps"][2];
+      const earnedAttack = Global.attackOff.push(newAttack);
+
+      const width = this.cameras.main.width;
+      const height = this.cameras.main.height;
+
+      // Afficher l'image de l'attaque gagnée
+      const attackImage = this.add.image(
+        width / 2,
+        height / 2 + 60,
+        newAttack.image // Image de l'attaque gagnée
+      );
+      attackImage.setScale(0.5).setScrollFactor(0).setDepth(60001);
+
+      // Supprimer la notification après quelques secondes
+      setTimeout(() => {
+        attackImage.destroy();
+        this.soundCoffre.stop();
+      }, 2000);
+    } else {
+      Global.addCoin(50);
+    }
   }
 
+  death() {
+    this.player.sprite.disableBody(true, true);
+
+    this.cameras.main.fadeIn(2000, 0, 0, 0);
+
+    this.time.delayedCall(200, () => {
+      this.scene.restart();
+    });
+  }
   sortie() {
     if (this.player.keys.interact.isDown) {
       this.scene.stop("Laby_map3");
-
+      Global.enemyId = 3;
       this.scene.start("tpt");
     }
   }

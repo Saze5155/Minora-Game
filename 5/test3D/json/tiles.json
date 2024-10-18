@@ -1,0 +1,182 @@
+[
+  {
+    "position": {
+      "x": 326.10564789114187,
+      "y": 260.90000000000083,
+      "z": -283.5433900332504
+    },
+    "rotationY": 0,
+    "texture": "/5/test3D/examples/village/ruines5.png"
+  },
+  {
+    "position": {
+      "x": 326.56088899987196,
+      "y": 260.60000000000076,
+      "z": -345.1719975950248
+    },
+    "rotationY": 0.7853981633974483,
+    "texture": "/5/test3D/examples/village/ruines4.png"
+  },
+  {
+    "position": {
+      "x": 314.4543617321933,
+      "y": 260.4000000000007,
+      "z": -324.7222852073857
+    },
+    "rotationY": 1.1780972450961724,
+    "texture": "/5/test3D/examples/village/ruines2.png"
+  },
+  {
+    "position": {
+      "x": 387.076116426414,
+      "y": 261.00000000000085,
+      "z": -298.1558678592336
+    },
+    "rotationY": 0,
+    "texture": "/5/test3D/examples/vie/vie-05.png"
+  },
+  {
+    "position": {
+      "x": 389.5566787785637,
+      "y": 260.7000000000008,
+      "z": -293.084596078181
+    },
+    "rotationY": 0.39269908169872414,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "position": {
+      "x": 382.35602386819033,
+      "y": 260.4000000000007,
+      "z": -300.9382801753341
+    },
+    "rotationY": 0.7853981633974483,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "position": {
+      "x": 378.6716444969458,
+      "y": 260.4000000000007,
+      "z": -291.89813589956725
+    },
+    "rotationY": 0.7853981633974483,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "position": {
+      "x": 382.75744792212447,
+      "y": 260.4000000000007,
+      "z": -277.39514681766417
+    },
+    "rotationY": 0,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "position": {
+      "x": 391.34989789348515,
+      "y": 260.7000000000008,
+      "z": -284.0508172450674
+    },
+    "rotationY": 0.39269908169872414,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "position": {
+      "x": 394.0191442482859,
+      "y": 260.60000000000076,
+      "z": -281.85983556837516
+    },
+    "rotationY": 1.1780972450961724,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "position": {
+      "x": 399.9094169341937,
+      "y": 260.8000000000008,
+      "z": -297.7174991026776
+    },
+    "rotationY": 0,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "position": {
+      "x": 402.8876424916298,
+      "y": 260.90000000000083,
+      "z": -277.428513827579
+    },
+    "rotationY": 0.7853981633974483,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "position": {
+      "x": 400.3415330027802,
+      "y": 260.20000000000067,
+      "z": -289.390635476543
+    },
+    "rotationY": 1.5707963267948966,
+    "texture": "/5/test3D/examples/vie/vie-06.png"
+  },
+  {
+    "position": {
+      "x": 382.4721059164927,
+      "y": 258.6000000000003,
+      "z": -286.77648362139274
+    },
+    "rotationY": 0.7853981633974483,
+    "texture": "/5/test3D/examples/vie/vie-07.png"
+  },
+  {
+    "position": {
+      "x": 391.2435524011377,
+      "y": 260.90000000000083,
+      "z": -275.37723449289604
+    },
+    "rotationY": 0,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "position": {
+      "x": 396.90745281655006,
+      "y": 260.60000000000076,
+      "z": -275.97880544222727
+    },
+    "rotationY": 0,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "position": {
+      "x": 403.0492642123671,
+      "y": 260.7000000000008,
+      "z": -287.42098327105435
+    },
+    "rotationY": 0.7853981633974483,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "position": {
+      "x": 396.812086255929,
+      "y": 260.20000000000067,
+      "z": -287.64594769098045
+    },
+    "rotationY": 0,
+    "texture": "/5/test3D/examples/vie/vie-03.png"
+  },
+  {
+    "position": {
+      "x": 364.2455571465905,
+      "y": 256.8999999999999,
+      "z": -298.1396285184752
+    },
+    "rotationY": 0.39269908169872414,
+    "texture": "/5/test3D/examples/village/arbre2.png"
+  },
+  {
+    "position": {
+      "x": 363.90771846084203,
+      "y": 259.9000000000006,
+      "z": -287.8075434818272
+    },
+    "rotationY": 0.7853981633974483,
+    "texture": "/5/test3D/examples/village/arbre2.png"
+  }
+]

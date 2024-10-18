@@ -1,6 +1,10 @@
-import camera from "/5/test3D/js/cam.js";
-import DevMode from "/5/test3D/js/dev.js";
+import Animal from "/5/test3D/js/animal.js";
+//import camera from "/5/test3D/js/cam.js";
+//import DevMode from "/5/test3D/js/dev.js";
+import PNJBiomes from "/5/test3D/js/biome.js";
+import EnemyRPG from "/5/test3D/js/enemy_rpg.js";
 import Insect from "/5/test3D/js/insect.js";
+import Global from "/5/test3D/js/inventaire.js";
 import laser from "/5/test3D/js/laser.js";
 import {
   getBuildingTexture,
@@ -11,6 +15,7 @@ import {
   getTreeTexture,
 } from "/5/test3D/js/loading.js";
 import Marchand from "/5/test3D/js/marchand.js";
+import player from "/5/test3D/js/player.js";
 import { FBXLoader } from "/5/test3D/lib/FBXLoader.js";
 
 export default class monde extends Scene3D {
@@ -29,6 +34,12 @@ export default class monde extends Scene3D {
     this.shaderMaterials = new Map();
     this.biomeMusic = null;
     this.currentMusic = null;
+    this.interactiveObjects = {
+      marmites: [],
+      arbres: [],
+      etoile: [],
+      pyramide: [],
+    };
   }
 
   init() {
@@ -36,20 +47,20 @@ export default class monde extends Scene3D {
   }
   async create() {
     const textureLoader = new THREE.TextureLoader();
-    this.freeCamera = new camera(this);
+    //this.freeCamera = new camera(this);
     this.pointerLaser = new laser(this);
-    /*
+
     this.player = new player(
       this,
-      -90,
-      256,
-      -109,
+      -119,
+      251.2,
+      -55,
       "/5/test3D/examples/anim_player/idle/_idle_1.png"
     );
 
     Global.player = this.player;
-*/
-    const pentagonPoints = [
+
+    this.pentagonPoints = [
       { x: -200, z: -10 },
       { x: -15, z: -15 },
       { x: 90, z: -188 },
@@ -57,7 +68,23 @@ export default class monde extends Scene3D {
       { x: -170, z: -124 },
     ];
 
-    const isInsidePentagon = (point, polygon) => {
+    this.pentagonPointsDesert = [
+      { x: 123, z: -148 },
+      { x: 211, z: -56 },
+      { x: 198, z: 70 },
+      { x: 126, z: 160 },
+      { x: 39, z: 3 },
+    ];
+
+    this.pentagonPointsSpace = [
+      { x: 190, z: 66 },
+      { x: -27, z: 52 },
+      { x: 32, z: 201 },
+      { x: -110, z: 177 },
+      { x: -194, z: 60 },
+    ];
+
+    this.isInsidePentagon = (point, polygon) => {
       let inside = false;
       for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
         const xi = polygon[i].x,
@@ -72,7 +99,7 @@ export default class monde extends Scene3D {
       return inside;
     };
 
-    /* for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 30; i++) {
       let enemyPositionFound = false;
       let x, z;
 
@@ -80,7 +107,7 @@ export default class monde extends Scene3D {
         x = Math.random() * (97 - -213) + -213;
         z = Math.random() * (-14 - -194) + -194;
 
-        if (isInsidePentagon({ x, z }, pentagonPoints)) {
+        if (this.isInsidePentagon({ x, z }, this.pentagonPoints)) {
           enemyPositionFound = true;
         }
       }
@@ -88,7 +115,7 @@ export default class monde extends Scene3D {
       const enemy = new EnemyRPG(
         this,
         x,
-        254.2,
+        251.5,
         z,
         "/5/test3D/examples/monstre 2/_walkdroite_1.png",
         this.player
@@ -105,10 +132,10 @@ export default class monde extends Scene3D {
           this.player.decreaseHealth();
         }
       );
-    });*/
+    });
 
     // ANIMAL
-    /*
+
     for (let i = 0; i < 30; i++) {
       let animalPositionFound = false;
       let x, z;
@@ -117,7 +144,7 @@ export default class monde extends Scene3D {
         x = Math.random() * (97 - -213) + -213;
         z = Math.random() * (-14 - -194) + -194;
 
-        if (isInsidePentagon({ x, z }, pentagonPoints)) {
+        if (this.isInsidePentagon({ x, z }, this.pentagonPoints)) {
           animalPositionFound = true;
         }
       }
@@ -131,26 +158,50 @@ export default class monde extends Scene3D {
         image = "/5/test3D/examples/vie/vie-19.png";
       }
 
-      const animal = new Animal(this, x, 254.2, z, image, this.player);
+      const animal = new Animal(this, x, 251.8, z, image, this.player);
 
       this.animaux.push(animal);
-    }*/
+    }
 
-    this.marchand = new Marchand(this, -80, 252.4, -110);
-    /*
-    this.third.physics.add.collider(
-      this.player.walkPlane,
-      this.marchand.marchandMesh,
-      () => {
-        if (
-          this.player.keys.interact &&
-          this.player.keys.interact.isDown &&
-          !this.isDay
-        ) {
-          this.marchand.showItemsForSale();
+    this.marchands = [];
+    this.marchands.push(new Marchand(this, -65, 252.6, -106));
+    this.marchands.push(new Marchand(this, -72, 252.6, 122));
+    this.marchands.push(new Marchand(this, 138, 252.6, 43));
+
+    this.marchands.forEach((pnj) => {
+      this.third.physics.add.collider(
+        this.player.walkPlane,
+        pnj.marchandMesh,
+        () => {
+          if (
+            this.player.keys.interact &&
+            this.player.keys.interact.isDown &&
+            !this.isDay
+          ) {
+            pnj.showItemsForSale();
+          }
         }
-      }
-    );*/
+      );
+    });
+
+    this.pnjs = [];
+    this.pnjs.push(new PNJBiomes(this, 136, 252.3, 38, this.player));
+    this.pnjs.push(new PNJBiomes(this, -68, 252.3, 118, this.player));
+    this.pnjs.push(new PNJBiomes(this, -60, 252.3, -107, this.player));
+
+    this.pnjs.forEach((pnj) => {
+      this.third.physics.add.collider(
+        this.player.walkPlane, // Le joueur
+        pnj.marchandMesh, // Le PNJ actuel
+        () => {
+          // Si la touche "interact" est enfoncée lors de la collision avec ce PNJ
+          if (this.player.keys.interact && this.player.keys.interact.isDown) {
+            pnj.showBiomeOptions(); // Afficher les options du biome pour ce PNJ
+          }
+        }
+      );
+    });
+
     for (let i = 0; i < 10; i++) {
       this.insects.push(
         new Insect(this, "/5/test3D/examples/vie/vie-18.png", 0.1)
@@ -173,6 +224,56 @@ export default class monde extends Scene3D {
       });
 
       const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(130, 251.5, -15);
+
+      this.third.physics.add.existing(tile, {
+        shape: "box",
+        width: 1.3, // Utilise la largeur de hitbox fournie
+        height: 1, // Hauteur fixe
+        depth: 1, // Profondeur fixe
+        mass: 0,
+      });
+      this.interactiveObjects.marmites.push(tile);
+      this.third.scene.add(tile);
+
+      this.marmitteBox(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/cuisine/marmitte.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(1.5, 1.5);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(-104, 251.5, 131);
+
+      this.third.physics.add.existing(tile, {
+        shape: "box",
+        width: 1.3, // Utilise la largeur de hitbox fournie
+        height: 1, // Hauteur fixe
+        depth: 1, // Profondeur fixe
+        mass: 0,
+      });
+      this.interactiveObjects.marmites.push(tile);
+      this.third.scene.add(tile);
+
+      this.marmitteBox(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/cuisine/marmitte.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(1.5, 1.5);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
       tile.position.set(-87, 251.5, -113);
 
       this.third.physics.add.existing(tile, {
@@ -182,12 +283,12 @@ export default class monde extends Scene3D {
         depth: 1, // Profondeur fixe
         mass: 0,
       });
-
+      this.interactiveObjects.marmites.push(tile);
       this.third.scene.add(tile);
 
-      //this.marmitteBox(tile);
+      this.marmitteBox(tile);
     });
-    /*
+
     this.marmitteBox = (marmitteBody) => {
       this.third.physics.add.collider(
         this.player.walkPlane,
@@ -237,12 +338,12 @@ export default class monde extends Scene3D {
         }
       );
     };
-*/
+
     this.third.warpSpeed("light", "fog");
 
     //this.third.physics.debug.enable();
 
-    this.devMode = new DevMode(this, this.freeCamera.camera, textureLoader);
+    //this.devMode = new DevMode(this, this.freeCamera.camera, textureLoader);
 
     // Soleil et Lune
     const sunGeometry = new THREE.SphereGeometry(200, 32, 32); // Taille du soleil
@@ -576,14 +677,14 @@ export default class monde extends Scene3D {
 
     // Initialiser les musiques pour chaque biome avec volume par défaut
     this.biomeMusic = {
-      nature: this.sound.add("nature_music", { loop: true, volume: 0.5 }), // Volume à 50%
-      desert: this.sound.add("desert_music", { loop: true, volume: 0.7 }), // Volume à 70%
-      space: this.sound.add("space_music", { loop: true, volume: 0.1 }), // Volume à 40%
+      nature: this.sound.add("nature_music", { loop: true, volume: 0.3 }), // Volume à 50%
+      desert: this.sound.add("desert_music", { loop: true, volume: 0.5 }), // Volume à 70%
+      espace: this.sound.add("space_music", { loop: true, volume: 0.1 }), // Volume à 40%
     };
 
     // Jouer la première musique (par exemple Nature)
     this.currentMusic = "nature";
-    this.biomeMusic.desert.play();
+    this.biomeMusic.nature.play();
 
     const topTexture1 = textureLoader.load(
       "/5/test3D/examples/vie/tuiles/tuile2.png"
@@ -700,9 +801,9 @@ export default class monde extends Scene3D {
 
     // Ajouter la physique au cube (collision)
     this.third.physics.add.existing(cube, { mass: 0 });
-    this.devMode.setTargetCube(cube);
+    //this.devMode.setTargetCube(cube);
 
-    const cubeVillageGeometry = new THREE.BoxGeometry(50, 50, 50);
+    const cubeVillageGeometry = new THREE.BoxGeometry(100, 10, 100);
 
     const materialVillage = new THREE.MeshStandardMaterial({
       map: topTexture1,
@@ -918,18 +1019,20 @@ export default class monde extends Scene3D {
         mass: 0, // Arbre statique
       });
       this.blockingObjects.push(tile);
+
+      this.interactiveObjects.arbres.push(tile);
       this.third.scene.add(tile);
 
-      this.hitbox(tile);
+      this.treeInteraction(tile);
     });
 
-    this.hitbox = (grandArbreBody) => {
+    this.treeInteraction = (grandArbreBody) => {
       this.third.physics.add.collider(
         this.player.walkPlane,
         grandArbreBody,
         () => {
           if (this.player.keys.interact && this.player.keys.interact.isDown) {
-            this.handleInteraction();
+            this.handleInteraction("arbre");
           }
         }
       );
@@ -1196,8 +1299,6 @@ export default class monde extends Scene3D {
       this.third.scene.add(tile);
     });
 
-    //this.updateVisibility();
-
     // DESERT
 
     fetch("/5/test3D/json/rockPositions.json")
@@ -1329,9 +1430,26 @@ export default class monde extends Scene3D {
           tile.rotation.x = 0;
         }
         this.third.physics.add.existing(tile, { mass: 0 });
+
+        this.interactiveObjects.pyramide.push(tile);
+
         this.third.scene.add(tile);
+
+        this.pyramideInteraction(tile);
       }
     );
+
+    this.pyramideInteraction = (pyramideBody) => {
+      this.third.physics.add.collider(
+        this.player.walkPlane,
+        pyramideBody,
+        () => {
+          if (this.player.keys.interact && this.player.keys.interact.isDown) {
+            this.handleInteraction("pyramide");
+          }
+        }
+      );
+    };
 
     textureLoader.load(
       "/5/test3D/examples/éléments desert/pyramide2.png",
@@ -1549,8 +1667,19 @@ export default class monde extends Scene3D {
         tile.rotation.x = 0;
       }
       this.third.physics.add.existing(tile, { mass: 0 });
+      this.interactiveObjects.etoile.push(tile);
       this.third.scene.add(tile);
+
+      this.etoileInteraction(tile);
     });
+
+    this.etoileInteraction = (etoileBody) => {
+      this.third.physics.add.collider(this.player.walkPlane, etoileBody, () => {
+        if (this.player.keys.interact && this.player.keys.interact.isDown) {
+          this.handleInteraction("etoile");
+        }
+      });
+    };
 
     fetch("/5/test3D/json/buildingPosition.json")
       .then((response) => response.json())
@@ -1650,3692 +1779,7 @@ export default class monde extends Scene3D {
           error
         );
       });
-
-    //////////////////////////////////////arbrebivdb
-    /*
-    textureLoader.load("/5/test3D/examples/vie/vie-05.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -164.56775697861104,
-        255.89999999999975,
-        77.38088547696805
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-05.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -154.8225853775524,
-        255.89999999999975,
-        79.28345965192673
-      );
-      if (5.890486225480863 != undefined) {
-        tile.rotation.y = 5.890486225480863;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-05.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -171.53537761363066,
-        255.89999999999975,
-        90.75486721807016
-      );
-      if (0.7853981633974483 != undefined) {
-        tile.rotation.y = 0.7853981633974483;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-06.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -163.3435900579749,
-        255.79999999999976,
-        88.9723072692323
-      );
-      if (5.890486225480863 != undefined) {
-        tile.rotation.y = 5.890486225480863;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-06.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -169.91540776719273,
-        255.69999999999973,
-        75.68029681216207
-      );
-      if (0.7853981633974483 != undefined) {
-        tile.rotation.y = 0.7853981633974483;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-06.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -154.42500146318181,
-        255.79999999999976,
-        84.16944444394274
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -169.90868531704115,
-        255.79999999999976,
-        83.58414884146939
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -162.15110903195088,
-        255.79999999999976,
-        73.06660385074113
-      );
-      if (5.497787143782139 != undefined) {
-        tile.rotation.y = 5.497787143782139;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -159.3747207969594,
-        255.7999999999997,
-        86.06092904836518
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -172.7554673843455,
-        255.79999999999976,
-        80.03664837889534
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -168.07621920934562,
-        255.89999999999975,
-        89.57523803467254
-      );
-      if (0.7853981633974483 != undefined) {
-        tile.rotation.y = 0.7853981633974483;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -158.9752489103734,
-        255.79999999999976,
-        73.53622496968536
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-06.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -156.15891251575368,
-        255.79999999999976,
-        91.06778707106982
-      );
-      if (5.890486225480863 != undefined) {
-        tile.rotation.y = 5.890486225480863;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-07.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -176.42033443442477,
-        255.69999999999973,
-        76.31888386640628
-      );
-      if (0.7853981633974483 != undefined) {
-        tile.rotation.y = 0.7853981633974483;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -99.69190871833487,
-        255.79999999999976,
-        48.836446076269176
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -89.307144276395,
-        255.69999999999976,
-        40.362975535694396
-      );
-      if (12.173671532660457 != undefined) {
-        tile.rotation.y = 12.173671532660457;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -83.40595926477383,
-        255.7999999999998,
-        55.012116809007985
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -74.58356760949128,
-        255.79999999999976,
-        47.22622872261828
-      );
-      if (0.7853981633974483 != undefined) {
-        tile.rotation.y = 0.7853981633974483;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -71.94702873550578,
-        255.79999999999976,
-        60.925014662800564
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -91.75920345831418,
-        255.49999999999966,
-        57.62487003274941
-      );
-      if (5.890486225480863 != undefined) {
-        tile.rotation.y = 5.890486225480863;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -81.45694798285031,
-        255.89999999999975,
-        45.18851087660874
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -98.14480845214895,
-        255.7999999999997,
-        39.03901736474341
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (6.283185307179588 != undefined) {
-        tile.rotation.x = 6.283185307179588;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -80.42805749741072,
-        255.59999999999977,
-        61.141330593869796
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-05.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -99.43835640477346,
-        255.8999999999998,
-        58.475586062005746
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-05.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -89.74664913453682,
-        255.69999999999976,
-        49.624170085775255
-      );
-      if (12.173671532660457 != undefined) {
-        tile.rotation.y = 12.173671532660457;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-05.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -76.3837507675467,
-        255.7999999999998,
-        37.607368720542866
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-06.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -106.10089112636324,
-        254.89999999999978,
-        46.45637869322168
-      );
-      if (18.45685683984004 != undefined) {
-        tile.rotation.y = 18.45685683984004;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-07.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -75.02085109355461,
-        255.79999999999976,
-        55.36247020566296
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-07.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -94.92119450490877,
-        255.49999999999966,
-        46.94549907688452
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -105.54486367329963,
-        255.79999999999976,
-        92.48331849585854
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -118.00372351974728,
-        255.8999999999998,
-        83.60328183787533
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -106.78564612640226,
-        255.69999999999976,
-        77.6379541770741
-      );
-      if (5.890486225480863 != undefined) {
-        tile.rotation.y = 5.890486225480863;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(0, 0, 0);
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -96.2480650610606,
-        255.89999999999986,
-        83.23831276827858
-      );
-      if (6.283185307179588 != undefined) {
-        tile.rotation.y = 6.283185307179588;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -97.17548548858655,
-        255.69999999999976,
-        89.57697025149218
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -91.7998787628205,
-        255.79999999999987,
-        97.02398921010584
-      );
-      if (5.890486225480863 != undefined) {
-        tile.rotation.y = 5.890486225480863;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -111.26552068451072,
-        255.79999999999987,
-        85.12272014054562
-      );
-      if (12.173671532660457 != undefined) {
-        tile.rotation.y = 12.173671532660457;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -100.86773242159221,
-        255.79999999999993,
-        77.36411898317719
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-05.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -119.10524330729156,
-        255.79999999999987,
-        87.31234568832616
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-05.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -102.81640545662846,
-        255.59999999999982,
-        85.62941642889348
-      );
-      if (5.890486225480863 != undefined) {
-        tile.rotation.y = 5.890486225480863;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-05.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -88.10974547027224,
-        255.8999999999998,
-        85.92079265289634
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-06.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -92.27789051858251,
-        255.89999999999978,
-        88.38207868626948
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-06.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -113.42680116997478,
-        255.7999999999998,
-        76.892986983133
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-06.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -123.24516538052738,
-        255.8999999999998,
-        81.43586645439484
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-07.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -189.74856074817265,
-        255.59999999999977,
-        90.91915999575792
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-07.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -182.60845497046273,
-        255.39999999999978,
-        73.93092774383179
-      );
-      if (5.497787143782139 != undefined) {
-        tile.rotation.y = 5.497787143782139;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -191.29730555872598,
-        255.59999999999977,
-        81.33390977595278
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -178.7246994408749,
-        255.79999999999973,
-        94.2102365137088
-      );
-      if (12.173671532660457 != undefined) {
-        tile.rotation.y = 12.173671532660457;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -183.70001770877843,
-        255.79999999999987,
-        86.98786355716818
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -174.00640675601602,
-        255.9999999999998,
-        65.58107996231581
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-05.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -177.50618104589282,
-        255.69999999999982,
-        83.64373571767122
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -146.0170944834516,
-        255.69999999999982,
-        135.7350930407807
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -134.33002408388447,
-        255.79999999999976,
-        126.3721970860249
-      );
-      if (5.890486225480863 != undefined) {
-        tile.rotation.y = 5.890486225480863;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -129.68325767122278,
-        255.7999999999998,
-        140.3631450845704
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -118.34746815390302,
-        255.89999999999984,
-        129.30285420583738
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -143.3200219897383,
-        255.5999999999999,
-        152.62903406789573
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -166.19629299139515,
-        255.7999999999998,
-        127.56331139762105
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -165.07104173633252,
-        255.69999999999987,
-        149.08596063009068
-      );
-      if (5.890486225480863 != undefined) {
-        tile.rotation.y = 5.890486225480863;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -158.44704126974847,
-        255.89999999999966,
-        142.1200796471678
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -178.53229546872075,
-        255.7999999999998,
-        134.23622933636173
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -134.7850717461722,
-        255.69999999999987,
-        145.4517840104994
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -155.70541852142597,
-        256.09999999999974,
-        153.53060534240913
-      );
-      if (5.890486225480863 != undefined) {
-        tile.rotation.y = 5.890486225480863;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-05.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -155.8062373803848,
-        255.79999999999993,
-        130.20099990072734
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-05.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -141.44187969656252,
-        255.89999999999964,
-        144.51966639074635
-      );
-      if (5.890486225480863 != undefined) {
-        tile.rotation.y = 5.890486225480863;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-06.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -120.0614989033158,
-        255.79999999999984,
-        146.99560495759135
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-06.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -168.562207084787,
-        255.59999999999982,
-        137.67908973840593
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-06.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -146.98836330560982,
-        255.79999999999976,
-        163.9498717945504
-      );
-      if (5.890486225480863 != undefined) {
-        tile.rotation.y = 5.890486225480863;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-07.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -136.95391809573954,
-        255.49999999999983,
-        134.58213618809867
-      );
-      if (6.283185307179588 != undefined) {
-        tile.rotation.y = 6.283185307179588;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-07.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -163.61063056772366,
-        255.59999999999982,
-        159.52751480713818
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -77.85318447881727,
-        255.7999999999998,
-        173.93598504841066
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -60.72104081181277,
-        255.6999999999999,
-        160.81023560153497
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -60.022610919290265,
-        255.99999999999991,
-        185.62565338019328
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -41.204316744890654,
-        255.7999999999998,
-        172.4252247567049
-      );
-      if (5.890486225480863 != undefined) {
-        tile.rotation.y = 5.890486225480863;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -39.3578716283938,
-        255.79999999999987,
-        189.71555864589794
-      );
-      if (5.890486225480863 != undefined) {
-        tile.rotation.y = 5.890486225480863;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -29.003771602081365,
-        255.79999999999976,
-        157.93838400636827
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -22.437516163381012,
-        255.8999999999998,
-        178.48806331381394
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -10.217169691666992,
-        255.7999999999998,
-        166.89291507013627
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -38.923111288437426,
-        255.8999999999998,
-        115.39692712037026
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -51.24063442925964,
-        255.8999999999998,
-        97.09024114322864
-      );
-      if (6.283185307179588 != undefined) {
-        tile.rotation.y = 6.283185307179588;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -35.25848079238219,
-        255.79999999999984,
-        87.60881815032934
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        13.24246195932724,
-        255.89999999999984,
-        107.41381264699025
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        6.958028171679612,
-        255.69999999999976,
-        90.60287386489257
-      );
-      if (5.890486225480863 != undefined) {
-        tile.rotation.y = 5.890486225480863;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        24.084953087713146,
-        255.69999999999987,
-        99.94245710618878
-      );
-      if (5.890486225480863 != undefined) {
-        tile.rotation.y = 5.890486225480863;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        3.3396277404910943,
-        255.99999999999986,
-        147.63731707248405
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        24.05653161351347,
-        255.89999999999986,
-        156.89096024132027
-      );
-      if (5.497787143782139 != undefined) {
-        tile.rotation.y = 5.497787143782139;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        12.351377427666264,
-        255.79999999999995,
-        176.4528816870268
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        33.57166922303684,
-        255.69999999999982,
-        184.40524655742263
-      );
-      if (6.675884388878313 != undefined) {
-        tile.rotation.y = 6.675884388878313;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -89.08053538276258,
-        255.8999999999998,
-        165.3708309701713
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -75.81735564568427,
-        255.69999999999973,
-        188.95181809740274
-      );
-      if (5.890486225480863 != undefined) {
-        tile.rotation.y = 5.890486225480863;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -53.491424709792966,
-        255.69999999999987,
-        172.91799341773117
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -50.267347888833335,
-        255.69999999999976,
-        201.940470926543
-      );
-      if (0.7853981633974483 != undefined) {
-        tile.rotation.y = 0.7853981633974483;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -26.782769858666928,
-        255.79999999999984,
-        193.1158907672678
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(-4.413064074213311, 255.6, 176.97415432587073);
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -18.507660679599873,
-        255.79999999999993,
-        155.44476860149683
-      );
-      if (5.890486225480863 != undefined) {
-        tile.rotation.y = 5.890486225480863;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -41.44949209266648,
-        255.99999999999991,
-        97.14067070576628
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -49.19169899956157,
-        255.69999999999985,
-        111.04221040790299
-      );
-      if (5.890486225480863 != undefined) {
-        tile.rotation.y = 5.890486225480863;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        15.957290835624862,
-        255.8999999999998,
-        96.41658124646494
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        28.0271548032544,
-        255.8999999999998,
-        115.27420666617371
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        14.948838658120263,
-        255.69999999999993,
-        147.25573138909593
-      );
-      if (5.890486225480863 != undefined) {
-        tile.rotation.y = 5.890486225480863;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(1.8919483357373714, 255.7, 167.4224205236143);
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        10.172381420100196,
-        255.79999999999987,
-        200.38707631943507
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(-94.31267410573962, 255.7, 175.85095005063687);
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-05.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -85.96836678419736,
-        255.79999999999976,
-        184.25283737134464
-      );
-      if (5.890486225480863 != undefined) {
-        tile.rotation.y = 5.890486225480863;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-05.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -75.07903123681506,
-        255.79999999999976,
-        161.13848287687603
-      );
-      if (5.497787143782139 != undefined) {
-        tile.rotation.y = 5.497787143782139;
-      }
-      if (12.566370614359181 != undefined) {
-        tile.rotation.x = 12.566370614359181;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-05.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -48.36712284380879,
-        255.59999999999985,
-        183.65960767688122
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-05.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -13.237824832234708,
-        255.79999999999993,
-        199.59037077561186
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-05.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        19.83818591857153,
-        255.5999999999999,
-        169.00379543743605
-      );
-      if (5.890486225480863 != undefined) {
-        tile.rotation.y = 5.890486225480863;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-05.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        33.47377718210681,
-        255.9999999999997,
-        139.0281746215615
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-06.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -32.03344478614743,
-        255.59999999999988,
-        171.26979144798088
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-06.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -66.03259403963874,
-        255.79999999999987,
-        172.4215688754949
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-06.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        10.069296335228554,
-        255.89999999999975,
-        160.77818249104962
-      );
-      if (5.890486225480863 != undefined) {
-        tile.rotation.y = 5.890486225480863;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-06.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(36.47691503304241, 255.9, 163.5133333974182);
-      if (5.890486225480863 != undefined) {
-        tile.rotation.y = 5.890486225480863;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-06.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -0.3050893548860909,
-        255.99999999999983,
-        193.42278959426713
-      );
-      if (0.7853981633974483 != undefined) {
-        tile.rotation.y = 0.7853981633974483;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-06.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        20.62621827884487,
-        255.7999999999998,
-        111.24578092353406
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-07.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -44.44509810057775,
-        255.39999999999978,
-        105.7802357895949
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-07.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -11.889329668572973,
-        255.59999999999982,
-        143.19196524106616
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-07.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(18.4559701896961, 255.7999999999999, 188.3029081953364);
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-07.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -13.819831655765007,
-        255.89999999999978,
-        183.00199805557565
-      );
-      if (5.890486225480863 != undefined) {
-        tile.rotation.y = 5.890486225480863;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-07.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -45.78897599330673,
-        255.7999999999998,
-        192.63268005250862
-      );
-      if (5.890486225480863 != undefined) {
-        tile.rotation.y = 5.890486225480863;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-07.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -70.11723756194324,
-        255.7999999999998,
-        180.0986644308947
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-07.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -98.3863099141008,
-        255.8999999999998,
-        157.50263589893424
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -63.172744903101915,
-        255.59999999999965,
-        44.79140835240351
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -65.59947530927423,
-        255.99999999999974,
-        54.94914808180892
-      );
-      if (5.497787143782139 != undefined) {
-        tile.rotation.y = 5.497787143782139;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -66.61921083208831,
-        256.0999999999998,
-        70.65955041917253
-      );
-      if (0.7853981633974483 != undefined) {
-        tile.rotation.y = 0.7853981633974483;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -74.86186425169072,
-        255.59999999999982,
-        82.56175612747953
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -62.12774906789507,
-        255.9999999999998,
-        88.17833153593504
-      );
-      if (5.890486225480863 != undefined) {
-        tile.rotation.y = 5.890486225480863;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -50.82197495024873,
-        255.69999999999982,
-        65.14919987633154
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -46.75264986848478,
-        255.7999999999998,
-        80.90943367191392
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -32.15671578957259,
-        255.79999999999978,
-        60.9036544178612
-      );
-      if (5.890486225480863 != undefined) {
-        tile.rotation.y = 5.890486225480863;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -13.629249039377072,
-        255.59999999999982,
-        85.35635814448268
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -28.52455019666602,
-        255.7999999999998,
-        69.80108951848243
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -44.71931022736926,
-        255.89999999999992,
-        48.697886236389444
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-05.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -57.466403908839155,
-        255.69999999999982,
-        74.64090655070613
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-05.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -41.023463704551645,
-        255.79999999999976,
-        60.488285261870324
-      );
-      if (0.7853981633974483 != undefined) {
-        tile.rotation.y = 0.7853981633974483;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-05.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -18.002326748134003,
-        255.59999999999977,
-        48.26920325233567
-      );
-      if (5.497787143782139 != undefined) {
-        tile.rotation.y = 5.497787143782139;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-05.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -3.048258615853332,
-        255.69999999999976,
-        76.5163149841664
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-05.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -74.84944983642038,
-        255.59999999999977,
-        92.43350608230526
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-05.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -61.782758646449466,
-        255.69999999999976,
-        105.60501679025481
-      );
-      if (0.7853981633974483 != undefined) {
-        tile.rotation.y = 0.7853981633974483;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-06.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -82.81298571414416,
-        256.0999999999998,
-        77.71386256424157
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-06.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -39.851089966034905,
-        256.09999999999974,
-        75.87390483701346
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-06.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -18.917259909378764,
-        255.99999999999974,
-        68.54799855198732
-      );
-      if (5.497787143782139 != undefined) {
-        tile.rotation.y = 5.497787143782139;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-06.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -53.41340465569529,
-        255.8999999999998,
-        127.60277744861972
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-07.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -57.45028964031795,
-        255.49999999999977,
-        58.16700865848772
-      );
-      if (0 != undefined) {
-        tile.rotation.y = 0;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-07.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -68.93910843033103,
-        255.59999999999977,
-        102.21689783441585
-      );
-      if (5.890486225480863 != undefined) {
-        tile.rotation.y = 5.890486225480863;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });
-
-    textureLoader.load("/5/test3D/examples/vie/vie-07.png", (texture) => {
-      const planeGeometry = new THREE.PlaneGeometry(10, 10);
-      const planeMaterial = new THREE.MeshStandardMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true,
-        alphaTest: 0.5,
-      });
-
-      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
-      tile.position.set(
-        -26.933431538474323,
-        255.59999999999977,
-        90.00289765266636
-      );
-      if (0.39269908169872414 != undefined) {
-        tile.rotation.y = 0.39269908169872414;
-      }
-      if (0 != undefined) {
-        tile.rotation.x = 0;
-      }
-      this.third.physics.add.existing(tile, { mass: 0 });
-      this.third.scene.add(tile);
-    });*/
   }
-
-  createLoupeMaterial(object) {
-    const originalMaterial = object.material.clone();
-    this.shaderMaterials.set(object, originalMaterial);
-
-    const uniforms = {
-      playerPosition: { value: this.player.walkPlane.position },
-      loupeRadius: { value: 18.0 }, // Rayon de la zone transparente
-      texturee: { value: object.material.map }, // Utiliser la texture de l'objet
-      opacityFactor: { value: 0.3 }, // Facteur d'opacité pour la zone en dehors de la loupe
-    };
-
-    const loupeMaterial = new THREE.ShaderMaterial({
-      uniforms: uniforms,
-      vertexShader: `
-            varying vec3 vWorldPosition;
-            varying vec2 vUv;
-            void main() {
-                vUv = uv; // Passe les coordonnées UV au fragment shader
-                vec4 worldPosition = modelMatrix * vec4(position, 1.0);
-                vWorldPosition = worldPosition.xyz;
-                gl_Position = projectionMatrix * viewMatrix * worldPosition;
-            }
-        `,
-      fragmentShader: `
-            uniform vec3 playerPosition;
-            uniform float loupeRadius;
-            uniform sampler2D texturee;
-            uniform float opacityFactor;
-            varying vec3 vWorldPosition;
-            varying vec2 vUv;
-
-            void main() {
-                float distance = length(vWorldPosition - playerPosition);
-                vec4 texColor = texture2D(texturee, vUv);
-
-                // Si le pixel est transparent, on le garde transparent
-                if (texColor.a < 0.1) {
-                    discard; // Ne dessine pas les pixels transparents de la texture
-                }
-
-                // Si le joueur est derrière l'objet et à l'intérieur de la loupe, appliquer la transparence
-                if (distance < loupeRadius) {
-                    gl_FragColor = vec4(texColor.rgb, texColor.a * 0.1); // Appliquer une transparence légère dans la zone de la loupe
-                } else {
-                    gl_FragColor = texColor; // Garder la texture intacte en dehors de la loupe
-                }
-            }
-        `,
-      transparent: true,
-    });
-
-    object.material = loupeMaterial;
-  }
-
-  /*updateVisibility() {
-    const cameraPosition = this.third.camera.position;
-    const playerPosition = this.player.walkPlane.position;
-
-    // Créer un raycaster pour détecter les objets entre la caméra et le joueur
-    const raycaster = new THREE.Raycaster();
-    const direction = new THREE.Vector3()
-      .subVectors(playerPosition, cameraPosition)
-      .normalize();
-    raycaster.set(cameraPosition, direction);
-
-    // Vérifier les intersections avec les objets de `this.blockingObjects`
-    const intersects = raycaster.intersectObjects(this.blockingObjects, true);
-
-    // Réinitialiser les matériaux des objets précédemment détectés
-    this.blockingObjects.forEach((object) => {
-      if (this.shaderMaterials.has(object)) {
-        object.material = this.shaderMaterials.get(object);
-      }
-    });
-
-    // Si un objet est détecté entre la caméra et le joueur, appliquer le shader
-    if (intersects.length > 0) {
-      const firstObstacle = intersects[0].object;
-      this.createLoupeMaterial(firstObstacle);
-    }
-  }*/
 
   attackPlayer() {
     // Supprimer la hitbox actuelle s'il en existe déjà une
@@ -5377,9 +1821,9 @@ export default class monde extends Scene3D {
   }
 
   update() {
-    this.freeCamera.update();
+    //this.freeCamera.update();
     this.pointerLaser.update();
-    /*
+
     this.animaux.forEach((animal) => {
       animal.update(this.player);
     });
@@ -5388,65 +1832,270 @@ export default class monde extends Scene3D {
     });
 
     this.player.update(this);
-    if (this.player.keys.attack.isDown && this.player.isOnGround()) {
+
+    if (this.input.activePointer.leftButtonDown() && this.player.isOnGround()) {
       this.attackPlayer();
     }
-*/
+
     this.insects.forEach((insect) => insect.update());
-    //this.updateVisibility();
-    /*
-    const playerX = this.player.walkPlane.position.x;
-    const playerZ = this.player.walkPlane.position.z;
-
-    const centerX = 0; // Coordonnées du centre du cercle
-    const centerZ = 0;
-
-    let newBiome = null;
-
-    // Définir les zones pour chaque biome
-    if (playerX > centerX && playerZ > centerZ) {
-      // Secteur Nature
-      newBiome = "nature";
-    } else if (playerX < centerX && playerZ > centerZ) {
-      // Secteur Désert
-      newBiome = "desert";
-    } else {
-      // Secteur Espace
-      newBiome = "space";
-    }
-
-    // Si le biome a changé, changer la musique
-    if (newBiome !== this.currentMusic) {
-      this.changeBiomeMusic(newBiome);
-    }*/
   }
-
-  // Méthode pour rendre les objets transparents si entre la caméra et le joueur
-
-  handleInteraction = () => {
-    this.scene.pause("monde");
-
-    this.scene.launch("Plateformer_map1", { previousScene: "monde" });
-    this.player.scene.sound.stopByKey("walk_grass");
-    this.biomeMusic[this.currentMusic].pause();
-  };
-
-  getRandomTree() {
-    const randomIndex = Math.floor(Math.random() * this.trees.length);
-    return this.trees[randomIndex];
-  }
-
-  // Fonction pour changer la musique
-  changeBiomeMusic(newBiome) {
+  changeMusic(biome) {
     // Arrêter la musique actuelle
-    if (this.currentMusic) {
+    if (this.currentMusic && this.biomeMusic[this.currentMusic]) {
       this.biomeMusic[this.currentMusic].stop();
     }
 
-    // Jouer la nouvelle musique
-    this.biomeMusic[newBiome].play();
+    // Lancer la musique du nouveau biome
+    if (this.biomeMusic[biome]) {
+      this.biomeMusic[biome].play();
+      this.currentMusic = biome;
+    }
+  }
 
-    // Mettre à jour le biome actuel
-    this.currentMusic = newBiome;
+  handleInteraction = (key) => {
+    this.scene.pause("monde");
+    if (key == "arbre") {
+      this.scene.launch("Plateformer_map1", { previousScene: "monde" });
+      this.player.scene.sound.stopByKey("walk_grass");
+      this.biomeMusic[this.currentMusic].pause();
+    } else if (key == "pyramide") {
+      this.scene.launch("Laby_map1", { previousScene: "monde" });
+      this.player.scene.sound.stopByKey("walk_grass");
+      this.biomeMusic[this.currentMusic].pause();
+    } else if (key == "etoile") {
+      this.scene.launch("SpaceLevel", { previousScene: "monde" });
+      this.player.scene.sound.stopByKey("walk_grass");
+      this.biomeMusic[this.currentMusic].pause();
+    }
+  };
+
+  destroyAllEnemiesAndAnimals() {
+    // Boucle pour supprimer chaque ennemi
+    this.enemies.forEach((enemy) => {
+      this.third.scene.remove(enemy.walkPlane); // Supprime de la scène
+      enemy.walkPlane.geometry.dispose(); // Libère la géométrie
+      enemy.walkPlane.material.dispose(); // Libère le matériel
+      if (enemy.walkPlane.body)
+        this.third.physics.destroy(enemy.walkPlane.body); // Détruire le corps physique
+    });
+
+    // Boucle pour supprimer chaque animal
+    this.animaux.forEach((animal) => {
+      this.third.scene.remove(animal.walkPlane); // Supprime de la scène
+      animal.walkPlane.geometry.dispose(); // Libère la géométrie
+      animal.walkPlane.material.dispose(); // Libère le matériel
+      if (animal.walkPlane.body)
+        this.third.physics.destroy(animal.walkPlane.body); // Détruire le corps physique
+    });
+
+    // Vider les tableaux après destruction
+    this.enemies = [];
+    this.animaux = [];
+  }
+
+  spawnEnemiesAndAnimals(biome) {
+    let pentagonPoints, xMin, xMax, zMin, zMax;
+
+    // Définir les bornes pour chaque biome
+    if (biome === "nature") {
+      pentagonPoints = this.pentagonPoints;
+      xMin = -213;
+      xMax = 97;
+      zMin = -194;
+      zMax = -14;
+    } else if (biome === "desert") {
+      pentagonPoints = this.pentagonPointsDesert;
+      xMin = 39;
+      xMax = 211;
+      zMin = -148;
+      zMax = 160;
+    } else if (biome === "espace") {
+      pentagonPoints = this.pentagonPointsSpace;
+      xMin = -194;
+      xMax = 190;
+      zMin = 52;
+      zMax = 201;
+    }
+
+    // Générer des ennemis avec les coordonnées spécifiques au biome
+    for (let i = 0; i < 30; i++) {
+      let enemyPositionFound = false;
+      let x, z;
+
+      while (!enemyPositionFound) {
+        // Générer des coordonnées aléatoires dans les bornes du biome actuel
+        x = Math.random() * (xMax - xMin) + xMin;
+        z = Math.random() * (zMax - zMin) + zMin;
+
+        console.log(pentagonPoints);
+        if (this.isInsidePentagon({ x, z }, pentagonPoints)) {
+          enemyPositionFound = true;
+        }
+      }
+
+      // Créer l'ennemi aux coordonnées générées
+      const enemy = new EnemyRPG(
+        this,
+        x,
+        251.5,
+        z,
+        "/5/test3D/examples/monstre 2/_walkdroite_1.png",
+        this.player
+      );
+
+      this.enemies.push(enemy);
+    }
+
+    // Gérer les collisions des nouveaux ennemis avec le joueur
+    this.enemies.forEach((enemy) => {
+      this.third.physics.add.collider(
+        this.player.walkPlane,
+        enemy.walkPlane,
+        () => {
+          this.player.decreaseHealth();
+        }
+      );
+    });
+
+    // Création des animaux
+    for (let i = 0; i < 30; i++) {
+      let animalPositionFound = false;
+      let x, z;
+
+      while (!animalPositionFound) {
+        x = Math.random() * (xMax - xMin) + xMin;
+        z = Math.random() * (zMax - zMin) + zMin;
+
+        // Vérifier si les coordonnées se trouvent à l'intérieur du pentagone du biome
+        if (this.isInsidePentagon({ x, z }, pentagonPoints)) {
+          animalPositionFound = true;
+        }
+      }
+      const random = Math.random() < 0.5 ? 1 : 2;
+
+      let image = null;
+      if (biome == "espace") {
+        if (random == 1) {
+          image = "/5/test3D/examples/espace/espace-09.png";
+        } else if (random == 2) {
+          image = "/5/test3D/examples/espace/espace-10.png";
+        }
+      } else {
+        if (random == 1) {
+          image = "/5/test3D/examples/vie/vie-20.png";
+        } else if (random == 2) {
+          image = "/5/test3D/examples/vie/vie-19.png";
+        }
+      }
+
+      const animal = new Animal(this, x, 251.8, z, image, this.player);
+
+      this.animaux.push(animal);
+      console.log(this.animaux);
+    }
+  }
+
+  recreatePlayerAt(x, z) {
+    if (this.player && this.player.walkPlane) {
+      if (this.player.walkPlane.geometry) {
+        console.log("Suppression de la géométrie");
+        this.player.walkPlane.geometry.dispose(); // Libérer la géométrie
+      }
+      if (this.player.walkPlane.material) {
+        console.log("Suppression du matériau");
+        this.player.walkPlane.material.dispose(); // Libérer le matériau
+      }
+
+      console.log("Suppression du joueur de la scène");
+      this.third.scene.remove(this.player.walkPlane); // Supprimer le mesh de la scène
+
+      // Si le corps physique est présent, le détruire
+      if (this.player.walkPlane.body) {
+        console.log("Suppression du corps physique");
+        this.third.physics.destroy(this.player.walkPlane.body);
+      }
+    }
+
+    // Recréer un nouvel objet Player aux nouvelles coordonnées
+    console.log(`Création du joueur à (${x}, 256, ${z})`);
+    this.player = new player(
+      this, // La scène actuelle
+      x, // Nouvelle position en X
+      251.2, // Position en Y (hauteur fixe)
+      z, // Nouvelle position en Z
+      "/5/test3D/examples/anim_player/idle/_idle_1.png"
+    );
+
+    this.resetColliders();
+
+    // Mise à jour de la caméra pour suivre le nouveau joueur
+    console.log("Mise à jour de la caméra");
+    this.third.camera.position.set(
+      this.player.walkPlane.position.x,
+      this.player.walkPlane.position.y + 2,
+      this.player.walkPlane.position.z + 10
+    );
+    this.third.camera.lookAt(this.player.walkPlane.position);
+
+    this.pnjs.forEach((pnj) => {
+      console.log(pnj);
+      pnj.player = this.player; // Mettre à jour la référence du joueur dans chaque PNJ
+    });
+  }
+
+  resetColliders() {
+    this.marchands.forEach((pnj) => {
+      this.third.physics.add.collider(
+        this.player.walkPlane,
+        pnj.marchandMesh,
+        () => {
+          if (
+            this.player.keys.interact &&
+            this.player.keys.interact.isDown &&
+            !this.isDay
+          ) {
+            pnj.showItemsForSale();
+          }
+        }
+      );
+    });
+
+    this.pnjs.forEach((pnj) => {
+      this.third.physics.add.collider(
+        this.player.walkPlane, // Le nouveau joueur
+        pnj.marchandMesh, // Le PNJ
+        () => {
+          if (this.player.keys.interact && this.player.keys.interact.isDown) {
+            pnj.showBiomeOptions(); // Afficher les options du biome pour ce PNJ
+          }
+        }
+      );
+    });
+
+    this.enemies.forEach((enemy) => {
+      this.third.physics.add.collider(
+        this.player.walkPlane,
+        enemy.walkPlane,
+        () => {
+          this.player.decreaseHealth();
+        }
+      );
+    });
+
+    this.interactiveObjects.marmites.forEach((marmite) => {
+      this.marmitteBox(marmite); // Recréer les collisions pour chaque marmite
+    });
+
+    this.interactiveObjects.arbres.forEach((arbre) => {
+      this.treeInteraction(arbre); // Recréer les collisions pour chaque arbre
+    });
+
+    this.interactiveObjects.pyramide.forEach((pyramide) => {
+      this.pyramideInteraction(pyramide); // Recréer les collisions pour chaque arbre
+    });
+
+    this.interactiveObjects.etoile.forEach((etoile) => {
+      this.etoileInteraction(etoile); // Recréer les collisions pour chaque arbre
+    });
   }
 }

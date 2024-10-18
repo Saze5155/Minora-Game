@@ -2,7 +2,7 @@ import Global from "/5/test3D/js/inventaire.js";
 
 export default class Player {
   constructor(scene, x, y, z, textureKey) {
-    // Charger la texture initiale
+    this.texturePlayer = textureKey;
     const texture = new THREE.TextureLoader().load(textureKey);
     const geometry = new THREE.PlaneGeometry(2.5, 2.5);
     const material = new THREE.MeshStandardMaterial({
@@ -68,7 +68,8 @@ export default class Player {
     this.inventory = true;
     this.isInvincible = false;
     this.direction = "right";
-
+    this.currentBiome = "nature"; // Biome initial
+    this.lastBiome = { name: "nature", coords: { x, y, z } };
     this.maxVelocity = 50;
 
     this.healthImages = {};
@@ -121,9 +122,23 @@ export default class Player {
     );
     this.loadTextures("attack", "attaqueavant", 7, this.attaqueAvant);
     this.loadTextures("attack", "attaquearriere", 7, this.attaqueArriere);
+
+    this.walkSounds = {
+      nature: this.scene.sound.add("walk_grass", { loop: false }),
+      desert: this.scene.sound.add("walk_sand", { loop: false, volume: 0.5 }),
+      espace: this.scene.sound.add("walk_gravel", { loop: false, volume: 0.5 }),
+    };
+
+    this.currentWalkSound = "nature";
   }
 
   preload() {}
+
+  changeWalkSound(biome) {
+    if (this.walkSounds[biome]) {
+      this.currentWalkSound = biome;
+    }
+  }
 
   hitboxAttack() {
     if (this.currentHitbox) {
@@ -195,6 +210,7 @@ export default class Player {
   }
 
   loadTextures(folder, name, frameCount, textureArray) {
+    const textureLoader = new THREE.TextureLoader();
     const framePaths = [];
     for (let i = 1; i <= frameCount; i++) {
       framePaths.push(
@@ -306,6 +322,10 @@ export default class Player {
   }
 
   update(scene) {
+    if (!this.walkPlane.body) {
+      console.error("Le corps physique du joueur n'est pas défini !");
+      return;
+    }
     const body = this.walkPlane.body;
     let velocityX = 0;
     let velocityY = body.velocity.y;
@@ -336,7 +356,7 @@ export default class Player {
 
         // Joue le son de marche uniquement si ce n'est pas déjà en train de jouer
         if (!this.isWalkingSoundPlaying) {
-          this.scene.sound.play("walk_grass");
+          this.walkSounds[this.currentWalkSound].play();
           this.isWalkingSoundPlaying = true;
         }
       }
@@ -349,7 +369,8 @@ export default class Player {
         this.animateAction("walkdroite");
 
         if (!this.isWalkingSoundPlaying) {
-          this.scene.sound.play("walk_grass");
+          this.walkSounds[this.currentWalkSound].play();
+
           this.isWalkingSoundPlaying = true;
         }
       }
@@ -362,7 +383,8 @@ export default class Player {
         this.animateAction("marcheArriere");
 
         if (!this.isWalkingSoundPlaying) {
-          this.scene.sound.play("walk_grass");
+          this.walkSounds[this.currentWalkSound].play();
+
           this.isWalkingSoundPlaying = true;
         }
       }
@@ -375,14 +397,16 @@ export default class Player {
         this.animateAction("marcheAvant");
 
         if (!this.isWalkingSoundPlaying) {
-          this.scene.sound.play("walk_grass");
+          this.walkSounds[this.currentWalkSound].play();
+
           this.isWalkingSoundPlaying = true;
         }
       }
     } else {
       // Arrête le son de marche lorsque le joueur arrête de marcher
       if (this.isWalkingSoundPlaying) {
-        this.scene.sound.stopByKey("walk_grass");
+        this.walkSounds[this.currentWalkSound].stop();
+
         this.isWalkingSoundPlaying = false;
       }
     }
@@ -553,8 +577,36 @@ export default class Player {
     }, 3000);
   }
 
+  changeBiome(biome) {
+    const coords = this.getBiomeCoords(biome);
+    if (coords) {
+      this.lastBiome = { name: biome, coords };
+    }
+  }
+
+  getBiomeCoords(biome) {
+    const biomes = {
+      nature: { x: -119, z: -55 },
+      desert: { x: 57, z: -76 },
+      space: { x: -70, z: 193 },
+    };
+
+    return biomes[biome] || null;
+  }
   death(scene) {
-    console.log("mort");
-    scene.pause();
+    console.log("Le joueur est mort");
+    this.scene.scene.pause("monde");
+    const { coords } = this.lastBiome;
+    this.scene.recreatePlayerAt(coords.x, coords.z);
+    this.scene.scene.resume("monde");
+    Global.playerHealth = 6;
+    // Respawn après un délai
+    setTimeout,
+      (() => {
+        console.log(
+          `Respawn au dernier biome (${this.lastBiome.name}) à (${coords.x}, 251.5, ${coords.z})`
+        );
+      },
+      2000);
   }
 }

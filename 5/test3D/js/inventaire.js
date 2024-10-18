@@ -143,6 +143,7 @@ let Global = {
     const height = scene.cameras.main.height;
     let scaleFactor = 0;
     let fontSize = "24px";
+    let y = 0;
 
     if (
       scene.scene.key === "Plateformer_map1" ||
@@ -151,6 +152,7 @@ let Global = {
     ) {
       scaleFactor = 10;
       fontSize = "248px";
+      y = 50;
     } else if (
       scene.scene.key === "Laby_map1" ||
       scene.scene.key === "Laby_map2" ||
@@ -341,7 +343,7 @@ let Global = {
     const attackStartY = meatStartY;
 
     for (let i = 0; i < 4; i++) {
-      const slotX = 300 + attackStartX;
+      const slotX = 250 * scaleFactor + attackStartX;
       const slotY = attackStartY + i * (slotSize + padding);
 
       if (this.attackActif[i]) {
@@ -353,18 +355,21 @@ let Global = {
         );
         attackImage.setScale(meatScale); // Ajuster la taille si nécessaire
         attackImage.setInteractive();
-        attackImage.setScrollFactor(0).setDepth(501).setScale(0.15); // Fixer l'image de l'attaque à l'écran
+        attackImage
+          .setScrollFactor(0)
+          .setDepth(501)
+          .setScale(0.09 * scaleFactor); // Fixer l'image de l'attaque à l'écran
         this.inventoryElements.push(attackImage);
         attackImage.on("pointerdown", () => {
-          this.showOffAttacks(scene, i); // Affiche les attaques Off pour remplacer
+          this.showOffAttacks(scene, i, scaleFactor); // Affiche les attaques Off pour remplacer
         });
       }
     }
   },
-  showOffAttacks(scene, activeAttackIndex) {
+  showOffAttacks(scene, activeAttackIndex, scaleFactor) {
     const width = scene.cameras.main.width;
     const height = scene.cameras.main.height;
-    const padding = 20;
+    const padding = -35;
     const slotSize = 80;
 
     const offStartX = width / 2;
@@ -373,8 +378,8 @@ let Global = {
 
     // Affichage des attaques Off
     for (let i = 0; i < this.attackOff.length; i++) {
-      const slotX = offStartX + 300;
-      const slotY = offStartY + i * (slotSize + padding);
+      const slotX = offStartX + 300 * scaleFactor;
+      const slotY = offStartY + i * (slotSize + padding) * scaleFactor;
 
       const attack = this.attackOff[i];
       const attackImage = scene.add.image(
@@ -382,15 +387,17 @@ let Global = {
         slotY + slotSize / 2,
         attack.image // Utilisation de l'image de l'attaque dans attackOff
       );
-      attackImage.setScale(0.15); // Ajuster la taille si nécessaire
       attackImage.setInteractive();
-      attackImage.setScrollFactor(0).setDepth(501).setScale(0.15);
+      attackImage
+        .setScrollFactor(0)
+        .setDepth(501)
+        .setScale(0.07 * scaleFactor);
 
       attackImage.on("pointerover", () => {
-        attackImage.setScale(0.18).setDepth(510); // Agrandir légèrement et amener devant
+        attackImage.setScale(0.09 * scaleFactor).setDepth(502); // Agrandir légèrement et amener devant
       });
       attackImage.on("pointerout", () => {
-        attackImage.setScale(0.15).setDepth(501); // Revenir à la taille normale
+        attackImage.setScale(0.07 * scaleFactor).setDepth(501); // Revenir à la taille normale
       });
 
       attackImage.on("pointerdown", () => {
@@ -407,6 +414,7 @@ let Global = {
       this.inventoryElements.push(attackImage);
     }
   },
+
   eatMeatOrHoney(index, scene) {
     const item = this.inventory.meatsAndHoney[index];
     if (item && item.quantity > 0 && this.playerHealth < 6) {

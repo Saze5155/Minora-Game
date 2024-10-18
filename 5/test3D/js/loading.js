@@ -1685,7 +1685,7 @@ export default class loading {
 
     // this.scene.add('interfaceJeu', interfaceJeu, false, { remainingMonsters: remainingMonsters, remainingItems: remainingItems });
 
-    this.scene.start("Laby_map1");
+    this.scene.start("monde");
   }
 }
 

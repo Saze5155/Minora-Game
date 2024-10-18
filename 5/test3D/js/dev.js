@@ -21,12 +21,16 @@ export default class DevMode {
   // Initialiser la galerie d'images
   initImageSelector() {
     const images = [
-      "/5/test3D/examples/village/ruines5.png",
-      "/5/test3D/examples/village/ruines4.png",
+      "/5/test3D/examples/village/ruines5.png",
+      "/5/test3D/examples/village/ruines4.png",
 
-      "/5/test3D/examples/village/ruines3.png",
-      "/5/test3D/examples/village/ruines2.png",
-      "/5/test3D/examples/village/ruines1.png",
+      "/5/test3D/examples/village/ruines3.png",
+      "/5/test3D/examples/village/ruines2.png",
+      "/5/test3D/examples/village/ruines1.png",
+      "/5/test3D/examples/village/arbre1.png",
+      "/5/test3D/examples/village/arbre2.png",
+      "/5/test3D/examples/village/arbre3.png",
+      "/5/test3D/examples/village/arbre4.png",
 
       "/5/test3D/examples/vie/vie-03.png",
       "/5/test3D/examples/vie/vie-04.png",
