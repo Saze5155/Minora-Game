@@ -2,6 +2,7 @@ import EnemyPlat from "/5/test3D/js/enemy_plat.js"; // Importation de la classe 
 import Global from "/5/test3D/js/inventaire.js";
 import PlayerSpace from "/5/test3D/js/player_space.js";
 
+
 export default class SpaceLevel extends Phaser.Scene {
   constructor() {
     super({ key: "SpaceLevel" });
@@ -15,6 +16,38 @@ export default class SpaceLevel extends Phaser.Scene {
   }
 
   create() {
+
+    this.input.keyboard.on('keydown-D', () => {
+      // Lancer la scène de dialogue avant de l'utiliser
+      this.scene.launch('Dialogue');
+      
+      // Récupérer la scène de dialogue après l'avoir lancée
+      const dialogueScene = this.scene.get('Dialogue');
+  
+      if (dialogueScene) {
+          // Appeler la méthode showDialogue une fois la scène lancée
+          dialogueScene.showDialogue(
+              'Bonjour, où veux-tu aller ?',
+              [
+                  { text: 'Aller au biome nature', callback: () => this.teleportToBiome('nature') },
+                  { text: 'Aller au biome désert', callback: () => this.teleportToBiome('desert') },
+                  { text: 'Aller au biome espace', callback: () => this.teleportToBiome('space') }
+              ]
+          );
+      } else {
+          console.error('Dialogue scene not available.');
+      }
+  });
+  
+  
+
+
+    
+
+
+    this.bossMusic = this.sound.add('SpaceLevel', { volume: 0.2, loop: true });
+    this.bossMusic.play();
+
     // Charger la carte et les tilesets
     const carteDuNiveau = this.add.tilemap("carte");
     const tileset = carteDuNiveau.addTilesetImage(
@@ -31,30 +64,29 @@ export default class SpaceLevel extends Phaser.Scene {
     this.physics.world.setBounds(0, 0, 15360, 15360);
     this.cameras.main.setBounds(0, 0, 15360, 15360);
 
-    // Ajouter le background fixe (derrière le calque des plateformes)
+    // Ajouter le background fixe
     this.background = this.add.image(0, 0, "space_bg").setOrigin(0.5, 0.5);
     this.background.setScrollFactor(0); // Fixe le background à la caméra
 
-    // Fonction pour ajuster la taille et la position du background
-    const resizeBackground = () => {
-      this.background.setDisplaySize(
-        this.cameras.main.width / this.cameras.main.zoom,
-        this.cameras.main.height / this.cameras.main.zoom
-      );
-      // Centrer le background sur la caméra
-      this.background.setPosition(
-        this.cameras.main.worldView.centerX,
-        this.cameras.main.worldView.centerY
-      );
+    // Fonction de redimensionnement
+    this.resizeBackground = () => {
+        this.background.setDisplaySize(this.cameras.main.width / this.cameras.main.zoom, this.cameras.main.height / this.cameras.main.zoom);
+        this.background.setPosition(this.cameras.main.worldView.centerX, this.cameras.main.worldView.centerY);
     };
 
-    // Appeler cette fonction une fois pour initialiser la taille correcte
-    resizeBackground();
+    // Appeler la fonction pour initialiser le background
+    this.resizeBackground();
+    
+    // Ajouter l'événement pour recalculer à chaque redémarrage de la scène
+    this.events.on('resize', this.resizeBackground, this);
+    
+    this.cameras.main.on("camerazoom", this.resizeBackground);
+    this.cameras.main.on("center", this.resizeBackground);
+    this.scale.on("resize", this.resizeBackground);
 
-    // Ajuster la taille du background à chaque fois que la caméra change de zoom ou que la fenêtre est redimensionnée
-    this.cameras.main.on("camerazoom", resizeBackground);
-    this.cameras.main.on("center", resizeBackground); // Réajuster lors du déplacement de la caméra
-    this.scale.on("resize", resizeBackground); // Ajuste le background si la fenêtre est redimensionnée.
+    // Définir la taille de la fenêtre actuelle pour comparer les redimensionnements
+    this.lastWindowWidth = window.innerWidth;
+    this.lastWindowHeight = window.innerHeight;
 
     this.physics.world.setFPS(120);
     this.physics.world.TILE_BIAS = 40;
@@ -218,6 +250,25 @@ export default class SpaceLevel extends Phaser.Scene {
             console.log("Coffre ouvert !");
             chest.setTexture("chest_open");
             chest.setData("isOpen", true);
+            const newAttack = Global.attacks["espace"][0];
+            const earnedAttack = Global.attackOff.push(newAttack);
+
+            const width = this.cameras.main.width;
+            const height = this.cameras.main.height;
+
+            // Afficher l'image de l'attaque gagnée
+            const attackImage = this.add.image(
+              width / 2,
+              height / 2 + 60,
+              newAttack.image // Image de l'attaque gagnée
+            );
+            attackImage.setScale(0.5).setScrollFactor(0).setDepth(60001);
+
+            // Supprimer la notification après quelques secondes
+            setTimeout(() => {
+              attackImage.destroy();
+              this.soundCoffre.stop();
+            }, 2000);
           }
         });
       });
@@ -257,7 +308,20 @@ export default class SpaceLevel extends Phaser.Scene {
     //
   }
 
+  teleportToBiome(biome) {
+    console.log(`Téléportation vers le biome ${biome}`);
+    // Logique de téléportation ici
+  }
+
   update() {
+
+     // Vérifier si la taille de la fenêtre a changé et redimensionner le background
+     if (window.innerWidth !== this.lastWindowWidth || window.innerHeight !== this.lastWindowHeight) {
+      this.resizeBackground(); // Redimensionner si la taille a changé
+      this.lastWindowWidth = window.innerWidth;
+      this.lastWindowHeight = window.innerHeight;
+  }
+
     // Mettre à jour le joueur et lui passer l'état de la gravité
     this.player.update(this.gravityInverted);
 
@@ -325,6 +389,22 @@ export default class SpaceLevel extends Phaser.Scene {
     }
   }
 
+  restartLevel() {
+    // Arrêter la musique, si nécessaire
+    if (this.bossMusic) {
+        this.bossMusic.stop();
+    }
+
+    // Réinitialiser les paramètres nécessaires (comme le background)
+   
+    
+    // Redémarrer la scène actuelle
+    this.scene.restart();
+    this.resizeBackground(); // Appelle explicitement la fonction de redimensionnement
+}
+
+
+
   moveEnemyRandomly(enemy) {
     enemy.isMovingRandomly = true;
     const randomDirection = Phaser.Math.Between(-1, 1); // -1 pour gauche, 1 pour droite, 0 pour rester sur place
@@ -348,6 +428,7 @@ export default class SpaceLevel extends Phaser.Scene {
         // Changer l'image du coffre lorsqu'il est ouvert
         interactable.setTexture("chest_open"); // Assurez-vous de précharger l'image 'coffre_open' dans preload()
         interactable.setData("opened", true);
+        console.log("musique play")
         console.log("Le coffre a été ouvert !");
       } else if (type === "portail") {
         // Changer de scène vers RocketLevel
@@ -375,7 +456,11 @@ export default class SpaceLevel extends Phaser.Scene {
 
     Global.addCoin(5);
     console.log("Pièce collectée !");
+    this.sound.play('collect', { volume: 0.3 });
   }
+
+
+
 
   playerHitBoule(player, boule) {
     // Logique lorsque le joueur touche une boule
@@ -427,7 +512,6 @@ class LaserPlatform {
   activateLaser() {
     this.laser.setAlpha(1);
     this.laserActive = true;
-
     this.scene.physics.add.overlap(this.laser, this.scene.player.sprite, () => {
       if (this.laserActive) {
         this.scene.player.decreaseHealth();

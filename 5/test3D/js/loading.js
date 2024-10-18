@@ -8,6 +8,9 @@ import Plateformer_map1 from "/5/test3D/js/plateformer/plateformer_map1.js";
 import Plateformer_map2 from "/5/test3D/js/plateformer/plateformer_map2.js";
 import Plateformer_map3 from "/5/test3D/js/plateformer/plateformer_map3.js";
 
+import Dialogue from "/5/test3D/js/Dialogue.js";
+import DialogueScene from "/5/test3D/js/DialogueScene.js";
+import DialogueScene2 from "/5/test3D/js/DialogueScene2.js";
 import BossLevel from "/5/test3D/js/Space_Plateformer/BossLevel.js";
 import RocketLevel from "/5/test3D/js/Space_Plateformer/RocketLevel.js";
 import SpaceLevel from "/5/test3D/js/Space_Plateformer/SpaceLevel.js";
@@ -463,6 +466,48 @@ export default class loading {
       "/5/test3D/examples/Sound-Artlist/labyrinthe.wav"
     );
 
+    this.load.audio(
+      "BossLevel",
+      "/5/test3D/examples/Sound-Artlist/BossLevel.wav"
+    );
+    this.load.audio(
+      "RocketLevel",
+      "/5/test3D/examples/Sound-Artlist/RocketLevel.wav"
+    );
+    this.load.audio(
+      "SpaceLevel",
+      "/5/test3D/examples/Sound-Artlist/SpaceLevel.wav"
+    );
+    this.load.audio("Laser1", "/5/test3D/examples/Sound-Artlist/Laser1.wav");
+    this.load.audio("Laser2", "/5/test3D/examples/Sound-Artlist/Laser2.wav");
+    this.load.audio("Laser3", "/5/test3D/examples/Sound-Artlist/Laser3.wav");
+    this.load.audio(
+      "GameOver",
+      "/5/test3D/examples/Sound-Artlist/GameOver.wav"
+    );
+    this.load.audio(
+      "Plateformer_Vie",
+      "/5/test3D/examples/Sound-Artlist/Plateformer_Vie.wav"
+    );
+
+    this.load.audio(
+      "Dialogue_bonny",
+      "/5/test3D/examples/Sound-Artlist/Dialogue_bonny.wav"
+    );
+    this.load.audio(
+      "Dialogue_bonny2",
+      "/5/test3D/examples/Sound-Artlist/Dialogue_Bonny2wav.wav"
+    );
+
+    this.load.audio(
+      "walk_gravel",
+      "/5/test3D/examples/Sound-Artlist/Walk_Gravel.wav"
+    );
+    this.load.audio(
+      "walk_sand",
+      "/5/test3D/examples/Sound-Artlist/Walk_Sand.wav"
+    );
+
     //
 
     this.load.image(
@@ -493,6 +538,7 @@ export default class loading {
     this.load.image("force", "/5/test3D/examples/potions/force.png");
     this.load.image("defense", "/5/test3D/examples/potions/defense.png");
     this.load.image("temps", "/5/test3D/examples/potions/temps.png");
+    this.load.image("espace", "/5/test3D/examples/potions/espace.png");
     this.load.image("returnButton", "/5/test3D/examples/tpt/bouton_retour.png");
 
     // Space
@@ -537,6 +583,7 @@ export default class loading {
     this.load.image("chest_open", "/5/test3D/examples/coffre/coffre_2.png");
     this.load.image("portal", "/5/test3D/examples/Space/portail.png");
     this.load.image("socle", "/5/test3D/examples/Space/socle_laser.png");
+    this.load.image("button_e", "/5/test3D/examples/tpt/bouton.png");
     this.load.image(
       "platform_image",
       "/5/test3D/examples/Space/tuiles/TuilesJeu.png"
@@ -544,7 +591,7 @@ export default class loading {
 
     this.load.image(
       "background_espace",
-      "/5/test3D/examples/tpt/terrain_combat_tour.png"
+      "/5/test3D/examples/tpt/terrain_combat_espace.png"
     );
     this.load.image(
       "background_desert",
@@ -553,6 +600,10 @@ export default class loading {
     this.load.image(
       "background_vie",
       "/5/test3D/examples/tpt/terrain_pokemon.png"
+    );
+    this.load.image(
+      "background_tour",
+      "/5/test3D/examples/tpt/terrain_combat_tour.png"
     );
 
     // Load animation ennemy espace
@@ -850,9 +901,635 @@ export default class loading {
       "attaque_normal_4",
       "/5/test3D/examples/boutons_attaques/normal_4.png"
     );
+
+    this.load.image(
+      "espace_attaque_dieux_1",
+      "/5/test3D/examples/tpt/attaques/espace/attaque_enemy1.png"
+    );
+
+    this.load.image(
+      "espace_attaque_dieux_2",
+      "/5/test3D/examples/tpt/attaques/espace/attaque_enemy2.png"
+    );
+
+    this.load.image(
+      "espace_attaque_dieux_3",
+      "/5/test3D/examples/tpt/attaques/espace/attaque_enemy3.png"
+    );
+
+    this.load.image(
+      "espace_attaque_dieux_4",
+      "/5/test3D/examples/tpt/attaques/espace/attaque_enemy4.png"
+    );
+
+    this.load.image(
+      "espace_attaque_dieux_5",
+      "/5/test3D/examples/tpt/attaques/espace/attaque_enemy5.png"
+    );
+
+    this.load.image(
+      "espace_attaque_dieux_6",
+      "/5/test3D/examples/tpt/attaques/espace/attaque_enemy6.png"
+    );
+
+    this.load.image(
+      "espace_attaque_dieux_7",
+      "/5/test3D/examples/tpt/attaques/espace/attaque_enemy7.png"
+    );
+
+    this.load.image(
+      "espace_attaque_dieux_8",
+      "/5/test3D/examples/tpt/attaques/espace/attaque_enemy8.png"
+    );
+
+    this.load.image(
+      "espace_attaque_dieux_9",
+      "/5/test3D/examples/tpt/attaques/espace/attaque_enemy9.png"
+    );
+
+    this.load.image(
+      "espace_attaque_dieux_10",
+      "/5/test3D/examples/tpt/attaques/espace/attaque_enemy10.png"
+    );
+
+    this.load.image(
+      "espace_attaque_dieux_11",
+      "/5/test3D/examples/tpt/attaques/espace/attaque_enemy11.png"
+    );
+
+    this.load.image(
+      "espace_attente_dieux_1",
+      "/5/test3D/examples/attente_dossier/espace/Attente_enemy1.png"
+    );
+
+    this.load.image(
+      "espace_attente_dieux_2",
+      "/5/test3D/examples/attente_dossier/espace/Attente_enemy2.png"
+    );
+
+    this.load.image(
+      "espace_attente_dieux_3",
+      "/5/test3D/examples/attente_dossier/espace/Attente_enemy3.png"
+    );
+
+    this.load.image(
+      "espace_attente_dieux_4",
+      "/5/test3D/examples/attente_dossier/espace/Attente_enemy4.png"
+    );
+
+    this.load.image(
+      "espace_attente_dieux_5",
+      "/5/test3D/examples/attente_dossier/espace/Attente_enemy5.png"
+    );
+
+    this.load.image(
+      "espace_attente_dieux_6",
+      "/5/test3D/examples/attente_dossier/espace/Attente_enemy6.png"
+    );
+
+    this.load.image(
+      "espace_attente_dieux_7",
+      "/5/test3D/examples/attente_dossier/espace/Attente_enemy7.png"
+    );
+
+    this.load.image(
+      "espace_attente_dieux_8",
+      "/5/test3D/examples/attente_dossier/espace/Attente_enemy8.png"
+    );
+
+    this.load.image(
+      "espace_attente_dieux_9",
+      "/5/test3D/examples/attente_dossier/espace/Attente_enemy9.png"
+    );
+
+    this.load.image(
+      "espace_attente_dieux_10",
+      "/5/test3D/examples/attente_dossier/espace/Attente_enemy10.png"
+    );
+
+    this.load.image(
+      "espace_attente_dieux_11",
+      "/5/test3D/examples/attente_dossier/espace/Attente_enemy11.png"
+    );
+
+    this.load.image(
+      "lumiere_attaque_dieux_1",
+      "/5/test3D/examples/tpt/attaques/lumiere/attaque_enemy1.png"
+    );
+
+    this.load.image(
+      "lumiere_attaque_dieux_2",
+      "/5/test3D/examples/tpt/attaques/lumiere/attaque_enemy2.png"
+    );
+
+    this.load.image(
+      "lumiere_attaque_dieux_3",
+      "/5/test3D/examples/tpt/attaques/lumiere/attaque_enemy3.png"
+    );
+
+    this.load.image(
+      "lumiere_attaque_dieux_4",
+      "/5/test3D/examples/tpt/attaques/lumiere/attaque_enemy4.png"
+    );
+
+    this.load.image(
+      "lumiere_attaque_dieux_5",
+      "/5/test3D/examples/tpt/attaques/lumiere/attaque_enemy5.png"
+    );
+
+    this.load.image(
+      "lumiere_attaque_dieux_6",
+      "/5/test3D/examples/tpt/attaques/lumiere/attaque_enemy6.png"
+    );
+
+    this.load.image(
+      "lumiere_attaque_dieux_7",
+      "/5/test3D/examples/tpt/attaques/lumiere/attaque_enemy7.png"
+    );
+
+    this.load.image(
+      "lumiere_attaque_dieux_8",
+      "/5/test3D/examples/tpt/attaques/lumiere/attaque_enemy8.png"
+    );
+
+    this.load.image(
+      "lumiere_attaque_dieux_9",
+      "/5/test3D/examples/tpt/attaques/lumiere/attaque_enemy9.png"
+    );
+
+    this.load.image(
+      "lumiere_attaque_dieux_10",
+      "/5/test3D/examples/tpt/attaques/lumiere/attaque_enemy10.png"
+    );
+
+    this.load.image(
+      "lumiere_attaque_dieux_11",
+      "/5/test3D/examples/tpt/attaques/lumiere/attaque_enemy11.png"
+    );
+
+    this.load.image(
+      "lumiere_attente_dieux_1",
+      "/5/test3D/examples/attente_dossier/lumiere/Attente_enemy1.png"
+    );
+
+    this.load.image(
+      "lumiere_attente_dieux_2",
+      "/5/test3D/examples/attente_dossier/lumiere/Attente_enemy2.png"
+    );
+
+    this.load.image(
+      "lumiere_attente_dieux_3",
+      "/5/test3D/examples/attente_dossier/lumiere/Attente_enemy3.png"
+    );
+
+    this.load.image(
+      "lumiere_attente_dieux_4",
+      "/5/test3D/examples/attente_dossier/lumiere/Attente_enemy4.png"
+    );
+
+    this.load.image(
+      "lumiere_attente_dieux_5",
+      "/5/test3D/examples/attente_dossier/lumiere/Attente_enemy5.png"
+    );
+
+    this.load.image(
+      "lumiere_attente_dieux_6",
+      "/5/test3D/examples/attente_dossier/lumiere/Attente_enemy6.png"
+    );
+
+    this.load.image(
+      "lumiere_attente_dieux_7",
+      "/5/test3D/examples/attente_dossier/lumiere/Attente_enemy7.png"
+    );
+
+    this.load.image(
+      "lumiere_attente_dieux_8",
+      "/5/test3D/examples/attente_dossier/lumiere/Attente_enemy8.png"
+    );
+
+    this.load.image(
+      "lumiere_attente_dieux_9",
+      "/5/test3D/examples/attente_dossier/lumiere/Attente_enemy9.png"
+    );
+
+    this.load.image(
+      "lumiere_attente_dieux_10",
+      "/5/test3D/examples/attente_dossier/lumiere/Attente_enemy10.png"
+    );
+
+    this.load.image(
+      "lumiere_attente_dieux_11",
+      "/5/test3D/examples/attente_dossier/lumiere/Attente_enemy11.png"
+    );
+
+    this.load.image(
+      "temps_attaque_dieux_1",
+      "/5/test3D/examples/tpt/attaques/temps/attaque_enemy1.png"
+    );
+
+    this.load.image(
+      "temps_attaque_dieux_2",
+      "/5/test3D/examples/tpt/attaques/temps/attaque_enemy2.png"
+    );
+
+    this.load.image(
+      "temps_attaque_dieux_3",
+      "/5/test3D/examples/tpt/attaques/temps/attaque_enemy3.png"
+    );
+
+    this.load.image(
+      "temps_attaque_dieux_4",
+      "/5/test3D/examples/tpt/attaques/temps/attaque_enemy4.png"
+    );
+
+    this.load.image(
+      "temps_attaque_dieux_5",
+      "/5/test3D/examples/tpt/attaques/temps/attaque_enemy5.png"
+    );
+
+    this.load.image(
+      "temps_attaque_dieux_6",
+      "/5/test3D/examples/tpt/attaques/temps/attaque_enemy6.png"
+    );
+
+    this.load.image(
+      "temps_attaque_dieux_7",
+      "/5/test3D/examples/tpt/attaques/temps/attaque_enemy7.png"
+    );
+
+    this.load.image(
+      "temps_attaque_dieux_8",
+      "/5/test3D/examples/tpt/attaques/temps/attaque_enemy8.png"
+    );
+
+    this.load.image(
+      "temps_attaque_dieux_9",
+      "/5/test3D/examples/tpt/attaques/temps/attaque_enemy9.png"
+    );
+
+    this.load.image(
+      "temps_attaque_dieux_10",
+      "/5/test3D/examples/tpt/attaques/temps/attaque_enemy10.png"
+    );
+
+    this.load.image(
+      "temps_attaque_dieux_11",
+      "/5/test3D/examples/tpt/attaques/temps/attaque_enemy11.png"
+    );
+
+    this.load.image(
+      "temps_attente_dieux_1",
+      "/5/test3D/examples/attente_dossier/temps/Attente_enemy1.png"
+    );
+
+    this.load.image(
+      "temps_attente_dieux_2",
+      "/5/test3D/examples/attente_dossier/temps/Attente_enemy2.png"
+    );
+
+    this.load.image(
+      "temps_attente_dieux_3",
+      "/5/test3D/examples/attente_dossier/temps/Attente_enemy3.png"
+    );
+
+    this.load.image(
+      "temps_attente_dieux_4",
+      "/5/test3D/examples/attente_dossier/temps/Attente_enemy4.png"
+    );
+
+    this.load.image(
+      "temps_attente_dieux_5",
+      "/5/test3D/examples/attente_dossier/temps/Attente_enemy5.png"
+    );
+
+    this.load.image(
+      "temps_attente_dieux_6",
+      "/5/test3D/examples/attente_dossier/temps/Attente_enemy6.png"
+    );
+
+    this.load.image(
+      "temps_attente_dieux_7",
+      "/5/test3D/examples/attente_dossier/temps/Attente_enemy7.png"
+    );
+
+    this.load.image(
+      "temps_attente_dieux_8",
+      "/5/test3D/examples/attente_dossier/temps/Attente_enemy8.png"
+    );
+
+    this.load.image(
+      "temps_attente_dieux_9",
+      "/5/test3D/examples/attente_dossier/temps/Attente_enemy9.png"
+    );
+
+    this.load.image(
+      "temps_attente_dieux_10",
+      "/5/test3D/examples/attente_dossier/temps/Attente_enemy10.png"
+    );
+
+    this.load.image(
+      "temps_attente_dieux_11",
+      "/5/test3D/examples/attente_dossier/temps/Attente_enemy11.png"
+    );
+
+    this.load.image(
+      "vie_attaque_dieux_1",
+      "/5/test3D/examples/tpt/attaques/vie/attaque_enemy1.png"
+    );
+
+    this.load.image(
+      "vie_attaque_dieux_2",
+      "/5/test3D/examples/tpt/attaques/vie/attaque_enemy2.png"
+    );
+
+    this.load.image(
+      "vie_attaque_dieux_3",
+      "/5/test3D/examples/tpt/attaques/vie/attaque_enemy3.png"
+    );
+
+    this.load.image(
+      "vie_attaque_dieux_4",
+      "/5/test3D/examples/tpt/attaques/vie/attaque_enemy4.png"
+    );
+
+    this.load.image(
+      "vie_attaque_dieux_5",
+      "/5/test3D/examples/tpt/attaques/vie/attaque_enemy5.png"
+    );
+
+    this.load.image(
+      "vie_attaque_dieux_6",
+      "/5/test3D/examples/tpt/attaques/vie/attaque_enemy6.png"
+    );
+
+    this.load.image(
+      "vie_attaque_dieux_7",
+      "/5/test3D/examples/tpt/attaques/vie/attaque_enemy7.png"
+    );
+
+    this.load.image(
+      "vie_attaque_dieux_8",
+      "/5/test3D/examples/tpt/attaques/vie/attaque_enemy8.png"
+    );
+
+    this.load.image(
+      "vie_attaque_dieux_9",
+      "/5/test3D/examples/tpt/attaques/vie/attaque_enemy9.png"
+    );
+
+    this.load.image(
+      "vie_attaque_dieux_10",
+      "/5/test3D/examples/tpt/attaques/vie/attaque_enemy10.png"
+    );
+
+    this.load.image(
+      "vie_attaque_dieux_11",
+      "/5/test3D/examples/tpt/attaques/vie/attaque_enemy11.png"
+    );
+
+    this.load.image(
+      "vie_attente_dieux_1",
+      "/5/test3D/examples/attente_dossier/vie/Attente_enemy1.png"
+    );
+
+    this.load.image(
+      "vie_attente_dieux_2",
+      "/5/test3D/examples/attente_dossier/vie/Attente_enemy2.png"
+    );
+
+    this.load.image(
+      "vie_attente_dieux_3",
+      "/5/test3D/examples/attente_dossier/vie/Attente_enemy3.png"
+    );
+
+    this.load.image(
+      "vie_attente_dieux_4",
+      "/5/test3D/examples/attente_dossier/vie/Attente_enemy4.png"
+    );
+
+    this.load.image(
+      "vie_attente_dieux_5",
+      "/5/test3D/examples/attente_dossier/vie/Attente_enemy5.png"
+    );
+
+    this.load.image(
+      "vie_attente_dieux_6",
+      "/5/test3D/examples/attente_dossier/vie/Attente_enemy6.png"
+    );
+
+    this.load.image(
+      "vie_attente_dieux_7",
+      "/5/test3D/examples/attente_dossier/vie/Attente_enemy7.png"
+    );
+
+    this.load.image(
+      "vie_attente_dieux_8",
+      "/5/test3D/examples/attente_dossier/vie/Attente_enemy8.png"
+    );
+
+    this.load.image(
+      "vie_attente_dieux_9",
+      "/5/test3D/examples/attente_dossier/vie/Attente_enemy9.png"
+    );
+
+    this.load.image(
+      "vie_attente_dieux_10",
+      "/5/test3D/examples/attente_dossier/vie/Attente_enemy10.png"
+    );
+
+    this.load.image(
+      "vie_attente_dieux_11",
+      "/5/test3D/examples/attente_dossier/vie/Attente_enemy11.png"
+    );
+
+    this.load.image("bonny1", "/5/test3D/examples/bonny/bonny_01.png");
+
+    this.load.image("bonny2", "/5/test3D/examples/bonny/bonny_02.png");
+
+    this.load.image("bonny3", "/5/test3D/examples/bonny/bonny_03.png");
+
+    this.load.image("bonny4", "/5/test3D/examples/bonny/bonny_04.png");
+
+    this.load.image("bonny5", "/5/test3D/examples/bonny/bonny_05.png");
+
+    this.load.image("bonny6", "/5/test3D/examples/bonny/bonny_06.png");
+
+    this.load.image("bonny7", "/5/test3D/examples/bonny/bonny_07.png");
+
+    this.load.image("bonny8", "/5/test3D/examples/bonny/bonny_08.png");
+
+    this.load.image("bonny9", "/5/test3D/examples/bonny/bonny_08.png");
   }
   create() {
+    this.anims.create({
+      key: "anim_bonny",
+      frames: [
+        { key: "bonny1" },
+        { key: "bonny2" },
+        { key: "bonny3" },
+        { key: "bonny4" },
+        { key: "bonny5" },
+        { key: "bonny6" },
+        { key: "bonny7" },
+        { key: "bonny8" },
+        { key: "bonny9" },
+      ],
+      frameRate: 7,
+      repeat: -1,
+    });
+
     // Animation Tour par Tour
+    this.anims.create({
+      key: "vie_attaque_dieux",
+      frames: [
+        { key: "vie_attaque_dieux_1" },
+        { key: "vie_attaque_dieux_2" },
+        { key: "vie_attaque_dieux_3" },
+        { key: "vie_attaque_dieux_4" },
+        { key: "vie_attaque_dieux_5" },
+        { key: "vie_attaque_dieux_6" },
+        { key: "vie_attaque_dieux_7" },
+        { key: "vie_attaque_dieux_8" },
+        { key: "vie_attaque_dieux_9" },
+        { key: "vie_attaque_dieux_10" },
+        { key: "vie_attaque_dieux_11" },
+      ],
+      frameRate: 15,
+      repeat: 0,
+    });
+
+    this.anims.create({
+      key: "vie_attente_dieux",
+      frames: [
+        { key: "vie_attente_dieux_1" },
+        { key: "vie_attente_dieux_2" },
+        { key: "vie_attente_dieux_3" },
+        { key: "vie_attente_dieux_4" },
+        { key: "vie_attente_dieux_5" },
+        { key: "vie_attente_dieux_6" },
+        { key: "vie_attente_dieux_7" },
+        { key: "vie_attente_dieux_8" },
+        { key: "vie_attente_dieux_9" },
+        { key: "vie_attente_dieux_10" },
+        { key: "vie_attente_dieux_11" },
+      ],
+      frameRate: 7,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: "temps_attaque_dieux",
+      frames: [
+        { key: "temps_attaque_dieux_1" },
+        { key: "temps_attaque_dieux_2" },
+        { key: "temps_attaque_dieux_3" },
+        { key: "temps_attaque_dieux_4" },
+        { key: "temps_attaque_dieux_5" },
+        { key: "temps_attaque_dieux_6" },
+        { key: "temps_attaque_dieux_7" },
+        { key: "temps_attaque_dieux_8" },
+        { key: "temps_attaque_dieux_9" },
+        { key: "temps_attaque_dieux_10" },
+        { key: "temps_attaque_dieux_11" },
+      ],
+      frameRate: 15,
+      repeat: 0,
+    });
+
+    this.anims.create({
+      key: "temps_attente_dieux",
+      frames: [
+        { key: "temps_attente_dieux_1" },
+        { key: "temps_attente_dieux_2" },
+        { key: "temps_attente_dieux_3" },
+        { key: "temps_attente_dieux_4" },
+        { key: "temps_attente_dieux_5" },
+        { key: "temps_attente_dieux_6" },
+        { key: "temps_attente_dieux_7" },
+        { key: "temps_attente_dieux_8" },
+        { key: "temps_attente_dieux_9" },
+        { key: "temps_attente_dieux_10" },
+        { key: "temps_attente_dieux_11" },
+      ],
+      frameRate: 7,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: "lumiere_attaque_dieux",
+      frames: [
+        { key: "lumiere_attaque_dieux_1" },
+        { key: "lumiere_attaque_dieux_2" },
+        { key: "lumiere_attaque_dieux_3" },
+        { key: "lumiere_attaque_dieux_4" },
+        { key: "lumiere_attaque_dieux_5" },
+        { key: "lumiere_attaque_dieux_6" },
+        { key: "lumiere_attaque_dieux_7" },
+        { key: "lumiere_attaque_dieux_8" },
+        { key: "lumiere_attaque_dieux_9" },
+        { key: "lumiere_attaque_dieux_10" },
+        { key: "lumiere_attaque_dieux_11" },
+      ],
+      frameRate: 15,
+      repeat: 0,
+    });
+
+    this.anims.create({
+      key: "lumiere_attente_dieux_",
+      frames: [
+        { key: "lumiere_attente_dieux_1" },
+        { key: "lumiere_attente_dieux_2" },
+        { key: "lumiere_attente_dieux_3" },
+        { key: "lumiere_attente_dieux_4" },
+        { key: "lumiere_attente_dieux_5" },
+        { key: "lumiere_attente_dieux_6" },
+        { key: "lumiere_attente_dieux_7" },
+        { key: "lumiere_attente_dieux_8" },
+        { key: "lumiere_attente_dieux_9" },
+        { key: "lumiere_attente_dieux_10" },
+        { key: "lumiere_attente_dieux_11" },
+      ],
+      frameRate: 7,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: "attaque_espace_dieux",
+      frames: [
+        { key: "espace_attaque_dieux_1" },
+        { key: "espace_attaque_dieux_2" },
+        { key: "espace_attaque_dieux_3" },
+        { key: "espace_attaque_dieux_4" },
+        { key: "espace_attaque_dieux_5" },
+        { key: "espace_attaque_dieux_6" },
+        { key: "espace_attaque_dieux_7" },
+        { key: "espace_attaque_dieux_8" },
+        { key: "espace_attaque_dieux_9" },
+        { key: "espace_attaque_dieux_10" },
+        { key: "espace_attaque_dieux_11" },
+      ],
+      frameRate: 15,
+      repeat: 0,
+    });
+
+    this.anims.create({
+      key: "attente_espace_dieux",
+      frames: [
+        { key: "espace_attente_dieux_1" },
+        { key: "espace_attente_dieux_2" },
+        { key: "espace_attente_dieux_3" },
+        { key: "espace_attente_dieux_4" },
+        { key: "espace_attente_dieux_5" },
+        { key: "espace_attente_dieux_6" },
+        { key: "espace_attente_dieux_7" },
+        { key: "espace_attente_dieux_8" },
+        { key: "espace_attente_dieux_9" },
+        { key: "espace_attente_dieux_10" },
+        { key: "espace_attente_dieux_11" },
+      ],
+      frameRate: 7,
+      repeat: -1,
+    });
 
     this.anims.create({
       key: "attaque_vie_enemy",
@@ -1002,6 +1679,10 @@ export default class loading {
     this.scene.add("SpaceLevel", SpaceLevel, false);
     this.scene.add("RocketLevel", RocketLevel, false);
     this.scene.add("BossLevel", BossLevel, false);
+    this.scene.add("DialogueScene", DialogueScene, false);
+    this.scene.add("DialogueScene2", DialogueScene2, false);
+    this.scene.add("Dialogue", Dialogue, false);
+
     // this.scene.add('interfaceJeu', interfaceJeu, false, { remainingMonsters: remainingMonsters, remainingItems: remainingItems });
 
     this.scene.start("Laby_map1");

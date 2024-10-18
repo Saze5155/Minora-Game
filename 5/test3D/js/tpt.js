@@ -47,7 +47,26 @@ export default class tpt extends Phaser.Scene {
         idle = "attente_temps_enemy";
         background = "background_temps";
         frame ='temps_attente_enemy_1'
-     
+    }else if(enemyId == 4){
+      attack =  "attaque_espace_dieux";
+      idle = "attente_espace_dieux";
+      background = "background_tour";
+      frame ='espace_attente_dieux_1'
+    }else if(enemyId == 5){
+      attack =  "lumiere_attaque_dieux";
+      idle = "lumiere_attente_dieux_";
+      background = "background_tour";
+      frame ='lumiere_attente_dieux_1'
+    }else if(enemyId == 6){
+      attack =  "temps_attaque_dieux";
+      idle = "temps_attente_dieux";
+      background = "background_tour";
+      frame ='temps_attente_dieux_1'
+    }else if(enemyId == 7){
+      attack =  "vie_attaque_dieux";
+      idle = "vie_attente_dieux";
+      background = "background_tour";
+      frame ='vie_attente_dieux_1'
     }
 
     
@@ -64,7 +83,24 @@ export default class tpt extends Phaser.Scene {
     this.background.setDisplaySize(this.scale.width, this.scale.height);
     this.enemy = this.add.sprite(600, 300, this.frame); 
 
-    this.enemy.setScale(1);
+    if (enemyId > 3) {
+      this.enemy.setScale(0.2); // Appliquer une échelle réduite pour les ennemis avec ID > 3
+  } else {
+      this.enemy.setScale(1); // Taille normale pour les autres
+  }
+
+  
+  if (enemyId == 5) {
+    this.scene.launch("DialogueScene2");
+    this.enemyHP = 400;
+  }
+
+  if (enemyId == 4 || enemyId == 6 || enemyId == 7) {
+    this.enemyHP = 300; // Points de vie de l'ennemi
+  }
+
+  
+
 this.enemy.setDepth(10)
 this.enemy.setFlipX(true);
 
@@ -75,7 +111,7 @@ this.enemy.setFlipX(true);
 
 
 
-  Global.giveAllPotions();
+  // Global.giveAllPotions();
 
   // Ajouter le background et le redimensionner
   // const background = this.add.image(0, 0, "background");
@@ -83,10 +119,10 @@ this.enemy.setFlipX(true);
   // background.setDisplaySize(this.scale.width, this.scale.height);
 
   // Redimensionner le background si l'écran change de taille
-  this.scale.on("resize", (gameSize) => {
-    const { width, height } = gameSize;
-    background.setDisplaySize(width, height);
-  });
+  // this.scale.on("resize", (gameSize) => {
+  //   const { width, height } = gameSize;
+  //   background.setDisplaySize(width, height);
+  // });
 
   // Afficher le joueur avec la première image de l'animation
   this.player = this.add.sprite(100, 400, "idle_1");
@@ -109,16 +145,16 @@ this.enemy.setFlipX(true);
   });
 
   // Afficher temporairement les HP du joueur
-  this.playerHPText = this.add.text(100, 340, `HP: ${this.playerHP}`, {
-    fontSize: "24px",
-    fill: "#fff",
-  });
+  // this.playerHPText = this.add.text(100, 340, `HP: ${this.playerHP}`, {
+  //   fontSize: "24px",
+  //   fill: "#fff",
+  // });
 
   // Afficher temporairement les HP de l'ennemi
-  this.enemyHPText = this.add.text(600, 30, `HP: ${this.enemyHP}`, {
-    fontSize: "24px",
-    fill: "#fff",
-  });
+  // this.enemyHPText = this.add.text(600, 30, `HP: ${this.enemyHP}`, {
+  //   fontSize: "24px",
+  //   fill: "#fff",
+  // });
 
   // Chatbox pour les actions du joueur et de l'ennemi
   this.playerActionTextBox = this.add.text(50, 300, "", {
@@ -392,7 +428,7 @@ create() {
   inflictDamageToEnemy(damage) {
     this.enemyHP -= damage;
     this.updateHealthBar(this.enemyHealthBar, this.enemyHP, 200); // Mettre à jour la barre de vie
-    this.enemyHPText.setText(`HP: ${this.enemyHP}`); // Mettre à jour l'affichage des HP
+    // this.enemyHPText.setText(`HP: ${this.enemyHP}`); // Mettre à jour l'affichage des HP
     this.flashRed(this.enemy); // Faire clignoter l'ennemi en rouge
   
     if (this.enemyHP <= 0) {
@@ -453,35 +489,59 @@ create() {
   }
 
   showAttackMenu() {
-    const currentBiome = 'nature'; // Ici, par exemple, 'nature' est utilisé.
-    const biomeAttacks = Global.attacks[currentBiome];
-    const neutralAttacks = Global.attacks['neutre'];
-    
-    // Vérifie que les attaques pour le biome actuel existent
-    if (!biomeAttacks || !neutralAttacks) {
-      console.error(`Attaques non trouvées pour le biome ${currentBiome}`);
-      return;
-    }
-    
-    // Affiche le texte pour les attaques du biome
-    let attackText = 'Choisissez une attaque :\n';
-    
-    biomeAttacks.forEach((attack, index) => {
-      attackText += `${index + 1}. ${attack.name} (Dégâts: ${attack.damage}, Coût: ${attack.mpCost} MP)\n`;
-    });
-    
-    neutralAttacks.forEach((attack, index) => {
-      const neutralIndex = index + biomeAttacks.length;
-      attackText += `${neutralIndex + 1}. ${attack.name} (Dégâts: ${attack.damage}, Coût: ${attack.mpCost} MP)\n`;
-    });
-    
-    this.attackMenu.setText(attackText).setVisible(true);
-    this.attackMenuVisible = true;
-    this.potionMenuVisible = false;
-    this.potionMenu.setVisible(false);
-    
-  }
+    // Masquer les autres boutons
+    this.attackButton.setVisible(false);
+    this.defendButton.setVisible(false);
+    this.potionButton.setVisible(false);
+    this.fleeButton.setVisible(false);
   
+    // Supprimer le texte du menu d'attaque précédent, si nécessaire
+    if (this.attackMenu) {
+      this.attackMenu.setVisible(false);
+    }
+  
+    // Définir la taille réduite des images et l'espacement vertical
+    const slotSize = 50; // Taille réduite des images
+    const padding = 30; // Espacement entre les images
+    const startX = this.scale.width / 2; // Centrer les images horizontalement
+    const startY = this.scale.height / 2 - (slotSize + padding) * Global.attackActif.length / 2; // Centrer verticalement
+  
+    // Afficher les images des attaques actives du joueur de manière verticale
+    this.attackImages = []; // Stocker les images pour pouvoir les détruire plus tard
+    Global.attackActif.forEach((attack, index) => {
+      const y = startY + (slotSize + padding) * index;
+      
+      const attackImage = this.add.image(startX, y, attack.image).setInteractive();
+      attackImage.setScale(0.07); // Taille réduite des images d'attaque
+      attackImage.setScrollFactor(0).setDepth(501);
+      this.attackImages.push(attackImage); // Ajouter à la liste des images pour gestion
+  
+      // Gérer l'interaction : quand l'image est cliquée, on sélectionne l'attaque
+      attackImage.on('pointerdown', () => {
+        this.playerAttack(attack); // Lancer l'attaque correspondante
+      });
+  
+      // Gérer le survol pour agrandir l'image
+      attackImage.on('pointerover', () => {
+        attackImage.setScale(0.10).setDepth(502); // Agrandir légèrement au survol
+      });
+  
+      attackImage.on('pointerout', () => {
+        attackImage.setScale(0.07).setDepth(501); // Retour à la taille normale quand on quitte
+      });
+    });
+  
+    // Ajouter un bouton de retour en bas de l'écran
+    this.returnButton = this.add.image(this.scale.width / 2, this.scale.height - 50, 'returnButton').setInteractive();
+    this.returnButton.setScale(0.5); // Ajuster la taille si nécessaire
+  
+    // Lorsque le bouton retour est cliqué, on revient aux boutons d'attaque/défense/fuite
+    this.returnButton.on('pointerdown', () => {
+      this.hideAttackMenu(); // Masquer le menu d'attaque
+      this.showMainButtons(); // Réafficher les boutons principaux
+    });
+  }
+
 
 
 
@@ -597,11 +657,18 @@ create() {
   
   
   hideAttackMenu() {
-    if (this.attackMenu) {
-      this.attackMenu.setVisible(false); // Masquer le menu d'attaque
+    // Masquer le menu d'attaque en supprimant les images d'attaque
+    if (this.attackImages) {
+      this.attackImages.forEach(image => image.destroy()); // Supprimer chaque image
+      this.attackImages = []; // Réinitialiser le tableau
     }
+  
+    if (this.returnButton) {
+      this.returnButton.destroy(); // Supprimer le bouton retour
+    }
+  
     this.attackMenuVisible = false;
-    
+  
     // Réafficher les boutons d'attaque/défense/potion/fuite
     this.showMainButtons();
   }
@@ -928,7 +995,7 @@ enemyAttack() {
   this.playerHP -= damage;
   this.updateHealthBar(this.playerHealthBar, this.playerHP, 200);
 
-  this.playerHPText.setText(`HP: ${this.playerHP}`);
+  // this.playerHPText.setText(`HP: ${this.playerHP}`);
 
   // Message d'attaque
   let message = (damage > 15) ? "L'ennemi a porté un coup critique !" : "L'ennemi a infligé des dégâts.";
@@ -1006,7 +1073,7 @@ enemyAttack() {
       this.player.setPosition(410, 670);
       this.playerHealthBar.setPosition(410, 550);
       this.playerMPText.setPosition(360, 500);
-      this.playerActionTextBox.setPosition(250, 700);
+      this.playerActionTextBox.setPosition(250, 800);
     } else {
       console.error("Les éléments du joueur ne sont pas encore définis.");
     }
@@ -1016,9 +1083,9 @@ enemyAttack() {
     if (this.enemy && this.enemyHealthBar && this.enemyMPText) {
       // Position de l'ennemi et de ses éléments liés
       this.enemy.setPosition(1510, 570);
-      this.enemyHealthBar.setPosition(1510, 470);
-      this.enemyMPText.setPosition(1460, 430);
-      this.enemyActionTextBox.setPosition(1220, 600);
+      this.enemyHealthBar.setPosition(1510, 370);
+      this.enemyMPText.setPosition(1460, 330);
+      this.enemyActionTextBox.setPosition(1220, 280);
     } else {
       console.error("Les éléments de l'ennemi ne sont pas encore définis.");
     }
