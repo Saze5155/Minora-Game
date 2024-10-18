@@ -16,8 +16,8 @@ export default class DialogueScene2 extends Phaser.Scene {
       this.add.image(0, 0, 'background').setOrigin(0).setDisplaySize(this.scale.width, this.scale.height);
   
       // Ajouter l'animation de bonny au centre
-      this.bonny = this.add.sprite(this.scale.width / 2, this.scale.height / 2 - 100, 'anim_bonny').setScale(0.7);
-      this.bonny.anims.play('anim_bonny');
+      this.bonny = this.add.sprite(this.scale.width / 2, this.scale.height / 2 - 100, 'anim_bonny2').setScale(0.7);
+      this.bonny.anims.play('anim_bonny2');
   
       // Ajouter la boîte de dialogue en bas avec marge
       const boxWidth = this.scale.width * 0.7;
@@ -47,17 +47,14 @@ export default class DialogueScene2 extends Phaser.Scene {
   
       // Liste des textes à afficher
       this.texts = [
-        " Bonjour, tu t’appelles Cletra c’est ça ?",
-        "Moi c’est Bonny, j’ai vu ton village partir en fumée, je vais tout te raconter...",
-        "Tu vois l’île au loin ?",
-        "Elle est dirigée par trois dieux: Ukufifa Déesse de la Vie, Khala Déesse de l’Espace et Khali son frère Jumeaux Dieu du Temps ! Elle est dirigée par trois dieux: Ukufifa Déesse de la Vie, Khala Déesse de l’Espace et Khali son frère Jumeaux dieu du Temps !",
-        "Ils règnent sur trois nations séparées par des murailles.",
-        "À l’époque, tout le peuple vivait main dans la main. Un jour, les Dieux ont mis la main sur une vieille prophétie ....",
-        "« Une enfant née des trois nations viendra briser l’autorité des dieux »",
-        "pris de panique, ils ont monté des murailles pour séparer leurs peuples. Ils ont découverts des années après l’existence de ton île et de ton petit village",
-        "le dernier où toutes les nations vivent encore en communauté. Ainsi ils y ont mis feu, ce sont eux les responsables de tout ça, ils ont tué ta famille, tes amis, détruit ta maison, ton village et ton île entière et maintenant ils se cachent dans la tour centrale de l’île.",
-        "Mais ne t’inquiètes pas, je vais t’aider à te venger, je te suivrai tout au long de ton périple pour t’aider à les retrouver.",
-        "Commence par prendre le bateau pour rejoindre l’île",
+        "Hahahahaha merci pour tes services petite idiote !",
+        "Grâce à toi je suis enfin libre, tu as détruis mon sceau !!!!!",
+        "Tu veux savoir la vérité ? Il y a toujours eu 4 dieux, Ukufifa Déesse de la Vie, Khala Déesse de l’Espace, Khali son frère Jumeaux Dieu du Temps et MOI ! De mon vrai nom… ISIBANI ! Déesse de la lumière ! ",
+        "Lorsque j’ai découvert la prophétie, j’ai ordonné la séparation des trois nations pour séparer les dieux et régner en maître unique sur tout le peuple, mais mes confrères n’étaient pas d’accord et m’ont scellé dans la tour..",
+        "Tour dans laquelle ils restent pour me surveiller ...",
+        "Cependant, une partie de mon esprit à réussi à s’échapper lors de l’attaque, je suis devenue Bonny. Pour contrer la prophétie j’ai mis feu à ton petit village insignifiant, il ne me restait plus qu’à trouver un esprit assez naïf, simple à manipuler pour être libérée.",
+        "C’est là que je t’ai vu, la victime parfaite, aveuglée par la haine tu as fait tout ce que je t’ai demandé de faire, sans aucune hésitation.",
+        "Merci beaucoup, grâce à toi je suis enfin libre et mes confrères ne peuvent plus m’arrêter. Il ne me reste plus qu’à t’éliminer et tous mes problèmes auront disparu !!!!",
     ];
   
       // Lancer l'affichage du premier texte

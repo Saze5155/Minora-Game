@@ -48,6 +48,8 @@ export default class monde extends Scene3D {
     this.accessThirdDimension();
   }
   async create() {
+    this.scene.pause("monde");
+    this.scene.launch("DialogueScene");
     const textureLoader = new THREE.TextureLoader();
     this.freeCamera = new camera(this);
     this.pointerLaser = new laser(this);

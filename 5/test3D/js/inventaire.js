@@ -493,6 +493,11 @@ let Global = {
 
     console.log(potionType);
 
+    // S'assurer que le type de potion existe dans l'inventaire
+    if (!this.inventory.potions[potionType]) {
+        this.inventory.potions[potionType] = []; // Initialiser la potion s'il n'existe pas
+    }
+
     // Vérifier si la potion a atteint sa limite de stockage dans l'inventaire
     if (this.inventory.potions[potionType].length < potionLimits[potionType]) {
         // Ajouter une potion du type spécifié à l'inventaire
@@ -501,7 +506,6 @@ let Global = {
         console.log(`${potionType} est plein !`);
     }
 },
-
   
 
   addMeatOrHoney(type, amount) {

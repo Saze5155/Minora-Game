@@ -14,7 +14,7 @@ const config = {
     default: "arcade", // Utilise Arcade Physics pour les scènes 2D par défaut
     arcade: {
       gravity: { y: 500 }, // Gravité pour les scènes 2D
-      debug: true,
+      debug: false,
     },
   },
   scene: [loading],
