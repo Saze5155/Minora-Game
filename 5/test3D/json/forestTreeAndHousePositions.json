@@ -1,0 +1,230 @@
+{
+  "trees": [
+    {
+      "x": 354.9981933843767,
+      "z": -307.94910366814975,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/arbre2.png",
+      "scale": 11.362711943584337
+    },
+    {
+      "x": 337.4457467815337,
+      "z": -342.28422244304176,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/arbre3.png",
+      "scale": 11.912331737458207
+    },
+    {
+      "x": 382.8385590673237,
+      "z": -378.87808073163234,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/arbre3.png",
+      "scale": 9.061058842788867
+    },
+    {
+      "x": 333.961118127186,
+      "z": -298.78245675797916,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/arbre1.png",
+      "scale": 9.181463506095305
+    },
+    {
+      "x": 405.5597020042227,
+      "z": -334.78551827461115,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/arbre2.png",
+      "scale": 10.814179598177603
+    },
+    {
+      "x": 335.4857950107982,
+      "z": -328.6133378619434,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/arbre3.png",
+      "scale": 10.942110819801105
+    },
+    {
+      "x": 412.8656054419539,
+      "z": -335.91316522352025,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/arbre1.png",
+      "scale": 11.683439985686153
+    },
+    {
+      "x": 342.59376044025703,
+      "z": -295.8543559665883,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/arbre1.png",
+      "scale": 11.89155579719238
+    },
+    {
+      "x": 357.2821465437921,
+      "z": -291.8279355370462,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/arbre2.png",
+      "scale": 11.121311794310909
+    },
+    {
+      "x": 370.5339527308038,
+      "z": -312.1895973416289,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/arbre2.png",
+      "scale": 8.929426638329586
+    },
+    {
+      "x": 318.37156135320646,
+      "z": -333.1607104672361,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/arbre1.png",
+      "scale": 11.676462994005778
+    },
+    {
+      "x": 358.44323354434124,
+      "z": -310.15212054729295,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/arbre3.png",
+      "scale": 11.365797904286737
+    },
+    {
+      "x": 343.7254137778658,
+      "z": -297.1917169737898,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/arbre1.png",
+      "scale": 9.08551680747454
+    },
+    {
+      "x": 323.32359265762835,
+      "z": -339.8229245543359,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/arbre3.png",
+      "scale": 8.743133054942618
+    },
+    {
+      "x": 327.77624250979915,
+      "z": -289.4288980495464,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/arbre3.png",
+      "scale": 10.136689014671934
+    },
+    {
+      "x": 376.3728565056952,
+      "z": -337.93547352295684,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/arbre2.png",
+      "scale": 9.744806838259283
+    },
+    {
+      "x": 320.9856403715983,
+      "z": -359.09752602244794,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/arbre2.png",
+      "scale": 11.114965111026542
+    },
+    {
+      "x": 316.94433382174736,
+      "z": -355.6723190052305,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/arbre3.png",
+      "scale": 10.407220870857763
+    },
+    {
+      "x": 336.9702528132497,
+      "z": -347.3373505109894,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/arbre3.png",
+      "scale": 10.433377025201258
+    },
+    {
+      "x": 334.84319023625864,
+      "z": -323.6614880293666,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/arbre1.png",
+      "scale": 11.11450780054459
+    },
+    {
+      "x": 316.1047535793982,
+      "z": -295.2346204736886,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/arbre2.png",
+      "scale": 10.51787658599643
+    },
+    {
+      "x": 332.14760671225866,
+      "z": -346.76427837698174,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/arbre3.png",
+      "scale": 11.43998540410129
+    },
+    {
+      "x": 326.1850861143874,
+      "z": -343.6238762986378,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/arbre1.png",
+      "scale": 8.096302631779366
+    },
+    {
+      "x": 348.34645460853966,
+      "z": -315.03495854406503,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/arbre1.png",
+      "scale": 8.97498735066512
+    },
+    {
+      "x": 343.2097020748052,
+      "z": -312.0397708403247,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/arbre2.png",
+      "scale": 9.547873635264732
+    },
+    {
+      "x": 363.04864519168984,
+      "z": -310.46247932494805,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/arbre1.png",
+      "scale": 11.801217756429882
+    },
+    {
+      "x": 420.64940244153365,
+      "z": -374.94799321796353,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/arbre1.png",
+      "scale": 9.363723433225951
+    },
+    {
+      "x": 353.1981043143019,
+      "z": -292.76398358869704,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/arbre2.png",
+      "scale": 8.143113736004388
+    },
+    {
+      "x": 373.76085560086955,
+      "z": -313.7849448792162,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/arbre2.png",
+      "scale": 9.592292657850233
+    },
+    {
+      "x": 381.19636982204406,
+      "z": -333.0208546103452,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/arbre2.png",
+      "scale": 8.867221252694394
+    }
+  ],
+  "houses": [
+    {
+      "x": 340,
+      "z": -370,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/ruines5.png",
+      "scale": 20
+    },
+    {
+      "x": 400,
+      "z": -290,
+      "y": 252.5,
+      "texture": "/5/test3D/examples/village/ruines1.png",
+      "scale": 20
+    }
+  ]
+}

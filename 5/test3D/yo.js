@@ -1,37 +1,50 @@
 const fs = require("fs");
 
-const cactusTextures = [
-  "/5/test3D/examples/éléments desert/crane.png",
-  "/5/test3D/examples/éléments desert/plante1.png",
-  "/5/test3D/examples/éléments desert/plante2.png",
-  "/5/test3D/examples/éléments desert/plantemorte.png",
-  "/5/test3D/examples/éléments desert/arbremort.png",
+const treeTextures = [
+  "/5/test3D/examples/village/arbre1.png",
+  "/5/test3D/examples/village/arbre2.png",
+  "/5/test3D/examples/village/arbre3.png",
 ];
 
-// Fonction pour générer un scale aléatoire
-function getRandomScale(texture) {
-  if (
-    texture.includes("crane") ||
-    texture.includes("plante") ||
-    texture.includes("plantemorte")
-  ) {
-    return 2.5; // Échelle pour les petits objets
-  } else {
-    return 10; // Échelle pour les arbres
-  }
+const houseTextures = [
+  "/5/test3D/examples/village/ruines5.png",
+  "/5/test3D/examples/village/ruines1.png",
+  "/5/test3D/examples/village/ruines3.png",
+];
+
+// Fonction pour générer un scale aléatoire pour les arbres
+function getRandomTreeScale(texture) {
+  return Math.random() * (12 - 8) + 8; // Échelle aléatoire entre 8 et 12
 }
 
-// Coordonnées du pentagone
-const pentagon = [
-  { x: 122, z: -174 },
-  { x: 218, z: -73 },
-  { x: 222, z: 86 },
-  { x: 131, z: 196 },
-  { x: 31, z: 8 },
+// Coordonnées des points pour placer les arbres
+const treeAreaPoints = [
+  { x: 311, z: -379 },
+  { x: 422, z: -381 },
+  { x: 414, z: -277 },
+  { x: 316, z: -279 },
 ];
 
-// Générer des positions aléatoires dans le pentagone
-const generatePentagonCactusPositions = (points, hitboxWidth) => {
+// Zones réservées pour les maisons (vous pouvez ajuster ces zones)
+const reservedBuildingZones = [
+  { x: 340, z: -370, width: 30, height: 30 }, // Zone pour la maison 1
+  { x: 400, z: -290, width: 30, height: 30 }, // Zone pour la maison 2
+];
+
+// Fonction pour vérifier si une position est dans une zone réservée
+function isInsideReservedZone(x, z, reservedZones) {
+  return reservedZones.some((zone) => {
+    return (
+      x > zone.x - zone.width / 2 &&
+      x < zone.x + zone.width / 2 &&
+      z > zone.z - zone.height / 2 &&
+      z < zone.z + zone.height / 2
+    );
+  });
+}
+
+// Générer des positions aléatoires pour les arbres en évitant les zones réservées
+const generateTreePositions = (points, reservedZones, treeCount) => {
   const calculatePolygonCenter = (points) => {
     const totalPoints = points.length;
     const sumX = points.reduce((sum, point) => sum + point.x, 0);
@@ -58,14 +71,12 @@ const generatePentagonCactusPositions = (points, hitboxWidth) => {
   };
 
   const positions = [];
-  const villageCenter = calculatePolygonCenter(points);
-  const villageRadius = 50;
-  let craneCount = 0; // Compteur de crânes
+  const areaCenter = calculatePolygonCenter(points);
 
-  for (let i = 0; i < 150; i++) {
-    let cactusPlaced = false;
+  for (let i = 0; i < treeCount; i++) {
+    let treePlaced = false;
 
-    while (!cactusPlaced) {
+    while (!treePlaced) {
       const minX = Math.min(...points.map((p) => p.x));
       const maxX = Math.max(...points.map((p) => p.x));
       const minZ = Math.min(...points.map((p) => p.z));
@@ -75,34 +86,17 @@ const generatePentagonCactusPositions = (points, hitboxWidth) => {
       const randomZ = minZ + Math.random() * (maxZ - minZ);
 
       const randomPoint = { x: randomX, z: randomZ };
-      const distanceSquared =
-        (randomPoint.x - villageCenter.x) ** 2 +
-        (randomPoint.z - villageCenter.z) ** 2;
 
       if (
         isInsidePolygon(randomPoint, points) &&
-        distanceSquared > villageRadius ** 2
+        !isInsideReservedZone(randomX, randomZ, reservedZones)
       ) {
-        let texture =
-          cactusTextures[Math.floor(Math.random() * cactusTextures.length)];
+        const texture =
+          treeTextures[Math.floor(Math.random() * treeTextures.length)];
+        const scale = getRandomTreeScale(texture);
+        const yPosition = 252.5; // Position Y fixe pour les arbres
 
-        // Limiter le nombre de crânes à 15
-        if (texture.includes("crane")) {
-          if (craneCount >= 15) {
-            // Si le nombre de crânes est atteint, choisir une autre texture
-            texture =
-              cactusTextures.slice(1)[
-                Math.floor(Math.random() * (cactusTextures.length - 1))
-              ];
-          } else {
-            craneCount++;
-          }
-        }
-
-        const scale = getRandomScale(texture);
-        const yPosition = texture.includes("arbremort") ? 255.7 : 252.3;
-
-        const cactus = {
+        const tree = {
           x: randomX,
           z: randomZ,
           y: yPosition,
@@ -110,13 +104,8 @@ const generatePentagonCactusPositions = (points, hitboxWidth) => {
           scale: scale,
         };
 
-        // Ajouter la hitbox uniquement pour les arbres morts
-        if (texture.includes("arbremort")) {
-          cactus.hitboxWidth = hitboxWidth;
-        }
-
-        positions.push(cactus);
-        cactusPlaced = true;
+        positions.push(tree);
+        treePlaced = true;
       }
     }
   }
@@ -124,16 +113,31 @@ const generatePentagonCactusPositions = (points, hitboxWidth) => {
   return positions;
 };
 
-// Générer les positions pour les cactus dans le pentagone
-const pentagonCactusPositions = generatePentagonCactusPositions(pentagon, 5);
+// Générer les positions pour les arbres
+const treePositions = generateTreePositions(
+  treeAreaPoints,
+  reservedBuildingZones,
+  30
+);
 
-// Sauvegarder dans un fichier JSON
+// Placer les maisons dans les zones réservées
+const housePositions = reservedBuildingZones.map((zone, index) => {
+  return {
+    x: zone.x,
+    z: zone.z,
+    y: 252.5, // Position Y fixe pour les maisons
+    texture: houseTextures[index % houseTextures.length],
+    scale: 20, // Échelle pour les maisons
+  };
+});
+
+// Sauvegarder les positions des arbres et des maisons dans un fichier JSON
 fs.writeFileSync(
-  "decoDesertPositions.json",
-  JSON.stringify(pentagonCactusPositions, null, 2),
+  "forestTreeAndHousePositions.json",
+  JSON.stringify({ trees: treePositions, houses: housePositions }, null, 2),
   "utf-8"
 );
 
 console.log(
-  "Positions des cactus avec scale aléatoire sauvegardées dans decoDesertPositions.json"
+  "Positions des arbres et des maisons sauvegardées dans forestTreeAndHousePositions.json"
 );

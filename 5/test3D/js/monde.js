@@ -1,10 +1,9 @@
-import Animal from "/5/test3D/js/animal.js";
-//import camera from "/5/test3D/js/cam.js";
-//import DevMode from "/5/test3D/js/dev.js";
-import PNJBiomes from "/5/test3D/js/biome.js";
-import EnemyRPG from "/5/test3D/js/enemy_rpg.js";
-import Insect from "/5/test3D/js/insect.js";
-import Global from "/5/test3D/js/inventaire.js";
+//import Animal from "/5/test3D/js/animal.js";
+import camera from "/5/test3D/js/cam.js";
+import DevMode from "/5/test3D/js/dev.js";
+//import PNJBiomes from "/5/test3D/js/biome.js";
+//import EnemyRPG from "/5/test3D/js/enemy_rpg.js";
+//import Global from "/5/test3D/js/inventaire.js";
 import laser from "/5/test3D/js/laser.js";
 import {
   getBuildingTexture,
@@ -14,8 +13,8 @@ import {
   getRockTexture,
   getTreeTexture,
 } from "/5/test3D/js/loading.js";
-import Marchand from "/5/test3D/js/marchand.js";
-import player from "/5/test3D/js/player.js";
+//import Marchand from "/5/test3D/js/marchand.js";
+//import player from "/5/test3D/js/player.js";
 import { FBXLoader } from "/5/test3D/lib/FBXLoader.js";
 
 export default class monde extends Scene3D {
@@ -40,6 +39,9 @@ export default class monde extends Scene3D {
       etoile: [],
       pyramide: [],
     };
+    this.pyramide = false;
+    this.arbre = false;
+    this.etoile = false;
   }
 
   init() {
@@ -47,14 +49,14 @@ export default class monde extends Scene3D {
   }
   async create() {
     const textureLoader = new THREE.TextureLoader();
-    //this.freeCamera = new camera(this);
+    this.freeCamera = new camera(this);
     this.pointerLaser = new laser(this);
-
+    /*
     this.player = new player(
       this,
       -119,
-      251.2,
-      -55,
+      271.2,
+      -57,
       "/5/test3D/examples/anim_player/idle/_idle_1.png"
     );
 
@@ -129,6 +131,7 @@ export default class monde extends Scene3D {
         this.player.walkPlane,
         enemy.walkPlane,
         () => {
+          console.log(enemy);
           this.player.decreaseHealth();
         }
       );
@@ -338,12 +341,12 @@ export default class monde extends Scene3D {
         }
       );
     };
-
+*/
     this.third.warpSpeed("light", "fog");
 
     //this.third.physics.debug.enable();
 
-    //this.devMode = new DevMode(this, this.freeCamera.camera, textureLoader);
+    this.devMode = new DevMode(this, this.freeCamera.camera, textureLoader);
 
     // Soleil et Lune
     const sunGeometry = new THREE.SphereGeometry(200, 32, 32); // Taille du soleil
@@ -801,9 +804,9 @@ export default class monde extends Scene3D {
 
     // Ajouter la physique au cube (collision)
     this.third.physics.add.existing(cube, { mass: 0 });
-    //this.devMode.setTargetCube(cube);
+    this.devMode.setTargetCube(cube);
 
-    const cubeVillageGeometry = new THREE.BoxGeometry(100, 10, 100);
+    const cubeVillageGeometry = new THREE.BoxGeometry(50, 10, 50);
 
     const materialVillage = new THREE.MeshStandardMaterial({
       map: topTexture1,
@@ -1779,6 +1782,899 @@ export default class monde extends Scene3D {
           error
         );
       });
+
+    fetch("/5/test3D/json/forestTreeAndHousePositions.json")
+      .then((response) => response.json())
+      .then((buildPositions) => {
+        // Parcours des données des arbres et des maisons
+        buildPositions.forEach((buildData) => {
+          const { x, y, z, scale, texture } = buildData;
+
+          const loadedTexture = getTreeTexture(texture); // Fonction qui retourne la texture correspondante
+          if (loadedTexture) {
+            const planeGeometry = new THREE.PlaneGeometry(scale, scale * 1.75); // Ajuster les dimensions
+            const planeMaterial = new THREE.MeshStandardMaterial({
+              map: loadedTexture,
+              side: THREE.DoubleSide,
+              transparent: true,
+              alphaTest: 0.5,
+            });
+
+            const bush = new THREE.Mesh(planeGeometry, planeMaterial);
+            bush.position.set(x, 262, z); // Utilisation des positions directement
+            bush.rotation.y = Math.random() * Math.PI * 2; // Rotation aléatoire pour chaque arbre
+
+            this.third.scene.add(bush);
+          }
+        });
+
+        console.log("Tous les arbres et maisons ont été placés.");
+      })
+      .catch((error) => {
+        console.error(
+          "Erreur lors du chargement des positions des builds:",
+          error
+        );
+      });
+
+    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(10, 10);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(
+        343.8474002583491,
+        260.7000000000008,
+        -322.2789197982507
+      );
+      if (0 != undefined) {
+        tile.rotation.y = 0;
+      }
+      if (0 != undefined) {
+        tile.rotation.x = 0;
+      }
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(10, 10);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(
+        343.6632664063509,
+        260.90000000000083,
+        -317.8816598908174
+      );
+      if (5.890486225480863 != undefined) {
+        tile.rotation.y = 5.890486225480863;
+      }
+      if (0 != undefined) {
+        tile.rotation.x = 0;
+      }
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(10, 10);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(
+        342.7629321391708,
+        260.7000000000008,
+        -309.05209420288645
+      );
+      if (0 != undefined) {
+        tile.rotation.y = 0;
+      }
+      if (0 != undefined) {
+        tile.rotation.x = 0;
+      }
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(10, 10);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(
+        370.54297823718923,
+        260.90000000000083,
+        -315.7589978178021
+      );
+      if (0.39269908169872414 != undefined) {
+        tile.rotation.y = 0.39269908169872414;
+      }
+      if (0 != undefined) {
+        tile.rotation.x = 0;
+      }
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(10, 10);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(
+        371.0959101114622,
+        260.90000000000083,
+        -311.7175263806347
+      );
+      if (5.890486225480863 != undefined) {
+        tile.rotation.y = 5.890486225480863;
+      }
+      if (0 != undefined) {
+        tile.rotation.x = 0;
+      }
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(10, 10);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(
+        336.56384080697427,
+        260.90000000000083,
+        -308.57499017281344
+      );
+      if (1.1780972450961724 != undefined) {
+        tile.rotation.y = 1.1780972450961724;
+      }
+      if (0 != undefined) {
+        tile.rotation.x = 0;
+      }
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(10, 10);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(
+        366.1187819388351,
+        260.8000000000008,
+        -323.98634691177085
+      );
+      if (6.283185307179588 != undefined) {
+        tile.rotation.y = 6.283185307179588;
+      }
+      if (0 != undefined) {
+        tile.rotation.x = 0;
+      }
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(10, 10);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(
+        361.9043332900289,
+        260.8000000000008,
+        -321.1712184895461
+      );
+      if (0 != undefined) {
+        tile.rotation.y = 0;
+      }
+      if (0 != undefined) {
+        tile.rotation.x = 0;
+      }
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(10, 10);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(
+        364.6331309388813,
+        260.90000000000083,
+        -316.04755697282735
+      );
+      if (0.7853981633974483 != undefined) {
+        tile.rotation.y = 0.7853981633974483;
+      }
+      if (0 != undefined) {
+        tile.rotation.x = 0;
+      }
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(10, 10);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(
+        373.98296938562487,
+        260.8000000000008,
+        -307.9727844172151
+      );
+      if (0 != undefined) {
+        tile.rotation.y = 0;
+      }
+      if (0 != undefined) {
+        tile.rotation.x = 0;
+      }
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/vie/vie-04.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(10, 10);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(
+        336.7971280211653,
+        260.8000000000008,
+        -332.7508514500718
+      );
+      if (0 != undefined) {
+        tile.rotation.y = 0;
+      }
+      if (0 != undefined) {
+        tile.rotation.x = 0;
+      }
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/vie/vie-05.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(10, 10);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(
+        346.97935441989466,
+        260.8000000000008,
+        -328.7710112684843
+      );
+      if (0 != undefined) {
+        tile.rotation.y = 0;
+      }
+      if (0 != undefined) {
+        tile.rotation.x = 0;
+      }
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/vie/vie-05.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(10, 10);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(
+        345.9187867224261,
+        260.60000000000076,
+        -307.1791537879541
+      );
+      if (0.39269908169872414 != undefined) {
+        tile.rotation.y = 0.39269908169872414;
+      }
+      if (0 != undefined) {
+        tile.rotation.x = 0;
+      }
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/vie/vie-05.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(10, 10);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(
+        363.9692232139105,
+        260.8000000000008,
+        -309.2917460303314
+      );
+      if (5.890486225480863 != undefined) {
+        tile.rotation.y = 5.890486225480863;
+      }
+      if (0 != undefined) {
+        tile.rotation.x = 0;
+      }
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/vie/vie-06.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(10, 10);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(
+        347.30288481366716,
+        260.50000000000074,
+        -317.5145950686493
+      );
+      if (0.39269908169872414 != undefined) {
+        tile.rotation.y = 0.39269908169872414;
+      }
+      if (0 != undefined) {
+        tile.rotation.x = 0;
+      }
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/village/ruines1.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(7, 3);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(353.9207967356807, 257.3, -333.999714651469);
+      if (0 != undefined) {
+        tile.rotation.y = 0;
+      }
+      if (0 != undefined) {
+        tile.rotation.x = 0;
+      }
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/village/ruines5.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(7, 3);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(
+        365.4282920360372,
+        257.40000000000003,
+        -340.7663321520258
+      );
+      if (5.497787143782139 != undefined) {
+        tile.rotation.y = 5.497787143782139;
+      }
+      if (0 != undefined) {
+        tile.rotation.x = 0;
+      }
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/village/ruines4.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(7, 3);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(
+        361.69421168330683,
+        257.50000000000006,
+        -331.70227998386133
+      );
+      if (0.7853981633974483 != undefined) {
+        tile.rotation.y = 0.7853981633974483;
+      }
+      if (0 != undefined) {
+        tile.rotation.x = 0;
+      }
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/village/ruines2.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(7, 3);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(348.65023100164234, 257.3, -336.36598084883866);
+      if (6.675884388878313 != undefined) {
+        tile.rotation.y = 6.675884388878313;
+      }
+      if (0 != undefined) {
+        tile.rotation.x = 0;
+      }
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/village/ruines3.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(7, 3);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(352.81643823420285, 257.2, -347.3299198707952);
+      if (0 != undefined) {
+        tile.rotation.y = 0;
+      }
+      if (0 != undefined) {
+        tile.rotation.x = 0;
+      }
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/village/arbre2.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(7, 3);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(
+        344.8936549366002,
+        257.09999999999997,
+        -341.86124429821894
+      );
+      if (0 != undefined) {
+        tile.rotation.y = 0;
+      }
+      if (0 != undefined) {
+        tile.rotation.x = 0;
+      }
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/village/arbre1.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(5, 5);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(
+        356.9841268296691,
+        258.00000000000017,
+        -341.8576477004089
+      );
+      if (0 != undefined) {
+        tile.rotation.y = 0;
+      }
+      if (0 != undefined) {
+        tile.rotation.x = 0;
+      }
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/village/arbre1.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(5, 5);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(
+        362.7850150462336,
+        258.2000000000002,
+        -336.7334359602675
+      );
+      if (5.497787143782139 != undefined) {
+        tile.rotation.y = 5.497787143782139;
+      }
+      if (0 != undefined) {
+        tile.rotation.x = 0;
+      }
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/village/arbre1.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(5, 5);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(
+        350.4489173290895,
+        258.30000000000024,
+        -331.8974117687682
+      );
+      if (0.7853981633974483 != undefined) {
+        tile.rotation.y = 0.7853981633974483;
+      }
+      if (0 != undefined) {
+        tile.rotation.x = 0;
+      }
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/village/arbre1.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(5, 5);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(
+        349.6360571106249,
+        257.40000000000003,
+        -343.20586816191707
+      );
+      if (0.39269908169872414 != undefined) {
+        tile.rotation.y = 0.39269908169872414;
+      }
+      if (0 != undefined) {
+        tile.rotation.x = 0;
+      }
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/village/arbre4.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(2, 2);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(
+        354.1751284112626,
+        256.6999999999999,
+        -340.02609323336554
+      );
+      if (0.39269908169872414 != undefined) {
+        tile.rotation.y = 0.39269908169872414;
+      }
+      if (0 != undefined) {
+        tile.rotation.x = 0;
+      }
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/village/arbre4.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(2, 2);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(
+        346.79185839751733,
+        256.59999999999985,
+        -332.6336812821417
+      );
+      if (0 != undefined) {
+        tile.rotation.y = 0;
+      }
+      if (0 != undefined) {
+        tile.rotation.x = 0;
+      }
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/touches/touche_Q.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(1, 1);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(353.162923229485, 257.1, -309.18684928534736);
+      if (0 != undefined) {
+        tile.rotation.y = 0;
+      }
+      if (0 != undefined) {
+        tile.rotation.x = 0;
+      }
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/touches/touche_S.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(1, 1);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(353.90891108279294, 257.1, -309.18684928534736);
+      if (0 != undefined) {
+        tile.rotation.y = 0;
+      }
+      if (0 != undefined) {
+        tile.rotation.x = 0;
+      }
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/touches/touche_D.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(1, 1);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(354.71354197510965, 257.1, -309.18684928534736);
+      if (0 != undefined) {
+        tile.rotation.y = 0;
+      }
+      if (0 != undefined) {
+        tile.rotation.x = 0;
+      }
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
+
+    textureLoader.load("/5/test3D/examples/touches/touche_Z.png", (texture) => {
+      const planeGeometry = new THREE.PlaneGeometry(1, 1);
+      const planeMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.5,
+      });
+
+      const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+      tile.position.set(353.90891108279294, 257.9, -309.18684928534736);
+      if (0 != undefined) {
+        tile.rotation.y = 0;
+      }
+      if (0 != undefined) {
+        tile.rotation.x = 0;
+      }
+      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.scene.add(tile);
+    });
+
+    textureLoader.load(
+      "/5/test3D/examples/touches/touche_space.png",
+      (texture) => {
+        const planeGeometry = new THREE.PlaneGeometry(2, 1);
+        const planeMaterial = new THREE.MeshStandardMaterial({
+          map: texture,
+          side: THREE.DoubleSide,
+          transparent: true,
+          alphaTest: 0.5,
+        });
+
+        const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+        tile.position.set(
+          355.403081503022,
+          256.99999999999994,
+          -316.34518415467664
+        );
+        if (0 != undefined) {
+          tile.rotation.y = 0;
+        }
+        if (0 != undefined) {
+          tile.rotation.x = 0;
+        }
+        this.third.physics.add.existing(tile, { mass: 0 });
+        this.third.scene.add(tile);
+      }
+    );
+
+    textureLoader.load(
+      "/5/test3D/examples/touches/touches_souris.png",
+      (texture) => {
+        const planeGeometry = new THREE.PlaneGeometry(1, 1);
+        const planeMaterial = new THREE.MeshStandardMaterial({
+          map: texture,
+          side: THREE.DoubleSide,
+          transparent: true,
+          alphaTest: 0.5,
+        });
+
+        const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+        tile.position.set(
+          356.5704209471783,
+          257.00000000000003,
+          -333.116770620688
+        );
+        if (0 != undefined) {
+          tile.rotation.y = 0;
+        }
+        if (0 != undefined) {
+          tile.rotation.x = 0;
+        }
+        this.third.physics.add.existing(tile, { mass: 0 });
+        this.third.scene.add(tile);
+      }
+    );
+
+    textureLoader.load(
+      "/5/test3D/examples/touches/touches_tab.png",
+      (texture) => {
+        const planeGeometry = new THREE.PlaneGeometry(1, 1);
+        const planeMaterial = new THREE.MeshStandardMaterial({
+          map: texture,
+          side: THREE.DoubleSide,
+          transparent: true,
+          alphaTest: 0.5,
+        });
+
+        const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+        tile.position.set(
+          357.5996808476599,
+          256.8999999999999,
+          -333.116770620688
+        );
+        if (0 != undefined) {
+          tile.rotation.y = 0;
+        }
+        if (0 != undefined) {
+          tile.rotation.x = 0;
+        }
+        this.third.physics.add.existing(tile, { mass: 0 });
+        this.third.scene.add(tile);
+      }
+    );
+
+    textureLoader.load(
+      "/5/test3D/examples/touches/touches_E.png",
+      (texture) => {
+        const planeGeometry = new THREE.PlaneGeometry(1, 1);
+        const planeMaterial = new THREE.MeshStandardMaterial({
+          map: texture,
+          side: THREE.DoubleSide,
+          transparent: true,
+          alphaTest: 0.5,
+        });
+
+        const tile = new THREE.Mesh(planeGeometry, planeMaterial);
+        tile.position.set(
+          358.4165963003083,
+          256.7999999999999,
+          -348.4144810143716
+        );
+        if (0 != undefined) {
+          tile.rotation.y = 0;
+        }
+        if (0 != undefined) {
+          tile.rotation.x = 0;
+        }
+        this.third.physics.add.existing(tile, { mass: 0 });
+        this.third.scene.add(tile);
+      }
+    );
   }
 
   attackPlayer() {
@@ -1821,9 +2717,9 @@ export default class monde extends Scene3D {
   }
 
   update() {
-    //this.freeCamera.update();
+    this.freeCamera.update();
     this.pointerLaser.update();
-
+    /*
     this.animaux.forEach((animal) => {
       animal.update(this.player);
     });
@@ -1832,10 +2728,10 @@ export default class monde extends Scene3D {
     });
 
     this.player.update(this);
-
+*/ /*
     if (this.input.activePointer.leftButtonDown() && this.player.isOnGround()) {
       this.attackPlayer();
-    }
+    }*/
 
     this.insects.forEach((insect) => insect.update());
   }
@@ -1851,7 +2747,7 @@ export default class monde extends Scene3D {
       this.currentMusic = biome;
     }
   }
-
+  /*
   handleInteraction = (key) => {
     this.scene.pause("monde");
     if (key == "arbre") {
@@ -2072,16 +2968,6 @@ export default class monde extends Scene3D {
       );
     });
 
-    this.enemies.forEach((enemy) => {
-      this.third.physics.add.collider(
-        this.player.walkPlane,
-        enemy.walkPlane,
-        () => {
-          this.player.decreaseHealth();
-        }
-      );
-    });
-
     this.interactiveObjects.marmites.forEach((marmite) => {
       this.marmitteBox(marmite); // Recréer les collisions pour chaque marmite
     });
@@ -2097,5 +2983,5 @@ export default class monde extends Scene3D {
     this.interactiveObjects.etoile.forEach((etoile) => {
       this.etoileInteraction(etoile); // Recréer les collisions pour chaque arbre
     });
-  }
+  }*/
 }

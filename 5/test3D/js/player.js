@@ -498,10 +498,13 @@ export default class Player {
     scene.third.camera.lookAt(this.walkPlane.position);
   }
 
-  decreaseHealth(scene) {
+  decreaseHealth() {
     if (this.isInvincible) {
       return;
     }
+
+    console.trace("perd vie");
+    debugger;
     this.scene.sound.play("damage");
     Global.playerHealth--;
     this.showHealth();
@@ -509,7 +512,7 @@ export default class Player {
     console.log("aie");
 
     if (Global.playerHealth <= 0) {
-      this.death(scene);
+      this.death();
     } else {
       this.setInvincibility(); // Activer l'invincibilité
     }
@@ -593,7 +596,7 @@ export default class Player {
 
     return biomes[biome] || null;
   }
-  death(scene) {
+  death() {
     console.log("Le joueur est mort");
     this.scene.scene.pause("monde");
     const { coords } = this.lastBiome;

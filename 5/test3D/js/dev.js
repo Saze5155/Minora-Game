@@ -37,6 +37,15 @@ export default class DevMode {
       "/5/test3D/examples/vie/vie-05.png",
       "/5/test3D/examples/vie/vie-06.png",
       "/5/test3D/examples/vie/vie-07.png",
+
+      "/5/test3D/examples/touches/touche_Z.png",
+      "/5/test3D/examples/touches/touche_Q.png",
+      "/5/test3D/examples/touches/touche_S.png",
+      "/5/test3D/examples/touches/touche_D.png",
+      "/5/test3D/examples/touches/touches_E.png",
+      "/5/test3D/examples/touches/touche_space.png",
+      "/5/test3D/examples/touches/touches_souris.png",
+      "/5/test3D/examples/touches/touches_tab.png",
     ];
 
     const container = document.getElementById("image-selector");
@@ -64,7 +73,7 @@ export default class DevMode {
       map: texture,
       transparent: true,
     });
-    const geometry = new THREE.PlaneGeometry(10, 10);
+    const geometry = new THREE.PlaneGeometry(1, 1);
     this.currentObject = new THREE.Mesh(geometry, material);
 
     this.scene.third.scene.add(this.currentObject); // Ajouter l'image à la scène
