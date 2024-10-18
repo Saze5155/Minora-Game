@@ -127,6 +127,7 @@ export default class DialogueScene extends Phaser.Scene {
         // Si c'est le dernier texte, peut-être faire disparaître la boîte de dialogue
         this.dialogueText.setText("Fin du dialogue."); // Message final
         this.time.delayedCall(2000, () => {
+          this.scene.resume("monde");
           this.scene.stop(); // Fermer la scène de dialogue après 2 secondes
         });
       }

@@ -15,6 +15,7 @@ import BossLevel from "/5/test3D/js/Space_Plateformer/BossLevel.js";
 import RocketLevel from "/5/test3D/js/Space_Plateformer/RocketLevel.js";
 import SpaceLevel from "/5/test3D/js/Space_Plateformer/SpaceLevel.js";
 import tpt from "/5/test3D/js/tpt.js";
+import MainMenu from "/5/test3D/js/MainMenu.js";
 
 export default class loading {
   preload() {
@@ -1342,6 +1343,16 @@ export default class loading {
       "/5/test3D/examples/attente_dossier/vie/Attente_enemy11.png"
     );
 
+    this.load.image("badgevie", "/5/test3D/examples/badges/badge_vie.png");
+    this.load.image(
+      "badgeespace",
+      "/5/test3D/examples/badges/badge-espace.png"
+    );
+    this.load.image("badgetemps", "/5/test3D/examples/badges/badge-temps.png");
+
+
+    
+
     this.load.image("bonny1", "/5/test3D/examples/bonny/bonny_01.png");
 
     this.load.image("bonny2", "/5/test3D/examples/bonny/bonny_02.png");
@@ -1358,7 +1369,26 @@ export default class loading {
 
     this.load.image("bonny8", "/5/test3D/examples/bonny/bonny_08.png");
 
-    this.load.image("bonny9", "/5/test3D/examples/bonny/bonny_08.png");
+    this.load.image("bonny9", "/5/test3D/examples/bonny/bonny_09.png");
+
+    this.load.image("bonny12", "/5/test3D/examples/bonny/bonny_1.png");
+
+    this.load.image("bonny22", "/5/test3D/examples/bonny/bonny_2.png");
+
+    this.load.image("bonny32", "/5/test3D/examples/bonny/bonny_3.png");
+
+    this.load.image("bonny42", "/5/test3D/examples/bonny/bonny_4.png");
+
+    this.load.image("bonny52", "/5/test3D/examples/bonny/bonny_5.png");
+
+    this.load.image("bonny62", "/5/test3D/examples/bonny/bonny_6.png");
+
+    this.load.image("bonny72", "/5/test3D/examples/bonny/bonny_7.png");
+
+    this.load.image("bonny82", "/5/test3D/examples/bonny/bonny_8.png");
+
+    this.load.image("bonny92", "/5/test3D/examples/bonny/bonny_9.png");
+
 
     this.load.image('badgevie', "/5/test3D/examples/badges/badge_vie.png")
     this.load.image('badgeespace', "/5/test3D/examples/badges/badge-espace.png")
@@ -1377,6 +1407,23 @@ export default class loading {
         { key: "bonny7" },
         { key: "bonny8" },
         { key: "bonny9" },
+      ],
+      frameRate: 7,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: "anim_bonny2",
+      frames: [
+        { key: "bonny12" },
+        { key: "bonny22" },
+        { key: "bonny32" },
+        { key: "bonny42" },
+        { key: "bonny52" },
+        { key: "bonny62" },
+        { key: "bonny72" },
+        { key: "bonny82" },
+        { key: "bonny92" },
       ],
       frameRate: 7,
       repeat: -1,
@@ -1686,10 +1733,11 @@ export default class loading {
     this.scene.add("DialogueScene", DialogueScene, false);
     this.scene.add("DialogueScene2", DialogueScene2, false);
     this.scene.add("Dialogue", Dialogue, false);
+    this.scene.add("MainMenu", MainMenu, false);
 
     // this.scene.add('interfaceJeu', interfaceJeu, false, { remainingMonsters: remainingMonsters, remainingItems: remainingItems });
 
-    this.scene.start("BossLevel");
+    this.scene.start("MainMenu");
   }
 }
 
