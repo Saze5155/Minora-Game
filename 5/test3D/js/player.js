@@ -315,7 +315,10 @@ export default class Player {
 
   // Fonction pour vérifier si le personnage touche le sol
   isOnGround() {
-    if (this.walkPlane.position.y <= 252.24996948242188) {
+    if (
+      this.walkPlane.position.y <= 252.24996948242188 ||
+      this.walkPlane.position.y == 256.99993896484375
+    ) {
       return true;
     }
     return false;
@@ -347,6 +350,7 @@ export default class Player {
 
     // Mouvement gauche/droite
     if (this.keys.left.isDown) {
+      console.log(this.walkPlane.position.y);
       velocityX = -6;
       this.walkPlane.scale.x = -1;
       isWalking = true;

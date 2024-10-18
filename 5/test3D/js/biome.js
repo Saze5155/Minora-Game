@@ -1,13 +1,30 @@
+import Global from "/5/test3D/js/inventaire.js";
+
 export default class PNJBiomes {
-  constructor(scene, x, y, z, player) {
+  constructor(scene, x, y, z, player, o) {
     this.scene = scene;
     this.player = player;
 
     this.dialogueElements = []; // Pour stocker les éléments de dialogue à supprimer plus tard
+    let image;
+    let scalex;
+    let scaley;
+    let witdh;
+    let p;
+    if (o == 1) {
+      image = "/5/test3D/examples/bateau.png";
+      scalex = 10;
+      scaley = 10;
+      witdh = 10;
+      p = 15;
+    } else {
+      image = "/5/test3D/examples/tp.png";
+      scalex = 1.5;
+      scaley = 3;
+    }
 
-    // PNJ setup (mesh and position)
-    const texture = new THREE.TextureLoader().load("/5/test3D/examples/tp.png");
-    const geometry = new THREE.PlaneGeometry(1.5, 3);
+    const texture = new THREE.TextureLoader().load(image);
+    const geometry = new THREE.PlaneGeometry(scalex, scaley);
     const material = new THREE.MeshStandardMaterial({
       map: texture,
       side: THREE.DoubleSide,
@@ -20,6 +37,8 @@ export default class PNJBiomes {
 
     scene.third.physics.add.existing(this.marchandMesh, {
       shape: "box",
+      width: witdh,
+      height: p,
       depth: 2,
       mass: 0,
     });
@@ -37,9 +56,9 @@ export default class PNJBiomes {
   showBiomeOptions() {
     // Afficher le rectangle et le texte "Bonjour, où veux-tu aller ?"
     this.showDialogue();
-  
+
     const options = Object.keys(this.biomes);
-  
+
     options.forEach((biome) => {
       const button = this.scene.add.text(
         200, // Position horizontale
@@ -50,44 +69,43 @@ export default class PNJBiomes {
           color: "#ffffff",
         }
       );
-  
+
       button.setInteractive();
       button.on("pointerdown", () => {
         this.fadeOutAndTeleport(biome); // Ajouter un fondu et téléportation
       });
-  
+
       this.dialogueElements.push(button); // Ajouter l'élément au tableau pour pouvoir le supprimer après
     });
-  
+
     if (Global.badges.length == 3) {
       const tourButton = this.scene.add.text(
-        200, 
-        this.scene.cameras.main.height - 180 + options.length * 30, 
+        200,
+        this.scene.cameras.main.height - 180 + options.length * 30,
         `Aller à la Tour`,
         {
           fontSize: "24px",
           color: "#ffffff",
         }
       );
-  
+
       tourButton.setInteractive();
       tourButton.on("pointerdown", () => {
-        if (!Global.DieuxVieBattu){
-          Global.enemyId = 7
-         }else if (!Global.DieuxEspaceBattu){
-          Global.enemyId = 4
-         }
-        else if(!Global.DieuxtempsBattu){
-          Global.enemyId = 6
-        }else{        
-          Global.enemyId = 5
+        if (!Global.DieuxVieBattu) {
+          Global.enemyId = 7;
+        } else if (!Global.DieuxEspaceBattu) {
+          Global.enemyId = 4;
+        } else if (!Global.DieuxtempsBattu) {
+          Global.enemyId = 6;
+        } else {
+          Global.enemyId = 5;
         }
-        this.scene.start("tpt"); 
+        this.scene.start("tpt");
       });
-  
+
       this.dialogueElements.push(tourButton); // Ajouter l'élément au tableau pour pouvoir le supprimer après
     }
-  
+
     this.escKey = this.scene.input.keyboard.addKey(
       Phaser.Input.Keyboard.KeyCodes.ESC
     );
@@ -95,7 +113,6 @@ export default class PNJBiomes {
       this.clearDialogue(); // Annuler le dialogue en appuyant sur Échap
     });
   }
-  
 
   // Affiche le rectangle de dialogue en bas de l'écran
   showDialogue() {

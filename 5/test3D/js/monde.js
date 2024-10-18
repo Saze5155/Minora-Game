@@ -1,10 +1,9 @@
-//import Animal from "/5/test3D/js/animal.js";
-import camera from "/5/test3D/js/cam.js";
-import DevMode from "/5/test3D/js/dev.js";
-//import PNJBiomes from "/5/test3D/js/biome.js";
-//import EnemyRPG from "/5/test3D/js/enemy_rpg.js";
-//import Global from "/5/test3D/js/inventaire.js";
-import laser from "/5/test3D/js/laser.js";
+import Animal from "/5/test3D/js/animal.js";
+
+import PNJBiomes from "/5/test3D/js/biome.js";
+import EnemyRPG from "/5/test3D/js/enemy_rpg.js";
+import Insect from "/5/test3D/js/insect.js";
+import Global from "/5/test3D/js/inventaire.js";
 import {
   getBuildingTexture,
   getBushTexture,
@@ -13,14 +12,13 @@ import {
   getRockTexture,
   getTreeTexture,
 } from "/5/test3D/js/loading.js";
-//import Marchand from "/5/test3D/js/marchand.js";
-//import player from "/5/test3D/js/player.js";
+import Marchand from "/5/test3D/js/marchand.js";
+import player from "/5/test3D/js/player.js";
 import { FBXLoader } from "/5/test3D/lib/FBXLoader.js";
 
 export default class monde extends Scene3D {
   constructor() {
     super({ key: "monde" });
-    this.devMode = null;
     this.tilesData = [];
     this.trees = [];
     this.enemies = [];
@@ -51,14 +49,14 @@ export default class monde extends Scene3D {
     this.scene.pause("monde");
     this.scene.launch("DialogueScene");
     const textureLoader = new THREE.TextureLoader();
-    this.freeCamera = new camera(this);
-    this.pointerLaser = new laser(this);
-    /*
+
+    this.boat = new PNJBiomes(this, 360, 260.1, -350, this.player, 1);
+
     this.player = new player(
       this,
-      -119,
-      271.2,
-      -57,
+      357,
+      256.2,
+      -308,
       "/5/test3D/examples/anim_player/idle/_idle_1.png"
     );
 
@@ -193,6 +191,7 @@ export default class monde extends Scene3D {
     this.pnjs.push(new PNJBiomes(this, 136, 252.3, 38, this.player));
     this.pnjs.push(new PNJBiomes(this, -68, 252.3, 118, this.player));
     this.pnjs.push(new PNJBiomes(this, -60, 252.3, -107, this.player));
+    this.pnjs.push(new PNJBiomes(this, 360, 260.1, -350, this.player, 1));
 
     this.pnjs.forEach((pnj) => {
       this.third.physics.add.collider(
@@ -206,7 +205,15 @@ export default class monde extends Scene3D {
         }
       );
     });
-
+    this.third.physics.add.collider(
+      this.player.walkPlane,
+      this.boat.marchandMesh,
+      () => {
+        if (this.player.keys.interact && this.player.keys.interact.isDown) {
+          this.boat.showBiomeOptions();
+        }
+      }
+    );
     for (let i = 0; i < 10; i++) {
       this.insects.push(
         new Insect(this, "/5/test3D/examples/vie/vie-18.png", 0.1)
@@ -343,12 +350,10 @@ export default class monde extends Scene3D {
         }
       );
     };
-*/
+
     this.third.warpSpeed("light", "fog");
 
     //this.third.physics.debug.enable();
-
-    this.devMode = new DevMode(this, this.freeCamera.camera, textureLoader);
 
     // Soleil et Lune
     const sunGeometry = new THREE.SphereGeometry(200, 32, 32); // Taille du soleil
@@ -802,11 +807,9 @@ export default class monde extends Scene3D {
     // Ajouter le cube (côtés) à la scène
     cube.position.set(0, 1, 0);
     this.third.scene.add(cube);
-    this.pointerLaser.addObject(cube);
 
     // Ajouter la physique au cube (collision)
     this.third.physics.add.existing(cube, { mass: 0 });
-    this.devMode.setTargetCube(cube);
 
     const cubeVillageGeometry = new THREE.BoxGeometry(50, 10, 50);
 
@@ -820,6 +823,44 @@ export default class monde extends Scene3D {
     this.third.physics.add.existing(cubeVillage, { mass: 0 });
     this.third.scene.add(cubeVillage);
 
+    const wallThickness = 1; // Épaisseur des murs invisibles
+    const wallHeight = 10; // Hauteur des murs
+
+    const createInvisibleWall = (width, height, depth, x, y, z) => {
+      const wallGeometry = new THREE.BoxGeometry(width, height, depth);
+      const wallMaterial = new THREE.MeshBasicMaterial({
+        visible: false, // Le mur est invisible
+      });
+
+      const wall = new THREE.Mesh(wallGeometry, wallMaterial);
+      wall.position.set(x, y, z);
+      this.third.physics.add.existing(wall, {
+        shape: "box",
+        mass: 0, // Statique
+      });
+
+      this.third.scene.add(wall);
+    };
+
+    // Positionnement des murs autour du cube village
+    createInvisibleWall(
+      50 + wallThickness,
+      wallHeight,
+      wallThickness,
+      0,
+      5,
+      -25
+    ); // Mur arrière
+    createInvisibleWall(
+      50 + wallThickness,
+      wallHeight,
+      wallThickness,
+      0,
+      5,
+      25
+    ); // Mur avant
+    createInvisibleWall(wallThickness, wallHeight, 50, -25, 5, 0); // Mur gauche
+    createInvisibleWall(wallThickness, wallHeight, 50, 25, 5, 0); // Mur droit
     const waterTexture = textureLoader.load("/5/test3D/examples/eau.png");
 
     const waterMaterial = new THREE.MeshStandardMaterial({
@@ -1036,7 +1077,11 @@ export default class monde extends Scene3D {
         this.player.walkPlane,
         grandArbreBody,
         () => {
-          if (this.player.keys.interact && this.player.keys.interact.isDown) {
+          if (
+            this.player.keys.interact &&
+            this.player.keys.interact.isDown &&
+            !this.arbre
+          ) {
             this.handleInteraction("arbre");
           }
         }
@@ -1449,7 +1494,11 @@ export default class monde extends Scene3D {
         this.player.walkPlane,
         pyramideBody,
         () => {
-          if (this.player.keys.interact && this.player.keys.interact.isDown) {
+          if (
+            this.player.keys.interact &&
+            this.player.keys.interact.isDown &&
+            !this.pyramide
+          ) {
             this.handleInteraction("pyramide");
           }
         }
@@ -1680,7 +1729,11 @@ export default class monde extends Scene3D {
 
     this.etoileInteraction = (etoileBody) => {
       this.third.physics.add.collider(this.player.walkPlane, etoileBody, () => {
-        if (this.player.keys.interact && this.player.keys.interact.isDown) {
+        if (
+          this.player.keys.interact &&
+          this.player.keys.interact.isDown &&
+          !this.etoile
+        ) {
           this.handleInteraction("etoile");
         }
       });
@@ -1752,73 +1805,6 @@ export default class monde extends Scene3D {
         );
       });
 
-    fetch("/5/test3D/json/treeSmallPosition.json")
-      .then((response) => response.json())
-      .then((buildPositions) => {
-        buildPositions.forEach((buildData) => {
-          const { position, rotation_y, texture } = buildData;
-
-          const loadedTexture = getTreeTexture(texture);
-          if (loadedTexture) {
-            const planeGeometry = new THREE.PlaneGeometry(8, 14);
-            const planeMaterial = new THREE.MeshStandardMaterial({
-              map: loadedTexture,
-              side: THREE.DoubleSide,
-              transparent: true,
-              alphaTest: 0.5,
-            });
-
-            const bush = new THREE.Mesh(planeGeometry, planeMaterial);
-            bush.position.set(position.x, position.y, position.z);
-            bush.rotation.y = rotation;
-
-            this.third.scene.add(bush);
-          }
-        });
-
-        console.log("Tous les build ont été placés avec leurs hitboxs.");
-      })
-      .catch((error) => {
-        console.error(
-          "Erreur lors du chargement des positions des build:",
-          error
-        );
-      });
-
-    fetch("/5/test3D/json/forestTreeAndHousePositions.json")
-      .then((response) => response.json())
-      .then((buildPositions) => {
-        // Parcours des données des arbres et des maisons
-        buildPositions.forEach((buildData) => {
-          const { x, y, z, scale, texture } = buildData;
-
-          const loadedTexture = getTreeTexture(texture); // Fonction qui retourne la texture correspondante
-          if (loadedTexture) {
-            const planeGeometry = new THREE.PlaneGeometry(scale, scale * 1.75); // Ajuster les dimensions
-            const planeMaterial = new THREE.MeshStandardMaterial({
-              map: loadedTexture,
-              side: THREE.DoubleSide,
-              transparent: true,
-              alphaTest: 0.5,
-            });
-
-            const bush = new THREE.Mesh(planeGeometry, planeMaterial);
-            bush.position.set(x, 262, z); // Utilisation des positions directement
-            bush.rotation.y = Math.random() * Math.PI * 2; // Rotation aléatoire pour chaque arbre
-
-            this.third.scene.add(bush);
-          }
-        });
-
-        console.log("Tous les arbres et maisons ont été placés.");
-      })
-      .catch((error) => {
-        console.error(
-          "Erreur lors du chargement des positions des builds:",
-          error
-        );
-      });
-
     textureLoader.load("/5/test3D/examples/vie/vie-03.png", (texture) => {
       const planeGeometry = new THREE.PlaneGeometry(10, 10);
       const planeMaterial = new THREE.MeshStandardMaterial({
@@ -1840,7 +1826,13 @@ export default class monde extends Scene3D {
       if (0 != undefined) {
         tile.rotation.x = 0;
       }
-      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.physics.add.existing(tile, {
+        shape: "box",
+        width: 4,
+        height: 40,
+        depth: 1,
+        mass: 0,
+      });
       this.third.scene.add(tile);
     });
 
@@ -1865,7 +1857,13 @@ export default class monde extends Scene3D {
       if (0 != undefined) {
         tile.rotation.x = 0;
       }
-      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.physics.add.existing(tile, {
+        shape: "box",
+        width: 4,
+        height: 40,
+        depth: 1,
+        mass: 0,
+      });
       this.third.scene.add(tile);
     });
 
@@ -1890,7 +1888,13 @@ export default class monde extends Scene3D {
       if (0 != undefined) {
         tile.rotation.x = 0;
       }
-      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.physics.add.existing(tile, {
+        shape: "box",
+        width: 4,
+        height: 40,
+        depth: 1,
+        mass: 0,
+      });
       this.third.scene.add(tile);
     });
 
@@ -1915,7 +1919,13 @@ export default class monde extends Scene3D {
       if (0 != undefined) {
         tile.rotation.x = 0;
       }
-      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.physics.add.existing(tile, {
+        shape: "box",
+        width: 4,
+        height: 40,
+        depth: 1,
+        mass: 0,
+      });
       this.third.scene.add(tile);
     });
 
@@ -1940,7 +1950,13 @@ export default class monde extends Scene3D {
       if (0 != undefined) {
         tile.rotation.x = 0;
       }
-      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.physics.add.existing(tile, {
+        shape: "box",
+        width: 4,
+        height: 40,
+        depth: 1,
+        mass: 0,
+      });
       this.third.scene.add(tile);
     });
 
@@ -1965,7 +1981,13 @@ export default class monde extends Scene3D {
       if (0 != undefined) {
         tile.rotation.x = 0;
       }
-      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.physics.add.existing(tile, {
+        shape: "box",
+        width: 4,
+        height: 40,
+        depth: 1,
+        mass: 0,
+      });
       this.third.scene.add(tile);
     });
 
@@ -1990,7 +2012,13 @@ export default class monde extends Scene3D {
       if (0 != undefined) {
         tile.rotation.x = 0;
       }
-      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.physics.add.existing(tile, {
+        shape: "box",
+        width: 4,
+        height: 40,
+        depth: 1,
+        mass: 0,
+      });
       this.third.scene.add(tile);
     });
 
@@ -2015,7 +2043,13 @@ export default class monde extends Scene3D {
       if (0 != undefined) {
         tile.rotation.x = 0;
       }
-      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.physics.add.existing(tile, {
+        shape: "box",
+        width: 4,
+        height: 40,
+        depth: 1,
+        mass: 0,
+      });
       this.third.scene.add(tile);
     });
 
@@ -2040,7 +2074,13 @@ export default class monde extends Scene3D {
       if (0 != undefined) {
         tile.rotation.x = 0;
       }
-      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.physics.add.existing(tile, {
+        shape: "box",
+        width: 4,
+        height: 40,
+        depth: 1,
+        mass: 0,
+      });
       this.third.scene.add(tile);
     });
 
@@ -2065,7 +2105,13 @@ export default class monde extends Scene3D {
       if (0 != undefined) {
         tile.rotation.x = 0;
       }
-      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.physics.add.existing(tile, {
+        shape: "box",
+        width: 4,
+        height: 40,
+        depth: 1,
+        mass: 0,
+      });
       this.third.scene.add(tile);
     });
 
@@ -2090,7 +2136,13 @@ export default class monde extends Scene3D {
       if (0 != undefined) {
         tile.rotation.x = 0;
       }
-      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.physics.add.existing(tile, {
+        shape: "box",
+        width: 4,
+        height: 40,
+        depth: 1,
+        mass: 0,
+      });
       this.third.scene.add(tile);
     });
 
@@ -2115,7 +2167,13 @@ export default class monde extends Scene3D {
       if (0 != undefined) {
         tile.rotation.x = 0;
       }
-      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.physics.add.existing(tile, {
+        shape: "box",
+        width: 4,
+        height: 40,
+        depth: 1,
+        mass: 0,
+      });
       this.third.scene.add(tile);
     });
 
@@ -2140,7 +2198,13 @@ export default class monde extends Scene3D {
       if (0 != undefined) {
         tile.rotation.x = 0;
       }
-      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.physics.add.existing(tile, {
+        shape: "box",
+        width: 4,
+        height: 40,
+        depth: 1,
+        mass: 0,
+      });
       this.third.scene.add(tile);
     });
 
@@ -2165,7 +2229,13 @@ export default class monde extends Scene3D {
       if (0 != undefined) {
         tile.rotation.x = 0;
       }
-      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.physics.add.existing(tile, {
+        shape: "box",
+        width: 4,
+        height: 40,
+        depth: 1,
+        mass: 0,
+      });
       this.third.scene.add(tile);
     });
 
@@ -2190,7 +2260,13 @@ export default class monde extends Scene3D {
       if (0 != undefined) {
         tile.rotation.x = 0;
       }
-      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.physics.add.existing(tile, {
+        shape: "box",
+        width: 4,
+        height: 40,
+        depth: 1,
+        mass: 0,
+      });
       this.third.scene.add(tile);
     });
 
@@ -2328,7 +2404,14 @@ export default class monde extends Scene3D {
       if (0 != undefined) {
         tile.rotation.x = 0;
       }
-      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.physics.add.existing(tile, {
+        shape: "box",
+        width: 4,
+        height: 40,
+        depth: 1,
+        mass: 0,
+      });
+      this.third.scene.add(tile);
       this.third.scene.add(tile);
     });
 
@@ -2353,7 +2436,14 @@ export default class monde extends Scene3D {
       if (0 != undefined) {
         tile.rotation.x = 0;
       }
-      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.physics.add.existing(tile, {
+        shape: "box",
+        width: 4,
+        height: 40,
+        depth: 1,
+        mass: 0,
+      });
+      this.third.scene.add(tile);
       this.third.scene.add(tile);
     });
 
@@ -2378,7 +2468,14 @@ export default class monde extends Scene3D {
       if (0 != undefined) {
         tile.rotation.x = 0;
       }
-      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.physics.add.existing(tile, {
+        shape: "box",
+        width: 4,
+        height: 40,
+        depth: 1,
+        mass: 0,
+      });
+      this.third.scene.add(tile);
       this.third.scene.add(tile);
     });
 
@@ -2403,7 +2500,14 @@ export default class monde extends Scene3D {
       if (0 != undefined) {
         tile.rotation.x = 0;
       }
-      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.physics.add.existing(tile, {
+        shape: "box",
+        width: 4,
+        height: 40,
+        depth: 1,
+        mass: 0,
+      });
+      this.third.scene.add(tile);
       this.third.scene.add(tile);
     });
 
@@ -2428,7 +2532,14 @@ export default class monde extends Scene3D {
       if (0 != undefined) {
         tile.rotation.x = 0;
       }
-      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.physics.add.existing(tile, {
+        shape: "box",
+        width: 4,
+        height: 40,
+        depth: 1,
+        mass: 0,
+      });
+      this.third.scene.add(tile);
       this.third.scene.add(tile);
     });
 
@@ -2453,7 +2564,14 @@ export default class monde extends Scene3D {
       if (0 != undefined) {
         tile.rotation.x = 0;
       }
-      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.physics.add.existing(tile, {
+        shape: "box",
+        width: 4,
+        height: 40,
+        depth: 1,
+        mass: 0,
+      });
+      this.third.scene.add(tile);
       this.third.scene.add(tile);
     });
 
@@ -2478,7 +2596,14 @@ export default class monde extends Scene3D {
       if (0 != undefined) {
         tile.rotation.x = 0;
       }
-      this.third.physics.add.existing(tile, { mass: 0 });
+      this.third.physics.add.existing(tile, {
+        shape: "box",
+        width: 4,
+        height: 40,
+        depth: 1,
+        mass: 0,
+      });
+      this.third.scene.add(tile);
       this.third.scene.add(tile);
     });
 
@@ -2499,7 +2624,6 @@ export default class monde extends Scene3D {
       if (0 != undefined) {
         tile.rotation.x = 0;
       }
-      this.third.physics.add.existing(tile, { mass: 0 });
       this.third.scene.add(tile);
     });
 
@@ -2520,7 +2644,6 @@ export default class monde extends Scene3D {
       if (0 != undefined) {
         tile.rotation.x = 0;
       }
-      this.third.physics.add.existing(tile, { mass: 0 });
       this.third.scene.add(tile);
     });
 
@@ -2541,7 +2664,6 @@ export default class monde extends Scene3D {
       if (0 != undefined) {
         tile.rotation.x = 0;
       }
-      this.third.physics.add.existing(tile, { mass: 0 });
       this.third.scene.add(tile);
     });
 
@@ -2562,7 +2684,6 @@ export default class monde extends Scene3D {
       if (0 != undefined) {
         tile.rotation.x = 0;
       }
-      this.third.physics.add.existing(tile, { mass: 0 });
       this.third.scene.add(tile);
     });
 
@@ -2589,7 +2710,6 @@ export default class monde extends Scene3D {
         if (0 != undefined) {
           tile.rotation.x = 0;
         }
-        this.third.physics.add.existing(tile, { mass: 0 });
         this.third.scene.add(tile);
       }
     );
@@ -2617,7 +2737,6 @@ export default class monde extends Scene3D {
         if (0 != undefined) {
           tile.rotation.x = 0;
         }
-        this.third.physics.add.existing(tile, { mass: 0 });
         this.third.scene.add(tile);
       }
     );
@@ -2645,7 +2764,6 @@ export default class monde extends Scene3D {
         if (0 != undefined) {
           tile.rotation.x = 0;
         }
-        this.third.physics.add.existing(tile, { mass: 0 });
         this.third.scene.add(tile);
       }
     );
@@ -2673,7 +2791,6 @@ export default class monde extends Scene3D {
         if (0 != undefined) {
           tile.rotation.x = 0;
         }
-        this.third.physics.add.existing(tile, { mass: 0 });
         this.third.scene.add(tile);
       }
     );
@@ -2719,9 +2836,6 @@ export default class monde extends Scene3D {
   }
 
   update() {
-    this.freeCamera.update();
-    this.pointerLaser.update();
-    /*
     this.animaux.forEach((animal) => {
       animal.update(this.player);
     });
@@ -2730,10 +2844,10 @@ export default class monde extends Scene3D {
     });
 
     this.player.update(this);
-*/ /*
+
     if (this.input.activePointer.leftButtonDown() && this.player.isOnGround()) {
       this.attackPlayer();
-    }*/
+    }
 
     this.insects.forEach((insect) => insect.update());
   }
@@ -2749,7 +2863,7 @@ export default class monde extends Scene3D {
       this.currentMusic = biome;
     }
   }
-  /*
+
   handleInteraction = (key) => {
     this.scene.pause("monde");
     if (key == "arbre") {
@@ -2985,5 +3099,5 @@ export default class monde extends Scene3D {
     this.interactiveObjects.etoile.forEach((etoile) => {
       this.etoileInteraction(etoile); // Recréer les collisions pour chaque arbre
     });
-  }*/
+  }
 }
