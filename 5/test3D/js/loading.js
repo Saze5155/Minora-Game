@@ -1359,6 +1359,10 @@ export default class loading {
     this.load.image("bonny8", "/5/test3D/examples/bonny/bonny_08.png");
 
     this.load.image("bonny9", "/5/test3D/examples/bonny/bonny_08.png");
+
+    this.load.image('badgevie', "/5/test3D/examples/badges/badge_vie.png")
+    this.load.image('badgeespace', "/5/test3D/examples/badges/badge-espace.png")
+    this.load.image('badgetemps', "/5/test3D/examples/badges/badge_temps.png")
   }
   create() {
     this.anims.create({
@@ -1685,7 +1689,7 @@ export default class loading {
 
     // this.scene.add('interfaceJeu', interfaceJeu, false, { remainingMonsters: remainingMonsters, remainingItems: remainingItems });
 
-    this.scene.start("monde");
+    this.scene.start("BossLevel");
   }
 }
 

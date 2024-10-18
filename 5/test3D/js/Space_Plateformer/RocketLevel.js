@@ -13,7 +13,6 @@ export default class RocketLevel extends Phaser.Scene {
   preload() {}
 
   create() {
-    this.scene.launch("DialogueScene");
 
     this.bossMusic = this.sound.add('RocketLevel', { volume: 0, loop: true });
     this.bossMusic.play();

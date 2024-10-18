@@ -1,4 +1,5 @@
 import Global from "/5/test3D/js/inventaire.js";
+import Monde from "/5/test3D/js/monde.js"
 
 export default class tpt extends Phaser.Scene {
   constructor() { 
@@ -111,7 +112,7 @@ this.enemy.setFlipX(true);
 
 
 
-  // Global.giveAllPotions();
+  Global.giveAllPotions();
 
   // Ajouter le background et le redimensionner
   // const background = this.add.image(0, 0, "background");
@@ -564,23 +565,23 @@ create() {
     this.defendButton.setVisible(false);
     this.fleeButton.setVisible(false);
     this.potionButton.setVisible(false);
-  
+
     // Afficher les potions en bas à droite
-    const potionImages = ['vie', 'viePlus', 'vieFull', 'mana', 'manaPlus', 'force', 'defense', 'temps', 'espace'];  // Ajout de la potion "espace"
-    const potionNames = ['Potion de Vie', 'Potion de Vie Plus', 'Potion de Vie Full', 'Potion de Mana', 'Potion de Mana Plus', 'Potion de Force', 'Potion de Défense', 'Potion de Temps', 'Potion d\'Espace']; // Nom de la potion "espace"
+    const potionImages = ['vie', 'viePlus', 'vieFull', 'mana', 'manaPlus', 'force', 'defense', 'temps', 'espace'];
+    const potionNames = ['Potion de Vie', 'Potion de Vie Plus', 'Potion de Vie Full', 'Potion de Mana', 'Potion de Mana Plus', 'Potion de Force', 'Potion de Défense', 'Potion de Temps', 'Potion d\'Espace'];
 
     const startX = this.scale.width - 1000; // Positionnement initial à droite
     const startY = this.scale.height - 100; // Position en bas de l'écran
     const spacing = 100; // Espacement de 100 pixels entre les potions
-  
+
     this.potionIcons = []; // Pour stocker les icônes des potions
     this.potionText = []; // Pour stocker les textes des potions
-  
+
     potionImages.forEach((potion, index) => {
       const potionImage = this.add.image(startX + (index * spacing), startY, potion).setInteractive();
       potionImage.setScale(0.2); // Réduire la taille des potions
       this.potionIcons.push(potionImage);
-  
+
       // Création d'un texte pour afficher le nom de la potion et la quantité dans l'inventaire
       const potionText = this.add.text(startX + (index * spacing), startY - 50, '', {
         fontSize: '20px',
@@ -589,21 +590,21 @@ create() {
         align: 'center',
       }).setOrigin(0.5).setVisible(false); // Masquer le texte initialement
       this.potionText.push(potionText);
-  
+
       // Gérer le survol de la potion pour afficher le nom et la quantité
       potionImage.on('pointerover', () => {
-        const potionType = potionImages[index];
-        const quantity = Global.inventory.potions[potionType]?.length || 0;
-        const potionName = potionNames[index];
+        const potionType = potionImages[index]; // Correspond à 'vie', 'mana', etc.
+        const quantity = Global.inventory.potions[potionType]?.length || 0; // Quantité de cette potion
+        const potionName = potionNames[index]; // Nom lisible de la potion
         potionText.setText(`${potionName}\nQuantité: ${quantity}`);
         potionText.setVisible(true); // Afficher le texte lorsque l'utilisateur survole la potion
       });
-  
+
       // Masquer le texte lorsqu'on ne survole plus la potion
       potionImage.on('pointerout', () => {
         potionText.setVisible(false); // Masquer le texte lorsque l'utilisateur ne survole plus la potion
       });
-  
+
       // Ajoute une interaction au clic pour utiliser la potion
       potionImage.on('pointerdown', () => {
         this.usePotion(potion); // Utiliser la potion
@@ -611,17 +612,18 @@ create() {
         this.showMainButtons(); // Réafficher les boutons principaux après utilisation de la potion
       });
     });
-  
+
     // Ajouter un bouton de retour
     this.returnButton = this.add.image(this.scale.width - 50, this.scale.height - 100, 'returnButton').setInteractive();
     this.returnButton.setScale(0.5); // Ajuster la taille si nécessaire
-  
+
     // Lorsque le bouton retour est cliqué, on revient aux boutons d'attaque/défense/fuite
     this.returnButton.on('pointerdown', () => {
       this.hidePotionMenu(); // Masquer les potions
       this.showMainButtons(); // Réafficher les boutons principaux
     });
   }
+
   
   hidePotionMenu() {
     // Masquer le menu des potions et supprimer les éléments liés
@@ -1043,14 +1045,61 @@ enemyAttack() {
     this.disableButtons(); // Désactiver les boutons
     this.enemyIsDefending = false;
 
+    // Gérer la fin en fonction du résultat
     if (result === "win") {
       this.endMessage.setText("Victoire !").setVisible(true);
       this.enemy.destroy();
+
+      // Gestion spécifique en fonction de l'ID de l'ennemi
+      if (Global.enemyId === 4) {
+        Global.DieuxEspaceBattu = true; // Marquer DieuxEspace comme battu
+        Global.addPotion('espace')
+        this.scene.resume("monde"); // Reprendre la scène monde
+        this.scene.stop("tpt");
+
+      } else if (Global.enemyId === 6) {
+        Global.DieuxTempsBattu = true; // Marquer DieuxTemps comme battu
+        Global.addPotion('temps')
+
+        this.scene.resume("monde"); // Reprendre la scène monde
+        this.scene.stop("tpt");
+
+      } else if (Global.enemyId === 7) {
+        Global.DieuxVieBattu = true; // Marquer DieuxVie comme battu
+        Global.addPotion('vieFull')
+      
+        this.scene.resume("monde"); // Reprendre la scène monde
+        this.scene.stop("tpt");
+
+      } else if (Global.enemyId === 5) {
+        this.scene.start("VictoryScene"); // Rediriger vers une scène de victoire
+        this.scene.stop("tpt");
+
+      } else if ([1, 2, 3].includes(Global.enemyId)) {
+        let potion = this.getRandomPotionType
+        Global.addPotion(potion)
+        if(Global.enemyId === 1){
+          Global.badges.push('badgevie')
+          Monde.arbre = true
+        }else if (Global.enemyId ===2){
+          Global.badges.push('badgeespace')
+          Monde.etoile = true
+        }else if (Global.enemyId ===3){
+          Global.badges.push('badgetemps')
+          Monde.pyramide = true
+        }
+        this.scene.resume("monde"); // Reprendre la scène monde pour les ennemis 1, 2, ou 3
+        this.scene.stop("tpt");
+      }
+
     } else if (result === "lose") {
       this.endMessage.setText("Défaite...").setVisible(true);
       this.player.destroy();
+      this.scene.stop("tpt");
+      this.scene.start("dead");
     }
 
+    // Nettoyage des éléments d'interface
     this.attackButton.destroy();
     this.defendButton.destroy();
     this.potionButton.destroy();
@@ -1060,6 +1109,26 @@ enemyAttack() {
     this.enemyActionTextBox.destroy();
     this.fleeButton.destroy();
   }
+
+ 
+
+  getRandomPotionType() {
+    
+      const potionTypeChance = Math.random() * 100;
+
+      if (potionTypeChance <= 25) {
+        return "force";
+      } else if (potionTypeChance <= 50) {
+        return "vieplus";
+      } else if (potionTypeChance <= 75) {
+        return "manaplus";
+      } else {
+        return "defense";
+      }
+    
+  }
+
+  
 
   fleeCombat() {
     console.log("Le joueur tente de fuir !");

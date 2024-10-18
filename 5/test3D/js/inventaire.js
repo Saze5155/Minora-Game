@@ -4,22 +4,40 @@ let Global = {
     coins: 0,
     potions: {
       vie: [],
-      viePlus: [],
-      vieFull: [],
-      force: [],
-      defense: [],
-      temps: [],
-      espace: [],
       mana: [],
       manaPlus: [],
-    },
+      viePlus: [],
+      defense: [],
+      force: [],
+      vieFull: [],
+      temps: [],
+      espace: [],
+    }, 
     meatsAndHoney: [],
   },
+  badges:[],
   inventoryOpen: false,
   inventoryElements: [],
   player: null,
   chargeCircle: null,
   chargeTimeout: null,
+
+  DieuxEspaceBattu: false,
+  DieuxTempsBattu: false,
+  DieuxVieBattu: false,
+
+  potions: {
+    vie: { healAmount: 25, mpCost: 0 },
+    mana: { restoreAmount: 20, mpCost: 0 },
+    viePlus: { healAmount: 50, mpCost: 0 },
+    manaPlus: { restoreAmount: 40, mpCost: 0 },
+    vieFull: { healAmount: 100, mpCost: 0 },
+    force: { boost: 10, duration: 5000, mpCost: 0 },
+    defense: { boost: 10, duration: 5000, mpCost: 0 },
+    temps: { effect: "slow", duration: 3000, mpCost: 0 },
+    espace: { effect: "teleport", mpCost: 0 },
+  },
+
   // Ajout des attaques ici
   attacks: {
     nature: [
@@ -100,6 +118,28 @@ let Global = {
     ],
   },
 
+  giveAllPotions() {
+    const potionLimits = {
+      vie: 10,
+      mana: 10,
+      manaPlus: 5,
+      viePlus: 5,
+      defense: 2,
+      force: 2,
+      vieFull: 1,
+      temps: 1,
+      espace: 1,
+    };
+
+    Object.keys(potionLimits).forEach((potionType) => {
+      this.inventory.potions[potionType] = Array(potionLimits[potionType]).fill(
+        { type: potionType }
+      );
+    });
+  },
+  
+  
+
   defenses: [{ name: "Shield", defenseBoost: 10, mpCost: 0 }],
 
   attackActif: [
@@ -126,6 +166,7 @@ let Global = {
 
   attackOff: [],
 
+
   toggleInventory(scene) {
     this.inventoryOpen = !this.inventoryOpen;
 
@@ -136,6 +177,7 @@ let Global = {
       this.hideInventory();
     }
   },
+  
 
   showInventory(scene) {
     console.log("ouvert");
@@ -438,23 +480,29 @@ let Global = {
 
   addPotion(potionType) {
     const potionLimits = {
-      vie: 10,
-      mana: 10,
-      manaPlus: 5,
-      viePlus: 5,
-      defense: 2,
-      force: 2,
-      vieFull: 1,
-      temps: 1,
-      espace: 1,
+        vie: 10,
+        mana: 10,
+        manaPlus: 5,
+        viePlus: 5,
+        defense: 2,
+        force: 2,
+        vieFull: 1,
+        temps: 1,
+        espace: 1,
     };
 
+    console.log(potionType);
+
+    // Vérifier si la potion a atteint sa limite de stockage dans l'inventaire
     if (this.inventory.potions[potionType].length < potionLimits[potionType]) {
-      this.inventory.potions[potionType].push({ type: potionType });
+        // Ajouter une potion du type spécifié à l'inventaire
+        this.inventory.potions[potionType].push({ type: potionType });
     } else {
-      console.log(`${potionType} est plein !`);
+        console.log(`${potionType} est plein !`);
     }
-  },
+},
+
+  
 
   addMeatOrHoney(type, amount) {
     const existingItem = this.inventory.meatsAndHoney.find(

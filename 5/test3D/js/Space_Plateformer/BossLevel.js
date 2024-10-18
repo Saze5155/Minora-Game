@@ -16,7 +16,7 @@ export default class BossLevel extends Phaser.Scene {
   create() {
 
     this.input.mouse.disableContextMenu();
-    Global.enemyId = 5;
+    Global.enemyId =  7;
     this.scene.start('tpt');
 
     this.bossMusic = this.sound.add('BossLevel', { volume: 0.2, loop: true });

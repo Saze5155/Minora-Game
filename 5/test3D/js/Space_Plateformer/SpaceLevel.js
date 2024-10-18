@@ -17,27 +17,27 @@ export default class SpaceLevel extends Phaser.Scene {
 
   create() {
 
-    this.input.keyboard.on('keydown-D', () => {
-      // Lancer la scène de dialogue avant de l'utiliser
-      this.scene.launch('Dialogue');
+  //   this.input.keyboard.on('keydown-D', () => {
+  //     // Lancer la scène de dialogue avant de l'utiliser
+  //     this.scene.launch('Dialogue');
       
-      // Récupérer la scène de dialogue après l'avoir lancée
-      const dialogueScene = this.scene.get('Dialogue');
+  //     // Récupérer la scène de dialogue après l'avoir lancée
+  //     const dialogueScene = this.scene.get('Dialogue');
   
-      if (dialogueScene) {
-          // Appeler la méthode showDialogue une fois la scène lancée
-          dialogueScene.showDialogue(
-              'Bonjour, où veux-tu aller ?',
-              [
-                  { text: 'Aller au biome nature', callback: () => this.teleportToBiome('nature') },
-                  { text: 'Aller au biome désert', callback: () => this.teleportToBiome('desert') },
-                  { text: 'Aller au biome espace', callback: () => this.teleportToBiome('space') }
-              ]
-          );
-      } else {
-          console.error('Dialogue scene not available.');
-      }
-  });
+  //     if (dialogueScene) {
+  //         // Appeler la méthode showDialogue une fois la scène lancée
+  //         dialogueScene.showDialogue(
+  //             'Bonjour, où veux-tu aller ?',
+  //             [
+  //                 { text: 'Aller au biome nature', callback: () => this.teleportToBiome('nature') },
+  //                 { text: 'Aller au biome désert', callback: () => this.teleportToBiome('desert') },
+  //                 { text: 'Aller au biome espace', callback: () => this.teleportToBiome('space') }
+  //             ]
+  //         );
+  //     } else {
+  //         console.error('Dialogue scene not available.');
+  //     }
+  // });
   
   
 

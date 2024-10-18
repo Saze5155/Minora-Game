@@ -37,9 +37,9 @@ export default class PNJBiomes {
   showBiomeOptions() {
     // Afficher le rectangle et le texte "Bonjour, où veux-tu aller ?"
     this.showDialogue();
-
+  
     const options = Object.keys(this.biomes);
-
+  
     options.forEach((biome) => {
       const button = this.scene.add.text(
         200, // Position horizontale
@@ -50,16 +50,44 @@ export default class PNJBiomes {
           color: "#ffffff",
         }
       );
-
+  
       button.setInteractive();
       button.on("pointerdown", () => {
         this.fadeOutAndTeleport(biome); // Ajouter un fondu et téléportation
       });
-
+  
       this.dialogueElements.push(button); // Ajouter l'élément au tableau pour pouvoir le supprimer après
     });
-
-    // Écoute de la touche Échap pour annuler l'action
+  
+    if (Global.badges.length == 3) {
+      const tourButton = this.scene.add.text(
+        200, 
+        this.scene.cameras.main.height - 180 + options.length * 30, 
+        `Aller à la Tour`,
+        {
+          fontSize: "24px",
+          color: "#ffffff",
+        }
+      );
+  
+      tourButton.setInteractive();
+      tourButton.on("pointerdown", () => {
+        if (!Global.DieuxVieBattu){
+          Global.enemyId = 7
+         }else if (!Global.DieuxEspaceBattu){
+          Global.enemyId = 4
+         }
+        else if(!Global.DieuxtempsBattu){
+          Global.enemyId = 6
+        }else{        
+          Global.enemyId = 5
+        }
+        this.scene.start("tpt"); 
+      });
+  
+      this.dialogueElements.push(tourButton); // Ajouter l'élément au tableau pour pouvoir le supprimer après
+    }
+  
     this.escKey = this.scene.input.keyboard.addKey(
       Phaser.Input.Keyboard.KeyCodes.ESC
     );
@@ -67,6 +95,7 @@ export default class PNJBiomes {
       this.clearDialogue(); // Annuler le dialogue en appuyant sur Échap
     });
   }
+  
 
   // Affiche le rectangle de dialogue en bas de l'écran
   showDialogue() {
